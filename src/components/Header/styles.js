@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.header`
   height: 80px;
   background: #0c1e3f;
   font-weight: 500;

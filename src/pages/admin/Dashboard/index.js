@@ -1,36 +1,37 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   Card1,
-  SubCard2,
-  CardContainer2,
   Card3,
   Card4,
   Text,
   Card2,
   Container,
-  CardText2,
+  Events,
+  Event,
 } from './styles';
 
 const Dashboard = () => {
   return (
     <Container>
       <Card1>
-        <Text>Card 1</Text>
+        <Text>Events</Text>
+
+        <Events>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map(x => (
+            <Event key={x}>
+              <p>Joaquim F</p>
+              <span>Today, 17:55</span>
+              <Link to="calendar">Show in Calendar</Link>
+            </Event>
+          ))}
+        </Events>
       </Card1>
 
-      <CardContainer2>
-        <CardText2>Card 2</CardText2>
-
-        <Card2>
-          <SubCard2 />
-          <SubCard2 />
-          <SubCard2 />
-          <SubCard2 />
-          <SubCard2 />
-          <SubCard2 />
-        </Card2>
-      </CardContainer2>
+      <Card2>
+        <Text>Tasks</Text>
+      </Card2>
 
       <Card3>
         <Text>Card 3</Text>
