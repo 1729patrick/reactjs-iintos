@@ -9,14 +9,20 @@
     "@fullcalendar/list": "^4.3.0",
     "@fullcalendar/react": "^4.3.0",
     "@fullcalendar/timegrid": "^4.3.0",
+    "add": "^2.0.6",
     "axios": "^0.19.0",
     "babel-plugin-root-import": "^6.4.1",
+    "body-parser": "^1.19.0",
     "date-fns": "^2.8.0",
+    "formik": "^2.0.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
-    "styled-components": "^4.4.1"
+    "react-toastify": "^5.4.1",
+    "styled-components": "^4.4.1",
+    "yarn": "^1.21.0",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
