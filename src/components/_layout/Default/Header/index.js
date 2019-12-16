@@ -18,6 +18,7 @@ const Header = () => {
           <Link to="forum">Forum</Link>
           <Link to="wiki">Wiki</Link>
           <Link to="login">Login</Link>
+          <Link to="mobility">Mobility</Link>
         </div>
       </div>
     </Container>

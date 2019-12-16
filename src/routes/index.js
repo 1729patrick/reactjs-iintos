@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 
 import Dashboard from '~/pages/admin/Dashboard';
 import Calendar from '~/pages/admin/Calendar';
+import Mobility from '~/pages/admin/Mobility';
 
 import Home from '~/pages/public/Home';
 import Login from '~/pages/public/Login';
@@ -26,6 +27,8 @@ export default () => {
         <Route path="/await_verification" component={AwaitVerification} />
         <Route path="/dashboard" component={Dashboard} isPrivate />
         <Route path="/calendar" component={Calendar} isPrivate />
+        <Route path="/mobility" component={Mobility} />
+
         <Route component={() => <Redirect to="/dashboard" />} isPrivate />
       </Switch>
     </Router>
