@@ -25,8 +25,8 @@ const Login = ({ history }) => {
       localStorage.setItem('token', token);
 
       history.push('/dashboard');
-    } catch (e) {
-      toast.error(e.response.data.error, {
+    } catch ({ response }) {
+      toast.error(response.data.error, {
         position: toast.POSITION.TOP_CENTER,
       });
     }
