@@ -10,6 +10,7 @@ const cordinator = Yup.object({
   country: Yup.string().required('School country is required'),
   city: Yup.string().required('School city is required'),
   cep: Yup.string().required('Postal code is required'),
+  cordinatorVerification: Yup.mixed().required('File is required'),
 });
 
 const prof = Yup.object({

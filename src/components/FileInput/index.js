@@ -8,6 +8,7 @@ export default function FileInput({
   name,
   errors,
   placeholder,
+  onChange,
 }) {
   return (
     <Container>
@@ -18,7 +19,7 @@ export default function FileInput({
 
       <div>
         <p>{placeholder}</p>
-        <input type="file" name={name} />
+        <input type="file" name={name} onChange={onChange} />
       </div>
     </Container>
   );

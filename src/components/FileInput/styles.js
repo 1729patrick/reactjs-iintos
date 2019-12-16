@@ -37,11 +37,13 @@ export const Container = styled.div`
       color: #444;
       margin-bottom: 4px;
       font-weight: 500;
+      white-space: nowrap;
     }
 
     p {
       font-weight: 500;
       color: #ff0000;
+      white-space: nowrap;
     }
   }
 `;

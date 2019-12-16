@@ -35,7 +35,14 @@ const SchoolInformation = ({ location, history }) => {
   const initFormik = () => {
     if (cordinator)
       return {
-        initialValues: { name: '', phone: '', country: '', city: '', cep: '' },
+        initialValues: {
+          name: '',
+          phone: '',
+          country: '',
+          city: '',
+          cep: '',
+          cordinatorVerification: '',
+        },
         validationSchema: validationSchemaCordinator,
       };
 
@@ -47,17 +54,24 @@ const SchoolInformation = ({ location, history }) => {
     };
   };
 
-  const submitForm = async school => {
+  const submitForm = async ({ cordinatorVerification, ...school }) => {
     try {
-      await api.post('/users', { school, user });
+      const userData = cordinatorVerification
+        ? { ...user, cordinatorVerification: cordinatorVerification.id }
+        : user;
+
+      await api.post('/users', {
+        school,
+        user: userData,
+      });
 
       toast.success('Account created with success', {
         position: toast.POSITION.TOP_CENTER,
       });
 
       history.push('login');
-    } catch (e) {
-      toast.error(e.response.data.error, {
+    } catch ({ response }) {
+      toast.error(response.data.error, {
         position: toast.POSITION.TOP_CENTER,
       });
     }
@@ -67,6 +81,18 @@ const SchoolInformation = ({ location, history }) => {
     ...initFormik(),
     onSubmit: submitForm,
   });
+
+  const onFileUpload = async ({ target }) => {
+    const [file] = target.files;
+
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    const response = await api.post('/files', formData);
+
+    formik.setFieldValue('cordinatorVerification', response.data);
+  };
 
   return (
     <Container>
@@ -129,9 +155,11 @@ const SchoolInformation = ({ location, history }) => {
 
               <FileInput
                 label="Cordinator Verification"
-                placeholder="Attachment file"
                 name="cordinatorVerification"
-                onChange={formik.handleChange}
+                placeholder={
+                  formik.values.cordinatorVerification.name || 'Attachment file'
+                }
+                onChange={onFileUpload}
                 values={formik.values}
                 errors={formik.errors}
                 touched={formik.touched}
