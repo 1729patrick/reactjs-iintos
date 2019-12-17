@@ -2,7 +2,6 @@ import React from 'react';
 
 import { addHours, format } from 'date-fns';
 
-// new
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -15,12 +14,15 @@ import '@fullcalendar/list/main.css';
 
 import timeGridPlugin from '@fullcalendar/timegrid';
 
-import { Container, Menu, CalendarWrap } from './styles';
+import { Container, CalendarWrap } from './styles';
+
+import Events from './Events';
 
 const Calendar = () => {
   return (
     <Container>
-      <Menu />
+      <Events />
+
       <CalendarWrap>
         <FullCalendar
           height="parent"

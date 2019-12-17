@@ -4,6 +4,7 @@ import fontMedium from '~/assets/fonts/GoogleSans-Medium.ttf';
 import fontRegular from '~/assets/fonts/GoogleSans-Regular.ttf';
 
 import './calendar.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
   /* @import url('https://fonts.gstatic.com/s/productsans/v10/pxiDypQkot1TnFhsFMOfGShVF9eOYktMqg.woff2'); */
