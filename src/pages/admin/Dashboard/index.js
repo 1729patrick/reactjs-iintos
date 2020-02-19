@@ -34,11 +34,11 @@ const Dashboard = () => {
       </Card2>
 
       <Card3>
-        <Text>Card 3</Text>
+        <Text>Projects</Text>
       </Card3>
 
       <Card4>
-        <Text>Card 4</Text>
+        <Text>Activities</Text>
       </Card4>
     </Container>
   );

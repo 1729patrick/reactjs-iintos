@@ -26,7 +26,7 @@ const Login = ({ history }) => {
 
       history.push('/dashboard');
     } catch ({ response }) {
-      toast.error(response.data.error, {
+      toast.error(response?.data?.error || 'Invalid data', {
         position: toast.POSITION.TOP_CENTER,
       });
     }

@@ -8,4 +8,5 @@ export const Container = styled.button`
   color: #fff;
   font-weight: 500;
   font-size: 16px;
+  padding: 0 16px;
 `;

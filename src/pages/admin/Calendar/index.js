@@ -14,16 +14,12 @@ import '@fullcalendar/list/main.css';
 
 import timeGridPlugin from '@fullcalendar/timegrid';
 
-import { Container, CalendarWrap } from './styles';
-
-import Events from './Events';
+import { Container, ContainerWrap } from './styles';
 
 const Calendar = () => {
   return (
     <Container>
-      <Events />
-
-      <CalendarWrap>
+      <ContainerWrap>
         <FullCalendar
           height="parent"
           views={{
@@ -139,7 +135,7 @@ const Calendar = () => {
           }}
           scrollTime={format(addHours(new Date(), -4), 'HH:mm')}
         />
-      </CalendarWrap>
+      </ContainerWrap>
     </Container>
   );
 };

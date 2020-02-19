@@ -14,7 +14,7 @@ export default function Checkbox({ name, onChange, values, errors, touched }) {
       />
 
       <span>
-        <label>I'm cordinator</label>
+        <label>I'm coordinator</label>
         {touched[name] && errors[name] ? <p>{errors[name]}</p> : null}
       </span>
     </Container>

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const cordinator = Yup.object({
+const coordinator = Yup.object({
   name: Yup.string()
     .min(12, 'Must be 12 characters or more')
     .required('School name is required'),
@@ -10,7 +10,7 @@ const cordinator = Yup.object({
   country: Yup.string().required('School country is required'),
   city: Yup.string().required('School city is required'),
   cep: Yup.string().required('Postal code is required'),
-  cordinatorVerification: Yup.mixed().required('File is required'),
+  fileVerification: Yup.mixed().required('File is required'),
 });
 
 const prof = Yup.object({
@@ -19,4 +19,4 @@ const prof = Yup.object({
     .required('School is required'),
 });
 
-export { cordinator, prof };
+export { coordinator, prof };
