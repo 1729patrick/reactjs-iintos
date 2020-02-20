@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,43 +8,47 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { toast } from 'react-toastify';
 
+import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
+import FormModal from './modals/Form';
+import DeleteModal from './modals/Delete';
+
+import validationSchema from '~/validations/school';
 
 const columns = [
-  { id: 'goal', label: 'Goal', minWidth: 170 },
-  { id: 'description', label: 'Description', minWidth: 100 },
+  { id: 'name', label: 'Name', minWidth: 200 },
+  { id: 'phone', label: 'Phone', minWidth: 150 },
   {
-    id: 'links',
-    label: 'Links',
-    minWidth: 170,
-    align: 'right',
+    id: 'country',
+    label: 'Country',
+    minWidth: 100,
     format: value => value.toLocaleString(),
   },
   {
-    id: 'targetAudience',
-    label: 'Target Audience',
-    minWidth: 170,
-    align: 'right',
+    id: 'city',
+    label: 'City',
+    minWidth: 100,
     format: value => value.toLocaleString(),
   },
   {
-    id: 'type',
-    label: 'Type',
-    minWidth: 170,
-    align: 'right',
+    id: 'see',
+    label: '',
+    align: 'center',
+    minWidth: 50,
     format: value => value.toFixed(2),
   },
-];
-
-function createData(goal, description, links, targetAudience, type) {
-  return { goal, description, links, targetAudience, type };
-}
-
-const rows = [
-  createData('India', 'IN', 1324171354, 3287263, 'smadaksm'),
-  createData('China', 'CN', 1403500365, 9596961, 'asdjsa'),
+  {
+    id: 'delete',
+    label: '',
+    align: 'center',
+    minWidth: 50,
+    format: value => value.toFixed(2),
+  },
 ];
 
 const useStyles = makeStyles({
@@ -58,8 +62,21 @@ const useStyles = makeStyles({
 
 export default function Schools() {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [schools, setSchools] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalParams, setModalParams] = useState({});
+
+  useState(() => {
+    const fetchSchools = async () => {
+      const response = await api.get('schools');
+      setSchools(response.data);
+    };
+
+    fetchSchools();
+  }, []);
+  useEffect(() => {});
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -70,6 +87,100 @@ export default function Schools() {
     setPage(0);
   };
 
+  // api call to post
+  const handleUpdate = async values => {
+    try {
+      await api.put('schools', values);
+      setModalOpen(false);
+      toast.success('School updated with success!');
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+
+  const handleCreate = async values => {
+    try {
+      await api.post('schools', values);
+      setModalOpen(false);
+      toast.success('School created with success!');
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+
+  // api call to delete
+  const onDelete = async () => {
+    try {
+      await api.delete('schools');
+      setModalOpen(false);
+      toast.success('School deleted with success!');
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid request, try again');
+    }
+  };
+
+  const handleDeleteRow = row => {
+    setModalParams({
+      initialValues: row,
+      validationSchema,
+      onSubmit: onDelete,
+      submitText: 'Save',
+      modalTitle: 'Are you sure you want to delete this school?',
+    });
+
+    setModalOpen('delete');
+  };
+
+  const handleCreateSchool = () => {
+    setModalParams({
+      initialValues: {},
+      validationSchema,
+      onSubmit: handleCreate,
+      submitText: 'Create',
+      modalTitle: 'Create a new School',
+    });
+
+    setModalOpen('form');
+  };
+
+  const handleDetailRow = row => {
+    setModalParams({
+      initialValues: row,
+      validationSchema,
+      onSubmit: handleUpdate,
+      submitText: 'Save',
+      modalTitle: 'School',
+    });
+
+    setModalOpen('form');
+  };
+
+  const getRowContent = ({ column, row }) => {
+    const value = row[column.id];
+
+    if (column.id === 'delete') {
+      return (
+        <DeleteIcon
+          style={{ color: '#cb1010', cursor: 'pointer' }}
+          onClick={() => handleDeleteRow(row)}
+        />
+      );
+    }
+
+    if (column.id === 'see') {
+      return (
+        <VisibilityIcon
+          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          onClick={() => handleDetailRow(row)}
+        />
+      );
+    }
+
+    return column.format && typeof value === 'number'
+      ? column.format(value)
+      : value;
+  };
+
   return (
     <Container>
       <ContainerWrap>
@@ -77,9 +188,9 @@ export default function Schools() {
           <h1>Schools</h1>
 
           <Button
-            title="Create Schools"
+            title="Create School"
             type="button"
-            onClick={() => console.log('create')}
+            onClick={handleCreateSchool}
           />
         </span>
         <Paper className={classes.root}>
@@ -99,7 +210,7 @@ export default function Schools() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows
+                {schools
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
                     return (
@@ -107,15 +218,12 @@ export default function Schools() {
                         hover
                         role="checkbox"
                         tabIndex={-1}
-                        key={row.goal}
+                        key={row.id}
                       >
                         {columns.map(column => {
-                          const value = row[column.id];
                           return (
                             <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === 'number'
-                                ? column.format(value)
-                                : value}
+                              {getRowContent({ column, row })}
                             </TableCell>
                           );
                         })}
@@ -128,7 +236,7 @@ export default function Schools() {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={rows.length}
+            count={schools.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
@@ -136,6 +244,16 @@ export default function Schools() {
           />
         </Paper>
       </ContainerWrap>
+      <FormModal
+        open={modalOpen === 'form'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
+      <DeleteModal
+        open={modalOpen === 'delete'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
     </Container>
   );
 }

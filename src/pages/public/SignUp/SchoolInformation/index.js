@@ -40,7 +40,7 @@ const SchoolInformation = ({ location, history }) => {
           phone: '',
           country: '',
           city: '',
-          cep: '',
+          postalCode: '',
           fileVerification: '',
         },
         validationSchema: validationSchemaCoordinator,
@@ -149,7 +149,7 @@ const SchoolInformation = ({ location, history }) => {
               <Input
                 label="School postal code"
                 type="text"
-                name="cep"
+                name="postalCode"
                 placeholder="Type your school postal code"
                 onChange={formik.handleChange}
                 values={formik.values}

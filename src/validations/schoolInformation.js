@@ -9,7 +9,7 @@ const coordinator = Yup.object({
     .typeError('Must specify a number'),
   country: Yup.string().required('School country is required'),
   city: Yup.string().required('School city is required'),
-  cep: Yup.string().required('Postal code is required'),
+  postalCode: Yup.string().required('Postal code is required'),
   fileVerification: Yup.mixed().required('File is required'),
 });
 

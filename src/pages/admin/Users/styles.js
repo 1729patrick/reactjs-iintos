@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100vh;
   width: 100%;
   display: flex;
 `;
 
 export const Menu = styled.div`
-  width: 22%;
+  width: 18%;
 
   div {
     margin-top: 60px;
