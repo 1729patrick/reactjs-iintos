@@ -1,13 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
 
 import Button from '~/components/Button';
-import api from '~/services/api';
-import { Form } from '../components/CreateProject/styles';
-import validationSchema from '~/validations/project';
 
 function getModalStyle() {
   const top = 50;
@@ -31,11 +26,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function DeleteProject({ onCreate, id }) {
+export default function Delete({
+  initialValues,
+  submitText,
+  open,
+  setOpen,
+  modalTitle,
+  onSubmit,
+  validationSchema,
+}) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
+  const [modalStyle] = useState(getModalStyle);
+
+  if (!open) {
+    return null;
+  }
 
   // function when the modal get's created
   const handleOpen = () => {
@@ -47,27 +53,8 @@ export default function DeleteProject({ onCreate, id }) {
     setOpen(false);
   };
 
-  // api call to delete
-  const onSubmit = async () => {
-    console.log('SUBMETEU');
-    try {
-      await api.delete(`projects/${id}`);
-    } catch (e) {
-      toast.error(e?.response?.data?.error || 'Invalid data, try again');
-    }
-    handleClose();
-    onCreate();
-    toast.success('Project deleted!');
-  };
-
-  // Form controller
-  const formik = useFormik({
-    onSubmit,
-  });
-
   return (
     <div>
-      <Button title="Delete" type="button" onClick={handleOpen} />
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -75,13 +62,15 @@ export default function DeleteProject({ onCreate, id }) {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2 id="simple-modal-title">
-            Are you sure you want to delete this project?
-          </h2>
+          <h2 id="simple-modal-title">{modalTitle}</h2>
           <div id="simple-modal-description">
-            <Form onSubmit={formik.handleSubmit}>
-              <Button title="Yes" type="submit" />
-            </Form>
+            <Button
+              title="Yes"
+              type="submit"
+              onClick={onSubmit}
+              width="100%"
+              marginTop="30px"
+            />
           </div>
         </div>
       </Modal>

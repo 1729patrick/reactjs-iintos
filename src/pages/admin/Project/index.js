@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,42 +8,36 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { toast } from 'react-toastify';
 
-import Button from '~/components/Button';
-import { Container, ContainerWrap } from './styles';
 import api from '~/services/api';
-import CreateProject from './components/CreateProject';
-import DeleteProject from './DeleteProject';
+import { Container, ContainerWrap } from './styles';
+import Button from '~/components/Button';
+import FormModal from './components/Form';
+import DeleteModal from './components/Delete';
+
+import validationSchema from '~/validations/project';
 
 const columns = [
-  { id: 'goal', label: 'Goal', minWidth: 170 },
-  { id: 'description', label: 'Description', minWidth: 100 },
+  { id: 'title', label: 'Title', minWidth: 200 },
+  { id: 'goal', label: 'Goal', minWidth: 200 },
+  { id: 'description', label: 'Description', minWidth: 200 },
+  { id: 'targetAudience', label: 'Age Range', minWidth: 150 },
+  { id: 'type', label: 'Mobility Type', minWidth: 150 },
   {
-    id: 'links',
-    label: 'Links',
-    minWidth: 170,
-    align: 'right',
-    format: value => value.toLocaleString(),
-  },
-  {
-    id: 'targetAudience',
-    label: 'Target Audience',
-    minWidth: 170,
-    align: 'right',
-    format: value => value.toLocaleString(),
-  },
-  {
-    id: 'type',
-    label: 'Type',
-    minWidth: 170,
-    align: 'right',
+    id: 'see',
+    label: '',
+    align: 'center',
+    minWidth: 50,
     format: value => value.toFixed(2),
   },
   {
     id: 'delete',
-    label: 'Delete',
-    minWidth: 170,
-    align: 'right',
+    label: '',
+    align: 'center',
+    minWidth: 50,
     format: value => value.toFixed(2),
   },
 ];
@@ -57,25 +51,20 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Project() {
+export default function Projects() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [projects, setProjects] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalParams, setModalParams] = useState({});
 
   const fetchProjects = async () => {
-    // Call to api
     const response = await api.get('projects');
-    console.log(response);
-
-    // Set the data from api to local var
     setProjects(response.data);
   };
 
-  // observa mudanças nos estados nas variaveis do array
-  useEffect(() => {
-    fetchProjects();
-  }, []);
+  useState(fetchProjects, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -86,13 +75,114 @@ export default function Project() {
     setPage(0);
   };
 
+  // api call to post
+  const handleUpdate = async (id, values) => {
+    try {
+      await api.put(`projects/${id}`, values);
+      setModalOpen(false);
+      toast.success('Project updated with success!');
+      fetchProjects();
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+
+  const handleCreate = async values => {
+    try {
+      await api.post('projects', values);
+      setModalOpen(false);
+      toast.success('Project created with success!');
+      fetchProjects();
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+
+  // api call to delete
+  const handleDelete = async id => {
+    try {
+      await api.delete(`projects/${id}`);
+      setModalOpen(false);
+      toast.success('Project deleted with success!');
+      fetchProjects();
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid request, try again');
+    }
+  };
+
+  const handleDeleteRow = row => {
+    setModalParams({
+      initialValues: row,
+      validationSchema,
+      onSubmit: () => handleDelete(row.id),
+      submitText: 'Save',
+      modalTitle: 'Are you sure you want to delete this project?',
+    });
+
+    setModalOpen('delete');
+  };
+
+  const handleCreateProjects = () => {
+    setModalParams({
+      initialValues: {},
+      validationSchema,
+      onSubmit: handleCreate,
+      submitText: 'Create',
+      modalTitle: 'Create a new Project',
+    });
+
+    setModalOpen('form');
+  };
+
+  const handleDetailRow = row => {
+    setModalParams({
+      initialValues: row,
+      validationSchema,
+      onSubmit: values => handleUpdate(row.id, values),
+      submitText: 'Save',
+      modalTitle: 'Project',
+    });
+
+    setModalOpen('form');
+  };
+
+  const getRowContent = ({ column, row }) => {
+    const value = row[column.id];
+
+    if (column.id === 'delete') {
+      return (
+        <DeleteIcon
+          style={{ color: '#cb1010', cursor: 'pointer' }}
+          onClick={() => handleDeleteRow(row)}
+        />
+      );
+    }
+
+    if (column.id === 'see') {
+      return (
+        <VisibilityIcon
+          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          onClick={() => handleDetailRow(row)}
+        />
+      );
+    }
+
+    return column.format && typeof value === 'number'
+      ? column.format(value)
+      : value;
+  };
+
   return (
     <Container>
       <ContainerWrap>
         <span>
           <h1>Projects</h1>
 
-          <CreateProject onCreate={fetchProjects} />
+          <Button
+            title="Create Project"
+            type="button"
+            onClick={handleCreateProjects}
+          />
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
@@ -122,12 +212,9 @@ export default function Project() {
                         key={row.id}
                       >
                         {columns.map(column => {
-                          const value = row[column.id];
                           return (
                             <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === 'number'
-                                ? column.format(value)
-                                : value}
+                              {getRowContent({ column, row })}
                             </TableCell>
                           );
                         })}
@@ -148,6 +235,16 @@ export default function Project() {
           />
         </Paper>
       </ContainerWrap>
+      <FormModal
+        open={modalOpen === 'form'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
+      <DeleteModal
+        open={modalOpen === 'delete'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
     </Container>
   );
 }

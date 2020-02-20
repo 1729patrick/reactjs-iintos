@@ -21,7 +21,8 @@ export const Container = styled.div`
     }
   }
 
-  input {
+  input,
+  textarea {
     height: 40px;
     border-radius: 4px;
     border: none;
