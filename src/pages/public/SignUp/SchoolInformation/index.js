@@ -9,7 +9,7 @@ import Select from '~/components/Select';
 import FileInput from '~/components/FileInput';
 
 import {
-  cordinator as validationSchemaCordinator,
+  coordinator as validationSchemaCoordinator,
   prof as validationSchemaProf,
 } from '~/validations/schoolInformation';
 
@@ -19,7 +19,7 @@ import { Container, Content } from './styles';
 
 const SchoolInformation = ({ location, history }) => {
   const user = useMemo(() => location.state, [location]);
-  const cordinator = useMemo(() => user.cordinator, [user]);
+  const coordinator = useMemo(() => user.coordinator, [user]);
   const [schools, setSchools] = useState([]);
 
   useEffect(() => {
@@ -33,17 +33,17 @@ const SchoolInformation = ({ location, history }) => {
   }, []);
 
   const initFormik = () => {
-    if (cordinator)
+    if (coordinator)
       return {
         initialValues: {
           name: '',
           phone: '',
           country: '',
           city: '',
-          cep: '',
-          cordinatorVerification: '',
+          postalCode: '',
+          fileVerification: '',
         },
-        validationSchema: validationSchemaCordinator,
+        validationSchema: validationSchemaCoordinator,
       };
 
     return {
@@ -54,10 +54,10 @@ const SchoolInformation = ({ location, history }) => {
     };
   };
 
-  const submitForm = async ({ cordinatorVerification, ...school }) => {
+  const submitForm = async ({ fileVerification, ...school }) => {
     try {
-      const userData = cordinatorVerification
-        ? { ...user, cordinatorVerification: cordinatorVerification.id }
+      const userData = fileVerification
+        ? { ...user, fileVerificationId: fileVerification.id }
         : user;
 
       await api.post('/users', {
@@ -71,7 +71,8 @@ const SchoolInformation = ({ location, history }) => {
 
       history.push('login');
     } catch ({ response }) {
-      toast.error(response.data.error, {
+      console.log(response);
+      toast.error(response?.data?.error || 'Invalid data', {
         position: toast.POSITION.TOP_CENTER,
       });
     }
@@ -91,8 +92,10 @@ const SchoolInformation = ({ location, history }) => {
 
     const response = await api.post('/files', formData);
 
-    formik.setFieldValue('cordinatorVerification', response.data);
+    formik.setFieldValue('fileVerification', response.data);
   };
+
+  console.log(formik.errors);
 
   return (
     <Container>
@@ -100,7 +103,7 @@ const SchoolInformation = ({ location, history }) => {
         <h1>Create your account</h1>
 
         <form onSubmit={formik.handleSubmit}>
-          {cordinator ? (
+          {coordinator ? (
             <>
               <Input
                 label="School name"
@@ -112,9 +115,10 @@ const SchoolInformation = ({ location, history }) => {
                 errors={formik.errors}
                 touched={formik.touched}
               />
+
               <Input
                 label="School phone"
-                type="text"
+                type="number"
                 name="phone"
                 placeholder="Type your school phone"
                 onChange={formik.handleChange}
@@ -145,7 +149,7 @@ const SchoolInformation = ({ location, history }) => {
               <Input
                 label="School postal code"
                 type="text"
-                name="cep"
+                name="postalCode"
                 placeholder="Type your school postal code"
                 onChange={formik.handleChange}
                 values={formik.values}
@@ -154,10 +158,10 @@ const SchoolInformation = ({ location, history }) => {
               />
 
               <FileInput
-                label="Cordinator Verification"
-                name="cordinatorVerification"
+                label="Coordinator Verification"
+                name="fileVerification"
                 placeholder={
-                  formik.values.cordinatorVerification.name || 'Attachment file'
+                  formik.values?.fileVerification?.name || 'Attachment file'
                 }
                 onChange={onFileUpload}
                 values={formik.values}

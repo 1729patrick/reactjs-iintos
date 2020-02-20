@@ -24,9 +24,11 @@ const Login = ({ history }) => {
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('token', token);
 
+      api.defaults.headers.authorization = `Bearer ${token}`;
+
       history.push('/dashboard');
     } catch ({ response }) {
-      toast.error(response.data.error, {
+      toast.error(response?.data?.error || 'Invalid credentials', {
         position: toast.POSITION.TOP_CENTER,
       });
     }

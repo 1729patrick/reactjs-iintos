@@ -11,6 +11,7 @@ export default function Input({
   values,
   errors,
   touched,
+  textarea,
 }) {
   return (
     <Container>
@@ -19,13 +20,23 @@ export default function Input({
         {touched[name] && errors[name] ? <p>{errors[name]}</p> : null}
       </span>
 
-      <input
-        type={type}
-        placeholder={placeholder}
-        name={name}
-        value={values[name]}
-        onChange={onChange}
-      />
+      {textarea ? (
+        <textarea
+          type={type}
+          placeholder={placeholder}
+          name={name}
+          value={values[name]}
+          onChange={onChange}
+        />
+      ) : (
+        <input
+          type={type}
+          placeholder={placeholder}
+          name={name}
+          value={values[name]}
+          onChange={onChange}
+        />
+      )}
     </Container>
   );
 }

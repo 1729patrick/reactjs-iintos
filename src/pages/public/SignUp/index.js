@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useFormik } from 'formik';
 
@@ -12,6 +12,7 @@ import { Container, Content } from './styles';
 
 const SignUp = ({ history }) => {
   const nextStep = values => {
+    localStorage.setItem('registration', JSON.stringify(values));
     history.push('signup/school_information', values);
   };
 
@@ -21,11 +22,23 @@ const SignUp = ({ history }) => {
       email: '',
       password: '',
       passwordConfirm: '',
-      cordinator: false,
+      coordinator: false,
     },
     validationSchema,
+
     onSubmit: nextStep,
   });
+
+  useEffect(() => {
+    const registration = localStorage.getItem('registration');
+
+    if (registration) {
+      const values = JSON.parse(registration);
+
+      formik.setValues(values);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container>
@@ -77,7 +90,8 @@ const SignUp = ({ history }) => {
           />
 
           <Checkbox
-            name="cordinator"
+            label="I'm coordinator"
+            name="coordinator"
             onChange={formik.handleChange}
             values={formik.values}
             errors={formik.errors}

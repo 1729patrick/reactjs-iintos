@@ -13,5 +13,5 @@ export default Yup.object({
   passwordConfirm: Yup.string()
     .oneOf([Yup.ref('password'), null], "Password don't match")
     .required('Password confirm is required'),
-  cordinator: Yup.boolean(),
+  coordinator: Yup.boolean(),
 });

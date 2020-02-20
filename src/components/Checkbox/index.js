@@ -2,7 +2,14 @@ import React from 'react';
 
 import { Container } from './styles';
 
-export default function Checkbox({ name, onChange, values, errors, touched }) {
+export default function Checkbox({
+  name,
+  onChange,
+  values,
+  errors,
+  touched,
+  label,
+}) {
   return (
     <Container>
       <input
@@ -14,7 +21,7 @@ export default function Checkbox({ name, onChange, values, errors, touched }) {
       />
 
       <span>
-        <label>I'm cordinator</label>
+        <label>{label}</label>
         {touched[name] && errors[name] ? <p>{errors[name]}</p> : null}
       </span>
     </Container>

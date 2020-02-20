@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   height: 80px;
-  background: #0c1e3f;
+  background: #fff;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -28,21 +28,19 @@ export const Container = styled.header`
       flex-direction: row;
 
       a {
-        color: #ddd;
+        color: #222;
         font-size: 15px;
+        padding-bottom: 3px;
+        border-bottom: solid 2px transparent;
 
         & + a {
           margin-left: 30px;
         }
-      }
-    }
 
-    img {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      margin-left: 40px;
-      background: #fff;
+        &.active {
+          border-color: #222;
+        }
+      }
     }
   }
 `;
