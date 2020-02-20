@@ -13,11 +13,11 @@ const Header = () => {
 
       <div>
         <div>
-          <Link to="about">About</Link>
-          <Link to="partners">Partners</Link>
-          <Link to="news">News</Link>
+          <Link to="/about">About</Link>
+          <Link to="/partners/IPS">Partners</Link>
+          <Link to="/news">News</Link>
 
-          <Link to="login">Login</Link>
+          <Link to="/login">Login</Link>
         </div>
       </div>
     </Container>

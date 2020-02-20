@@ -4,10 +4,10 @@ import { Redirect } from 'react-router-dom';
 import AuthLayout from '~/components/_layout/Auth';
 import DefaultLayout from '~/components/_layout/Default';
 
-const Route = ({ isPrivate, component: Component }) => {
+const Route = ({ isPrivate, component: Component, location }) => {
   const token = localStorage.getItem('token');
 
-  if (isPrivate) {
+  if (isPrivate || token) {
     if (!token) {
       return <Redirect to="/login" />;
     }
@@ -19,7 +19,7 @@ const Route = ({ isPrivate, component: Component }) => {
     );
   }
 
-  if (token) {
+  if (token && location.pathname === '/login') {
     return <Redirect to="/dashboard" />;
   }
 

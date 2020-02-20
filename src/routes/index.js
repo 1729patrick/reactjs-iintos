@@ -29,13 +29,14 @@ export default () => {
           path="/signup/school_information"
           component={SchoolInformation}
         />
+        <Route path="/about" component={About} />
+
         <Route path="/await_verification" component={AwaitVerification} />
         <Route path="/dashboard" component={Dashboard} isPrivate />
         <Route path="/school" component={School} isPrivate />
         <Route path="/project" component={Project} isPrivate />
         <Route path="/calendar" component={Calendar} isPrivate />
         <Route path="/project" component={Project} isPrivate />
-        <Route path="/about" component={About} />
         <Route path="/users" component={Users} isPrivate />
         <Route path="/users/schools" component={Users} isPrivate />
         <Route path="/partners" component={Partners} />
