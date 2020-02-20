@@ -12,6 +12,7 @@ import Login from '~/pages/public/Login';
 import SignUp from '~/pages/public/SignUp';
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
 import AwaitVerification from '~/pages/public/AwaitVerification';
+import About from '~/pages/public/About';
 
 import Route from './Route';
 
@@ -31,6 +32,8 @@ export default () => {
         <Route path="/school" component={School} isPrivate />
         <Route path="/project" component={Project} isPrivate />
         <Route path="/calendar" component={Calendar} isPrivate />
+        <Route path="/project" component={Project} isPrivate />
+        <Route path="/about" component={About} />
         <Route path="/users" component={Users} isPrivate />
         <Route path="/users/schools" component={Users} isPrivate />
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -9,8 +9,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
+import { Container, ContainerWrap } from './styles';
+import api from '~/services/api';
+import CreateProject from './components/CreateProject';
+import DeleteProject from './DeleteProject';
 
 const columns = [
   { id: 'goal', label: 'Goal', minWidth: 170 },
@@ -36,15 +39,13 @@ const columns = [
     align: 'right',
     format: value => value.toFixed(2),
   },
-];
-
-function createData(goal, description, links, targetAudience, type) {
-  return { goal, description, links, targetAudience, type };
-}
-
-const rows = [
-  createData('India', 'IN', 1324171354, 3287263, 'smadaksm'),
-  createData('China', 'CN', 1403500365, 9596961, 'asdjsa'),
+  {
+    id: 'delete',
+    label: 'Delete',
+    minWidth: 170,
+    align: 'right',
+    format: value => value.toFixed(2),
+  },
 ];
 
 const useStyles = makeStyles({
@@ -58,8 +59,23 @@ const useStyles = makeStyles({
 
 export default function Project() {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [projects, setProjects] = useState([]);
+
+  const fetchProjects = async () => {
+    // Call to api
+    const response = await api.get('projects');
+    console.log(response);
+
+    // Set the data from api to local var
+    setProjects(response.data);
+  };
+
+  // observa mudanças nos estados nas variaveis do array
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -76,11 +92,7 @@ export default function Project() {
         <span>
           <h1>Projects</h1>
 
-          <Button
-            title="Create Project"
-            type="button"
-            onClick={() => console.log('create')}
-          />
+          <CreateProject onCreate={fetchProjects} />
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
@@ -99,7 +111,7 @@ export default function Project() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows
+                {projects
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
                     return (
@@ -107,7 +119,7 @@ export default function Project() {
                         hover
                         role="checkbox"
                         tabIndex={-1}
-                        key={row.code}
+                        key={row.id}
                       >
                         {columns.map(column => {
                           const value = row[column.id];
@@ -128,7 +140,7 @@ export default function Project() {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={rows.length}
+            count={projects.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
