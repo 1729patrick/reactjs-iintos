@@ -8,6 +8,8 @@ export const Container = styled.header`
   align-items: center;
   padding: 0 35px;
 
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+
   > a {
     font-size: 32px;
     color: #ddd;

@@ -14,6 +14,8 @@ import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
 import AwaitVerification from '~/pages/public/AwaitVerification';
 import About from '~/pages/public/About';
 
+import Partners from '~/pages/public/Partners';
+
 import Route from './Route';
 
 export default () => {
@@ -36,6 +38,7 @@ export default () => {
         <Route path="/about" component={About} />
         <Route path="/users" component={Users} isPrivate />
         <Route path="/users/schools" component={Users} isPrivate />
+        <Route path="/partners" component={Partners} />
 
         <Route component={() => <Redirect to="/dashboard" />} isPrivate />
       </Switch>
