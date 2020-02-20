@@ -36,6 +36,12 @@ const columns = [
     format: value => value.toLocaleString(),
   },
   {
+    id: 'postalCode',
+    label: 'Postal Code',
+    minWidth: 100,
+    format: value => value.toFixed(2),
+  },
+  {
     id: 'see',
     label: '',
     align: 'center',
@@ -68,15 +74,12 @@ export default function Schools() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
 
-  useState(() => {
-    const fetchSchools = async () => {
-      const response = await api.get('schools');
-      setSchools(response.data);
-    };
+  const fetchSchools = async () => {
+    const response = await api.get('schools');
+    setSchools(response.data);
+  };
 
-    fetchSchools();
-  }, []);
-  useEffect(() => {});
+  useState(fetchSchools, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -88,11 +91,12 @@ export default function Schools() {
   };
 
   // api call to post
-  const handleUpdate = async values => {
+  const handleUpdate = async (id, values) => {
     try {
-      await api.put('schools', values);
+      await api.put(`schools/${id}`, values);
       setModalOpen(false);
       toast.success('School updated with success!');
+      fetchSchools();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
@@ -103,17 +107,19 @@ export default function Schools() {
       await api.post('schools', values);
       setModalOpen(false);
       toast.success('School created with success!');
+      fetchSchools();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
   };
 
   // api call to delete
-  const onDelete = async () => {
+  const handleDelete = async id => {
     try {
-      await api.delete('schools');
+      await api.delete(`schools/${id}`);
       setModalOpen(false);
       toast.success('School deleted with success!');
+      fetchSchools();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid request, try again');
     }
@@ -123,7 +129,7 @@ export default function Schools() {
     setModalParams({
       initialValues: row,
       validationSchema,
-      onSubmit: onDelete,
+      onSubmit: () => handleDelete(row.id),
       submitText: 'Save',
       modalTitle: 'Are you sure you want to delete this school?',
     });
@@ -147,7 +153,7 @@ export default function Schools() {
     setModalParams({
       initialValues: row,
       validationSchema,
-      onSubmit: handleUpdate,
+      onSubmit: values => handleUpdate(row.id, values),
       submitText: 'Save',
       modalTitle: 'School',
     });
