@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -11,36 +10,35 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 import { Container, ContainerWrap } from './styles';
-import Button from '~/components/Button';
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'phone', label: 'Phone', minWidth: 100 },
+  { id: 'goal', label: 'Goal', minWidth: 170 },
+  { id: 'description', label: 'Description', minWidth: 100 },
   {
-    id: 'country',
-    label: 'Coutry',
+    id: 'links',
+    label: 'Links',
     minWidth: 170,
     align: 'right',
     format: value => value.toLocaleString(),
   },
   {
-    id: 'city',
-    label: 'City',
+    id: 'targetAudience',
+    label: 'Target Audience',
     minWidth: 170,
     align: 'right',
     format: value => value.toLocaleString(),
   },
   {
-    id: 'cep',
-    label: 'Postal Code',
+    id: 'type',
+    label: 'Type',
     minWidth: 170,
     align: 'right',
     format: value => value.toFixed(2),
   },
 ];
 
-function createData(name, phone, country, city, cep) {
-  return { name, phone, country, city, cep };
+function createData(goal, description, links, targetAudience, type) {
+  return { goal, description, links, targetAudience, type };
 }
 
 const rows = [
@@ -57,7 +55,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function School() {
+export default function Approve() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -75,18 +73,7 @@ export default function School() {
     <Container>
       <ContainerWrap>
         <span>
-          <Link to="users">Users</Link>
-          <Link to="schools">Schools</Link>
-        </span>
-
-        <span>
-          <h1>Schools</h1>
-
-          <Button
-            title="Create School"
-            type="button"
-            onClick={() => console.log('create')}
-          />
+          <h1>Approve Coodinator</h1>
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
@@ -113,7 +100,7 @@ export default function School() {
                         hover
                         role="checkbox"
                         tabIndex={-1}
-                        key={row.code}
+                        key={row.goal}
                       >
                         {columns.map(column => {
                           const value = row[column.id];

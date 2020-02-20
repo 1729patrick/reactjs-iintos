@@ -30,9 +30,15 @@ export const Container = styled.header`
       a {
         color: #222;
         font-size: 15px;
+        padding-bottom: 3px;
+        border-bottom: solid 2px transparent;
 
         & + a {
           margin-left: 30px;
+        }
+
+        &.active {
+          border-color: #222;
         }
       }
     }

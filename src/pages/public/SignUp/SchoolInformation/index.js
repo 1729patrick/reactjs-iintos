@@ -72,7 +72,7 @@ const SchoolInformation = ({ location, history }) => {
       history.push('login');
     } catch ({ response }) {
       console.log(response);
-      toast.error(response?.data?.error || 'Invalid credentials', {
+      toast.error(response?.data?.error || 'Invalid data', {
         position: toast.POSITION.TOP_CENTER,
       });
     }
@@ -115,6 +115,7 @@ const SchoolInformation = ({ location, history }) => {
                 errors={formik.errors}
                 touched={formik.touched}
               />
+
               <Input
                 label="School phone"
                 type="number"

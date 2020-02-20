@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, useCallback } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { Container } from './styles';
 import Logo from '~/assets/images/logo.png';
@@ -17,32 +17,38 @@ const Header = () => {
     localStorage.clear();
   };
 
+  const showUsers = useCallback(() => {
+    return (
+      user?.role === 'Admin' ||
+      user?.role === 'IINTOS-Admin' ||
+      user?.role === 'Mobility-Admin'
+    );
+  }, [user]);
+
+  const showSchool = useCallback(() => {
+    return user?.role === 'Coodinator' || user?.role === 'Professor';
+  }, [user]);
+
   return (
     <Container>
-      <Link to="dashboard">
+      <NavLink to="dashboard">
         <img src={Logo} alt="" style={{ width: 150 }} />
-      </Link>
+      </NavLink>
 
       <div>
         <div>
-          <Link to="about">About</Link>
-          <Link to="partners">Partners</Link>
-          <Link to="news">News</Link>
-          <Link to="school">School</Link>
-          <Link to="mobility">Mobility</Link>
-          <Link to="project">Project</Link>
-          <Link to="calendar">Calendar</Link>
+          <NavLink to="/about">About</NavLink>
+          <NavLink to="/partners">Partners</NavLink>
+          <NavLink to="/news">News</NavLink>
+          <NavLink to="/project">Project</NavLink>
+          <NavLink to="/calendar">Calendar</NavLink>
 
-          {user?.role === 'Admin' && (
-            <>
-              <Link to="iintos">IINTOS Area</Link>
-              <Link to="admin">Admin Area</Link>
-            </>
-          )}
+          {showUsers() && <NavLink to="/users">Users</NavLink>}
+          {showSchool() && <NavLink to="/school">School</NavLink>}
 
-          <Link to="login" onClick={logout}>
+          <NavLink to="login" onClick={logout}>
             Logout
-          </Link>
+          </NavLink>
         </div>
       </div>
     </Container>
