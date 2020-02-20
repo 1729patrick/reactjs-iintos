@@ -12,7 +12,7 @@ html, body, #root {
   }
 	div{
 		width:80%;
-
+		text-align:justify;
 	}
 
 	h1{
