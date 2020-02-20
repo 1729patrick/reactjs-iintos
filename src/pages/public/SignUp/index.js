@@ -90,6 +90,7 @@ const SignUp = ({ history }) => {
           />
 
           <Checkbox
+            label="I'm coordinator"
             name="coordinator"
             onChange={formik.handleChange}
             values={formik.values}
