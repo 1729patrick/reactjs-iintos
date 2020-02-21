@@ -5,7 +5,6 @@ import Dashboard from '~/pages/admin/Dashboard';
 import Calendar from '~/pages/admin/Calendar';
 import Users from '~/pages/admin/Users';
 import Project from '~/pages/admin/Project';
-import School from '~/pages/admin/School';
 
 import Home from '~/pages/public/Home';
 import Login from '~/pages/public/Login';
@@ -34,7 +33,6 @@ export default () => {
 
         <Route path="/await_verification" component={AwaitVerification} />
         <Route path="/dashboard" component={Dashboard} isPrivate />
-        <Route path="/school" component={School} isPrivate />
         <Route path="/calendar" component={Calendar} isPrivate />
 
         <Route path="/project" component={Project} isPrivate exact />

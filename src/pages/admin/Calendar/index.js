@@ -162,6 +162,10 @@ const Calendar = () => {
   return (
     <Container>
       <ContainerWrap>
+        <div>
+          <Button text="Login in Google Calendar" />
+        </div>
+
         <FullCalendar
           eventResize={handleChangeEvent}
           eventDrop={handleChangeEvent}
@@ -218,7 +222,7 @@ const Calendar = () => {
           }}
           header={{
             left: 'today prev,next',
-            center: 'title myCustomButton',
+            center: 'title',
             right: 'dayGridMonth, timeGridWeek, timeGridDay',
           }}
           // listMonth
