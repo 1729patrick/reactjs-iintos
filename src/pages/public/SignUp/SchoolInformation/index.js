@@ -26,7 +26,7 @@ const SchoolInformation = ({ location, history }) => {
     async function loadSchools() {
       const response = await api.get('/schools');
 
-      setSchools(response.data.schools);
+      setSchools(response.data);
     }
 
     loadSchools();
@@ -60,7 +60,7 @@ const SchoolInformation = ({ location, history }) => {
         ? { ...user, fileVerificationId: fileVerification.id }
         : user;
 
-      await api.post('/users', {
+      await api.post('/signup', {
         school,
         user: userData,
       });
@@ -68,10 +68,9 @@ const SchoolInformation = ({ location, history }) => {
       toast.success('Account created with success', {
         position: toast.POSITION.TOP_CENTER,
       });
-
+      localStorage.removeItem('registration');
       history.push('login');
     } catch ({ response }) {
-      console.log(response);
       toast.error(response?.data?.error || 'Invalid data', {
         position: toast.POSITION.TOP_CENTER,
       });

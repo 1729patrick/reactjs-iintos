@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import saramagoImage from '~/assets/images/Saramago.png';
+import React from 'react';
 
 export default function About() {
   return (

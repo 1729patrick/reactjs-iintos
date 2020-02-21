@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import olomoucImage from '~/assets/images/Olomouc.png';
 
 export default function About() {

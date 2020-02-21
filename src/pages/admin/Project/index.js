@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -74,18 +74,6 @@ const Projects = ({ history }) => {
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-  };
-
-  // api call to post
-  const handleUpdate = async (id, values) => {
-    try {
-      await api.put(`projects/${id}`, values);
-      setModalOpen(false);
-      toast.success('Project updated with success!');
-      fetchProjects();
-    } catch (e) {
-      toast.error(e?.response?.data?.error || 'Invalid data, try again');
-    }
   };
 
   const handleCreate = async values => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ipsImage from '~/assets/images/40anos.png';
 
 export default function About() {

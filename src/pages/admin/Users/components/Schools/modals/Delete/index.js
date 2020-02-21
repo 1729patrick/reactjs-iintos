@@ -43,11 +43,6 @@ export default function Delete({
     return null;
   }
 
-  // function when the modal get's created
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
   // function when the modal closes
   const handleClose = () => {
     setOpen(false);

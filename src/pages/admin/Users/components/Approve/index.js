@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,42 +8,49 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import ThumbUp from '@material-ui/icons/ThumbUp';
+import ThumbDown from '@material-ui/icons/ThumbDown';
+import { toast } from 'react-toastify';
 
+import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
+import FormModal from './modals/Form';
+import DeleteModal from './modals/Delete';
 
 const columns = [
-  { id: 'goal', label: 'Goal', minWidth: 170 },
-  { id: 'description', label: 'Description', minWidth: 100 },
+  { id: 'name', label: 'Name', minWidth: 200 },
+  { id: 'email', label: 'E-mail', minWidth: 150 },
   {
-    id: 'links',
-    label: 'Links',
-    minWidth: 170,
-    align: 'right',
-    format: value => value.toLocaleString(),
+    id: 'school',
+    label: 'School',
+    minWidth: 200,
   },
   {
-    id: 'targetAudience',
-    label: 'Target Audience',
-    minWidth: 170,
-    align: 'right',
-    format: value => value.toLocaleString(),
+    id: 'active',
+    label: 'Active',
+    minWidth: 100,
+    format: value => (value ? 'Yes' : 'No'),
   },
   {
-    id: 'type',
-    label: 'Type',
-    minWidth: 170,
-    align: 'right',
+    id: 'role',
+    label: 'Role',
+    minWidth: 100,
     format: value => value.toFixed(2),
   },
-];
-
-function createData(goal, description, links, targetAudience, type) {
-  return { goal, description, links, targetAudience, type };
-}
-
-const rows = [
-  createData('India', 'IN', 1324171354, 3287263, 'smadaksm'),
-  createData('China', 'CN', 1403500365, 9596961, 'asdjsa'),
+  {
+    id: 'up',
+    label: '',
+    align: 'center',
+    minWidth: 50,
+    format: value => value.toFixed(2),
+  },
+  {
+    id: 'down',
+    label: '',
+    align: 'center',
+    minWidth: 50,
+    format: value => value.toFixed(2),
+  },
 ];
 
 const useStyles = makeStyles({
@@ -57,8 +64,18 @@ const useStyles = makeStyles({
 
 export default function Approve() {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [users, setUsers] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalParams, setModalParams] = useState({});
+
+  const fetchUsers = async () => {
+    const response = await api.get('users', { params: { role: 'Coodinator' } });
+    setUsers(response.data);
+  };
+
+  useState(fetchUsers, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -67,6 +84,65 @@ export default function Approve() {
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const handleActveUser = async (user, active) => {
+    try {
+      console.log(active);
+      const formattedUser = { ...user, active };
+      await api.put(`users/${user.id}`, formattedUser);
+      setModalOpen(false);
+
+      setUsers(
+        users.map(u => {
+          if (u.id === user.id) {
+            return formattedUser;
+          }
+
+          return u;
+        })
+      );
+
+      toast.success('User updated with success!');
+      fetchUsers();
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+
+  const getRowContent = ({ column, row }) => {
+    const value = row[column.id];
+
+    if (column.id === 'up') {
+      return (
+        <ThumbUp
+          style={{
+            color: 'rgb(23, 179, 14)',
+            cursor: row.active ? 'normal' : 'pointer',
+            opacity: row.active ? 0.6 : 1,
+          }}
+          onClick={() => !row.active && handleActveUser(row, true)}
+        />
+      );
+    }
+
+    if (column.id === 'down') {
+      return (
+        <ThumbDown
+          style={{
+            color: '#cb1010',
+            cursor: row.active ? 'pointer' : 'normal',
+            opacity: row.active ? 1 : 0.6,
+          }}
+          onClick={() => row.active && handleActveUser(row, false)}
+        />
+      );
+    }
+
+    return column.format &&
+      (typeof value === 'number' || typeof value === 'boolean')
+      ? column.format(value)
+      : value;
   };
 
   return (
@@ -92,7 +168,7 @@ export default function Approve() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows
+                {users
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
                     return (
@@ -100,15 +176,12 @@ export default function Approve() {
                         hover
                         role="checkbox"
                         tabIndex={-1}
-                        key={row.goal}
+                        key={row.id}
                       >
                         {columns.map(column => {
-                          const value = row[column.id];
                           return (
                             <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === 'number'
-                                ? column.format(value)
-                                : value}
+                              {getRowContent({ column, row })}
                             </TableCell>
                           );
                         })}
@@ -121,7 +194,7 @@ export default function Approve() {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={rows.length}
+            count={users.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
@@ -129,6 +202,16 @@ export default function Approve() {
           />
         </Paper>
       </ContainerWrap>
+      <FormModal
+        open={modalOpen === 'form'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
+      <DeleteModal
+        open={modalOpen === 'delete'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
     </Container>
   );
 }

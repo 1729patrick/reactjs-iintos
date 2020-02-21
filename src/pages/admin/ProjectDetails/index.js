@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { withRouter, NavLink, useLocation } from 'react-router-dom';
 import api from '~/services/api';
 

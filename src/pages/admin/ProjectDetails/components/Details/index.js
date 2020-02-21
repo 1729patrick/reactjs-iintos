@@ -1,10 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+
 import { useFormik } from 'formik';
 
-import Button from '~/components/Button';
 import Input from '~/components/Input';
-import { Form, Container } from './styles';
+import { Form } from './styles';
 
 export default ({ initialValues }) => {
   // Form controller

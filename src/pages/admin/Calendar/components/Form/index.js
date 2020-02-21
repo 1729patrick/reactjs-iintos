@@ -1,5 +1,5 @@
 import 'date-fns';
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import erasmusCo from '~/assets/images/erasmusCoFunded.jpg';
 import erasmusFlag from '~/assets/images/erasmusFlag.png';
 import { Container } from './style';
