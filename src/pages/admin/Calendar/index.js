@@ -51,16 +51,47 @@ const Calendar = () => {
     fetchEvents();
   }, []);
 
-  const handleChangeEvent = async ({ event, revert = () => {} }) => {
-    const { id, title, extendedProps, _instance } = event;
+  const handleCreateEvent = async ({ event, revert = () => {} }) => {
+    const { title, extendedProps, _instance } = event;
     const { start, end } = _instance.range;
-    const { description } = extendedProps;
+    const { description, location } = extendedProps;
 
     const newEvent = {
       summary: title,
       start: { dateTime: start },
       end: { dateTime: end },
       description,
+      location,
+    };
+
+    try {
+      const response = await api.post(`events`, newEvent);
+      const createdEvent = response.data;
+
+      toast.success('Event created with success!');
+      setModalOpen(false);
+
+      setEvents([
+        ...events,
+        { id: createdEvent.event.id, title, start, end, description, location },
+      ]);
+    } catch (e) {
+      revert();
+      toast.error(e?.response?.data?.error || 'Error, try again!');
+    }
+  };
+
+  const handleChangeEvent = async ({ event, revert = () => {} }) => {
+    const { id, title, extendedProps, _instance } = event;
+    const { start, end } = _instance.range;
+    const { description, location } = extendedProps;
+
+    const newEvent = {
+      summary: title,
+      start: { dateTime: start },
+      end: { dateTime: end },
+      description,
+      location,
     };
 
     try {
@@ -86,22 +117,19 @@ const Calendar = () => {
   const handleSelect = event => {
     const { start, end } = event;
     const formattedEvent = {
-      title: 'a',
+      title: '',
       start,
       end,
-      description: 'a',
+      description: '',
       location: '',
     };
-
-    alert(JSON.stringify(formattedEvent));
-    return;
 
     setModalParams({
       initialValues: formattedEvent,
       validationSchema,
-      onSubmit: event => console.log(event),
+      onSubmit: handleCreateEvent,
       submitText: 'Save',
-      modalTitle: 'Event',
+      modalTitle: 'Create a new Event',
     });
 
     setModalOpen('form');
@@ -120,22 +148,10 @@ const Calendar = () => {
       description,
     };
 
-    const onSubmit = ({ id, title, start, end, description }) => {
-      // eslint-disable-next-line no-shadow
-      const event = {
-        id,
-        title,
-        _instance: { range: { start, end } },
-        extendedProps: { description },
-      };
-
-      handleChangeEvent({ event });
-    };
-
     setModalParams({
       initialValues: formattedEvent,
       validationSchema,
-      onSubmit,
+      onSubmit: handleChangeEvent,
       submitText: 'Save',
       modalTitle: 'Event',
     });

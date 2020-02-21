@@ -61,7 +61,17 @@ export default ({
   const formik = useFormik({
     validationSchema,
     initialValues,
-    onSubmit,
+    onSubmit: ({ id, title, start, end, description, location }) => {
+      // eslint-disable-next-line no-shadow
+      const event = {
+        id,
+        title,
+        _instance: { range: { start, end } },
+        extendedProps: { description, location },
+      };
+
+      onSubmit({ event });
+    },
   });
 
   return (
