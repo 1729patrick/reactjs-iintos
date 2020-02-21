@@ -15,6 +15,7 @@ import AwaitVerification from '~/pages/public/AwaitVerification';
 import About from '~/pages/public/About';
 
 import Partners from '~/pages/public/Partners';
+import ProjectDetails from '~/pages/admin/ProjectDetails';
 
 import Route from './Route';
 
@@ -34,9 +35,11 @@ export default () => {
         <Route path="/await_verification" component={AwaitVerification} />
         <Route path="/dashboard" component={Dashboard} isPrivate />
         <Route path="/school" component={School} isPrivate />
-        <Route path="/project" component={Project} isPrivate />
         <Route path="/calendar" component={Calendar} isPrivate />
-        <Route path="/project" component={Project} isPrivate />
+
+        <Route path="/project" component={Project} isPrivate exact />
+        <Route path="/project/:id" component={ProjectDetails} isPrivate />
+
         <Route path="/users" component={Users} isPrivate />
         <Route path="/users/schools" component={Users} isPrivate />
         <Route path="/partners" component={Partners} />
