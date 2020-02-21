@@ -71,7 +71,9 @@ export default function Approve() {
   const [modalParams, setModalParams] = useState({});
 
   const fetchUsers = async () => {
-    const response = await api.get('users', { params: { role: 'Coodinator' } });
+    const response = await api.get('users', {
+      params: { role: 'Coordinator' },
+    });
     setUsers(response.data);
   };
 
