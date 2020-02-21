@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useState, useEffect, useMemo } from 'react';
+import { withRouter, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -16,17 +16,14 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
-import FormModal from './components/Form';
-import DeleteModal from './components/Delete';
+import FormModal from '../Form';
+import DeleteModal from '../Delete';
 
 import validationSchema from '~/validations/project';
 
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
-  { id: 'goal', label: 'Goal', minWidth: 200 },
   { id: 'description', label: 'Description', minWidth: 200 },
-  { id: 'targetAudience', label: 'Age Range', minWidth: 150 },
-  { id: 'type', label: 'Mobility Type', minWidth: 150 },
   {
     id: 'see',
     label: '',
@@ -52,16 +49,24 @@ const useStyles = makeStyles({
   },
 });
 
-const Projects = ({ history }) => {
+const Projects = withRouter(x => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [projects, setProjects] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+  const location = useLocation();
+
+  const projectId = location.pathname.split('/')[2];
+
+  /*
+  const projectId = useMemo(() => computedMatch.params.id, [
+    computedMatch.params.id,
+  ]); */
 
   const fetchProjects = async () => {
-    const response = await api.get('projects');
+    const response = await api.get(`projects/${projectId}/activities`);
     setProjects(response.data);
   };
 
@@ -117,7 +122,7 @@ const Projects = ({ history }) => {
       validationSchema,
       onSubmit: () => handleDelete(row.id),
       submitText: 'Save',
-      modalTitle: 'Are you sure you want to delete this project?',
+      modalTitle: 'Are you sure you want to delete this activity?',
     });
 
     setModalOpen('delete');
@@ -129,14 +134,13 @@ const Projects = ({ history }) => {
       validationSchema,
       onSubmit: handleCreate,
       submitText: 'Create',
-      modalTitle: 'Create a new Project',
+      modalTitle: 'Create a new Activity',
     });
 
     setModalOpen('form');
   };
 
   const handleDetailRow = row => {
-    /*
     setModalParams({
       initialValues: row,
       validationSchema,
@@ -145,9 +149,7 @@ const Projects = ({ history }) => {
       modalTitle: 'Project',
     });
 
-		setModalOpen('form');
-		*/
-    history.push(`/project/${row.id}`);
+    setModalOpen('form');
   };
 
   const getRowContent = ({ column, row }) => {
@@ -180,10 +182,10 @@ const Projects = ({ history }) => {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Projects</h1>
+          <h1>Activities</h1>
 
           <Button
-            title="Create Project"
+            title="Create Activty"
             type="button"
             onClick={handleCreateProjects}
           />
@@ -251,6 +253,6 @@ const Projects = ({ history }) => {
       />
     </Container>
   );
-};
+});
 
 export default withRouter(Projects);

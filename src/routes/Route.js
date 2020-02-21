@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import AuthLayout from '~/components/_layout/Auth';
 import DefaultLayout from '~/components/_layout/Default';
 
-const Route = ({ isPrivate, component: Component, location }) => {
+const Route = ({ isPrivate, component: Component, location, ...rest }) => {
   const token = localStorage.getItem('token');
 
   if (isPrivate || token) {
@@ -14,7 +14,7 @@ const Route = ({ isPrivate, component: Component, location }) => {
 
     return (
       <AuthLayout>
-        <Component />
+        <Component location={location} {...rest} />
       </AuthLayout>
     );
   }

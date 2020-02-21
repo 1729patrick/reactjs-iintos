@@ -9,8 +9,9 @@ export default function Input({
   name,
   onChange,
   values,
-  errors,
-  touched,
+  readOnly,
+  errors = {},
+  touched = {},
   textarea,
 }) {
   return (
@@ -25,16 +26,18 @@ export default function Input({
           type={type}
           placeholder={placeholder}
           name={name}
-          value={values[name]}
+          value={values && values[name]}
           onChange={onChange}
+          readOnly={readOnly}
         />
       ) : (
         <input
           type={type}
           placeholder={placeholder}
           name={name}
-          value={values[name]}
+          value={values && values[name]}
           onChange={onChange}
+          readOnly={readOnly}
         />
       )}
     </Container>

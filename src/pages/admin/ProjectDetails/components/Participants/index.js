@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -16,17 +15,31 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
-import FormModal from './components/Form';
-import DeleteModal from './components/Delete';
+import FormModal from './modals/Form';
+import DeleteModal from './modals/Delete';
 
-import validationSchema from '~/validations/project';
+import validationSchema from '~/validations/user';
 
 const columns = [
-  { id: 'title', label: 'Title', minWidth: 200 },
-  { id: 'goal', label: 'Goal', minWidth: 200 },
-  { id: 'description', label: 'Description', minWidth: 200 },
-  { id: 'targetAudience', label: 'Age Range', minWidth: 150 },
-  { id: 'type', label: 'Mobility Type', minWidth: 150 },
+  { id: 'name', label: 'Name', minWidth: 200 },
+  { id: 'email', label: 'E-mail', minWidth: 150 },
+  {
+    id: 'school',
+    label: 'School',
+    minWidth: 200,
+  },
+  {
+    id: 'active',
+    label: 'Active',
+    minWidth: 100,
+    format: value => (value ? 'Yes' : 'No'),
+  },
+  {
+    id: 'role',
+    label: 'Role',
+    minWidth: 100,
+    format: value => value.toFixed(2),
+  },
   {
     id: 'see',
     label: '',
@@ -52,20 +65,37 @@ const useStyles = makeStyles({
   },
 });
 
-const Projects = ({ history }) => {
+export default function Participants() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [projects, setProjects] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
+  const [schools, setSchools] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
 
-  const fetchProjects = async () => {
-    const response = await api.get('projects');
-    setProjects(response.data);
+  const fetchUsers = async () => {
+    const response = await api.get('users');
+    setUsers(response.data);
   };
 
-  useState(fetchProjects, []);
+  const fetchRoles = async () => {
+    const response = await api.get('roles');
+    setRoles(response.data);
+  };
+
+  const fetchSchools = async () => {
+    const response = await api.get('schools');
+    setSchools(response.data);
+  };
+
+  useEffect(() => {
+    fetchRoles();
+    fetchSchools();
+  }, []);
+
+  useState(fetchUsers, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -79,21 +109,24 @@ const Projects = ({ history }) => {
   // api call to post
   const handleUpdate = async (id, values) => {
     try {
-      await api.put(`projects/${id}`, values);
+      await api.put(`users/${id}`, values);
       setModalOpen(false);
-      toast.success('Project updated with success!');
-      fetchProjects();
+      toast.success('User updated with success!');
+      fetchUsers();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
   };
 
-  const handleCreate = async values => {
+  const handleCreate = async user => {
     try {
-      await api.post('projects', values);
+      await api.post('users', {
+        user,
+        school: { schoolId: user.schoolId },
+      });
       setModalOpen(false);
-      toast.success('Project created with success!');
-      fetchProjects();
+      toast.success('User created with success!');
+      fetchUsers();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
@@ -102,10 +135,10 @@ const Projects = ({ history }) => {
   // api call to delete
   const handleDelete = async id => {
     try {
-      await api.delete(`projects/${id}`);
+      await api.delete(`users/${id}`);
       setModalOpen(false);
-      toast.success('Project deleted with success!');
-      fetchProjects();
+      toast.success('User deleted with success!');
+      fetchUsers();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid request, try again');
     }
@@ -117,37 +150,34 @@ const Projects = ({ history }) => {
       validationSchema,
       onSubmit: () => handleDelete(row.id),
       submitText: 'Save',
-      modalTitle: 'Are you sure you want to delete this project?',
+      modalTitle: 'Are you sure you want to delete this user?',
     });
 
     setModalOpen('delete');
   };
 
-  const handleCreateProjects = () => {
+  const handleCreateUser = () => {
     setModalParams({
       initialValues: {},
       validationSchema,
       onSubmit: handleCreate,
       submitText: 'Create',
-      modalTitle: 'Create a new Project',
+      modalTitle: 'Create a new User',
     });
 
     setModalOpen('form');
   };
 
   const handleDetailRow = row => {
-    /*
     setModalParams({
       initialValues: row,
       validationSchema,
       onSubmit: values => handleUpdate(row.id, values),
       submitText: 'Save',
-      modalTitle: 'Project',
+      modalTitle: 'User',
     });
 
-		setModalOpen('form');
-		*/
-    history.push(`/project/${row.id}`);
+    setModalOpen('form');
   };
 
   const getRowContent = ({ column, row }) => {
@@ -171,7 +201,8 @@ const Projects = ({ history }) => {
       );
     }
 
-    return column.format && typeof value === 'number'
+    return column.format &&
+      (typeof value === 'number' || typeof value === 'boolean')
       ? column.format(value)
       : value;
   };
@@ -180,14 +211,16 @@ const Projects = ({ history }) => {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Projects</h1>
+          <h1>Participants</h1>
 
           <Button
-            title="Create Project"
+            title="Create User"
             type="button"
-            onClick={handleCreateProjects}
+            onClick={handleCreateUser}
           />
         </span>
+
+        <h2>Professors</h2>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
             <Table stickyHeader aria-label="sticky table">
@@ -205,7 +238,7 @@ const Projects = ({ history }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {projects
+                {users
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
                     return (
@@ -231,16 +264,19 @@ const Projects = ({ history }) => {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={projects.length}
+            count={users.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
         </Paper>
+        <h2>Students</h2>
       </ContainerWrap>
       <FormModal
         open={modalOpen === 'form'}
+        schools={schools}
+        roles={roles}
         setOpen={setModalOpen}
         {...modalParams}
       />
@@ -251,6 +287,4 @@ const Projects = ({ history }) => {
       />
     </Container>
   );
-};
-
-export default withRouter(Projects);
+}

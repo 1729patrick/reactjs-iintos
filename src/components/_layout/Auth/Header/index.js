@@ -31,7 +31,7 @@ const Header = () => {
 
   return (
     <Container>
-      <NavLink to="dashboard">
+      <NavLink to="/dashboard">
         <img src={Logo} alt="" style={{ width: 150 }} />
       </NavLink>
 

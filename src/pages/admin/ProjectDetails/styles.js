@@ -35,17 +35,9 @@ export const Menu = styled.div`
 `;
 
 export const Content = styled.div`
+width:100%;
 padding-right:100px;
 padding-left:20px;
-
-
-	div{
-		width:80%;
-		display: flex;
-    flex-direction: column;
-		margin:0 auto;
-		text-align:justify;
-	}
 
 	h1{
 		display:flex;
