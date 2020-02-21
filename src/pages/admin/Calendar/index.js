@@ -7,6 +7,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import { toast } from 'react-toastify';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import DeleteModal from './components/Delete';
 import FormModal from './components/Form';
 
@@ -14,8 +15,6 @@ import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 import '@fullcalendar/timegrid/main.css';
 import '@fullcalendar/list/main.css';
-
-import timeGridPlugin from '@fullcalendar/timegrid';
 
 import { Container, ContainerWrap } from './styles';
 import validationSchema from '~/validations/event';
@@ -94,15 +93,18 @@ const Calendar = () => {
       location: '',
     };
 
-    // setModalParams({
-    //   initialValues: formattedEvent,
-    //   validationSchema,
-    //   onSubmit: () => console.log('aaaa'),
-    //   submitText: 'Save',
-    //   modalTitle: 'Event',
-    // });
+    alert(JSON.stringify(formattedEvent));
+    return;
 
-    // setModalOpen('form');
+    setModalParams({
+      initialValues: formattedEvent,
+      validationSchema,
+      onSubmit: event => console.log(event),
+      submitText: 'Save',
+      modalTitle: 'Event',
+    });
+
+    setModalOpen('form');
   };
 
   const handleEventClick = ({ event }) => {
@@ -228,7 +230,7 @@ const Calendar = () => {
           scrollTime={format(addHours(new Date(), -4), 'HH:mm')}
         />
       </ContainerWrap>
-      {/* <FormModal
+      <FormModal
         open={modalOpen === 'form'}
         setOpen={setModalOpen}
         {...modalParams}
@@ -237,7 +239,7 @@ const Calendar = () => {
         open={modalOpen === 'delete'}
         setOpen={setModalOpen}
         {...modalParams}
-      /> */}
+      />
     </Container>
   );
 };

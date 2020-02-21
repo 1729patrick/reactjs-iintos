@@ -45,15 +45,9 @@ export default ({
   onSubmit,
   validationSchema,
 }) => {
-  console.log({
-    initialValues,
-    submitText,
-    open,
-    setOpen,
-    modalTitle,
-    onSubmit,
-    validationSchema,
-  });
+  if (!open) {
+    return null;
+  }
 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
@@ -69,10 +63,6 @@ export default ({
     initialValues,
     onSubmit,
   });
-
-  if (!open) {
-    return null;
-  }
 
   return (
     <Modal
