@@ -24,7 +24,7 @@ const SchoolInformation = ({ location, history }) => {
 
   useEffect(() => {
     async function loadSchools() {
-      const response = await api.get('/schools');
+      const response = await api.get('/schools', { params: { active: true } });
 
       setSchools(response.data);
     }

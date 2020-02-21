@@ -26,6 +26,19 @@ const columns = [
     minWidth: 200,
   },
   {
+    id: 'certificate',
+    label: 'Certificate',
+    minWidth: 100,
+    format: value =>
+      !value ? (
+        ''
+      ) : (
+        <a href={value} target="__blank">
+          Open File
+        </a>
+      ),
+  },
+  {
     id: 'active',
     label: 'Active',
     minWidth: 100,
@@ -90,7 +103,6 @@ export default function Approve() {
 
   const handleActveUser = async (user, active) => {
     try {
-      console.log(active);
       const formattedUser = { ...user, active };
       await api.put(`users/${user.id}`, formattedUser);
       setModalOpen(false);
@@ -142,7 +154,9 @@ export default function Approve() {
     }
 
     return column.format &&
-      (typeof value === 'number' || typeof value === 'boolean')
+      (typeof value === 'number' ||
+        typeof value === 'boolean' ||
+        column.id === 'certificate')
       ? column.format(value)
       : value;
   };

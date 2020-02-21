@@ -5,5 +5,6 @@ export default Yup.object({
   phone: Yup.string().required('Phone of the school is required'),
   country: Yup.string().required('Country of the school is required'),
   city: Yup.string().required('City of the school requires'),
+  active: Yup.bool(),
   postalCode: Yup.string(),
 });

@@ -42,6 +42,12 @@ const columns = [
     format: value => value.toFixed(2),
   },
   {
+    id: 'active',
+    label: 'Active',
+    minWidth: 100,
+    format: value => (value ? 'Yes' : 'No'),
+  },
+  {
     id: 'see',
     label: '',
     align: 'center',
@@ -182,7 +188,8 @@ export default function Schools() {
       );
     }
 
-    return column.format && typeof value === 'number'
+    return column.format &&
+      (typeof value === 'number' || typeof value === 'boolean')
       ? column.format(value)
       : value;
   };
