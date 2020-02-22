@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { withRouter, NavLink, useLocation } from 'react-router-dom';
-import api from '~/services/api';
 
+import api from '~/services/api';
 import { Container, Menu, Content } from './styles';
 
 import Activity from './components/Activity';

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import Button from '~/components/Button';
+import Select from '~/components/Select';
 import Input from '~/components/Input';
 import { Form } from './styles';
 
@@ -31,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  initialValues,
+  initialValues = { students: [undefined], professors: [undefined], title: '' },
   submitText,
   open,
   setOpen,
@@ -45,7 +47,7 @@ export default ({
 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
+  const [modalStyle] = useState(getModalStyle);
 
   const handleClose = () => {
     setOpen(false);
@@ -57,6 +59,17 @@ export default ({
     initialValues,
     onSubmit,
   });
+
+  const handleAdd = field => {
+    const values = formik.values[field];
+    formik.setFieldValue(field, [...values, {}]);
+  };
+
+  const handleRemove = (field, index) => {
+    const newState = formik.values[field].filter((_, i) => i !== index);
+
+    formik.setFieldValue(field, newState);
+  };
 
   return (
     <Modal
@@ -93,6 +106,69 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
+
+            <h3>Participants</h3>
+            <span>
+              {formik.values.professors.map((_, index) => (
+                <div key={String(index)}>
+                  <Select
+                    label={`Professor ${index + 1}`}
+                    textarea
+                    placeholder="Add professor to activity"
+                    name="professor"
+                    onChange={value =>
+                      formik.setFieldValue(
+                        `professors[${index}]`,
+                        value.target.value
+                      )
+                    }
+                    values={{ professor: formik.values.professors[index] }}
+                    errors={formik.errors}
+                    touched={formik.touched}
+                    submitted={formik.submitCount}
+                    options={[{ id: 1, name: 'patrick' }]}
+                  />
+                  <DeleteIcon
+                    style={{ color: '#cb1010', cursor: 'pointer' }}
+                    onClick={() => handleRemove('professors', index)}
+                  />
+                </div>
+              ))}
+              <button type="button" onClick={() => handleAdd('professors')}>
+                + Add Professor
+              </button>
+            </span>
+
+            <span>
+              {formik.values.students.map((_, index) => (
+                <div key={String(index)}>
+                  <Select
+                    label={`Student ${index + 1}`}
+                    textarea
+                    placeholder="Add student to activity"
+                    name="student"
+                    onChange={value =>
+                      formik.setFieldValue(
+                        `students[${index}]`,
+                        value.target.value
+                      )
+                    }
+                    values={{ student: formik.values.students[index] }}
+                    errors={formik.errors}
+                    touched={formik.touched}
+                    submitted={formik.submitCount}
+                    options={[{ id: 1, name: 'patrick' }]}
+                  />
+                  <DeleteIcon
+                    style={{ color: '#cb1010', cursor: 'pointer' }}
+                    onClick={() => handleRemove('students', index)}
+                  />
+                </div>
+              ))}
+              <button type="button" onClick={() => handleAdd('students')}>
+                + Add Student
+              </button>
+            </span>
             <Button title={submitText} type="submit" />
           </Form>
         </div>

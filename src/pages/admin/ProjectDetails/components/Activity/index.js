@@ -129,7 +129,6 @@ const Activities = () => {
 
   const handleCreateActivity = () => {
     setModalParams({
-      initialValues: {},
       validationSchema,
       onSubmit: handleCreate,
       submitText: 'Create',
@@ -141,7 +140,11 @@ const Activities = () => {
 
   const handleDetailRow = row => {
     setModalParams({
-      initialValues: row,
+      initialValues: {
+        ...row,
+        studends: [undefined],
+        professors: [undefined],
+      },
       validationSchema,
       onSubmit: values => handleUpdate(row.id, values),
       submitText: 'Save',
