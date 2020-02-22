@@ -124,17 +124,6 @@ const Projects = ({ history }) => {
   };
 
   const handleDetailRow = row => {
-    /*
-    setModalParams({
-      initialValues: row,
-      validationSchema,
-      onSubmit: values => handleUpdate(row.id, values),
-      submitText: 'Save',
-      modalTitle: 'Project',
-    });
-
-		setModalOpen('form');
-		*/
     history.push(`/project/${row.id}`);
   };
 

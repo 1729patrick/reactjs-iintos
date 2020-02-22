@@ -35,54 +35,16 @@ export const Menu = styled.div`
 `;
 
 export const Content = styled.div`
-width:100%;
-padding-right:100px;
-padding-left:20px;
+  width: 100%;
+  padding-right: 100px;
+  padding-left: 20px;
 
-	h1{
-		display:flex;
-		margin-top:14px;	
-	}
+  h1 {
+    display: flex;
+    margin-top: 14px;
+  }
 
-	img{
-		margin:0 auto;
-	}
-ul{
-	display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
-}
-li{
-	display: list-item;
-    text-align: -webkit-match-parent;
-}
-	h{
-		display: block;
-    font-size: 2em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-	}
-	h4{
-		display: block;
-    margin-block-start: 1.33em;
-    margin-block-end: 1.33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-	}
-
-  p {
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+  img {
+    margin: 0 auto;
   }
 `;

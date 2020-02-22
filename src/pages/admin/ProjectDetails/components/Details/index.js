@@ -1,28 +1,48 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
+import EditIcon from '@material-ui/icons/Edit';
 
+import { toast } from 'react-toastify';
+import validationSchema from '~/validations/project';
+import FormModal from '../Form';
 import Input from '~/components/Input';
 import { Form } from './styles';
+import api from '~/services/api';
 
 export default ({ initialValues }) => {
-  // Form controller
-  console.log(initialValues);
+  const formik = useFormik({ initialValues });
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalParams, setModalParams] = useState({});
 
-  const formik = useFormik({
-    initialValues,
-  });
+  const handleUpdate = async (id, values) => {
+    try {
+      await api.put(`projects/${id}`, values);
+      setModalOpen(false);
+      formik.setValues(values);
+      toast.success('Project updated with success!');
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid request, try again');
+    }
+  };
+
+  const handleEditProject = () => {
+    setModalParams({
+      initialValues: formik.values,
+      validationSchema,
+      onSubmit: values => handleUpdate(formik.values.id, values),
+      submitText: 'Save',
+      modalTitle: 'Project',
+    });
+    // handleUpdate(row.id, values)
+    setModalOpen(true);
+  };
 
   return (
     <Form>
-      <Input
-        label="Title"
-        type="text"
-        placeholder="Type the project title"
-        name="title"
-        readOnly
-        values={formik.values}
-      />
+      <span>
+        <h2>{formik.values.title}</h2>
+        <EditIcon onClick={handleEditProject} />
+      </span>
       <Input
         label="Goal"
         type="text"
@@ -30,6 +50,7 @@ export default ({ initialValues }) => {
         name="goal"
         readOnly
         values={formik.values}
+        background="#fff"
       />
 
       <Input
@@ -40,6 +61,7 @@ export default ({ initialValues }) => {
         name="description"
         readOnly
         values={formik.values}
+        background="#fff"
       />
       <Input
         label="Links"
@@ -48,6 +70,7 @@ export default ({ initialValues }) => {
         name="links"
         readOnly
         values={formik.values}
+        background="#fff"
       />
       <Input
         label="Target Audience"
@@ -56,6 +79,7 @@ export default ({ initialValues }) => {
         name="targetAudience"
         readOnly
         values={formik.values}
+        background="#fff"
       />
       <Input
         label="Mobility Type"
@@ -64,7 +88,9 @@ export default ({ initialValues }) => {
         name="type"
         readOnly
         values={formik.values}
+        background="#fff"
       />
+      <FormModal open={modalOpen} setOpen={setModalOpen} {...modalParams} />
     </Form>
   );
 };

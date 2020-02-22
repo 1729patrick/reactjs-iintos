@@ -16,7 +16,6 @@ import '@fullcalendar/timegrid/main.css';
 import '@fullcalendar/list/main.css';
 
 import DeleteModal from './components/Delete';
-import FormModal from './components/Form';
 
 import { Container, ContainerWrap } from './styles';
 import validationSchema from '~/validations/event';
@@ -48,7 +47,6 @@ const Calendar = () => {
       setEvents(formattedEvents);
     } catch (e) {
       setShowAlert(true);
-      // toast.error(e?.response?.data?.error || 'Error, try again!');
     }
   };
 
@@ -271,11 +269,7 @@ const Calendar = () => {
           scrollTime={format(addHours(new Date(), -4), 'HH:mm')}
         />
       </ContainerWrap>
-      <FormModal
-        open={modalOpen === 'form'}
-        setOpen={setModalOpen}
-        {...modalParams}
-      />
+
       <DeleteModal
         open={modalOpen === 'delete'}
         setOpen={setModalOpen}

@@ -26,8 +26,6 @@ export default withRouter(({ computedMatch }) => {
 
     const route = location.pathname.replace(`/project/${projectId}`, '');
 
-    console.log(route);
-
     if (!route) {
       return <Details initialValues={projects} />;
     }

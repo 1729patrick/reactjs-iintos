@@ -25,7 +25,7 @@ export const Container = styled.div`
   textarea {
     border-radius: 4px;
     border: none;
-    background: #eee;
+    background: ${props => props.background || '#eee'};
     padding: 0 16px;
 
     option {
