@@ -31,7 +31,7 @@ const Calendar = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await api.get('events');
+      const response = await api().get('events');
 
       const formattedEvents = response.data.map(event => ({
         id: event.id,
@@ -48,7 +48,7 @@ const Calendar = () => {
       setEvents(formattedEvents);
     } catch (e) {
       setShowAlert(true);
-      toast.error(e?.response?.data?.error || 'Error, try again!');
+      // toast.error(e?.response?.data?.error || 'Error, try again!');
     }
   };
 
@@ -78,7 +78,7 @@ const Calendar = () => {
     };
 
     try {
-      const response = await api.post(`events`, newEvent);
+      const response = await api().post(`events`, newEvent);
       const createdEvent = response.data;
 
       toast.success('Event created with success!');
@@ -108,7 +108,7 @@ const Calendar = () => {
     };
 
     try {
-      await api.put(`events/${id}`, newEvent);
+      await api().put(`events/${id}`, newEvent);
       toast.success('Event updated with success!');
       setModalOpen(false);
 

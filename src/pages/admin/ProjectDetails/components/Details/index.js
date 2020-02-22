@@ -50,7 +50,7 @@ export default ({ initialValues }) => {
         values={formik.values}
       />
       <Input
-        label="Age Range"
+        label="Target Audience"
         type="targetAudience"
         placeholder="What's the project target audience"
         name="targetAudience"

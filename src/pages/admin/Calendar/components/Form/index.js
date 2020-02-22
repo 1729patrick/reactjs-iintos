@@ -94,6 +94,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Input
               label="Description"
@@ -104,6 +105,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Input
               label="Location"
@@ -114,6 +116,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker

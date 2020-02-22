@@ -14,4 +14,4 @@ const apiCalendar = () => {
   });
 };
 
-export default apiCalendar();
+export default apiCalendar;

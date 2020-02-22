@@ -177,6 +177,7 @@ const SchoolInformation = ({ location, history }) => {
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
               options={schools}
             />
           )}

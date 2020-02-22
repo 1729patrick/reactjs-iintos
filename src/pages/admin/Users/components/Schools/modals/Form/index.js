@@ -78,6 +78,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
 
             <Input
@@ -89,6 +90,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Input
               label="Country"
@@ -99,6 +101,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Input
               label="City"
@@ -109,6 +112,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Input
               label="Postal Code"
@@ -119,6 +123,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Checkbox
               label="Active"
@@ -129,6 +134,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Button title={submitText} type="submit" />
           </Form>

@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 
 import Button from '~/components/Button';
 import Input from '~/components/Input';
+import Select from '~/components/Select';
 import { Form } from './styles';
 
 function getModalStyle() {
@@ -77,6 +78,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Input
               label="Goal"
@@ -87,6 +89,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
 
             <Input
@@ -99,6 +102,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Input
               label="Links"
@@ -109,9 +113,10 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Input
-              label="Age Range"
+              label="Target Audience"
               type="targetAudience"
               placeholder="What's the project target audience"
               name="targetAudience"
@@ -119,8 +124,9 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
-            <Input
+            <Select
               label="Mobility Type"
               type="type"
               placeholder="What's the mobility type?"
@@ -129,6 +135,11 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
+              options={[
+                { id: 'Online', name: 'Online' },
+                { id: 'Presential', name: 'Presential' },
+              ]}
             />
             <Button title={submitText} type="submit" />
           </Form>

@@ -25,7 +25,7 @@ const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
   { id: 'goal', label: 'Goal', minWidth: 200 },
   { id: 'description', label: 'Description', minWidth: 200 },
-  { id: 'targetAudience', label: 'Age Range', minWidth: 150 },
+  { id: 'targetAudience', label: 'Target Audience', minWidth: 150 },
   { id: 'type', label: 'Mobility Type', minWidth: 150 },
   {
     id: 'see',

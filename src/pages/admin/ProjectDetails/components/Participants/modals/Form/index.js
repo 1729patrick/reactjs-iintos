@@ -81,6 +81,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
 
             <Input
@@ -92,6 +93,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Select
               label="School"
@@ -102,6 +104,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
               options={schools}
             />
             <Select
@@ -113,6 +116,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
               options={roles}
             />
 
@@ -125,6 +129,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Button title={submitText} type="submit" />
           </Form>

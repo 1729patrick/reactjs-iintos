@@ -11,12 +11,15 @@ export default function Select({
   errors,
   touched,
   options,
+  submitted
 }) {
   return (
     <Container>
       <span>
         <label>{label}</label>
-        {touched[name] && errors[name] ? <p>{errors[name]}</p> : null}
+        {submitted || (touched[name] && errors[name]) ? (
+          <p>{errors[name]}</p>
+        ) : null}
       </span>
 
       <select name={name} onChange={onChange} value={values[name]}>
