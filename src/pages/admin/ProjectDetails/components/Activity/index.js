@@ -24,6 +24,8 @@ import validationSchema from '~/validations/activity';
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
   { id: 'description', label: 'Description', minWidth: 200 },
+  { id: 'professorsStr', label: 'Professors', minWidth: 200 },
+  { id: 'studentsStr', label: 'Students', minWidth: 200 },
   {
     id: 'see',
     label: '',
@@ -160,12 +162,18 @@ const Activities = () => {
   };
 
   const handleDetailRow = row => {
+    const formattedRow = {
+      ...row,
+      students: row.students.length
+        ? row.students.map(({ id }) => id)
+        : [undefined],
+      professors: row.professors.length
+        ? row.professors.map(({ id }) => id)
+        : [undefined],
+    };
+
     setModalParams({
-      initialValues: {
-        ...row,
-        studends: [undefined],
-        professors: [undefined],
-      },
+      initialValues: formattedRow,
       validationSchema,
       onSubmit: values => handleUpdate(row.id, values),
       submitText: 'Save',
