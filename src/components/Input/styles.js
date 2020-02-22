@@ -23,7 +23,6 @@ export const Container = styled.div`
 
   input,
   textarea {
-    height: 40px;
     border-radius: 4px;
     border: none;
     background: #eee;
@@ -33,5 +32,13 @@ export const Container = styled.div`
       font-weight: 500;
       color: #444;
     }
+  }
+
+  input {
+    height: 40px;
+  }
+
+  textarea {
+    padding-top: 9px;
   }
 `;

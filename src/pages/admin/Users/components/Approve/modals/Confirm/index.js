@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 
 import Button from '~/components/Button';
+import Input from '~/components/Input';
 
 function getModalStyle() {
   const top = 50;
@@ -27,15 +28,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Delete({
-  initialValues,
-  submitText,
   open,
   setOpen,
   modalTitle,
+  active,
   onSubmit,
-  validationSchema,
 }) {
   const classes = useStyles();
+  const [reason, setReason] = useState();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = useState(getModalStyle);
 
@@ -58,11 +58,21 @@ export default function Delete({
       >
         <div style={modalStyle} className={classes.paper}>
           <h2 id="simple-modal-title">{modalTitle}</h2>
-          <div id="simple-modal-description">
+          <div id="simple-modal-description" style={{ paddingTop: '20px' }}>
+            {!active && (
+              <Input
+                textarea
+                label="Reason"
+                type="text"
+                placeholder="Reason to coordinator inactive"
+                name="reason"
+                onChange={e => setReason(e.target.value)}
+              />
+            )}
             <Button
               title="Yes"
               type="submit"
-              onClick={onSubmit}
+              onClick={() => onSubmit(reason)}
               width="100%"
               marginTop="30px"
             />

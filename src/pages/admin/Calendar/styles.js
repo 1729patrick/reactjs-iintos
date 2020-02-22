@@ -16,9 +16,11 @@ export const ContainerWrap = styled.div`
   .MuiAlert-message {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 
     a {
-      margin-left: 12px;
+      margin-left: auto;
     }
   }
 `;

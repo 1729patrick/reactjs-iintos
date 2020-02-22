@@ -14,8 +14,7 @@ import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
-import FormModal from './modals/Form';
-import DeleteModal from './modals/Delete';
+import ConfirmModal from './modals/Confirm';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
@@ -101,9 +100,9 @@ export default function Approve() {
     setPage(0);
   };
 
-  const handleActveUser = async (user, active) => {
+  const handleActveUser = async (user, active, reasonInactive) => {
     try {
-      const formattedUser = { ...user, active };
+      const formattedUser = { ...user, active, reasonInactive };
       await api.put(`users/${user.id}`, formattedUser);
       setModalOpen(false);
 
@@ -124,6 +123,18 @@ export default function Approve() {
     }
   };
 
+  const handleOpenConfirm = (user, active) => {
+    setModalParams({
+      onSubmit: reason => handleActveUser(user, active, reason),
+      active,
+      modalTitle: `Are you sure you want to ${
+        active ? 'active' : 'inactive'
+      } this coordinator?`,
+    });
+
+    setModalOpen(true);
+  };
+
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
@@ -135,7 +146,7 @@ export default function Approve() {
             cursor: row.active ? 'normal' : 'pointer',
             opacity: row.active ? 0.6 : 1,
           }}
-          onClick={() => !row.active && handleActveUser(row, true)}
+          onClick={() => !row.active && handleOpenConfirm(row, true)}
         />
       );
     }
@@ -148,7 +159,7 @@ export default function Approve() {
             cursor: row.active ? 'pointer' : 'normal',
             opacity: row.active ? 1 : 0.6,
           }}
-          onClick={() => row.active && handleActveUser(row, false)}
+          onClick={() => row.active && handleOpenConfirm(row, false)}
         />
       );
     }
@@ -218,16 +229,7 @@ export default function Approve() {
           />
         </Paper>
       </ContainerWrap>
-      <FormModal
-        open={modalOpen === 'form'}
-        setOpen={setModalOpen}
-        {...modalParams}
-      />
-      <DeleteModal
-        open={modalOpen === 'delete'}
-        setOpen={setModalOpen}
-        {...modalParams}
-      />
+      <ConfirmModal open={modalOpen} setOpen={setModalOpen} {...modalParams} />
     </Container>
   );
 }

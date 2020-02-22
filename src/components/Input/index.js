@@ -29,6 +29,7 @@ export default function Input({
           value={values && values[name]}
           onChange={onChange}
           readOnly={readOnly}
+          rows="4"
         />
       ) : (
         <input
