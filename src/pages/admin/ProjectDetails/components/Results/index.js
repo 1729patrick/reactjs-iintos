@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useState, useMemo } from 'react';
+import { withRouter, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -16,22 +16,14 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
-import FormModal from './components/Form';
-import DeleteModal from './components/Delete';
+import FormModal from './Form';
+import DeleteModal from '../Delete';
 
-import validationSchema from '~/validations/project';
+import validationSchema from '~/validations/result';
 
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
-  { id: 'goal', label: 'Goal', minWidth: 200 },
-  { id: 'targetAudience', label: 'Age Range', minWidth: 150 },
-  { id: 'type', label: 'Mobility Type', minWidth: 150 },
-  {
-    id: 'startDate',
-    label: 'Start Date',
-    minWidth: 200,
-    format: value => value.toFixed(2),
-  },
+  { id: 'description', label: 'Description', minWidth: 200 },
   {
     id: 'see',
     label: '',
@@ -53,25 +45,30 @@ const useStyles = makeStyles({
     width: '100%',
   },
   container: {
-    maxHeight: window.innerHeight - 230,
+    maxHeight: 440,
   },
 });
 
-const Projects = ({ history }) => {
+const Results = () => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [projects, setProjects] = useState([]);
+  const [activities, setActivities] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+  const location = useLocation();
 
-  const fetchProjects = async () => {
-    const response = await api.get('projects');
-    setProjects(response.data);
+  const projectId = useMemo(() => location.pathname.split('/')[2], [
+    location.pathname,
+  ]);
+
+  const fetchActivities = async () => {
+    const response = await api.get(`projects/${projectId}/results`);
+    setActivities(response.data);
   };
 
   useState(() => {
-    fetchProjects();
+    fetchActivities();
   }, []);
 
   const handleChangePage = (event, newPage) => {
@@ -83,12 +80,24 @@ const Projects = ({ history }) => {
     setPage(0);
   };
 
+  // api call to post
+  const handleUpdate = async (id, values) => {
+    try {
+      await api.put(`results/${id}`, values);
+      setModalOpen(false);
+      toast.success('Results updated with success!');
+      fetchActivities();
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+
   const handleCreate = async values => {
     try {
-      await api.post('projects', values);
+      await api.post(`results`, { ...values, projectId });
       setModalOpen(false);
-      toast.success('Project created with success!');
-      fetchProjects();
+      toast.success('Result created with success!');
+      fetchActivities();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
@@ -97,10 +106,10 @@ const Projects = ({ history }) => {
   // api call to delete
   const handleDelete = async id => {
     try {
-      await api.delete(`projects/${id}`);
+      await api.delete(`results/${id}`);
       setModalOpen(false);
-      toast.success('Project deleted with success!');
-      fetchProjects();
+      toast.success('Results deleted with success!');
+      fetchActivities();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid request, try again');
     }
@@ -112,26 +121,37 @@ const Projects = ({ history }) => {
       validationSchema,
       onSubmit: () => handleDelete(row.id),
       submitText: 'Save',
-      modalTitle: 'Are you sure you want to delete this project?',
+      modalTitle: 'Are you sure you want to delete this Result?',
     });
 
     setModalOpen('delete');
   };
 
-  const handleCreateProjects = () => {
+  const handleCreateResult = () => {
     setModalParams({
-      initialValues: {},
       validationSchema,
       onSubmit: handleCreate,
       submitText: 'Create',
-      modalTitle: 'Create a new Project',
+      modalTitle: 'Create a new Results',
     });
 
     setModalOpen('form');
   };
 
   const handleDetailRow = row => {
-    history.push(`/project/${row.id}`);
+    setModalParams({
+      initialValues: {
+        ...row,
+        studends: [undefined],
+        professors: [undefined],
+      },
+      validationSchema,
+      onSubmit: values => handleUpdate(row.id, values),
+      submitText: 'Save',
+      modalTitle: 'Result',
+    });
+
+    setModalOpen('form');
   };
 
   const getRowContent = ({ column, row }) => {
@@ -164,12 +184,12 @@ const Projects = ({ history }) => {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Projects</h1>
+          <h1>Project Outputs</h1>
 
           <Button
-            title="Create Project"
+            title="Create Result"
             type="button"
-            onClick={handleCreateProjects}
+            onClick={handleCreateResult}
           />
         </span>
         <Paper className={classes.root}>
@@ -189,7 +209,7 @@ const Projects = ({ history }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {projects
+                {activities
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
                     return (
@@ -215,7 +235,7 @@ const Projects = ({ history }) => {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={projects.length}
+            count={activities.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
@@ -237,4 +257,4 @@ const Projects = ({ history }) => {
   );
 };
 
-export default withRouter(Projects);
+export default withRouter(Results);

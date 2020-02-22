@@ -7,6 +7,7 @@ import { Container, Menu, Content } from './styles';
 import Activity from './components/Activity';
 import Details from './components/Details';
 import Participants from './components/Participants';
+import Results from './components/Results';
 
 export default withRouter(({ computedMatch }) => {
   const projectId = useMemo(() => computedMatch.params.id, [
@@ -36,6 +37,9 @@ export default withRouter(({ computedMatch }) => {
     }
     if (route === '/activities') {
       return <Activity />;
+    }
+    if (route === '/results') {
+      return <Results />;
     }
 
     // By default, the content from the IPS will appear

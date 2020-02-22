@@ -20,6 +20,7 @@ import FormModal from './components/Form';
 import { Container, ContainerWrap } from './styles';
 import validationSchema from '~/validations/event';
 import api from '~/services/apiCalendar';
+import Button from '~/components/Button';
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
