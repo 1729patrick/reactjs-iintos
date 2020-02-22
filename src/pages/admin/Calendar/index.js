@@ -8,13 +8,15 @@ import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import { toast } from 'react-toastify';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import DeleteModal from './components/Delete';
-import FormModal from './components/Form';
+import Alert from '@material-ui/lab/Alert';
 
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 import '@fullcalendar/timegrid/main.css';
 import '@fullcalendar/list/main.css';
+
+import DeleteModal from './components/Delete';
+import FormModal from './components/Form';
 
 import { Container, ContainerWrap } from './styles';
 import validationSchema from '~/validations/event';
@@ -24,6 +26,8 @@ const Calendar = () => {
   const [events, setEvents] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+  const [user, setUser] = useState({});
+  const [showAlert, setShowAlert] = useState(false);
 
   const fetchEvents = async () => {
     try {
@@ -43,12 +47,21 @@ const Calendar = () => {
       }));
       setEvents(formattedEvents);
     } catch (e) {
+      setShowAlert(true);
       toast.error(e?.response?.data?.error || 'Error, try again!');
     }
   };
 
   useEffect(() => {
     fetchEvents();
+  }, []);
+
+  useEffect(() => {
+    const localUser = localStorage.getItem('user');
+
+    if (localUser) {
+      setUser(JSON.parse(localUser));
+    }
   }, []);
 
   const handleCreateEvent = async ({ event, revert = () => {} }) => {
@@ -162,9 +175,17 @@ const Calendar = () => {
   return (
     <Container>
       <ContainerWrap>
-        <div>
-          <Button text="Login in Google Calendar" />
-        </div>
+        {showAlert && (
+          <Alert severity="warning">
+            You'r must log in google account to see the events
+            <a
+              href={`http://localhost:3334/api/calendar/login/${user.email}`}
+              target="__blank"
+            >
+              Google Login
+            </a>
+          </Alert>
+        )}
 
         <FullCalendar
           eventResize={handleChangeEvent}

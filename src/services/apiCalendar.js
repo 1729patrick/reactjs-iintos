@@ -9,8 +9,7 @@ const apiCalendar = () => {
   return axios.create({
     baseURL: 'http://localhost:3334/api/calendar',
     headers: {
-      // authorization: `Bearer ${user?.email}`,
-      userID: `c@c.com`,
+      userID: user?.email,
     },
   });
 };
