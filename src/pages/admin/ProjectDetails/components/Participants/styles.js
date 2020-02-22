@@ -5,6 +5,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   padding: 0 30px;
+  flex-direction: column;
 `;
 
 export const ContainerWrap = styled.div`
@@ -16,8 +17,12 @@ export const ContainerWrap = styled.div`
     align-items: center;
     justify-content: space-between;
 
-    h1 {
-      margin: 15px 0;
+    button {
+      margin: 15px 0 15px auto;
     }
+  }
+
+  h2 {
+    font-weight: 500;
   }
 `;

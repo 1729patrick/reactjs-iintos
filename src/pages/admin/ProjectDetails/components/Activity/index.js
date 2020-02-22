@@ -57,10 +57,29 @@ const Activities = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
   const location = useLocation();
+  const [users, setUsers] = useState({
+    professors: [],
+    students: [],
+  });
 
   const projectId = useMemo(() => location.pathname.split('/')[2], [
     location.pathname,
   ]);
+
+  const fetchUsers = async () => {
+    const response = await api.get(`projects/${projectId}/users`);
+    const professors = response.data?.professors.map(({ id, professor }) => ({
+      id,
+      name: professor.name,
+    }));
+
+    const students = response.data?.students.map(({ id, studentName }) => ({
+      id,
+      name: studentName,
+    }));
+
+    setUsers({ professors, students });
+  };
 
   const fetchActivities = async () => {
     const response = await api.get(`projects/${projectId}/activities`);
@@ -69,6 +88,7 @@ const Activities = () => {
 
   useState(() => {
     fetchActivities();
+    fetchUsers();
   }, []);
 
   const handleChangePage = (event, newPage) => {
@@ -133,6 +153,7 @@ const Activities = () => {
       onSubmit: handleCreate,
       submitText: 'Create',
       modalTitle: 'Create a new Activity',
+      users,
     });
 
     setModalOpen('form');
@@ -149,6 +170,7 @@ const Activities = () => {
       onSubmit: values => handleUpdate(row.id, values),
       submitText: 'Save',
       modalTitle: 'Activity',
+      users,
     });
 
     setModalOpen('form');

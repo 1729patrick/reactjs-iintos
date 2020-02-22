@@ -40,6 +40,7 @@ export default ({
   modalTitle,
   onSubmit,
   validationSchema,
+  users,
 }) => {
   if (!open) {
     return null;
@@ -126,7 +127,7 @@ export default ({
                     errors={formik.errors}
                     touched={formik.touched}
                     submitted={formik.submitCount}
-                    options={[{ id: 1, name: 'patrick' }]}
+                    options={users.professors}
                   />
                   <DeleteIcon
                     style={{ color: '#cb1010', cursor: 'pointer' }}
@@ -140,7 +141,7 @@ export default ({
             </span>
 
             <span>
-              {formik.values.students.map((_, index) => (
+              {formik.values?.students.map((_, index) => (
                 <div key={String(index)}>
                   <Select
                     label={`Student ${index + 1}`}
@@ -157,7 +158,7 @@ export default ({
                     errors={formik.errors}
                     touched={formik.touched}
                     submitted={formik.submitCount}
-                    options={[{ id: 1, name: 'patrick' }]}
+                    options={users.students}
                   />
                   <DeleteIcon
                     style={{ color: '#cb1010', cursor: 'pointer' }}

@@ -83,7 +83,7 @@ body {
   }
 
   .MuiPaper-root {
-    border-radius: 8px;
+    border-radius: 6px !important;
     overflow: hidden;
     box-shadow: none !important;
   }

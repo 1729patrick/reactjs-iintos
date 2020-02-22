@@ -3,10 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 
-import Button from '~/components/Button';
 import Input from '~/components/Input';
-import Checkbox from '~/components/Checkbox';
-import Select from '~/components/Select';
+import Button from '~/components/Button';
 import { Form } from './styles';
 
 function getModalStyle() {
@@ -40,8 +38,6 @@ export default ({
   modalTitle,
   onSubmit,
   validationSchema,
-  schools,
-  roles,
 }) => {
   if (!open) {
     return null;
@@ -76,62 +72,26 @@ export default ({
             <Input
               label="Name"
               type="text"
-              placeholder="Type the name of this user"
-              name="name"
+              placeholder="Type the name of this student"
+              name="studentName"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
             />
-
             <Input
-              label="E-mail"
-              type="text"
-              placeholder="Email of the user"
-              name="email"
+              label="Age"
+              type="number"
+              placeholder="Type the age of this student"
+              name="studentAge"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
-            />
-            <Select
-              label="School"
-              type="text"
-              placeholder="Type the school of this user"
-              name="schoolId"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-              options={schools}
-            />
-            <Select
-              label="Role"
-              type="text"
-              placeholder="Type the role of this user"
-              name="roleId"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-              options={roles}
             />
 
-            <Checkbox
-              label="Active"
-              type="text"
-              placeholder="Type the country of this user"
-              name="active"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
             <Button title={submitText} type="submit" />
           </Form>
         </div>
