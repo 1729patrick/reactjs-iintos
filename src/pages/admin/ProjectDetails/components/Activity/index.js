@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { withRouter, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -16,10 +16,10 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
-import FormModal from '../Form';
+import FormModal from './Form';
 import DeleteModal from '../Delete';
 
-import validationSchema from '~/validations/project';
+import validationSchema from '~/validations/activity';
 
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
@@ -49,28 +49,25 @@ const useStyles = makeStyles({
   },
 });
 
-const Projects = withRouter(x => {
+const Activities = () => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [projects, setProjects] = useState([]);
+  const [activities, setActivities] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
   const location = useLocation();
 
-  const projectId = location.pathname.split('/')[2];
+  const projectId = useMemo(() => location.pathname.split('/')[2], [
+    location.pathname,
+  ]);
 
-  /*
-  const projectId = useMemo(() => computedMatch.params.id, [
-    computedMatch.params.id,
-  ]); */
-
-  const fetchProjects = async () => {
+  const fetchActivities = async () => {
     const response = await api.get(`projects/${projectId}/activities`);
-    setProjects(response.data);
+    setActivities(response.data);
   };
 
-  useState(fetchProjects, []);
+  useState(fetchActivities, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -84,10 +81,10 @@ const Projects = withRouter(x => {
   // api call to post
   const handleUpdate = async (id, values) => {
     try {
-      await api.put(`projects/${id}`, values);
+      await api.put(`activities/${id}`, values);
       setModalOpen(false);
-      toast.success('Project updated with success!');
-      fetchProjects();
+      toast.success('Activity updated with success!');
+      fetch();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
@@ -95,10 +92,10 @@ const Projects = withRouter(x => {
 
   const handleCreate = async values => {
     try {
-      await api.post('projects', values);
+      await api.post(`activities`, values);
       setModalOpen(false);
-      toast.success('Project created with success!');
-      fetchProjects();
+      toast.success('Activity created with success!');
+      fetchActivities();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
@@ -107,10 +104,10 @@ const Projects = withRouter(x => {
   // api call to delete
   const handleDelete = async id => {
     try {
-      await api.delete(`projects/${id}`);
+      await api.delete(`activities/${id}`);
       setModalOpen(false);
-      toast.success('Project deleted with success!');
-      fetchProjects();
+      toast.success('Activity deleted with success!');
+      fetchActivities();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid request, try again');
     }
@@ -128,7 +125,7 @@ const Projects = withRouter(x => {
     setModalOpen('delete');
   };
 
-  const handleCreateProjects = () => {
+  const handleCreateActivity = () => {
     setModalParams({
       initialValues: {},
       validationSchema,
@@ -146,7 +143,7 @@ const Projects = withRouter(x => {
       validationSchema,
       onSubmit: values => handleUpdate(row.id, values),
       submitText: 'Save',
-      modalTitle: 'Project',
+      modalTitle: 'Activity',
     });
 
     setModalOpen('form');
@@ -187,7 +184,7 @@ const Projects = withRouter(x => {
           <Button
             title="Create Activty"
             type="button"
-            onClick={handleCreateProjects}
+            onClick={handleCreateActivity}
           />
         </span>
         <Paper className={classes.root}>
@@ -207,7 +204,7 @@ const Projects = withRouter(x => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {projects
+                {activities
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
                     return (
@@ -233,7 +230,7 @@ const Projects = withRouter(x => {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={projects.length}
+            count={activities.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
@@ -253,6 +250,6 @@ const Projects = withRouter(x => {
       />
     </Container>
   );
-});
+};
 
-export default withRouter(Projects);
+export default withRouter(Activities);

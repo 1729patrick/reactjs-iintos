@@ -15,7 +15,6 @@ import '@fullcalendar/daygrid/main.css';
 import '@fullcalendar/timegrid/main.css';
 import '@fullcalendar/list/main.css';
 
-import DeleteModal from './components/Delete';
 import FormModal from './components/Form';
 
 import { Container, ContainerWrap } from './styles';
@@ -276,11 +275,7 @@ const Calendar = () => {
         setOpen={setModalOpen}
         {...modalParams}
       />
-      <DeleteModal
-        open={modalOpen === 'delete'}
-        setOpen={setModalOpen}
-        {...modalParams}
-      />
+  
     </Container>
   );
 };

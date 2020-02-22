@@ -81,4 +81,10 @@ body {
     background: transparent;
     border: none;
   }
+
+  .MuiPaper-root {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: none !important;
+  }
 `;

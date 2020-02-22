@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
+import FormModal from './components/Form';
 import DeleteModal from './components/Delete';
 
 import validationSchema from '~/validations/project';
@@ -47,7 +48,7 @@ const useStyles = makeStyles({
     width: '100%',
   },
   container: {
-    maxHeight: 440,
+    maxHeight: window.innerHeight - 230,
   },
 });
 
@@ -215,6 +216,11 @@ const Projects = ({ history }) => {
           />
         </Paper>
       </ContainerWrap>
+      <FormModal
+        open={modalOpen === 'form'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
       <DeleteModal
         open={modalOpen === 'delete'}
         setOpen={setModalOpen}

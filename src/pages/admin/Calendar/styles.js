@@ -9,6 +9,8 @@ export const Container = styled.div`
 `;
 
 export const ContainerWrap = styled.div`
+  width: 100%;
+
   height: 100%;
   width: 78%;
   padding-top: 20px;

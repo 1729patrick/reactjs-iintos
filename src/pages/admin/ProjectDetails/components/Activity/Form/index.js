@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 
-import Checkbox from '~/components/Checkbox';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import { Form } from './styles';
@@ -71,10 +70,10 @@ export default ({
         <div id="simple-modal-description">
           <Form onSubmit={formik.handleSubmit}>
             <Input
-              label="Name"
+              label="Title"
               type="text"
-              placeholder="Type the name of this school"
-              name="name"
+              placeholder="Type the project title"
+              name="title"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
@@ -83,54 +82,11 @@ export default ({
             />
 
             <Input
-              label="Phone"
+              label="Description"
               type="text"
-              placeholder="Phone of the school"
-              name="phone"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
-            <Input
-              label="Country"
-              type="text"
-              placeholder="Type the country of this school"
-              name="country"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
-            <Input
-              label="City"
-              type="text"
-              placeholder="Type the city of this school"
-              name="city"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
-            <Input
-              label="Postal Code"
-              type="text"
-              placeholder="Type the postal code of this school"
-              name="postalCode"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
-            <Checkbox
-              label="Active"
-              type="text"
-              placeholder="Type the country of this user"
-              name="active"
+              textarea
+              placeholder="Tell more about this project"
+              name="description"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}

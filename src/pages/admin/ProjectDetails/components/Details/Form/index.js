@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 
-import Checkbox from '~/components/Checkbox';
+import Select from '~/components/Select';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import { Form } from './styles';
@@ -71,10 +71,21 @@ export default ({
         <div id="simple-modal-description">
           <Form onSubmit={formik.handleSubmit}>
             <Input
-              label="Name"
+              label="Title"
               type="text"
-              placeholder="Type the name of this school"
-              name="name"
+              placeholder="Type the project title"
+              name="title"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
+            />
+            <Input
+              label="Goal"
+              type="text"
+              placeholder="Type the project goal"
+              name="goal"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
@@ -83,10 +94,11 @@ export default ({
             />
 
             <Input
-              label="Phone"
+              label="Description"
               type="text"
-              placeholder="Phone of the school"
-              name="phone"
+              textarea
+              placeholder="Tell more about this project"
+              name="description"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
@@ -94,10 +106,10 @@ export default ({
               submitted={formik.submitCount}
             />
             <Input
-              label="Country"
+              label="Links"
               type="text"
-              placeholder="Type the country of this school"
-              name="country"
+              placeholder="links"
+              name="links"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
@@ -105,37 +117,30 @@ export default ({
               submitted={formik.submitCount}
             />
             <Input
-              label="City"
-              type="text"
-              placeholder="Type the city of this school"
-              name="city"
+              label="Target Audience"
+              type="targetAudience"
+              placeholder="What's the project target audience"
+              name="targetAudience"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
             />
-            <Input
-              label="Postal Code"
-              type="text"
-              placeholder="Type the postal code of this school"
-              name="postalCode"
+            <Select
+              label="Mobility Type"
+              type="type"
+              placeholder="What's the mobility type?"
+              name="type"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
-            />
-            <Checkbox
-              label="Active"
-              type="text"
-              placeholder="Type the country of this user"
-              name="active"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
+              options={[
+                { id: 'Online', name: 'Online' },
+                { id: 'Presential', name: 'Presential' },
+              ]}
             />
             <Button title={submitText} type="submit" />
           </Form>

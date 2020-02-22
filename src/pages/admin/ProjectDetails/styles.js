@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100vh;
   width: 100%;
   display: flex;
 `;
@@ -36,8 +35,7 @@ export const Menu = styled.div`
 
 export const Content = styled.div`
   width: 100%;
-  padding-right: 100px;
-  padding-left: 20px;
+  padding: 0 30px;
 
   h1 {
     display: flex;

@@ -4,7 +4,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import { toast } from 'react-toastify';
 import validationSchema from '~/validations/project';
-import FormModal from '../Form';
+import FormModal from './Form';
 import Input from '~/components/Input';
 import { Form } from './styles';
 import api from '~/services/api';

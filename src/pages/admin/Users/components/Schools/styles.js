@@ -8,6 +8,8 @@ export const Container = styled.div`
 `;
 
 export const ContainerWrap = styled.div`
+  width: 100%;
+
   > span {
     display: flex;
     flex-direction: row;
