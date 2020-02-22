@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.footer`
- 
-  height: "60px",
-  width: "100%"
-
-	
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
 `;

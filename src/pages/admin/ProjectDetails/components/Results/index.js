@@ -184,7 +184,7 @@ const Results = () => {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Project Outputs</h1>
+          <h1>Project Results</h1>
 
           <Button
             title="Create Result"

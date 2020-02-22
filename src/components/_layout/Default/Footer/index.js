@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 
 import { Container } from './styles';
 
-const Header = () => {
+const Footer = () => {
   return (
     <Container>
-      <div className="phantom" />
       <footer>
         <div>
-          © 2020 - IINTOS -<Link to="/">Privacy</Link>- Platform
+          © 2020 - IINTOS - <Link to="/">Privacy</Link> - Platform
           Underdevelopment
         </div>
       </footer>
@@ -17,4 +16,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Footer;
