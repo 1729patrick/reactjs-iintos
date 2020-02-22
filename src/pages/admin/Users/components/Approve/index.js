@@ -89,7 +89,9 @@ export default function Approve() {
     setUsers(response.data);
   };
 
-  useState(fetchUsers, []);
+  useState(() => {
+    fetchUsers();
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

@@ -65,7 +65,9 @@ const Projects = ({ history }) => {
     setProjects(response.data);
   };
 
-  useState(fetchProjects, []);
+  useState(() => {
+    fetchProjects();
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

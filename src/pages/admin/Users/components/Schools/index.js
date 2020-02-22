@@ -85,7 +85,9 @@ export default function Schools() {
     setSchools(response.data);
   };
 
-  useState(fetchSchools, []);
+  useState(() => {
+    fetchSchools();
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

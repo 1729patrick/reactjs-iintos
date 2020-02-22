@@ -95,7 +95,9 @@ export default function Users() {
     fetchSchools();
   }, []);
 
-  useState(fetchUsers, []);
+  useState(() => {
+    fetchUsers();
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

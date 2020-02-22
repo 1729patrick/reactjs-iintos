@@ -19,7 +19,9 @@ export default withRouter(({ computedMatch }) => {
     setProjects(response.data);
   };
 
-  useState(fetchProjects, []);
+  useState(() => {
+    fetchProjects();
+  }, []);
 
   const Children = () => {
     const location = useLocation();

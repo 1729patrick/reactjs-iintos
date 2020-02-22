@@ -67,7 +67,9 @@ const Activities = () => {
     setActivities(response.data);
   };
 
-  useState(fetchActivities, []);
+  useState(() => {
+    fetchActivities();
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -84,7 +86,7 @@ const Activities = () => {
       await api.put(`activities/${id}`, values);
       setModalOpen(false);
       toast.success('Activity updated with success!');
-      fetch();
+      fetchActivities();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
@@ -92,7 +94,7 @@ const Activities = () => {
 
   const handleCreate = async values => {
     try {
-      await api.post(`activities`, values);
+      await api.post(`activities`, { ...values, projectId });
       setModalOpen(false);
       toast.success('Activity created with success!');
       fetchActivities();
