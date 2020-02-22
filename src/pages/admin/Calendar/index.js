@@ -16,6 +16,7 @@ import '@fullcalendar/timegrid/main.css';
 import '@fullcalendar/list/main.css';
 
 import DeleteModal from './components/Delete';
+import FormModal from './components/Form';
 
 import { Container, ContainerWrap } from './styles';
 import validationSchema from '~/validations/event';
@@ -270,6 +271,11 @@ const Calendar = () => {
         />
       </ContainerWrap>
 
+      <FormModal
+        open={modalOpen === 'form'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
       <DeleteModal
         open={modalOpen === 'delete'}
         setOpen={setModalOpen}
