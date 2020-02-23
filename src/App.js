@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 import GlobalStyle from '~/styles/global';
 
@@ -10,7 +10,7 @@ function App() {
     <div>
       <Routes />
       <GlobalStyle />
-      <ToastContainer />
+      <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
     </div>
   );
 }
