@@ -25,7 +25,7 @@ const Participants = ({ location, hasProfessor }) => {
     const response = await api.get(`projects/${projectId}/users`);
 
     const userList = response.data;
-    console.log(userList);
+
     // userList = userList.map(({}) => {});
 
     setUsers(userList);

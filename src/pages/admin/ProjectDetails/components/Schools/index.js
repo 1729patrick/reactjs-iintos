@@ -96,7 +96,6 @@ export default function Schools({ hasProfessor }) {
 
     // Map the id of the schools
     const formattedSchoolsProject = schools.map(({ schoolId }) => schoolId);
-    console.log(formattedSchoolsProject);
 
     // filter out the new school in in the selection list
     const filterList = list.filter(
@@ -137,7 +136,7 @@ export default function Schools({ hasProfessor }) {
     try {
       await api.delete(`schoolProjects/${id}`);
       setModalOpen(false);
-      toast.success('School deleted with success!');
+      toast.success('School removed with success!');
       fetchSchools();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid request, try again');
@@ -150,7 +149,7 @@ export default function Schools({ hasProfessor }) {
       validationSchema,
       onSubmit: () => handleDelete(row.id),
       submitText: 'Save',
-      modalTitle: 'Are you sure you want to delete this school?',
+      modalTitle: 'Are you sure you want to remove this school?',
     });
 
     setModalOpen('delete');
@@ -162,7 +161,7 @@ export default function Schools({ hasProfessor }) {
       validationSchema,
       onSubmit: handleCreate,
       submitText: 'Create',
-      modalTitle: 'Create a new School',
+      modalTitle: 'Add a new School',
     });
     // Gets all the avaliable schools;
     fetchAllSchools();
@@ -255,7 +254,7 @@ export default function Schools({ hasProfessor }) {
       </ContainerWrap>
       <FormModal
         users={allSchools}
-        open={modalOpen}
+        open={modalOpen === 'form'}
         setOpen={setModalOpen}
         {...modalParams}
       />
@@ -267,3 +266,6 @@ export default function Schools({ hasProfessor }) {
     </Container>
   );
 }
+/**
+ *
+ */
