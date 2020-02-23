@@ -17,7 +17,7 @@ const Header = () => {
     localStorage.clear();
   };
 
-  const showUsers = useCallback(() => {
+  const groupAdmin = useCallback(() => {
     return (
       user?.role === 'Admin' ||
       user?.role === 'IINTOS-Admin' ||
@@ -25,8 +25,8 @@ const Header = () => {
     );
   }, [user]);
 
-  const showSchool = useCallback(() => {
-    return user?.role === 'Coodinator' || user?.role === 'Professor';
+  const groupSchool = useCallback(() => {
+    return user?.role === 'Coordinator' || user?.role === 'Professor';
   }, [user]);
 
   return (
@@ -43,8 +43,9 @@ const Header = () => {
           <NavLink to="/project">Project</NavLink>
           <NavLink to="/calendar">Calendar</NavLink>
 
-          {showUsers() && <NavLink to="/users">Users</NavLink>}
-          {showSchool() && <NavLink to="/school">School</NavLink>}
+          {groupAdmin() && <NavLink to="/outputs">Outputs</NavLink>}
+          {groupAdmin() && <NavLink to="/users">Users</NavLink>}
+          {groupSchool() && <NavLink to="/school">School</NavLink>}
 
           <NavLink to="/login" onClick={logout}>
             Logout

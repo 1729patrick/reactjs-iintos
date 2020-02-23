@@ -8,56 +8,38 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import ThumbUp from '@material-ui/icons/ThumbUp';
-import ThumbDown from '@material-ui/icons/ThumbDown';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
-import ConfirmModal from './modals/Confirm';
+import FormModal from './modals/Form';
+
+import validationSchema from '~/validations/school';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
-  { id: 'email', label: 'E-mail', minWidth: 150 },
+  { id: 'phone', label: 'Phone', minWidth: 150 },
   {
-    id: 'school',
-    label: 'School',
-    minWidth: 200,
-  },
-  {
-    id: 'certificate',
-    label: 'Certificate',
+    id: 'country',
+    label: 'Country',
     minWidth: 100,
-    format: value =>
-      !value ? (
-        ''
-      ) : (
-        <a href={value} target="__blank">
-          Open File
-        </a>
-      ),
+    format: value => value.toLocaleString(),
   },
   {
-    id: 'active',
-    label: 'Active',
+    id: 'city',
+    label: 'City',
     minWidth: 100,
-    format: value => (value ? 'Yes' : 'No'),
+    format: value => value.toLocaleString(),
   },
   {
-    id: 'role',
-    label: 'Role',
+    id: 'postalCode',
+    label: 'Postal Code',
     minWidth: 100,
     format: value => value.toFixed(2),
   },
   {
-    id: 'up',
-    label: '',
-    align: 'center',
-    minWidth: 50,
-    format: value => value.toFixed(2),
-  },
-  {
-    id: 'down',
+    id: 'see',
     label: '',
     align: 'center',
     minWidth: 50,
@@ -74,23 +56,21 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Approve() {
+export default function Schools() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [users, setUsers] = useState([]);
+  const [schools, setSchools] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
 
-  const fetchUsers = async () => {
-    const response = await api.get('users', {
-      params: { role: 'Coordinator' },
-    });
-    setUsers(response.data);
+  const fetchSchools = async () => {
+    const response = await api.get('schools');
+    setSchools(response.data);
   };
 
   useState(() => {
-    fetchUsers();
+    fetchSchools();
   }, []);
 
   const handleChangePage = (event, newPage) => {
@@ -102,74 +82,44 @@ export default function Approve() {
     setPage(0);
   };
 
-  const handleActveUser = async (user, active, reasonInactive) => {
+  // api call to post
+  const handleUpdate = async (id, values) => {
     try {
-      const formattedUser = { ...user, active, reasonInactive };
-      await api.put(`users/${user.id}`, formattedUser);
+      await api.put(`schools/${id}`, values);
       setModalOpen(false);
-
-      setUsers(
-        users.map(u => {
-          if (u.id === user.id) {
-            return formattedUser;
-          }
-
-          return u;
-        })
-      );
-
-      toast.success('User updated with success!');
-      fetchUsers();
+      toast.success('School updated with success!');
+      fetchSchools();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
   };
 
-  const handleOpenConfirm = (user, active) => {
+  const handleDetailRow = row => {
     setModalParams({
-      onSubmit: reason => handleActveUser(user, active, reason),
-      active,
-      modalTitle: `Are you sure you want to ${
-        active ? 'active' : 'inactive'
-      } this coordinator?`,
+      initialValues: row,
+      validationSchema,
+      onSubmit: values => handleUpdate(row.id, values),
+      submitText: 'Save',
+      modalTitle: 'School',
     });
 
-    setModalOpen(true);
+    setModalOpen('form');
   };
 
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
-    if (column.id === 'up') {
+    if (column.id === 'see') {
       return (
-        <ThumbUp
-          style={{
-            color: 'rgb(23, 179, 14)',
-            cursor: row.active ? 'normal' : 'pointer',
-            opacity: row.active ? 0.6 : 1,
-          }}
-          onClick={() => !row.active && handleOpenConfirm(row, true)}
-        />
-      );
-    }
-
-    if (column.id === 'down') {
-      return (
-        <ThumbDown
-          style={{
-            color: '#cb1010',
-            cursor: row.active ? 'pointer' : 'normal',
-            opacity: row.active ? 1 : 0.6,
-          }}
-          onClick={() => row.active && handleOpenConfirm(row, false)}
+        <VisibilityIcon
+          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          onClick={() => handleDetailRow(row)}
         />
       );
     }
 
     return column.format &&
-      (typeof value === 'number' ||
-        typeof value === 'boolean' ||
-        column.id === 'certificate')
+      (typeof value === 'number' || typeof value === 'boolean')
       ? column.format(value)
       : value;
   };
@@ -178,7 +128,7 @@ export default function Approve() {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Approve Coodinators</h1>
+          <h1>School</h1>
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
@@ -197,7 +147,7 @@ export default function Approve() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {users
+                {schools
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
                     return (
@@ -223,7 +173,7 @@ export default function Approve() {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={users.length}
+            count={schools.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
@@ -231,7 +181,11 @@ export default function Approve() {
           />
         </Paper>
       </ContainerWrap>
-      <ConfirmModal open={modalOpen} setOpen={setModalOpen} {...modalParams} />
+      <FormModal
+        open={modalOpen === 'form'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
     </Container>
   );
 }
