@@ -23,13 +23,19 @@ const Participants = ({ location, hasProfessor }) => {
 
   const fetchUsers = async () => {
     const response = await api.get(`projects/${projectId}/users`);
-    setUsers(response.data);
+
+    const userList = response.data;
+    console.log(userList);
+    // userList = userList.map(({}) => {});
+
+    setUsers(userList);
   };
 
   const fetchAllProfessors = async () => {
     const response = await api.get('professors', {
       params: { projectId },
     });
+
     setAllProfessors(response.data);
   };
 

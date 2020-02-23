@@ -96,6 +96,7 @@ export default function Schools({ hasProfessor }) {
 
     // Map the id of the schools
     const formattedSchoolsProject = schools.map(({ schoolId }) => schoolId);
+    console.log(formattedSchoolsProject);
 
     // filter out the new school in in the selection list
     const filterList = list.filter(
