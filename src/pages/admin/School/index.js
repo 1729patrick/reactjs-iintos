@@ -9,26 +9,26 @@ import Approve from './components/Approve';
 
 export default withRouter(({ location }) => {
   const Children = () => {
-    const route = location.pathname.replace('/users', '');
-    if (route === '/schools') {
-      return <Schools />;
+    const route = location.pathname.replace('/school', '');
+    if (route === '/users') {
+      return <Users />;
     }
 
     if (route === '/approve') {
       return <Approve />;
     }
 
-    return <Users />;
+    return <Schools />;
   };
   return (
     <Container>
       <Menu>
         <div>
-          <NavLink to="/users" exact>
-            Users
+          <NavLink to="/school" exact>
+            Detail
           </NavLink>
-          <NavLink to="/users/schools">Schools</NavLink>
-          <NavLink to="/users/approve">Approve Coordinators</NavLink>
+          <NavLink to="/school/users">Users</NavLink>
+          <NavLink to="/school/approve">Approve Professors</NavLink>
         </div>
       </Menu>
       <Content>

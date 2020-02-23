@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { withRouter } from 'react-router-dom';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';

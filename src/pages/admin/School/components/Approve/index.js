@@ -84,7 +84,7 @@ export default function Approve() {
 
   const fetchUsers = async () => {
     const response = await api.get('users', {
-      params: { role: 'Coordinator' },
+      params: { role: 'Professor' },
     });
     setUsers(response.data);
   };
@@ -131,7 +131,7 @@ export default function Approve() {
       active,
       modalTitle: `Are you sure you want to ${
         active ? 'active' : 'inactive'
-      } this coordinator?`,
+      } this professor?`,
     });
 
     setModalOpen(true);
@@ -178,7 +178,7 @@ export default function Approve() {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Approve Coodinators</h1>
+          <h1>Approve Professors</h1>
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

@@ -9,6 +9,7 @@ export default function Checkbox({
   errors,
   touched,
   label,
+  readOnly,
 }) {
   return (
     <Container>
@@ -18,6 +19,7 @@ export default function Checkbox({
         value="true"
         checked={values[name]}
         onChange={onChange}
+        disabled={readOnly}
       />
 
       <span>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  initialValues = { students: [undefined], professors: [undefined], title: '' },
+  initialValues,
   submitText,
   open,
   setOpen,
@@ -45,7 +45,7 @@ export default ({
 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = useState(getModalStyle);
+  const [modalStyle] = React.useState(getModalStyle);
 
   const handleClose = () => {
     setOpen(false);
@@ -70,30 +70,68 @@ export default ({
         <div id="simple-modal-description">
           <Form onSubmit={formik.handleSubmit}>
             <Input
-              label="Title"
+              label="Name"
               type="text"
-              placeholder="Type the project title"
-              name="title"
+              placeholder="Type the name of this school"
+              name="name"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
+              readOnly
             />
 
             <Input
-              label="Description"
+              label="Phone"
               type="text"
-              textarea
-              placeholder="Tell more about this project"
-              name="description"
+              placeholder="Phone of the school"
+              name="phone"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
+              readOnly
             />
-            <Button title={submitText} type="submit" />
+            <Input
+              label="Country"
+              type="text"
+              placeholder="Type the country of this school"
+              name="country"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
+              readOnly
+            />
+            <Input
+              label="City"
+              type="text"
+              placeholder="Type the city of this school"
+              name="city"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
+              readOnly
+            />
+            <Input
+              label="Postal Code"
+              type="text"
+              placeholder="Type the postal code of this school"
+              name="postalCode"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
+              readOnly
+            />
+
+            {/* <Button title={submitText} type="submit" /> */}
           </Form>
         </div>
       </div>

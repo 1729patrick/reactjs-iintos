@@ -5,8 +5,8 @@ import Dashboard from '~/pages/admin/Dashboard';
 import Calendar from '~/pages/admin/Calendar';
 import Users from '~/pages/admin/Users';
 import Project from '~/pages/admin/Project';
+import School from '~/pages/admin/School';
 
-import Home from '~/pages/public/Home';
 import Login from '~/pages/public/Login';
 import SignUp from '~/pages/public/SignUp';
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
@@ -22,7 +22,6 @@ export default () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" component={Home} exact />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} exact />
         <Route
@@ -39,6 +38,7 @@ export default () => {
         <Route path="/project/:id" component={ProjectDetails} isPrivate />
 
         <Route path="/users" component={Users} isPrivate />
+        <Route path="/school" component={School} isPrivate />
         <Route path="/users/schools" component={Users} isPrivate />
         <Route path="/partners" component={Partners} />
 

@@ -10,9 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import { toast } from 'react-toastify';
 
-import api from '~/services/api';
 import Button from '~/components/Button';
 import FormModal from './Form';
 import validationSchema from '~/validations/projectStudent';

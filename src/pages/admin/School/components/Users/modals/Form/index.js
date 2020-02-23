@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 
 import Button from '~/components/Button';
 import Input from '~/components/Input';
+import Checkbox from '~/components/Checkbox';
+import Select from '~/components/Select';
 import { Form } from './styles';
 
 function getModalStyle() {
@@ -31,13 +33,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  initialValues = { students: [undefined], professors: [undefined], title: '' },
+  initialValues,
   submitText,
   open,
   setOpen,
   modalTitle,
   onSubmit,
   validationSchema,
+  schools,
+  roles,
 }) => {
   if (!open) {
     return null;
@@ -45,7 +49,7 @@ export default ({
 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = useState(getModalStyle);
+  const [modalStyle] = React.useState(getModalStyle);
 
   const handleClose = () => {
     setOpen(false);
@@ -57,6 +61,15 @@ export default ({
     initialValues,
     onSubmit,
   });
+
+  useEffect(() => {
+    formik.setFieldValue('schoolId', schools ? schools[0].id : null);
+    formik.setFieldValue(
+      'active',
+      formik.values.active === undefined ? true : formik.values.active
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [schools]);
 
   return (
     <Modal
@@ -70,10 +83,10 @@ export default ({
         <div id="simple-modal-description">
           <Form onSubmit={formik.handleSubmit}>
             <Input
-              label="Title"
+              label="Name"
               type="text"
-              placeholder="Type the project title"
-              name="title"
+              placeholder="Type the name of this user"
+              name="name"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
@@ -82,16 +95,52 @@ export default ({
             />
 
             <Input
-              label="Description"
+              label="E-mail"
               type="text"
-              textarea
-              placeholder="Tell more about this project"
-              name="description"
+              placeholder="Email of the user"
+              name="email"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
+            />
+            <Select
+              label="Role"
+              type="text"
+              placeholder="Type the role of this user"
+              name="roleId"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
+              options={roles}
+            />
+
+            <Select
+              label="School"
+              type="text"
+              placeholder="Type the school of this user"
+              name="schoolId"
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              options={schools}
+              readOnly
+            />
+
+            <Checkbox
+              label="Active"
+              type="text"
+              placeholder="Type the country of this user"
+              name="active"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
+              readOnly
             />
             <Button title={submitText} type="submit" />
           </Form>
