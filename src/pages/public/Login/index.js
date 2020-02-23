@@ -15,7 +15,7 @@ const Login = ({ history }) => {
   const submitForm = async credentials => {
     try {
       const response = await api.post('/sessions', credentials);
-      const { user, token, school } = response.data;
+      const { user, token } = response.data;
 
       if (!user.active) {
         return history.push('/await_verification');

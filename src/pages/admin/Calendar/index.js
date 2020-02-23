@@ -149,7 +149,7 @@ const Calendar = () => {
   const handleEventClick = ({ event }) => {
     const { id, title, extendedProps, _instance } = event;
     const { start, end } = _instance.range;
-    const { description } = extendedProps;
+    const { description, location } = extendedProps;
 
     const formattedEvent = {
       id,
@@ -157,6 +157,7 @@ const Calendar = () => {
       start,
       end,
       description,
+      location,
     };
 
     setModalParams({
