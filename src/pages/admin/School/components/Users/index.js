@@ -56,7 +56,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Users() {
+export default function Users({ hasCoordinator }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -152,7 +152,7 @@ export default function Users() {
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
-    if (column.id === 'see') {
+    if (column.id === 'see' && hasCoordinator) {
       return (
         <VisibilityIcon
           style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
@@ -173,11 +173,13 @@ export default function Users() {
         <span>
           <h1>Users</h1>
 
-          <Button
-            title="Create User"
-            type="button"
-            onClick={handleCreateUser}
-          />
+          {hasCoordinator && (
+            <Button
+              title="Create User"
+              type="button"
+              onClick={handleCreateUser}
+            />
+          )}
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
