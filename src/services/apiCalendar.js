@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+export const CALENDAR_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3334/api/calendar'
+    : 'https://portalbox.tech/api/calendar';
+
 const apiCalendar = () => {
   let user = localStorage.getItem('user');
   if (user) {
@@ -7,7 +12,7 @@ const apiCalendar = () => {
   }
 
   return axios.create({
-    baseURL: 'http://localhost:3334/api/calendar',
+    baseURL: CALENDAR_URL,
     headers: {
       userID: user?.email,
     },

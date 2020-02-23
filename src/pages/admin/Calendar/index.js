@@ -19,8 +19,7 @@ import FormModal from './components/Form';
 
 import { Container, ContainerWrap } from './styles';
 import validationSchema from '~/validations/event';
-import api from '~/services/apiCalendar';
-import Button from '~/components/Button';
+import api, { CALENDAR_URL } from '~/services/apiCalendar';
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
@@ -177,10 +176,7 @@ const Calendar = () => {
         {showAlert && (
           <Alert severity="warning">
             You'r must log in google account to see the events
-            <a
-              href={`http://localhost:3334/api/calendar/login/${user.email}`}
-              target="__blank"
-            >
+            <a href={`${CALENDAR_URL}/login/${user.email}`} target="__blank">
               Google Login
             </a>
           </Alert>
@@ -276,7 +272,6 @@ const Calendar = () => {
         setOpen={setModalOpen}
         {...modalParams}
       />
-  
     </Container>
   );
 };
