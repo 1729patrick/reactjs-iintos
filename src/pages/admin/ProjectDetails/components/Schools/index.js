@@ -168,18 +168,7 @@ export default function Schools() {
 
     setModalOpen('form');
   };
-
-  const handleDetailRow = row => {
-    setModalParams({
-      initialValues: row.school,
-      validationSchema,
-      submitText: 'Save',
-      modalTitle: 'School',
-    });
-
-    setModalOpen('form');
-  };
-
+  
   const getRowContent = ({ column, row }) => {
     const value = row.school[column.id];
 
