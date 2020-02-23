@@ -65,15 +65,11 @@ const SchoolInformation = ({ location, history }) => {
         user: userData,
       });
 
-      toast.success('Account created with success', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.success('Account created with success');
       localStorage.removeItem('registration');
       history.push('login');
     } catch ({ response }) {
-      toast.error(response?.data?.error || 'Invalid data', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error(response?.data?.error || 'Invalid data');
     }
   };
 
