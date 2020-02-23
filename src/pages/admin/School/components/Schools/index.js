@@ -8,14 +8,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
-import FormModal from './modals/Form';
-
-import validationSchema from '~/validations/school';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
@@ -38,13 +33,6 @@ const columns = [
     minWidth: 100,
     format: value => value.toFixed(2),
   },
-  {
-    id: 'see',
-    label: '',
-    align: 'center',
-    minWidth: 50,
-    format: value => value.toFixed(2),
-  },
 ];
 
 const useStyles = makeStyles({
@@ -61,8 +49,6 @@ export default function Schools() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [schools, setSchools] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalParams, setModalParams] = useState({});
 
   const fetchSchools = async () => {
     const response = await api.get('schools');
@@ -82,41 +68,8 @@ export default function Schools() {
     setPage(0);
   };
 
-  // api call to post
-  const handleUpdate = async (id, values) => {
-    try {
-      await api.put(`schools/${id}`, values);
-      setModalOpen(false);
-      toast.success('School updated with success!');
-      fetchSchools();
-    } catch (e) {
-      toast.error(e?.response?.data?.error || 'Invalid data, try again');
-    }
-  };
-
-  const handleDetailRow = row => {
-    setModalParams({
-      initialValues: row,
-      validationSchema,
-      onSubmit: values => handleUpdate(row.id, values),
-      submitText: 'Save',
-      modalTitle: 'School',
-    });
-
-    setModalOpen('form');
-  };
-
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
-
-    if (column.id === 'see') {
-      return (
-        <VisibilityIcon
-          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
-          onClick={() => handleDetailRow(row)}
-        />
-      );
-    }
 
     return column.format &&
       (typeof value === 'number' || typeof value === 'boolean')
@@ -128,7 +81,7 @@ export default function Schools() {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>School</h1>
+          <h1>Details</h1>
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
@@ -181,11 +134,6 @@ export default function Schools() {
           />
         </Paper>
       </ContainerWrap>
-      <FormModal
-        open={modalOpen === 'form'}
-        setOpen={setModalOpen}
-        {...modalParams}
-      />
     </Container>
   );
 }

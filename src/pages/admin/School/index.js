@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import { Container, Menu, Content } from './styles';
@@ -8,10 +8,22 @@ import Users from './components/Users';
 import Approve from './components/Approve';
 
 export default withRouter(({ location }) => {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const localUser = localStorage.getItem('user');
+
+    if (localUser) {
+      setUser(JSON.parse(localUser));
+    }
+  }, []);
+
+  const hasCoordinator = useMemo(() => user.role === 'Coordinator', [user]);
+
   const Children = () => {
     const route = location.pathname.replace('/school', '');
     if (route === '/users') {
-      return <Users />;
+      return <Users hasCoordinator={hasCoordinator} />;
     }
 
     if (route === '/approve') {
@@ -25,10 +37,12 @@ export default withRouter(({ location }) => {
       <Menu>
         <div>
           <NavLink to="/school" exact>
-            Detail
+            Details
           </NavLink>
           <NavLink to="/school/users">Users</NavLink>
-          <NavLink to="/school/approve">Approve Professors</NavLink>
+          {hasCoordinator && (
+            <NavLink to="/school/approve">Approve Professors</NavLink>
+          )}
         </div>
       </Menu>
       <Content>
