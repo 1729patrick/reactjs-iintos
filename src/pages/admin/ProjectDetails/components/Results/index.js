@@ -49,7 +49,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Results = () => {
+const Results = ({ hasProfessor }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -157,7 +157,7 @@ const Results = () => {
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
-    if (column.id === 'delete') {
+    if (column.id === 'delete' && !hasProfessor) {
       return (
         <DeleteIcon
           style={{ color: '#cb1010', cursor: 'pointer' }}
@@ -166,7 +166,7 @@ const Results = () => {
       );
     }
 
-    if (column.id === 'see') {
+    if (column.id === 'see' && !hasProfessor) {
       return (
         <EditIcon
           style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
@@ -186,11 +186,13 @@ const Results = () => {
         <span>
           <h1>Results</h1>
 
-          <Button
-            title="Create Result"
-            type="button"
-            onClick={handleCreateResult}
-          />
+          {!hasProfessor && (
+            <Button
+              title="Create Result"
+              type="button"
+              onClick={handleCreateResult}
+            />
+          )}
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

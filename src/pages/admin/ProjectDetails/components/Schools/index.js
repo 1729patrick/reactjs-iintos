@@ -66,7 +66,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Schools() {
+export default function Schools({ hasProfessor }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -172,7 +172,7 @@ export default function Schools() {
   const getRowContent = ({ column, row }) => {
     const value = row.school[column.id];
 
-    if (column.id === 'delete') {
+    if (column.id === 'delete' && !hasProfessor) {
       return (
         <RemoveIcon
           style={{ color: '#cb1010', cursor: 'pointer' }}
@@ -193,11 +193,13 @@ export default function Schools() {
         <span>
           <h1>Schools</h1>
 
-          <Button
-            title="Add School"
-            type="button"
-            onClick={handleCreateSchool}
-          />
+          {!hasProfessor && (
+            <Button
+              title="Add School"
+              type="button"
+              onClick={handleCreateSchool}
+            />
+          )}
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

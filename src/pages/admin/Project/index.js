@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -58,6 +58,16 @@ const Projects = ({ history }) => {
   const [projects, setProjects] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+
+  const hasProfessor = useMemo(() => {
+    const localUser = localStorage.getItem('user');
+
+    if (localUser) {
+      const user = JSON.parse(localUser);
+
+      return user.role === 'Professor';
+    }
+  }, []);
 
   const fetchProjects = async () => {
     const response = await api.get('projects');
@@ -131,7 +141,7 @@ const Projects = ({ history }) => {
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
-    if (column.id === 'delete') {
+    if (column.id === 'delete' && !hasProfessor) {
       return (
         <DeleteIcon
           style={{ color: '#cb1010', cursor: 'pointer' }}
@@ -160,11 +170,13 @@ const Projects = ({ history }) => {
         <span>
           <h1>Projects</h1>
 
-          <Button
-            title="Create Project"
-            type="button"
-            onClick={handleCreateProjects}
-          />
+          {!hasProfessor && (
+            <Button
+              title="Create Project"
+              type="button"
+              onClick={handleCreateProjects}
+            />
+          )}
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

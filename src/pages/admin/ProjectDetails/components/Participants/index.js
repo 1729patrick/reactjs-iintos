@@ -8,7 +8,7 @@ import Students from './components/Students';
 import Professors from './components/Professors';
 import DeleteModal from './components/Delete';
 
-const Participants = ({ location }) => {
+const Participants = ({ location, hasProfessor }) => {
   const [allProfessors, setAllProfessors] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [users, setUsers] = useState({
@@ -92,6 +92,7 @@ const Participants = ({ location }) => {
           modalParams={modalParams}
           setModalOpen={setModalOpen}
           handleDeleteRow={handleDeleteRow}
+          hasProfessor={hasProfessor}
         />
       </ContainerWrap>
       <ContainerWrap>
@@ -103,6 +104,7 @@ const Participants = ({ location }) => {
           modalParams={modalParams}
           setModalOpen={setModalOpen}
           handleDeleteRow={handleDeleteRow}
+          hasProfessor={hasProfessor}
         />
       </ContainerWrap>
 
