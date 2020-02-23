@@ -59,7 +59,6 @@ export default ({
     onSubmit,
   });
 
-  console.log(formik.errors);
   return (
     <Modal
       aria-labelledby="simple-modal-title"
@@ -82,6 +81,7 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
               options={users}
+              
             />
             <Button title={submitText} type="submit" />
           </Form>

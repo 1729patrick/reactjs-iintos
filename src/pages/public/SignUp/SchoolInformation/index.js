@@ -90,7 +90,6 @@ const SchoolInformation = ({ location, history }) => {
     formik.setFieldValue('fileVerification', response.data);
   };
 
-  console.log(formik.errors);
 
   return (
     <Container>

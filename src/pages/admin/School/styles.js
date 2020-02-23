@@ -16,6 +16,8 @@ export const Menu = styled.div`
       display: flex;
       height: 40px;
       align-items: center;
+      color: #444;
+      font-weight: 500;
 
       & + a {
         margin-top: 25px;
