@@ -7,6 +7,10 @@ import DefaultLayout from '~/components/_layout/Default';
 const Route = ({ isPrivate, component: Component, location, ...rest }) => {
   const token = localStorage.getItem('token');
 
+  if (token && location.pathname === '/login') {
+    return <Redirect to="/dashboard" />;
+  }
+
   if (isPrivate || token) {
     if (!token) {
       return <Redirect to="/login" />;
@@ -18,10 +22,7 @@ const Route = ({ isPrivate, component: Component, location, ...rest }) => {
       </AuthLayout>
     );
   }
-
-  if (token && location.pathname === '/login') {
-    return <Redirect to="/dashboard" />;
-  }
+  console.log(location.pathname);
 
   return (
     <DefaultLayout>

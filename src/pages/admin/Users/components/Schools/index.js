@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
 
@@ -183,7 +183,7 @@ export default function Schools() {
 
     if (column.id === 'see') {
       return (
-        <VisibilityIcon
+        <EditIcon
           style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
           onClick={() => handleDetailRow(row)}
         />
