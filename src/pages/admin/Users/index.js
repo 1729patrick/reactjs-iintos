@@ -28,7 +28,7 @@ export default withRouter(({ location }) => {
             Users
           </NavLink>
           <NavLink to="/users/schools">Schools</NavLink>
-          <NavLink to="/users/approve">Approve Coordinator</NavLink>
+          <NavLink to="/users/approve">Approve Coordinators</NavLink>
         </div>
       </Menu>
       <Content>

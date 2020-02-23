@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 
 import Button from '~/components/Button';
-import Input from '~/components/Input';
+import Select from '~/components/Select';
 import { Form } from './styles';
 
 function getModalStyle() {
@@ -31,13 +31,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  initialValues = { students: [undefined], professors: [undefined], title: '' },
+  initialValues,
   submitText,
   open,
   setOpen,
   modalTitle,
   onSubmit,
   validationSchema,
+  users,
 }) => {
   if (!open) {
     return null;
@@ -45,7 +46,7 @@ export default ({
 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = useState(getModalStyle);
+  const [modalStyle] = React.useState(getModalStyle);
 
   const handleClose = () => {
     setOpen(false);
@@ -58,6 +59,7 @@ export default ({
     onSubmit,
   });
 
+  console.log(formik.errors);
   return (
     <Modal
       aria-labelledby="simple-modal-title"
@@ -69,29 +71,17 @@ export default ({
         <h2 id="simple-modal-title">{modalTitle}</h2>
         <div id="simple-modal-description">
           <Form onSubmit={formik.handleSubmit}>
-            <Input
-              label="Title"
+            <Select
+              label="School"
               type="text"
-              placeholder="Type the project title"
-              name="title"
+              placeholder="Choose an School"
+              name="schoolId"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
-            />
-
-            <Input
-              label="Description"
-              type="text"
-              textarea
-              placeholder="Tell more about this project"
-              name="description"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
+              options={users}
             />
             <Button title={submitText} type="submit" />
           </Form>

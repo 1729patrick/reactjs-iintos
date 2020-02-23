@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,13 +8,15 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import ThumbUp from '@material-ui/icons/ThumbUp';
-import ThumbDown from '@material-ui/icons/ThumbDown';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
-import ConfirmModal from './modals/Confirm';
+import Button from '~/components/Button';
+import FormModal from './modals/Form';
+
+import validationSchema from '~/validations/user';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
@@ -23,19 +25,6 @@ const columns = [
     id: 'school',
     label: 'School',
     minWidth: 200,
-  },
-  {
-    id: 'certificate',
-    label: 'Certificate',
-    minWidth: 100,
-    format: value =>
-      !value ? (
-        ''
-      ) : (
-        <a href={value} target="__blank">
-          Open File
-        </a>
-      ),
   },
   {
     id: 'active',
@@ -50,14 +39,7 @@ const columns = [
     format: value => value.toFixed(2),
   },
   {
-    id: 'up',
-    label: '',
-    align: 'center',
-    minWidth: 50,
-    format: value => value.toFixed(2),
-  },
-  {
-    id: 'down',
+    id: 'see',
     label: '',
     align: 'center',
     minWidth: 50,
@@ -74,20 +56,35 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Approve() {
+export default function Users({ hasCoordinator }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [users, setUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
+  const [schools, setSchools] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
 
   const fetchUsers = async () => {
-    const response = await api.get('users', {
-      params: { role: 'Coordinator' },
-    });
+    const response = await api.get('users');
     setUsers(response.data);
   };
+
+  const fetchRoles = async () => {
+    const response = await api.get('roles');
+    setRoles(response.data);
+  };
+
+  const fetchSchools = async () => {
+    const response = await api.get('schools');
+    setSchools(response.data);
+  };
+
+  useEffect(() => {
+    fetchRoles();
+    fetchSchools();
+  }, []);
 
   useState(() => {
     fetchUsers();
@@ -102,22 +99,11 @@ export default function Approve() {
     setPage(0);
   };
 
-  const handleActveUser = async (user, active, reasonInactive) => {
+  // api call to post
+  const handleUpdate = async (id, values) => {
     try {
-      const formattedUser = { ...user, active, reasonInactive };
-      await api.put(`users/${user.id}`, formattedUser);
+      await api.put(`users/${id}`, values);
       setModalOpen(false);
-
-      setUsers(
-        users.map(u => {
-          if (u.id === user.id) {
-            return formattedUser;
-          }
-
-          return u;
-        })
-      );
-
       toast.success('User updated with success!');
       fetchUsers();
     } catch (e) {
@@ -125,51 +111,58 @@ export default function Approve() {
     }
   };
 
-  const handleOpenConfirm = (user, active) => {
+  const handleCreate = async user => {
+    try {
+      await api.post('users', {
+        user,
+        school: { schoolId: user.schoolId },
+      });
+      setModalOpen(false);
+      toast.success('User created with success!');
+      fetchUsers();
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+
+  const handleCreateUser = () => {
     setModalParams({
-      onSubmit: reason => handleActveUser(user, active, reason),
-      active,
-      modalTitle: `Are you sure you want to ${
-        active ? 'active' : 'inactive'
-      } this coordinator?`,
+      initialValues: {},
+      validationSchema,
+      onSubmit: handleCreate,
+      submitText: 'Create',
+      modalTitle: 'Create a new User',
     });
 
-    setModalOpen(true);
+    setModalOpen('form');
+  };
+
+  const handleDetailRow = row => {
+    setModalParams({
+      initialValues: row,
+      validationSchema,
+      onSubmit: values => handleUpdate(row.id, values),
+      submitText: 'Save',
+      modalTitle: 'User',
+    });
+
+    setModalOpen('form');
   };
 
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
-    if (column.id === 'up') {
+    if (column.id === 'see' && hasCoordinator) {
       return (
-        <ThumbUp
-          style={{
-            color: 'rgb(23, 179, 14)',
-            cursor: row.active ? 'normal' : 'pointer',
-            opacity: row.active ? 0.6 : 1,
-          }}
-          onClick={() => !row.active && handleOpenConfirm(row, true)}
-        />
-      );
-    }
-
-    if (column.id === 'down') {
-      return (
-        <ThumbDown
-          style={{
-            color: '#cb1010',
-            cursor: row.active ? 'pointer' : 'normal',
-            opacity: row.active ? 1 : 0.6,
-          }}
-          onClick={() => row.active && handleOpenConfirm(row, false)}
+        <VisibilityIcon
+          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          onClick={() => handleDetailRow(row)}
         />
       );
     }
 
     return column.format &&
-      (typeof value === 'number' ||
-        typeof value === 'boolean' ||
-        column.id === 'certificate')
+      (typeof value === 'number' || typeof value === 'boolean')
       ? column.format(value)
       : value;
   };
@@ -178,7 +171,15 @@ export default function Approve() {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Approve Coodinators</h1>
+          <h1>Users</h1>
+
+          {hasCoordinator && (
+            <Button
+              title="Create User"
+              type="button"
+              onClick={handleCreateUser}
+            />
+          )}
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
@@ -231,7 +232,13 @@ export default function Approve() {
           />
         </Paper>
       </ContainerWrap>
-      <ConfirmModal open={modalOpen} setOpen={setModalOpen} {...modalParams} />
+      <FormModal
+        open={modalOpen === 'form'}
+        schools={schools}
+        roles={roles}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
     </Container>
   );
 }

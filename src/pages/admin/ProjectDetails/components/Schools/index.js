@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,56 +9,47 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import ThumbUp from '@material-ui/icons/ThumbUp';
-import ThumbDown from '@material-ui/icons/ThumbDown';
+import RemoveIcon from '@material-ui/icons/RemoveCircleOutline';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
-import ConfirmModal from './modals/Confirm';
+import Button from '~/components/Button';
+import FormModal from './modals/Form';
+import DeleteModal from './modals/Delete';
+
+import validationSchema from '~/validations/school';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
-  { id: 'email', label: 'E-mail', minWidth: 150 },
+  { id: 'phone', label: 'Phone', minWidth: 150 },
   {
-    id: 'school',
-    label: 'School',
-    minWidth: 200,
-  },
-  {
-    id: 'certificate',
-    label: 'Certificate',
+    id: 'country',
+    label: 'Country',
     minWidth: 100,
-    format: value =>
-      !value ? (
-        ''
-      ) : (
-        <a href={value} target="__blank">
-          Open File
-        </a>
-      ),
+    format: value => value.toLocaleString(),
   },
   {
-    id: 'active',
-    label: 'Active',
+    id: 'city',
+    label: 'City',
     minWidth: 100,
-    format: value => (value ? 'Yes' : 'No'),
+    format: value => value.toLocaleString(),
   },
   {
-    id: 'role',
-    label: 'Role',
+    id: 'postalCode',
+    label: 'Postal Code',
     minWidth: 100,
     format: value => value.toFixed(2),
   },
   {
-    id: 'up',
+    id: 'see',
     label: '',
     align: 'center',
     minWidth: 50,
     format: value => value.toFixed(2),
   },
   {
-    id: 'down',
+    id: 'delete',
     label: '',
     align: 'center',
     minWidth: 50,
@@ -74,23 +66,47 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Approve() {
+export default function Schools() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [users, setUsers] = useState([]);
+  const [schools, setSchools] = useState([]);
+  const [allSchools, setAllSchools] = useState([]);
+
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
 
-  const fetchUsers = async () => {
-    const response = await api.get('users', {
-      params: { role: 'Coordinator' },
-    });
-    setUsers(response.data);
+  const location = useLocation();
+  const projectId = useMemo(() => location.pathname.split('/')[2], [
+    location.pathname,
+  ]);
+  /**
+   * Gets the schools associated with this project
+   */
+  const fetchSchools = async () => {
+    const response = await api.get(`/projects/${projectId}/schools`);
+    setSchools(response.data);
+  };
+  /**
+   * Gets all the schools in the platform
+   */
+  const fetchAllSchools = async () => {
+    const response = await api.get('/schools');
+    const list = response.data; // all the schools
+
+    // Map the id of the schools
+    const formattedSchoolsProject = schools.map(({ schoolId }) => schoolId);
+
+    // filter out the new school in in the selection list
+    const filterList = list.filter(
+      schoolAux => !formattedSchoolsProject.includes(schoolAux.id)
+    );
+
+    setAllSchools(filterList);
   };
 
   useState(() => {
-    fetchUsers();
+    fetchSchools();
   }, []);
 
   const handleChangePage = (event, newPage) => {
@@ -102,74 +118,71 @@ export default function Approve() {
     setPage(0);
   };
 
-  const handleActveUser = async (user, active, reasonInactive) => {
+  const handleCreate = async ({ schoolId }) => {
     try {
-      const formattedUser = { ...user, active, reasonInactive };
-      await api.put(`users/${user.id}`, formattedUser);
+      const values = { schoolId, projectId };
+      await api.post('schoolProjects', values);
       setModalOpen(false);
-
-      setUsers(
-        users.map(u => {
-          if (u.id === user.id) {
-            return formattedUser;
-          }
-
-          return u;
-        })
-      );
-
-      toast.success('User updated with success!');
-      fetchUsers();
+      toast.success('School added with success!');
+      fetchSchools();
+      setAllSchools(allSchools.filter(prof => prof.id !== +schoolId));
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
   };
 
-  const handleOpenConfirm = (user, active) => {
-    setModalParams({
-      onSubmit: reason => handleActveUser(user, active, reason),
-      active,
-      modalTitle: `Are you sure you want to ${
-        active ? 'active' : 'inactive'
-      } this coordinator?`,
-    });
-
-    setModalOpen(true);
+  // api call to delete
+  const handleDelete = async id => {
+    try {
+      await api.delete(`schoolProjects/${id}`);
+      setModalOpen(false);
+      toast.success('School deleted with success!');
+      fetchSchools();
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid request, try again');
+    }
   };
 
+  const handleDeleteRow = row => {
+    setModalParams({
+      initialValues: row,
+      validationSchema,
+      onSubmit: () => handleDelete(row.id),
+      submitText: 'Save',
+      modalTitle: 'Are you sure you want to delete this school?',
+    });
+
+    setModalOpen('delete');
+  };
+
+  const handleCreateSchool = () => {
+    setModalParams({
+      initialValues: {},
+      validationSchema,
+      onSubmit: handleCreate,
+      submitText: 'Create',
+      modalTitle: 'Create a new School',
+    });
+    // Gets all the avaliable schools;
+    fetchAllSchools();
+
+    setModalOpen('form');
+  };
+  
   const getRowContent = ({ column, row }) => {
-    const value = row[column.id];
+    const value = row.school[column.id];
 
-    if (column.id === 'up') {
+    if (column.id === 'delete') {
       return (
-        <ThumbUp
-          style={{
-            color: 'rgb(23, 179, 14)',
-            cursor: row.active ? 'normal' : 'pointer',
-            opacity: row.active ? 0.6 : 1,
-          }}
-          onClick={() => !row.active && handleOpenConfirm(row, true)}
-        />
-      );
-    }
-
-    if (column.id === 'down') {
-      return (
-        <ThumbDown
-          style={{
-            color: '#cb1010',
-            cursor: row.active ? 'pointer' : 'normal',
-            opacity: row.active ? 1 : 0.6,
-          }}
-          onClick={() => row.active && handleOpenConfirm(row, false)}
+        <RemoveIcon
+          style={{ color: '#cb1010', cursor: 'pointer' }}
+          onClick={() => handleDeleteRow(row)}
         />
       );
     }
 
     return column.format &&
-      (typeof value === 'number' ||
-        typeof value === 'boolean' ||
-        column.id === 'certificate')
+      (typeof value === 'number' || typeof value === 'boolean')
       ? column.format(value)
       : value;
   };
@@ -178,7 +191,13 @@ export default function Approve() {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Approve Coodinators</h1>
+          <h1>Schools</h1>
+
+          <Button
+            title="Add School"
+            type="button"
+            onClick={handleCreateSchool}
+          />
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
@@ -197,7 +216,7 @@ export default function Approve() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {users
+                {schools
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
                     return (
@@ -223,7 +242,7 @@ export default function Approve() {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={users.length}
+            count={schools.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
@@ -231,7 +250,17 @@ export default function Approve() {
           />
         </Paper>
       </ContainerWrap>
-      <ConfirmModal open={modalOpen} setOpen={setModalOpen} {...modalParams} />
+      <FormModal
+        users={allSchools}
+        open={modalOpen}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
+      <DeleteModal
+        open={modalOpen === 'delete'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
     </Container>
   );
 }

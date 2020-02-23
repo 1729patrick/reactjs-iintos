@@ -11,7 +11,8 @@ export default function Select({
   errors,
   touched,
   options,
-  submitted
+  submitted,
+  readOnly,
 }) {
   return (
     <Container>
@@ -22,7 +23,12 @@ export default function Select({
         ) : null}
       </span>
 
-      <select name={name} onChange={onChange} value={values[name]}>
+      <select
+        name={name}
+        onChange={onChange}
+        value={values[name]}
+        disabled={readOnly}
+      >
         <option default value="null">
           {placeholder}
         </option>
