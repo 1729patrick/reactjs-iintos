@@ -147,7 +147,7 @@ export default function Schools() {
 
   const handleCreateSchool = () => {
     setModalParams({
-      initialValues: {},
+      initialValues: { active: false },
       validationSchema,
       onSubmit: handleCreate,
       submitText: 'Create',

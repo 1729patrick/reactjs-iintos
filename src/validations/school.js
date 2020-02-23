@@ -1,5 +1,10 @@
 import * as Yup from 'yup';
 
 export default Yup.object({
-  schoolId: Yup.string().required('School is required'),
+  name: Yup.string().required('Name of school is required'),
+  phone: Yup.string().required('Phone of the school is required'),
+  country: Yup.string().required('Country of the school is required'),
+  city: Yup.string().required('City of the school requires'),
+  active: Yup.bool(),
+  postalCode: Yup.string(),
 });

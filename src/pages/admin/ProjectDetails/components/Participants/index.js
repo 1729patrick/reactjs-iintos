@@ -41,7 +41,6 @@ const Participants = ({ location }) => {
   // api call to delete
   const handleDelete = async id => {
     try {
-      console.log(id);
       await api.delete(`projectUser/${id}`);
       setModalOpen(false);
       toast.success('Participant removed with success!');

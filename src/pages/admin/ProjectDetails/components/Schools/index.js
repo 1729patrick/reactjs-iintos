@@ -18,7 +18,7 @@ import Button from '~/components/Button';
 import FormModal from './modals/Form';
 import DeleteModal from './modals/Delete';
 
-import validationSchema from '~/validations/school';
+import validationSchema from '~/validations/schoolProject';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
@@ -168,7 +168,7 @@ export default function Schools() {
 
     setModalOpen('form');
   };
-  
+
   const getRowContent = ({ column, row }) => {
     const value = row.school[column.id];
 

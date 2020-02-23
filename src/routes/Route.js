@@ -22,7 +22,6 @@ const Route = ({ isPrivate, component: Component, location, ...rest }) => {
       </AuthLayout>
     );
   }
-  console.log(location.pathname);
 
   return (
     <DefaultLayout>

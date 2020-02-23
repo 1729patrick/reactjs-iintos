@@ -79,6 +79,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Input
               label="Goal"
@@ -89,6 +90,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
 
             <Input
@@ -101,6 +103,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Input
               label="Links"
@@ -111,6 +114,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Input
               label="Target Audience"
@@ -121,6 +125,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Select
               label="Mobility Type"
@@ -131,6 +136,7 @@ export default ({
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
+              submitted={formik.submitCount}
               options={[
                 { id: 'Online', name: 'Online' },
                 { id: 'Presential', name: 'Presential' },
