@@ -8,6 +8,7 @@ import Activity from './components/Activity';
 import Details from './components/Details';
 import Participants from './components/Participants';
 import Results from './components/Results';
+import Schools from './components/Schools';
 
 export default withRouter(({ computedMatch }) => {
   const projectId = useMemo(() => computedMatch.params.id, [
@@ -41,6 +42,9 @@ export default withRouter(({ computedMatch }) => {
     if (route === '/results') {
       return <Results />;
     }
+    if (route === '/schools') {
+      return <Schools />;
+    }
 
     // By default, the content from the IPS will appear
     return <Details initialValues={projects} />;
@@ -54,6 +58,7 @@ export default withRouter(({ computedMatch }) => {
             Details
           </NavLink>
           <NavLink to={`/project/${projectId}/activities`}>Activity</NavLink>
+          <NavLink to={`/project/${projectId}/schools`}>Schools</NavLink>
           <NavLink to={`/project/${projectId}/participants`}>
             Participants
           </NavLink>
