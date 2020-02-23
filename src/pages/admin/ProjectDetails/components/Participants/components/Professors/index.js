@@ -62,6 +62,7 @@ export default function Professors({
   handleDeleteRow,
   modalParams,
   setModalParams,
+  hasProfessor,
 }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -79,7 +80,7 @@ export default function Professors({
   const getRowContent = ({ column, row }) => {
     const value = row.professor[column.id];
 
-    if (column.id === 'delete') {
+    if (column.id === 'delete' && !hasProfessor) {
       return (
         <RemoveCircleOutlineIcon
           style={{ color: '#cb1010', cursor: 'pointer' }}
@@ -111,11 +112,13 @@ export default function Professors({
       <span>
         <h2>Professors</h2>
 
-        <Button
-          title="Add Professor"
-          type="button"
-          onClick={handleCreateUser}
-        />
+        {!hasProfessor && (
+          <Button
+            title="Add Professor"
+            type="button"
+            onClick={handleCreateUser}
+          />
+        )}
       </span>
 
       <Paper className={classes.root}>

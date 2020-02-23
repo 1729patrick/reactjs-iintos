@@ -18,7 +18,11 @@ export const ContainerWrap = styled.div`
     justify-content: space-between;
 
     button {
-      margin: 15px 0 15px auto;
+      margin-left: auto;
+    }
+
+    h2 {
+      margin: 15px 0;
     }
   }
 

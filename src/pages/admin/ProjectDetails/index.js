@@ -14,6 +14,16 @@ export default withRouter(({ computedMatch }) => {
   const projectId = useMemo(() => computedMatch.params.id, [
     computedMatch.params.id,
   ]);
+  const hasProfessor = useMemo(() => {
+    const localUser = localStorage.getItem('user');
+
+    if (localUser) {
+      const user = JSON.parse(localUser);
+
+      return user.role === 'Professor';
+    }
+  }, []);
+
   const [projects, setProjects] = useState([]);
 
   const fetchProjects = async () => {
@@ -31,19 +41,19 @@ export default withRouter(({ computedMatch }) => {
     const route = location.pathname.replace(`/project/${projectId}`, '');
 
     if (!route) {
-      return <Details initialValues={projects} />;
+      return <Details initialValues={projects} hasProfessor={hasProfessor} />;
     }
     if (route === '/participants') {
-      return <Participants />;
+      return <Participants hasProfessor={hasProfessor} />;
     }
     if (route === '/activities') {
-      return <Activity />;
+      return <Activity hasProfessor={hasProfessor} />;
     }
     if (route === '/results') {
-      return <Results />;
+      return <Results hasProfessor={hasProfessor} />;
     }
     if (route === '/schools') {
-      return <Schools />;
+      return <Schools hasProfessor={hasProfessor} />;
     }
 
     // By default, the content from the IPS will appear
