@@ -142,6 +142,24 @@ export default ({
                 { id: 'Presential', name: 'Presential' },
               ]}
             />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                autoOk
+                disableToolbar
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                name="startDate"
+                label="Start date"
+                value={formik?.values?.start}
+                onChange={event => formik.setFieldValue('start', event)}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+
+            </MuiPickersUtilsProvider>
             <Button title={submitText} type="submit" />
           </Form>
         </div>
