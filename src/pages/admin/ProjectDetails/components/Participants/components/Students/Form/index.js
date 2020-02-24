@@ -5,6 +5,8 @@ import { useFormik } from 'formik';
 
 import Input from '~/components/Input';
 import Button from '~/components/Button';
+import Select from '~/components/Select';
+
 import { Form } from './styles';
 
 function getModalStyle() {
@@ -38,11 +40,11 @@ export default ({
   modalTitle,
   onSubmit,
   validationSchema,
+  schools,
 }) => {
   if (!open) {
     return null;
   }
-
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -80,16 +82,17 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
-            <Input
-              label="Age"
-              type="number"
-              placeholder="Type the age of this student"
-              name="studentAge"
+            <Select
+              label="School"
+              type="text"
+              placeholder="Choose an School"
+              name="schoolId"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
+              options={schools}
             />
 
             <Button title={submitText} type="submit" />

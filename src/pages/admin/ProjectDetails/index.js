@@ -47,7 +47,6 @@ export default withRouter(({ computedMatch }) => {
       ...response.data,
       ageRange: `${response.data.ageRangeStart} - ${response.data.ageRangeEnd}`,
     };
-    console.log(project);
     setProjects(project);
   };
 

@@ -11,6 +11,7 @@ import DeleteModal from './components/Delete';
 const Participants = ({ location, isProfessor, isParticipant }) => {
   const [allProfessors, setAllProfessors] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [schools, setSchools] = useState([]);
   const [users, setUsers] = useState({
     professors: [],
     students: [],
@@ -26,8 +27,6 @@ const Participants = ({ location, isProfessor, isParticipant }) => {
 
     const userList = response.data;
 
-    // userList = userList.map(({}) => {});
-
     setUsers(userList);
   };
 
@@ -39,9 +38,27 @@ const Participants = ({ location, isProfessor, isParticipant }) => {
     setAllProfessors(response.data);
   };
 
+  /**
+   * Gets the schools associated with this project
+   */
+  const fetchSchools = async () => {
+    const response = await api.get(`/projects/${projectId}/schools`);
+
+    const list = response.data; // all the schools
+
+    // Map the id of the schools
+    const formattedSchoolsProject = list.map(({ schoolId, school }) => ({
+      id: schoolId,
+      name: school.name,
+    }));
+
+    setSchools(formattedSchoolsProject);
+  };
+
   useState(() => {
     fetchUsers();
     fetchAllProfessors();
+    fetchSchools();
   }, []);
 
   // api call to delete
@@ -68,13 +85,13 @@ const Participants = ({ location, isProfessor, isParticipant }) => {
     setModalOpen('delete');
   };
 
-  const handleCreate = async ({ userId, studentName, studentAge }) => {
+  const handleCreate = async ({ userId, studentName, schoolId }) => {
     try {
       await api.post('projectUser', {
         userId,
         studentName,
-        studentAge,
         projectId,
+        schoolId,
       });
       setModalOpen(false);
       fetchUsers();
@@ -113,6 +130,7 @@ const Participants = ({ location, isProfessor, isParticipant }) => {
           handleDeleteRow={handleDeleteRow}
           isProfessor={isProfessor}
           isParticipant={isParticipant}
+          schools={schools}
         />
       </ContainerWrap>
 
