@@ -1,9 +1,11 @@
 import React from 'react';
+import vallauriImage from '~/assets/images/vallauriLogo.jpg';
 
 export default function About() {
   return (
     <div>
       <h1>Istuzione Superiore "G.Vallauri"</h1>
+      <img src={vallauriImage} width="200" height="150" alt="IPS" />
       <p>
         Our{' '}
         <a href="http://www.vallauri.edu/public/ita/pagina.asp">

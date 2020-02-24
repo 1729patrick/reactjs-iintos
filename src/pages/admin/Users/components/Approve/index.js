@@ -130,7 +130,7 @@ export default function Approve() {
       onSubmit: reason => handleActveUser(user, active, reason),
       active,
       modalTitle: `Are you sure you want to ${
-        active ? 'active' : 'inactive'
+        active ? 'activate' : 'inactive'
       } this coordinator?`,
     });
 
