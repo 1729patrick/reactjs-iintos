@@ -28,7 +28,6 @@ export default function About() {
         Literature, Centre for Patristic, Medieval and Renaissance Texts, Centre
         for Clinical Law Education.
       </p>
-      <img src={olomoucImage} width="500" height="200" alt="Olomouc" />
       <p>
         The Faculty of Education strives for maintaining the tradition,
         versatility and modernity in the education of students for their

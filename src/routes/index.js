@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import Dashboard from '~/pages/admin/Dashboard';
 import Calendar from '~/pages/admin/Calendar';
 import Users from '~/pages/admin/Users';
-import Project from '~/pages/admin/Project';
+import Projects from '~/pages/admin/Projects';
 import School from '~/pages/admin/School';
 
 import Login from '~/pages/public/Login';
@@ -34,7 +34,7 @@ export default () => {
         <Route path="/dashboard" component={Dashboard} isPrivate />
         <Route path="/calendar" component={Calendar} isPrivate />
 
-        <Route path="/project" component={Project} isPrivate exact />
+        <Route path="/projects" component={Projects} isPrivate />
         <Route path="/project/:id" component={ProjectDetails} isPrivate />
 
         <Route path="/users" component={Users} isPrivate />

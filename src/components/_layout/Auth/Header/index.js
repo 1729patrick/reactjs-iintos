@@ -40,7 +40,7 @@ const Header = () => {
           <NavLink to="/about">About</NavLink>
           <NavLink to="/partners/IPS">Partners</NavLink>
           <NavLink to="/news">News</NavLink>
-          <NavLink to="/project">Project</NavLink>
+          <NavLink to="/projects">Projects</NavLink>
           <NavLink to="/calendar">Calendar</NavLink>
 
           {groupAdmin() && <NavLink to="/outputs">Outputs</NavLink>}

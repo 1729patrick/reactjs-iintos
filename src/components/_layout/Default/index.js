@@ -9,7 +9,6 @@ const DefaultLayout = ({ children }) => {
     <Wrapper>
       <Header />
       <div>{children}</div>
-      <Footer />
     </Wrapper>
   );
 };

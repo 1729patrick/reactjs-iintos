@@ -54,6 +54,8 @@ padding-left:20px;
 
 	img{
 		margin:0 auto;
+		border-radius: 8px;
+
 	}
 ul{
 	display: block;

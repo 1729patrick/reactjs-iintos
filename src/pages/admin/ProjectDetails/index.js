@@ -11,10 +11,13 @@ import Results from './components/Results';
 import Schools from './components/Schools';
 
 export default withRouter(({ computedMatch }) => {
+  const [schools, setSchools] = useState([]);
+
   const projectId = useMemo(() => computedMatch.params.id, [
     computedMatch.params.id,
   ]);
-  const hasProfessor = useMemo(() => {
+
+  const isProfessor = useMemo(() => {
     const localUser = localStorage.getItem('user');
 
     if (localUser) {
@@ -24,6 +27,16 @@ export default withRouter(({ computedMatch }) => {
     }
   }, []);
 
+  const isParticipant = useMemo(() => {
+    const localSchool = localStorage.getItem('school');
+
+    if (localSchool) {
+      const school = JSON.parse(localSchool);
+
+      return schools.includes(school.id);
+    }
+  }, [schools]);
+
   const [projects, setProjects] = useState([]);
 
   const fetchProjects = async () => {
@@ -31,8 +44,14 @@ export default withRouter(({ computedMatch }) => {
     setProjects(response.data);
   };
 
+  const fetchSchools = async () => {
+    const response = await api.get(`/projects/${projectId}/schools`);
+    setSchools(response.data.map(({ schoolId }) => schoolId));
+  };
+
   useState(() => {
     fetchProjects();
+    fetchSchools();
   }, []);
 
   const Children = () => {
@@ -40,24 +59,39 @@ export default withRouter(({ computedMatch }) => {
 
     const route = location.pathname.replace(`/project/${projectId}`, '');
 
-    if (!route) {
-      return <Details initialValues={projects} hasProfessor={hasProfessor} />;
-    }
     if (route === '/participants') {
-      return <Participants hasProfessor={hasProfessor} />;
+      return (
+        <Participants isProfessor={isProfessor} isParticipant={isParticipant} />
+      );
     }
     if (route === '/activities') {
-      return <Activity hasProfessor={hasProfessor} />;
+      return (
+        <Activity isProfessor={isProfessor} isParticipant={isParticipant} />
+      );
     }
     if (route === '/results') {
-      return <Results hasProfessor={hasProfessor} />;
+      return (
+        <Results isProfessor={isProfessor} isParticipant={isParticipant} />
+      );
     }
     if (route === '/schools') {
-      return <Schools hasProfessor={hasProfessor} />;
+      return (
+        <Schools
+          isProfessor={isProfessor}
+          isParticipant={isParticipant}
+          refreshParticipants={fetchSchools}
+        />
+      );
     }
 
     // By default, the content from the IPS will appear
-    return <Details initialValues={projects} />;
+    return (
+      <Details
+        initialValues={projects}
+        isProfessor={isProfessor}
+        isParticipant={isParticipant}
+      />
+    );
   };
 
   return (
