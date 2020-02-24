@@ -32,7 +32,9 @@ export default withRouter(({ computedMatch }) => {
 
     if (localSchool) {
       const school = JSON.parse(localSchool);
-
+      if (!school) {
+        return true;
+      }
       return schools.includes(school.id);
     }
   }, [schools]);
