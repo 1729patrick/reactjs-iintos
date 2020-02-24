@@ -43,7 +43,12 @@ export default withRouter(({ computedMatch }) => {
 
   const fetchProjects = async () => {
     const response = await api.get(`projects/${projectId}`);
-    setProjects(response.data);
+    const project = {
+      ...response.data,
+      ageRange: `${response.data.ageRangeStart} - ${response.data.ageRangeEnd}`,
+    };
+    console.log(project);
+    setProjects(project);
   };
 
   const fetchSchools = async () => {

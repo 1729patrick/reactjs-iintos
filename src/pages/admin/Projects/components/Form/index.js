@@ -116,17 +116,30 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
-            <Input
-              label="Target Audience"
-              type="targetAudience"
-              placeholder="What's the project target audience"
-              name="targetAudience"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
+            <span>
+              <Input
+                label="Age Start"
+                type="ageRangeStart"
+                placeholder="Age Range Start"
+                name="ageRangeStart"
+                onChange={formik.handleChange}
+                values={formik.values}
+                errors={formik.errors}
+                touched={formik.touched}
+                submitted={formik.submitCount}
+              />
+              <Input
+                label="Age End"
+                type="ageRangeEnd"
+                placeholder="Age Range End"
+                name="ageRangeEnd"
+                onChange={formik.handleChange}
+                values={formik.values}
+                errors={formik.errors}
+                touched={formik.touched}
+                submitted={formik.submitCount}
+              />
+            </span>
             <Select
               label="Mobility Type"
               type="type"

@@ -16,9 +16,13 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
 
   const handleUpdate = async (id, values) => {
     try {
-      await api.put(`projects/${id}`, values);
+      console.log(values);
+      const response = await api.put(`projects/${id}`, values);
       setModalOpen(false);
-      formik.setValues(values);
+      formik.setValues({
+        ...response.data,
+        ageRange: `${response.data.ageRangeStart} - ${response.data.ageRangeEnd}`,
+      });
       toast.success('Project updated with success!');
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid request, try again');
@@ -75,10 +79,10 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
         background="#fff"
       />
       <Input
-        label="Target Audience"
-        type="targetAudience"
+        label="Age Range"
+        type="ageRange"
         placeholder="What's the project target audience"
-        name="targetAudience"
+        name="ageRange"
         readOnly
         values={formik.values}
         background="#fff"

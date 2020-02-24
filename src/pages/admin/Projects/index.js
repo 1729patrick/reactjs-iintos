@@ -18,7 +18,12 @@ import validationSchema from '~/validations/project';
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
   { id: 'goal', label: 'Goal', minWidth: 200 },
-  { id: 'targetAudience', label: 'Target Audience', minWidth: 150 },
+  {
+    id: 'ageRangeStart',
+    format: value => `${value.ageRangeStart} - ${value.ageRangeEnd}`,
+    label: 'Age Range',
+    minWidth: 150,
+  },
   { id: 'type', label: 'Mobility Type', minWidth: 150 },
   {
     id: 'see',
@@ -75,6 +80,7 @@ const Projects = ({ history, location }) => {
 
   const handleCreate = async values => {
     try {
+      console.log(values);
       await api.post('projects', values);
       setModalOpen(false);
       toast.success('Project created with success!');
@@ -144,7 +150,9 @@ const Projects = ({ history, location }) => {
         />
       );
     }
-
+    if (column.id === 'ageRangeStart') {
+      return column.format(row);
+    }
     return column.format && typeof value === 'number'
       ? column.format(value)
       : value;
