@@ -1,5 +1,5 @@
 import React from 'react';
-import ipsImage from '~/assets/images/40anos.png';
+import ipsImage from '~/assets/images/IPS.jpg';
 
 export default function About() {
   return (

@@ -53,7 +53,7 @@ padding-left:20px;
 	}
 
 	img{
-		margin:0 auto;
+		margin:24px auto 10px auto;
 		border-radius: 8px;
 	}
 ul{
