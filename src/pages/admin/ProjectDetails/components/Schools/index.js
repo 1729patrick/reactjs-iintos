@@ -66,7 +66,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Schools({ hasProfessor }) {
+export default function Schools({
+  isProfessor,
+  isParticipant,
+  refreshParticipants,
+}) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -91,7 +95,10 @@ export default function Schools({ hasProfessor }) {
    * Gets all the schools in the platform
    */
   const fetchAllSchools = async () => {
-    const response = await api.get('/schools');
+    const response = await api.get('/schools', {
+      params: { all: isParticipant },
+    });
+
     const list = response.data; // all the schools
 
     // Map the id of the schools
@@ -125,6 +132,7 @@ export default function Schools({ hasProfessor }) {
       setModalOpen(false);
       toast.success('School added with success!');
       fetchSchools();
+      refreshParticipants();
       setAllSchools(allSchools.filter(prof => prof.id !== +schoolId));
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
@@ -137,6 +145,7 @@ export default function Schools({ hasProfessor }) {
       await api.delete(`schoolProjects/${id}`);
       setModalOpen(false);
       toast.success('School removed with success!');
+      refreshParticipants();
       fetchSchools();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid request, try again');
@@ -172,7 +181,7 @@ export default function Schools({ hasProfessor }) {
   const getRowContent = ({ column, row }) => {
     const value = row.school[column.id];
 
-    if (column.id === 'delete' && !hasProfessor) {
+    if (column.id === 'delete' && !isProfessor && isParticipant) {
       return (
         <RemoveIcon
           style={{ color: '#cb1010', cursor: 'pointer' }}
@@ -193,7 +202,7 @@ export default function Schools({ hasProfessor }) {
         <span>
           <h1>Schools</h1>
 
-          {!hasProfessor && (
+          {!isProfessor && (
             <Button
               title="Add School"
               type="button"

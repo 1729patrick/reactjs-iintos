@@ -15,13 +15,14 @@ const Login = ({ history }) => {
   const submitForm = async credentials => {
     try {
       const response = await api.post('/sessions', credentials);
-      const { user, token } = response.data;
+      const { user, token, school } = response.data;
 
       if (!user.active) {
         return history.push('/await_verification');
       }
 
       localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('school', JSON.stringify(school));
       localStorage.setItem('token', token);
 
       api.defaults.headers.authorization = `Bearer ${token}`;

@@ -51,7 +51,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Activities = ({ hasProfessor }) => {
+const Activities = ({ isProfessor, isParticipant }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -187,7 +187,7 @@ const Activities = ({ hasProfessor }) => {
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
-    if (column.id === 'delete' && !hasProfessor) {
+    if (column.id === 'delete' && !isProfessor && isParticipant) {
       return (
         <DeleteIcon
           style={{ color: '#cb1010', cursor: 'pointer' }}
@@ -196,7 +196,7 @@ const Activities = ({ hasProfessor }) => {
       );
     }
 
-    if (column.id === 'see' && !hasProfessor) {
+    if (column.id === 'see' && !isProfessor && isParticipant) {
       return (
         <EditIcon
           style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
@@ -216,7 +216,7 @@ const Activities = ({ hasProfessor }) => {
         <span>
           <h1>Activities</h1>
 
-          {!hasProfessor && (
+          {!isProfessor && isParticipant && (
             <Button
               title="Create Activty"
               type="button"

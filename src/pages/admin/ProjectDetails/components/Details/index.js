@@ -9,7 +9,7 @@ import Input from '~/components/Input';
 import { Form } from './styles';
 import api from '~/services/api';
 
-export default ({ initialValues, hasProfessor }) => {
+export default ({ initialValues, isProfessor, isParticipant }) => {
   const formik = useFormik({ initialValues });
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
@@ -41,7 +41,7 @@ export default ({ initialValues, hasProfessor }) => {
     <Form>
       <span>
         <h2>{formik.values.title}</h2>
-        {hasProfessor !== undefined && !hasProfessor && (
+        {isProfessor !== undefined && !isProfessor && isParticipant && (
           <EditIcon onClick={handleEditProject} />
         )}
       </span>
