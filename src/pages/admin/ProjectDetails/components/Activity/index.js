@@ -73,7 +73,7 @@ const Activities = ({ isProfessor, isParticipant }) => {
   const fetchUsers = async () => {
     const response = await api.get(`projects/${projectId}/users`);
     const professors = response.data?.professors.map(({ id, professor }) => ({
-      id,
+      id: professor.id,
       name: professor.name,
     }));
 
@@ -82,6 +82,7 @@ const Activities = ({ isProfessor, isParticipant }) => {
       name: studentName,
     }));
 
+    console.log(professors, students);
     setUsers({ professors, students });
   };
 
