@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useFormik } from 'formik';
 import api from '~/services/api';
 
 import Result from './components/Result';
@@ -15,7 +14,6 @@ export default withRouter(({ location }) => {
   const [results, setResults] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
-  const formik = useFormik({});
 
   /**
    * gets, async, all the public output
@@ -67,7 +65,7 @@ export default withRouter(({ location }) => {
     const route = location.pathname.replace('/results/', '');
 
     const res = results.find(result => {
-      return result.id == route;
+      return result.id === +route;
     });
 
     if (!res) {
@@ -76,7 +74,7 @@ export default withRouter(({ location }) => {
 
     const handleUpdate = async (id, values) => {
       try {
-        const response = await api.put(`outputResults/${id}`, values);
+        await api.put(`outputResults/${id}`, values);
         setModalOpen(false);
         fetchResults();
         toast.success('Result updated with success!');

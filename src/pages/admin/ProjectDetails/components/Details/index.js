@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { format } from 'date-fns';
-import { useFormik, formik } from 'formik';
+import { useFormik } from 'formik';
 import EditIcon from '@material-ui/icons/Edit';
 
 import { toast } from 'react-toastify';
