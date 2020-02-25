@@ -41,6 +41,14 @@ export const Content = styled.div`
 padding-right:100px;
 padding-left:20px;
 
+span{
+	display:flex;
+	justify-content: space-between;
+	img{
+		margin-top:24px;
+		cursor:pointer
+	}
+}
 
 	div{
 		width:80%;

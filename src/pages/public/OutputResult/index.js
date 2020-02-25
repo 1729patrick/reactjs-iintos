@@ -78,7 +78,7 @@ export default withRouter(({ location }) => {
       try {
         const response = await api.put(`outputResults/${id}`, values);
         setModalOpen(false);
-
+        fetchResults();
         toast.success('Result updated with success!');
       } catch (e) {
         toast.error(e?.response?.data?.error || 'Invalid request, try again');
@@ -87,15 +87,15 @@ export default withRouter(({ location }) => {
 
     const handleEditProject = () => {
       setModalParams({
-        initialValues: formik.values,
+        initialValues: { title: res.title, description: res.description },
         validationSchema,
         onSubmit: values => handleUpdate(res.id, values),
         submitText: 'Save',
         modalTitle: 'Project',
       });
       // handleUpdate(row.id, values)
-
-      setModalOpen(true);
+      console.log('ersdlkoiyutfhyuj');
+      setModalOpen('form');
     };
 
     // api call to delete
