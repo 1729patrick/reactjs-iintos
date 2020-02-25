@@ -13,12 +13,14 @@ export default function FileInput({
 }) {
   return (
     <Container>
-      <span>
-        <label>{label}</label>
-        {submitted || (touched[name] && errors[name]) ? (
-          <p>{errors[name]}</p>
-        ) : null}
-      </span>
+      {label && (
+        <span>
+          <label>{label}</label>
+          {submitted || (touched[name] && errors[name]) ? (
+            <p>{errors[name]}</p>
+          ) : null}
+        </span>
+      )}
 
       <div>
         <p>{placeholder}</p>

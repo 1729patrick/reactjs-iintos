@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 import DeleteIcon from '@material-ui/icons/Delete';
+
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -10,6 +11,7 @@ import {
 } from '@material-ui/pickers';
 
 import Button from '~/components/Button';
+import Files from '~/components/Files';
 import Select from '~/components/Select';
 import Input from '~/components/Input';
 import { Form } from './styles';
@@ -39,8 +41,9 @@ const useStyles = makeStyles(theme => ({
 
 export default ({
   initialValues = {
-    students: [undefined],
-    professors: [undefined],
+    files: [''],
+    students: [],
+    professors: [],
     title: '',
     startDate: new Date(),
     endDate: new Date(),
@@ -74,12 +77,11 @@ export default ({
 
   const handleAdd = field => {
     const values = formik.values[field];
-    formik.setFieldValue(field, [...values, {}]);
+    formik.setFieldValue(field, [...values, users[field][0]?.id]);
   };
 
   const handleRemove = (field, index) => {
     const newState = formik.values[field].filter((_, i) => i !== index);
-
     formik.setFieldValue(field, newState);
   };
 
@@ -119,6 +121,7 @@ export default ({
               submitted={formik.submitCount}
             />
 
+            <Files formik={formik} />
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 autoOk

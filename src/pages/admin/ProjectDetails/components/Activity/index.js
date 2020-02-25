@@ -19,6 +19,7 @@ import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
 import FormModal from './Form';
 import DeleteModal from '../Delete';
+import FileList from '~/components/FileList';
 
 import validationSchema from '~/validations/activity';
 
@@ -26,21 +27,24 @@ const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
   { id: 'startDate', label: 'Start Date', minWidth: 120 },
   { id: 'endDate', label: 'End Date', minWidth: 120 },
-  { id: 'professorsStr', label: 'Professors', minWidth: 200 },
-  { id: 'studentsStr', label: 'Students', minWidth: 200 },
+  { id: 'professorsStr', label: 'Professors', minWidth: 150 },
+  { id: 'studentsStr', label: 'Students', minWidth: 150 },
+  {
+    id: 'files',
+    label: 'Files',
+    minWidth: 120,
+  },
   {
     id: 'see',
     label: '',
     align: 'center',
     minWidth: 50,
-    format: value => value.toFixed(2),
   },
   {
     id: 'delete',
     label: '',
     align: 'center',
     minWidth: 50,
-    format: value => value.toFixed(2),
   },
 ];
 
@@ -82,7 +86,6 @@ const Activities = ({ isProfessor, isParticipant }) => {
       name: studentName,
     }));
 
-    console.log(professors, students);
     setUsers({ professors, students });
   };
 
@@ -122,7 +125,8 @@ const Activities = ({ isProfessor, isParticipant }) => {
   // api call to post
   const handleUpdate = async (id, values) => {
     try {
-      await api.put(`activities/${id}`, values);
+      const files = values.files?.filter(f => f).map(({ id }) => id);
+      await api.put(`activities/${id}`, { ...values, files });
       setModalOpen(false);
       toast.success('Activity updated with success!');
       fetchActivities();
@@ -133,7 +137,8 @@ const Activities = ({ isProfessor, isParticipant }) => {
 
   const handleCreate = async values => {
     try {
-      await api.post(`activities`, { ...values, projectId });
+      const files = values.files?.filter(f => f).map(({ id }) => id);
+      await api.post(`activities`, { ...values, projectId, files });
       setModalOpen(false);
       toast.success('Activity created with success!');
       fetchActivities();
@@ -181,6 +186,7 @@ const Activities = ({ isProfessor, isParticipant }) => {
   const handleDetailRow = row => {
     const formattedRow = {
       ...row,
+      files: [...row.files, ''],
       students: row.students.length
         ? row.students.map(({ id }) => id)
         : [undefined],
@@ -222,7 +228,12 @@ const Activities = ({ isProfessor, isParticipant }) => {
       );
     }
 
-    return column.format && typeof value === 'number'
+    if (column.id === 'files') {
+      if (value.length) return value.length ? <FileList files={value} /> : '';
+    }
+
+    return column.format &&
+      (typeof value === 'number' || typeof value === 'object')
       ? column.format(value)
       : value;
   };

@@ -30,5 +30,13 @@ export const Form = styled.form`
       margin-top: 10px;
       width: 100%;
     }
+
+    > label {
+      color: #444;
+      margin-bottom: 4px;
+      font-weight: 500;
+      margin-top: 10px;
+      display: block;
+    }
   }
 `;
