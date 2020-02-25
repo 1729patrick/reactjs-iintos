@@ -15,6 +15,7 @@ import About from '~/pages/public/About';
 
 import Partners from '~/pages/public/Partners';
 import ProjectDetails from '~/pages/admin/ProjectDetails';
+import OutputResult from '~/pages/public/OutputResult';
 
 import Route from './Route';
 
@@ -46,6 +47,7 @@ export default () => {
         <Route path="/school" component={School} isPrivate />
         <Route path="/users/schools" component={Users} isPrivate />
         <Route path="/partners" component={Partners} />
+        <Route path="/results" component={OutputResult} />
 
         <Route component={() => <Redirect to="/dashboard" />} isPrivate />
       </Switch>
