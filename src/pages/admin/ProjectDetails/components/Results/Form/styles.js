@@ -22,7 +22,9 @@ export const Form = styled.form`
 
       > div {
         flex: 1;
-        padding-right: 15px;
+      }
+      svg {
+        margin-left: 15px;
       }
     }
 

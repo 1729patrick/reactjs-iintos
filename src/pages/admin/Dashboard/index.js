@@ -30,7 +30,7 @@ const Dashboard = () => {
       </Card1>
 
       <Card2>
-        <Text>Tasks</Text>
+        <Text>Outputs</Text>
       </Card2>
 
       <Card3>
