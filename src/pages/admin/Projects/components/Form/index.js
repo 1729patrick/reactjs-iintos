@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  initialValues,
+  initialValues = { startDate: new Date(), endDate: new Date() },
   submitText,
   open,
   setOpen,
@@ -160,6 +160,21 @@ export default ({
               ]}
             />
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                autoOk
+                disableToolbar
+                variant="inline"
+                format="yyyy-MM-dd"
+                margin="normal"
+                id="date-picker-inline"
+                name="StartDate"
+                label="Start date"
+                value={formik?.values?.startDate}
+                onChange={event => formik.setFieldValue('startDate', event)}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
               <KeyboardDatePicker
                 autoOk
                 disableToolbar

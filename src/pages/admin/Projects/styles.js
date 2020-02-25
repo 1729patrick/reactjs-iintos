@@ -24,6 +24,7 @@ export const ContainerWrap = styled.div`
 
 export const Menu = styled.div`
   width: 18%;
+  min-width: 200px;
 
   div {
     margin-top: 60px;

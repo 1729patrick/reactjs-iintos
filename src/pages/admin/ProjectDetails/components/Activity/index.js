@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { withRouter, useLocation } from 'react-router-dom';
+import { isBefore, format } from 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -23,7 +24,8 @@ import validationSchema from '~/validations/activity';
 
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
-  { id: 'description', label: 'Description', minWidth: 200 },
+  { id: 'startDate', label: 'Start Date', minWidth: 120 },
+  { id: 'endDate', label: 'End Date', minWidth: 120 },
   { id: 'professorsStr', label: 'Professors', minWidth: 200 },
   { id: 'studentsStr', label: 'Students', minWidth: 200 },
   {
@@ -69,7 +71,6 @@ const Activities = ({ isProfessor, isParticipant }) => {
   ]);
 
   const fetchUsers = async () => {
-    
     const response = await api.get(`projects/${projectId}/users`);
     const professors = response.data?.professors.map(({ id, professor }) => ({
       id,
@@ -86,7 +87,21 @@ const Activities = ({ isProfessor, isParticipant }) => {
 
   const fetchActivities = async () => {
     const response = await api.get(`projects/${projectId}/activities`);
-    setActivities(response.data);
+
+    if (response.data) {
+      const formattedActivities = response.data.map(activity => ({
+        ...activity,
+        isBeforeToday: isBefore(new Date(activity.endDate), new Date()),
+        endDate: activity.endDate
+          ? format(new Date(activity.endDate), 'yyyy-MM-dd')
+          : '',
+        startDate: activity.startDate
+          ? format(new Date(activity.startDate), 'yyyy-MM-dd')
+          : '',
+      }));
+
+      setActivities(formattedActivities);
+    }
   };
 
   useState(() => {

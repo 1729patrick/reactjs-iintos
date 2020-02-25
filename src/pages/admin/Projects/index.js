@@ -28,14 +28,12 @@ const columns = [
   {
     id: 'startDate',
     label: 'Start Date',
-    minWidth: 150,
-    format: value => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+    minWidth: 120,
   },
   {
     id: 'endDate',
     label: 'Limit Date',
-    minWidth: 150,
-    format: value => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+    minWidth: 120,
   },
   { id: 'type', label: 'Mobility Type', minWidth: 150 },
   {
@@ -89,7 +87,14 @@ const Projects = ({ history, location }) => {
       const formattedProjects = response.data.map(project => ({
         ...project,
         isBeforeToday: isBefore(new Date(project.endDate), new Date()),
+        endDate: project.endDate
+          ? format(new Date(project.endDate), 'yyyy-MM-dd')
+          : '',
+        startDate: project.startDate
+          ? format(new Date(project.startDate), 'yyyy-MM-dd')
+          : '',
       }));
+
       setProjects(formattedProjects);
     }
   };
@@ -135,7 +140,6 @@ const Projects = ({ history, location }) => {
 
   const handleCreateProjects = () => {
     setModalParams({
-      initialValues: {},
       validationSchema,
       onSubmit: handleCreate,
       submitText: 'Create',
@@ -173,10 +177,7 @@ const Projects = ({ history, location }) => {
       return column.format(row);
     }
 
-    return column.format &&
-      (typeof value === 'number' ||
-        column.id === 'startDate' ||
-        column.id === 'endDate')
+    return column.format && typeof value === 'number'
       ? column.format(value)
       : value;
   };

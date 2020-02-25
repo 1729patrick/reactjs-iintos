@@ -3,6 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 import DeleteIcon from '@material-ui/icons/Delete';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 import Button from '~/components/Button';
 import Select from '~/components/Select';
@@ -33,7 +38,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  initialValues = { students: [undefined], professors: [undefined], title: '' },
+  initialValues = {
+    students: [undefined],
+    professors: [undefined],
+    title: '',
+    startDate: new Date(),
+    endDate: new Date(),
+  },
   submitText,
   open,
   setOpen,
@@ -107,6 +118,40 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
+
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                autoOk
+                disableToolbar
+                variant="inline"
+                format="yyyy-MM-dd"
+                margin="normal"
+                id="date-picker-inline"
+                name="startDate"
+                label="Start date"
+                value={formik?.values?.startDate}
+                onChange={event => formik.setFieldValue('startDate', event)}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+
+              <KeyboardDatePicker
+                autoOk
+                disableToolbar
+                variant="inline"
+                name="endDate"
+                format="yyyy-MM-dd"
+                margin="normal"
+                id="date-picker-inline"
+                label="End date"
+                value={formik?.values?.endDate}
+                onChange={event => formik.setFieldValue('endDate', event)}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+            </MuiPickersUtilsProvider>
 
             <h3>Participants</h3>
             <span>
