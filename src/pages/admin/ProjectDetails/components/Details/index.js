@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { format } from 'date-fns';
 import { useFormik } from 'formik';
 import EditIcon from '@material-ui/icons/Edit';
 
@@ -16,7 +17,6 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
 
   const handleUpdate = async (id, values) => {
     try {
-      console.log(values);
       const response = await api.put(`projects/${id}`, values);
       setModalOpen(false);
       formik.setValues({
@@ -40,6 +40,13 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
     // handleUpdate(row.id, values)
     setModalOpen(true);
   };
+
+  const formattedLimitDate = useMemo(() => {
+    const { endDate } = formik.values;
+    if (endDate) return { endDate: format(new Date(endDate), 'yyyy-MM-dd') };
+
+    return { endDate: '' };
+  }, [formik.values]);
 
   return (
     <Form>
@@ -96,6 +103,16 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
         values={formik.values}
         background="#fff"
       />
+      <Input
+        label="Limit Date"
+        type="type"
+        placeholder="What's the limit date"
+        name="endDate"
+        readOnly
+        values={formattedLimitDate}
+        background="#fff"
+      />
+
       <FormModal open={modalOpen} setOpen={setModalOpen} {...modalParams} />
     </Form>
   );

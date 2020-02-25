@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { isBefore, format } from 'date-fns';
 import { withRouter, NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -23,6 +24,18 @@ const columns = [
     format: value => `${value.ageRangeStart} - ${value.ageRangeEnd}`,
     label: 'Age Range',
     minWidth: 150,
+  },
+  {
+    id: 'startDate',
+    label: 'Start Date',
+    minWidth: 150,
+    format: value => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+  },
+  {
+    id: 'endDate',
+    label: 'Limit Date',
+    minWidth: 150,
+    format: value => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
   },
   { id: 'type', label: 'Mobility Type', minWidth: 150 },
   {
@@ -58,7 +71,7 @@ const Projects = ({ history, location }) => {
   const route = useMemo(() => location.pathname.replace('/projects', ''), [
     location.pathname,
   ]);
-  console.log(route);
+
   const isProfessor = useMemo(() => {
     const localUser = localStorage.getItem('user');
 
@@ -71,7 +84,14 @@ const Projects = ({ history, location }) => {
 
   const fetchProjects = async avaliable => {
     const response = await api.get('projects', { params: { avaliable } });
-    setProjects(response.data);
+
+    if (response.data) {
+      const formattedProjects = response.data.map(project => ({
+        ...project,
+        isBeforeToday: isBefore(new Date(project.endDate), new Date()),
+      }));
+      setProjects(formattedProjects);
+    }
   };
 
   useEffect(() => {
@@ -80,7 +100,6 @@ const Projects = ({ history, location }) => {
 
   const handleCreate = async values => {
     try {
-      console.log(values);
       await api.post('projects', values);
       setModalOpen(false);
       toast.success('Project created with success!');
@@ -127,7 +146,7 @@ const Projects = ({ history, location }) => {
   };
 
   const handleDetailRow = row => {
-    history.push(`/project/${row.id}`);
+    history.push(`/projects/details/${row.id}`);
   };
 
   const getRowContent = ({ column, row }) => {
@@ -153,7 +172,11 @@ const Projects = ({ history, location }) => {
     if (column.id === 'ageRangeStart') {
       return column.format(row);
     }
-    return column.format && typeof value === 'number'
+
+    return column.format &&
+      (typeof value === 'number' ||
+        column.id === 'startDate' ||
+        column.id === 'endDate')
       ? column.format(value)
       : value;
   };

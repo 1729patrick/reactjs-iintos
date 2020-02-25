@@ -34,8 +34,13 @@ export default () => {
         <Route path="/dashboard" component={Dashboard} isPrivate />
         <Route path="/calendar" component={Calendar} isPrivate />
 
-        <Route path="/projects" component={Projects} isPrivate />
-        <Route path="/project/:id" component={ProjectDetails} isPrivate />
+        <Route path="/projects" component={Projects} isPrivate exact />
+        <Route path="/projects/search" component={Projects} isPrivate exact />
+        <Route
+          path="/projects/details/:id"
+          component={ProjectDetails}
+          isPrivate
+        />
 
         <Route path="/users" component={Users} isPrivate />
         <Route path="/school" component={School} isPrivate />
