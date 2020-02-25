@@ -9,4 +9,14 @@ export const Form = styled.form`
     margin-top: 30px;
     width: 100%;
   }
+
+  span {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    div {
+      width: 47%;
+      margin: 10px 0;
+    }
+  }
 `;

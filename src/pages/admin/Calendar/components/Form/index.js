@@ -124,7 +124,7 @@ export default ({
                 autoOk
                 disableToolbar
                 variant="inline"
-                format="MM/dd/yyyy"
+                format="yyyy-MM-dd"
                 margin="normal"
                 id="date-picker-inline"
                 name="start"
@@ -152,7 +152,7 @@ export default ({
                 disableToolbar
                 variant="inline"
                 name="end"
-                format="MM/dd/yyyy"
+                format="yyyy-MM-dd"
                 margin="normal"
                 id="date-picker-inline"
                 label="End date"

@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 
-import Select from '~/components/Select';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import { Form } from './styles';
@@ -32,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  initialValues,
+  initialValues = { students: [undefined], professors: [undefined], title: '' },
   submitText,
   open,
   setOpen,
@@ -46,7 +45,7 @@ export default ({
 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
+  const [modalStyle] = useState(getModalStyle);
 
   const handleClose = () => {
     setOpen(false);
@@ -73,19 +72,8 @@ export default ({
             <Input
               label="Title"
               type="text"
-              placeholder="Type the project title"
+              placeholder="Type the Result title"
               name="title"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
-            <Input
-              label="Goal"
-              type="text"
-              placeholder="Type the project goal"
-              name="goal"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
@@ -97,50 +85,13 @@ export default ({
               label="Description"
               type="text"
               textarea
-              placeholder="Tell more about this project"
+              placeholder=""
               name="description"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
-            />
-            <Input
-              label="Links"
-              type="text"
-              placeholder="links"
-              name="links"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
-            <Input
-              label="Target Audience"
-              type="targetAudience"
-              placeholder="What's the project target audience"
-              name="targetAudience"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
-            <Select
-              label="Mobility Type"
-              type="type"
-              placeholder="What's the mobility type?"
-              name="type"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-              options={[
-                { id: 'Online', name: 'Online' },
-                { id: 'Presential', name: 'Presential' },
-              ]}
             />
             <Button title={submitText} type="submit" />
           </Form>

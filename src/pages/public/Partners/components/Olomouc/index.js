@@ -1,5 +1,6 @@
 import React from 'react';
 import olomoucImage from '~/assets/images/Olomouc.png';
+import olomoucEdImage from '~/assets/images/olomoucEd.png';
 
 export default function About() {
   return (
@@ -28,6 +29,7 @@ export default function About() {
         Literature, Centre for Patristic, Medieval and Renaissance Texts, Centre
         for Clinical Law Education.
       </p>
+      <img src={olomoucEdImage} width="400" height="200" alt="Olomouc" />
       <p>
         The Faculty of Education strives for maintaining the tradition,
         versatility and modernity in the education of students for their

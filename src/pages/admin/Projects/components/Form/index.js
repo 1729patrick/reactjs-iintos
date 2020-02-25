@@ -2,6 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 import Button from '~/components/Button';
 import Select from '~/components/Select';
@@ -32,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  initialValues,
+  initialValues = { startDate: new Date(), endDate: new Date() },
   submitText,
   open,
   setOpen,
@@ -92,7 +97,6 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
-
             <Input
               label="Description"
               type="text"
@@ -116,17 +120,30 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
-            <Input
-              label="Target Audience"
-              type="targetAudience"
-              placeholder="What's the project target audience"
-              name="targetAudience"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
+            <span>
+              <Input
+                label="Age Start"
+                type="number"
+                placeholder="Age Range Start"
+                name="ageRangeStart"
+                onChange={formik.handleChange}
+                values={formik.values}
+                errors={formik.errors}
+                touched={formik.touched}
+                submitted={formik.submitCount}
+              />
+              <Input
+                label="Age End"
+                type="ageRangeEnd"
+                placeholder="Age Range End"
+                name="ageRangeEnd"
+                onChange={formik.handleChange}
+                values={formik.values}
+                errors={formik.errors}
+                touched={formik.touched}
+                submitted={formik.submitCount}
+              />
+            </span>
             <Select
               label="Mobility Type"
               type="type"
@@ -142,6 +159,38 @@ export default ({
                 { id: 'Presential', name: 'Presential' },
               ]}
             />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                autoOk
+                disableToolbar
+                variant="inline"
+                format="yyyy-MM-dd"
+                margin="normal"
+                id="date-picker-inline"
+                name="StartDate"
+                label="Start date"
+                value={formik?.values?.startDate}
+                onChange={event => formik.setFieldValue('startDate', event)}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+              <KeyboardDatePicker
+                autoOk
+                disableToolbar
+                variant="inline"
+                format="yyyy-MM-dd"
+                margin="normal"
+                id="date-picker-inline"
+                name="endDate"
+                label="Limit date"
+                value={formik?.values?.endDate}
+                onChange={event => formik.setFieldValue('endDate', event)}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+            </MuiPickersUtilsProvider>
             <Button title={submitText} type="submit" />
           </Form>
         </div>

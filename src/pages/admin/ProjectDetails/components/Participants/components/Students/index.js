@@ -17,7 +17,7 @@ import validationSchema from '~/validations/projectStudent';
 
 const columns = [
   { id: 'studentName', label: 'Name', minWidth: 200 },
-  { id: 'studentAge', label: 'Age', minWidth: 150 },
+  { id: 'school', label: 'School', minWidth: 150 },
   {
     id: 'delete',
     label: '',
@@ -46,6 +46,7 @@ export default function Professors({
   setModalParams,
   isProfessor,
   isParticipant,
+  schools,
 }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -149,7 +150,12 @@ export default function Professors({
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormModal open={modalOpen} setOpen={setModalOpen} {...modalParams} />
+      <FormModal
+        open={modalOpen}
+        setOpen={setModalOpen}
+        schools={schools}
+        {...modalParams}
+      />
     </>
   );
 }

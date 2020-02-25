@@ -22,23 +22,13 @@ export const Form = styled.form`
 
       > div {
         flex: 1;
-      }
-      svg {
-        margin-left: 15px;
+        padding-right: 15px;
       }
     }
 
     > button {
       margin-top: 10px;
       width: 100%;
-    }
-
-    > label {
-      color: #444;
-      margin-bottom: 4px;
-      font-weight: 500;
-      margin-top: 10px;
-      display: block;
     }
   }
 `;

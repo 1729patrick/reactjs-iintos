@@ -81,7 +81,6 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
               options={users}
-              
             />
             <Button title={submitText} type="submit" />
           </Form>

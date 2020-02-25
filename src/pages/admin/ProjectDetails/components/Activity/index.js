@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { withRouter, useLocation } from 'react-router-dom';
+import { isBefore, format } from 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -18,27 +19,32 @@ import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
 import FormModal from './Form';
 import DeleteModal from '../Delete';
+import FileList from '~/components/FileList';
 
 import validationSchema from '~/validations/activity';
 
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
-  { id: 'description', label: 'Description', minWidth: 200 },
-  { id: 'professorsStr', label: 'Professors', minWidth: 200 },
-  { id: 'studentsStr', label: 'Students', minWidth: 200 },
+  { id: 'startDate', label: 'Start Date', minWidth: 120 },
+  { id: 'endDate', label: 'End Date', minWidth: 120 },
+  { id: 'professorsStr', label: 'Professors', minWidth: 150 },
+  { id: 'studentsStr', label: 'Students', minWidth: 150 },
+  {
+    id: 'files',
+    label: 'Files',
+    minWidth: 120,
+  },
   {
     id: 'see',
     label: '',
     align: 'center',
     minWidth: 50,
-    format: value => value.toFixed(2),
   },
   {
     id: 'delete',
     label: '',
     align: 'center',
     minWidth: 50,
-    format: value => value.toFixed(2),
   },
 ];
 
@@ -64,14 +70,14 @@ const Activities = ({ isProfessor, isParticipant }) => {
     students: [],
   });
 
-  const projectId = useMemo(() => location.pathname.split('/')[2], [
+  const projectId = useMemo(() => location.pathname.split('/')[3], [
     location.pathname,
   ]);
 
   const fetchUsers = async () => {
     const response = await api.get(`projects/${projectId}/users`);
     const professors = response.data?.professors.map(({ id, professor }) => ({
-      id,
+      id: professor.id,
       name: professor.name,
     }));
 
@@ -85,7 +91,21 @@ const Activities = ({ isProfessor, isParticipant }) => {
 
   const fetchActivities = async () => {
     const response = await api.get(`projects/${projectId}/activities`);
-    setActivities(response.data);
+
+    if (response.data) {
+      const formattedActivities = response.data.map(activity => ({
+        ...activity,
+        isBeforeToday: isBefore(new Date(activity.endDate), new Date()),
+        endDate: activity.endDate
+          ? format(new Date(activity.endDate), 'yyyy-MM-dd')
+          : '',
+        startDate: activity.startDate
+          ? format(new Date(activity.startDate), 'yyyy-MM-dd')
+          : '',
+      }));
+
+      setActivities(formattedActivities);
+    }
   };
 
   useState(() => {
@@ -105,7 +125,8 @@ const Activities = ({ isProfessor, isParticipant }) => {
   // api call to post
   const handleUpdate = async (id, values) => {
     try {
-      await api.put(`activities/${id}`, values);
+      const files = values.files?.filter(f => f).map(({ id }) => id);
+      await api.put(`activities/${id}`, { ...values, files });
       setModalOpen(false);
       toast.success('Activity updated with success!');
       fetchActivities();
@@ -116,7 +137,8 @@ const Activities = ({ isProfessor, isParticipant }) => {
 
   const handleCreate = async values => {
     try {
-      await api.post(`activities`, { ...values, projectId });
+      const files = values.files?.filter(f => f).map(({ id }) => id);
+      await api.post(`activities`, { ...values, projectId, files });
       setModalOpen(false);
       toast.success('Activity created with success!');
       fetchActivities();
@@ -164,6 +186,7 @@ const Activities = ({ isProfessor, isParticipant }) => {
   const handleDetailRow = row => {
     const formattedRow = {
       ...row,
+      files: [...row.files, ''],
       students: row.students.length
         ? row.students.map(({ id }) => id)
         : [undefined],
@@ -205,7 +228,12 @@ const Activities = ({ isProfessor, isParticipant }) => {
       );
     }
 
-    return column.format && typeof value === 'number'
+    if (column.id === 'files') {
+      if (value.length) return value.length ? <FileList files={value} /> : '';
+    }
+
+    return column.format &&
+      (typeof value === 'number' || typeof value === 'object')
       ? column.format(value)
       : value;
   };

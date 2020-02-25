@@ -43,7 +43,11 @@ export default withRouter(({ computedMatch }) => {
 
   const fetchProjects = async () => {
     const response = await api.get(`projects/${projectId}`);
-    setProjects(response.data);
+    const project = {
+      ...response.data,
+      ageRange: `${response.data.ageRangeStart} - ${response.data.ageRangeEnd}`,
+    };
+    setProjects(project);
   };
 
   const fetchSchools = async () => {
@@ -59,8 +63,10 @@ export default withRouter(({ computedMatch }) => {
   const Children = () => {
     const location = useLocation();
 
-    const route = location.pathname.replace(`/project/${projectId}`, '');
-
+    const route = location.pathname.replace(
+      `/projects/details/${projectId}`,
+      ''
+    );
     if (route === '/participants') {
       return (
         <Participants isProfessor={isProfessor} isParticipant={isParticipant} />
@@ -100,15 +106,21 @@ export default withRouter(({ computedMatch }) => {
     <Container>
       <Menu>
         <div>
-          <NavLink to={`/project/${projectId}/`} exact>
+          <NavLink to={`/projects/details/${projectId}/`} exact>
             Details
           </NavLink>
-          <NavLink to={`/project/${projectId}/activities`}>Activity</NavLink>
-          <NavLink to={`/project/${projectId}/schools`}>Schools</NavLink>
-          <NavLink to={`/project/${projectId}/participants`}>
+          <NavLink to={`/projects/details/${projectId}/activities`}>
+            Activity
+          </NavLink>
+          <NavLink to={`/projects/details/${projectId}/schools`}>
+            Schools
+          </NavLink>
+          <NavLink to={`/projects/details/${projectId}/participants`}>
             Participants
           </NavLink>
-          <NavLink to={`/project/${projectId}/results`}>Results</NavLink>
+          <NavLink to={`/projects/details/${projectId}/results`}>
+            Results
+          </NavLink>
         </div>
       </Menu>
       <Content>

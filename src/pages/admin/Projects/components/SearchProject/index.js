@@ -63,6 +63,9 @@ export default function SearchProject({
                         role="checkbox"
                         tabIndex={-1}
                         key={row.id}
+                        style={{
+                          background: row.isBeforeToday ? '#fbfd6f' : '',
+                        }}
                       >
                         {columns.map(column => {
                           return (

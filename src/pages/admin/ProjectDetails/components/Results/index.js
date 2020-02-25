@@ -12,6 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
+import FileList from '~/components/FileList';
 
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
@@ -25,12 +26,18 @@ const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
   { id: 'description', label: 'Description', minWidth: 200 },
   {
+    id: 'files',
+    label: 'Files',
+    minWidth: 120,
+  },
+  {
     id: 'see',
     label: '',
     align: 'center',
     minWidth: 50,
     format: value => value.toFixed(2),
   },
+
   {
     id: 'delete',
     label: '',
@@ -58,7 +65,7 @@ const Results = ({ isProfessor, isParticipant }) => {
   const [modalParams, setModalParams] = useState({});
   const location = useLocation();
 
-  const projectId = useMemo(() => location.pathname.split('/')[2], [
+  const projectId = useMemo(() => location.pathname.split('/')[3], [
     location.pathname,
   ]);
 
@@ -83,7 +90,9 @@ const Results = ({ isProfessor, isParticipant }) => {
   // api call to post
   const handleUpdate = async (id, values) => {
     try {
-      await api.put(`results/${id}`, values);
+      const files = values.files?.filter(f => f).map(({ id }) => id);
+
+      await api.put(`results/${id}`, { ...values, files });
       setModalOpen(false);
       toast.success('Results updated with success!');
       fetchActivities();
@@ -94,7 +103,9 @@ const Results = ({ isProfessor, isParticipant }) => {
 
   const handleCreate = async values => {
     try {
-      await api.post(`results`, { ...values, projectId });
+      const files = values.files?.filter(f => f).map(({ id }) => id);
+
+      await api.post(`results`, { ...values, projectId, files });
       setModalOpen(false);
       toast.success('Result created with success!');
       fetchActivities();
@@ -142,8 +153,7 @@ const Results = ({ isProfessor, isParticipant }) => {
     setModalParams({
       initialValues: {
         ...row,
-        studends: [undefined],
-        professors: [undefined],
+        files: [...row.files, ''],
       },
       validationSchema,
       onSubmit: values => handleUpdate(row.id, values),
@@ -173,6 +183,10 @@ const Results = ({ isProfessor, isParticipant }) => {
           onClick={() => handleDetailRow(row)}
         />
       );
+    }
+
+    if (column.id === 'files') {
+      if (value.length) return value.length ? <FileList files={value} /> : '';
     }
 
     return column.format && typeof value === 'number'

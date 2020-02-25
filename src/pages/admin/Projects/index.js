@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { isBefore, format } from 'date-fns';
 import { withRouter, NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -18,7 +19,22 @@ import validationSchema from '~/validations/project';
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
   { id: 'goal', label: 'Goal', minWidth: 200 },
-  { id: 'targetAudience', label: 'Target Audience', minWidth: 150 },
+  {
+    id: 'ageRangeStart',
+    format: value => `${value.ageRangeStart} - ${value.ageRangeEnd}`,
+    label: 'Age Range',
+    minWidth: 150,
+  },
+  {
+    id: 'startDate',
+    label: 'Start Date',
+    minWidth: 120,
+  },
+  {
+    id: 'endDate',
+    label: 'Limit Date',
+    minWidth: 120,
+  },
   { id: 'type', label: 'Mobility Type', minWidth: 150 },
   {
     id: 'see',
@@ -53,7 +69,7 @@ const Projects = ({ history, location }) => {
   const route = useMemo(() => location.pathname.replace('/projects', ''), [
     location.pathname,
   ]);
-  console.log(route);
+
   const isProfessor = useMemo(() => {
     const localUser = localStorage.getItem('user');
 
@@ -66,7 +82,21 @@ const Projects = ({ history, location }) => {
 
   const fetchProjects = async avaliable => {
     const response = await api.get('projects', { params: { avaliable } });
-    setProjects(response.data);
+
+    if (response.data) {
+      const formattedProjects = response.data.map(project => ({
+        ...project,
+        isBeforeToday: isBefore(new Date(project.endDate), new Date()),
+        endDate: project.endDate
+          ? format(new Date(project.endDate), 'yyyy-MM-dd')
+          : '',
+        startDate: project.startDate
+          ? format(new Date(project.startDate), 'yyyy-MM-dd')
+          : '',
+      }));
+
+      setProjects(formattedProjects);
+    }
   };
 
   useEffect(() => {
@@ -110,7 +140,6 @@ const Projects = ({ history, location }) => {
 
   const handleCreateProjects = () => {
     setModalParams({
-      initialValues: {},
       validationSchema,
       onSubmit: handleCreate,
       submitText: 'Create',
@@ -121,7 +150,7 @@ const Projects = ({ history, location }) => {
   };
 
   const handleDetailRow = row => {
-    history.push(`/project/${row.id}`);
+    history.push(`/projects/details/${row.id}`);
   };
 
   const getRowContent = ({ column, row }) => {
@@ -143,6 +172,9 @@ const Projects = ({ history, location }) => {
           onClick={() => handleDetailRow(row)}
         />
       );
+    }
+    if (column.id === 'ageRangeStart') {
+      return column.format(row);
     }
 
     return column.format && typeof value === 'number'

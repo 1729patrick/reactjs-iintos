@@ -4,7 +4,14 @@ import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
 import Button from '~/components/Button';
+import Files from '~/components/Files';
 import Select from '~/components/Select';
 import Input from '~/components/Input';
 import { Form } from './styles';
@@ -33,7 +40,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  initialValues = { students: [undefined], professors: [undefined], title: '' },
+  initialValues = {
+    files: [''],
+    students: [],
+    professors: [],
+    title: '',
+    startDate: new Date(),
+    endDate: new Date(),
+  },
   submitText,
   open,
   setOpen,
@@ -63,12 +77,11 @@ export default ({
 
   const handleAdd = field => {
     const values = formik.values[field];
-    formik.setFieldValue(field, [...values, {}]);
+    formik.setFieldValue(field, [...values, users[field][0]?.id]);
   };
 
   const handleRemove = (field, index) => {
     const newState = formik.values[field].filter((_, i) => i !== index);
-
     formik.setFieldValue(field, newState);
   };
 
@@ -107,6 +120,41 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
+
+            <Files formik={formik} />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                autoOk
+                disableToolbar
+                variant="inline"
+                format="yyyy-MM-dd"
+                margin="normal"
+                id="date-picker-inline"
+                name="startDate"
+                label="Start date"
+                value={formik?.values?.startDate}
+                onChange={event => formik.setFieldValue('startDate', event)}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+
+              <KeyboardDatePicker
+                autoOk
+                disableToolbar
+                variant="inline"
+                name="endDate"
+                format="yyyy-MM-dd"
+                margin="normal"
+                id="date-picker-inline"
+                label="End date"
+                value={formik?.values?.endDate}
+                onChange={event => formik.setFieldValue('endDate', event)}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+            </MuiPickersUtilsProvider>
 
             <h3>Participants</h3>
             <span>

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { format } from 'date-fns';
 import { useFormik } from 'formik';
 import EditIcon from '@material-ui/icons/Edit';
 
 import { toast } from 'react-toastify';
 import validationSchema from '~/validations/project';
-import FormModal from './Form';
+import FormModal from '~/pages/admin/Projects/components/Form';
 import Input from '~/components/Input';
 import { Form } from './styles';
 import api from '~/services/api';
@@ -16,9 +17,12 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
 
   const handleUpdate = async (id, values) => {
     try {
-      await api.put(`projects/${id}`, values);
+      const response = await api.put(`projects/${id}`, values);
       setModalOpen(false);
-      formik.setValues(values);
+      formik.setValues({
+        ...response.data,
+        ageRange: `${response.data.ageRangeStart} - ${response.data.ageRangeEnd}`,
+      });
       toast.success('Project updated with success!');
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid request, try again');
@@ -36,6 +40,13 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
     // handleUpdate(row.id, values)
     setModalOpen(true);
   };
+
+  const formattedLimitDate = useMemo(() => {
+    const { endDate } = formik.values;
+    if (endDate) return { endDate: format(new Date(endDate), 'yyyy-MM-dd') };
+
+    return { endDate: '' };
+  }, [formik.values]);
 
   return (
     <Form>
@@ -75,10 +86,10 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
         background="#fff"
       />
       <Input
-        label="Target Audience"
-        type="targetAudience"
+        label="Age Range"
+        type="ageRange"
         placeholder="What's the project target audience"
-        name="targetAudience"
+        name="ageRange"
         readOnly
         values={formik.values}
         background="#fff"
@@ -92,6 +103,16 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
         values={formik.values}
         background="#fff"
       />
+      <Input
+        label="Limit Date"
+        type="type"
+        placeholder="What's the limit date"
+        name="endDate"
+        readOnly
+        values={formattedLimitDate}
+        background="#fff"
+      />
+
       <FormModal open={modalOpen} setOpen={setModalOpen} {...modalParams} />
     </Form>
   );
