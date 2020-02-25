@@ -81,7 +81,7 @@ export default function Schools({
   const [modalParams, setModalParams] = useState({});
 
   const location = useLocation();
-  const projectId = useMemo(() => location.pathname.split('/')[2], [
+  const projectId = useMemo(() => location.pathname.split('/')[3], [
     location.pathname,
   ]);
   /**

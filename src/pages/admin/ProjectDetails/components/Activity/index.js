@@ -64,11 +64,12 @@ const Activities = ({ isProfessor, isParticipant }) => {
     students: [],
   });
 
-  const projectId = useMemo(() => location.pathname.split('/')[2], [
+  const projectId = useMemo(() => location.pathname.split('/')[3], [
     location.pathname,
   ]);
 
   const fetchUsers = async () => {
+    
     const response = await api.get(`projects/${projectId}/users`);
     const professors = response.data?.professors.map(({ id, professor }) => ({
       id,
