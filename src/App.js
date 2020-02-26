@@ -21,6 +21,10 @@ function App() {
     setUser(loggedUser);
   }, []);
 
+  if (!user) {
+    return <div />;
+  }
+
   return (
     <UserProvider value={{ ...user, setUser }}>
       <Routes />
