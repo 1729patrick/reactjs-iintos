@@ -11,12 +11,12 @@ import { useUserContext } from '~/context/UserContext';
 export default withRouter(({ location }) => {
   const { user } = useCallback(useUserContext(), []);
 
-  const hasCoordinator = useMemo(() => user?.role === 'Coordinator', [user]);
+  const isCoordinator = useMemo(() => user?.role === 'Coordinator', [user]);
 
   const Children = () => {
     const route = location.pathname.replace('/school', '');
     if (route === '/users') {
-      return <Users hasCoordinator={hasCoordinator} />;
+      return <Users isCoordinator={isCoordinator} />;
     }
 
     if (route === '/approve') {
@@ -33,7 +33,7 @@ export default withRouter(({ location }) => {
             Details
           </NavLink>
           <NavLink to="/school/users">Users</NavLink>
-          {hasCoordinator && (
+          {isCoordinator && (
             <NavLink to="/school/approve">Approve Professors</NavLink>
           )}
         </div>

@@ -20,7 +20,7 @@ export default withRouter(({ location, history }) => {
   ]);
   const { user } = useCallback(useUserContext(), []);
 
-  const groupAdmin = useCallback(() => {
+  const isGroupAdmin = useCallback(() => {
     return (
       user?.role === 'Admin' ||
       user?.role === 'IINTOS-Admin' ||
@@ -167,7 +167,7 @@ export default withRouter(({ location, history }) => {
               </NavLink>
             );
           })}
-          {groupAdmin() && (
+          {isGroupAdmin() && (
             <Button
               title="Create Result"
               type="button"

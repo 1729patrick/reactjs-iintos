@@ -17,15 +17,16 @@ const Header = () => {
     });
   };
 
-  const groupAdmin = useCallback(() => {
+  const isGroupAdmin = useCallback(() => {
     return (
       user?.role === 'Admin' ||
       user?.role === 'IINTOS-Admin' ||
-      user?.role === 'Mobility-Admin'
+      user?.role === 'Mobility-Admin' ||
+      user?.role === 'IINTOS-Partner'
     );
   }, [user]);
 
-  const groupSchool = useCallback(() => {
+  const isGroupSchool = useCallback(() => {
     return user?.role === 'Coordinator' || user?.role === 'Professor';
   }, [user]);
 
@@ -38,11 +39,11 @@ const Header = () => {
       <div>
         <div>
           <NavLink to="/projects">Projects</NavLink>
-          {groupAdmin() && <NavLink to="/outputs">Outputs</NavLink>}
+          {isGroupAdmin() && <NavLink to="/outputs">Outputs</NavLink>}
           <NavLink to="/results">Results</NavLink>
           <NavLink to="/calendar">Calendar</NavLink>
-          {groupAdmin() && <NavLink to="/users">Users</NavLink>}
-          {groupSchool() && <NavLink to="/school">School</NavLink>}
+          {isGroupAdmin() && <NavLink to="/users">Users</NavLink>}
+          {isGroupSchool() && <NavLink to="/school">School</NavLink>}
 
           <NavLink to="/login" onClick={logout}>
             Logout

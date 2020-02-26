@@ -56,7 +56,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Users({ hasCoordinator }) {
+export default function Users({ isCoordinator }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -152,7 +152,7 @@ export default function Users({ hasCoordinator }) {
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
-    if (column.id === 'see' && hasCoordinator) {
+    if (column.id === 'see' && isCoordinator) {
       return (
         <EditIcon
           style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
@@ -173,7 +173,7 @@ export default function Users({ hasCoordinator }) {
         <span>
           <h1>Users</h1>
 
-          {hasCoordinator && (
+          {isCoordinator && (
             <Button
               title="Create User"
               type="button"

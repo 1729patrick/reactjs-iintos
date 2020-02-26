@@ -15,7 +15,7 @@ export default function Result({
 }) {
   const { user } = useCallback(useUserContext(), []);
 
-  const groupAdmin = useCallback(() => {
+  const isGroupAdmin = useCallback(() => {
     return (
       user?.role === 'Admin' ||
       user?.role === 'IINTOS-Admin' ||
@@ -30,7 +30,7 @@ export default function Result({
 
         <div>
           {files.length ? <FilesList files={files} /> : null}
-          {groupAdmin() && (
+          {isGroupAdmin() && (
             <>
               <EditIcon onClick={handleEditProject} />
               <DeleteIcon

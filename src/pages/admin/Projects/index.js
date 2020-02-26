@@ -73,15 +73,22 @@ const Projects = ({ history, location, columns = projectColumns }) => {
     location.pathname,
   ]);
 
-  const isProfessor = useMemo(() => user.role === 'Professor', [user]);
+  const isProfessor = useMemo(
+    () =>
+      user?.role === 'Professor' ||
+      user?.role === 'IINTOS-Admin' ||
+      user?.role === 'IINTOS-Partner',
+    [user]
+  );
+
   const isGroupAdmin = useMemo(() => {
     return (
       user?.role === 'Admin' ||
       user?.role === 'IINTOS-Admin' ||
-      user?.role === 'Mobility-Admin'
+      user?.role === 'Mobility-Admin' ||
+      user?.role === 'IINTOS-Partner'
     );
   }, [user]);
-
 
   const fetchProjects = async avaliable => {
     const response = await api.get('projects', {

@@ -49,7 +49,7 @@ const Projects = ({ history, location }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
 
-  const isProfessor = useMemo(() => user.role === 'Professor', [user]);
+  const isProfessor = useMemo(() => user?.role === 'IINTOS-Partner', [user]);
 
   const fetchProjects = async () => {
     const response = await api.get('projects', {
