@@ -42,8 +42,8 @@ const useStyles = makeStyles(theme => ({
 export default ({
   initialValues = {
     files: [''],
-    students: [],
-    professors: [],
+    students: [''],
+    professors: [''],
     title: '',
     startDate: new Date(),
     endDate: new Date(),
@@ -77,7 +77,7 @@ export default ({
 
   const handleAdd = field => {
     const values = formik.values[field];
-    formik.setFieldValue(field, [...values, users[field][0]?.id]);
+    formik.setFieldValue(field, [...values, '']);
   };
 
   const handleRemove = (field, index) => {

@@ -7,6 +7,8 @@ export const Container = styled.header`
   display: flex;
   align-items: center;
   padding: 0 35px;
+  position: fixed;
+  width: 100%;
 
   > a {
     font-size: 32px;

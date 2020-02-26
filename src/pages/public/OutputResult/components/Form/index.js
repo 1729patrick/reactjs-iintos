@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import { Form } from './styles';
+import Files from '~/components/Files';
 
 function getModalStyle() {
   const top = 50;
@@ -31,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  initialValues = { students: [undefined], professors: [undefined], title: '' },
+  initialValues = { title: '', description: '', files: [''] },
   submitText,
   open,
   setOpen,
@@ -85,7 +86,7 @@ export default ({
               label="Description"
               type="text"
               textarea
-              placeholder=""
+              placeholder="Type the Result description"
               name="description"
               onChange={formik.handleChange}
               values={formik.values}
@@ -93,6 +94,9 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
+
+            <Files formik={formik} />
+
             <Button title={submitText} type="submit" />
           </Form>
         </div>

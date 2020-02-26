@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { isBefore, format } from 'date-fns';
 import { withRouter, NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,10 +13,11 @@ import FormModal from './components/Form';
 import DeleteModal from './components/Delete';
 import MyProject from './components/MyProject';
 import SearchProject from './components/SearchProject';
+import { useUserContext } from '~/context/UserContext';
 
 import validationSchema from '~/validations/project';
 
-const columns = [
+const projectColumns = [
   { id: 'title', label: 'Title', minWidth: 200 },
   { id: 'goal', label: 'Goal', minWidth: 200 },
   {
@@ -61,7 +62,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Projects = ({ history, location }) => {
+const Projects = ({ history, location, columns = projectColumns }) => {
+  const { user } = useCallback(useUserContext(), []);
+
   const [projects, setProjects] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
@@ -70,18 +73,27 @@ const Projects = ({ history, location }) => {
     location.pathname,
   ]);
 
-  const isProfessor = useMemo(() => {
-    const localUser = localStorage.getItem('user');
+  const isProfessor = useMemo(
+    () =>
+      user?.role === 'Professor' ||
+      user?.role === 'IINTOS-Admin' ||
+      user?.role === 'IINTOS-Partner',
+    [user]
+  );
 
-    if (localUser) {
-      const user = JSON.parse(localUser);
-
-      return user.role === 'Professor';
-    }
-  }, []);
+  const isGroupAdmin = useMemo(() => {
+    return (
+      user?.role === 'Admin' ||
+      user?.role === 'IINTOS-Admin' ||
+      user?.role === 'Mobility-Admin' ||
+      user?.role === 'IINTOS-Partner'
+    );
+  }, [user]);
 
   const fetchProjects = async avaliable => {
-    const response = await api.get('projects', { params: { avaliable } });
+    const response = await api.get('projects', {
+      params: { avaliable, destination: 'MOBILITY' },
+    });
 
     if (response.data) {
       const formattedProjects = response.data.map(project => ({
@@ -204,28 +216,32 @@ const Projects = ({ history, location }) => {
         projects={projects}
         getRowContent={getRowContent}
         useStyles={useStyles}
+        title={isGroupAdmin ? 'Projects' : 'My Projects'}
       />
     );
   };
 
   return (
     <Container>
-      <Menu>
-        <div>
-          <NavLink to="/projects" exact>
-            My Projects
-          </NavLink>
-          {!isProfessor && (
-            <NavLink to="/projects/search">Search Projects</NavLink>
-          )}
-        </div>
-      </Menu>
+      {!isGroupAdmin && (
+        <Menu>
+          <div>
+            <NavLink to="/projects" exact>
+              My Projects
+            </NavLink>
+            {!isProfessor && (
+              <NavLink to="/projects/search">Search Projects</NavLink>
+            )}
+          </div>
+        </Menu>
+      )}
       <Content>
         <Children />
         <FormModal
           open={modalOpen === 'form'}
           setOpen={setModalOpen}
           {...modalParams}
+          isProject
         />
         <DeleteModal
           open={modalOpen === 'delete'}

@@ -27,9 +27,8 @@ export default function Files({ formik }) {
     <span>
       <label>Files</label>
       {formik.values?.files?.map((file, index) => (
-        <div>
+        <div key={String(index)}>
           <FileInput
-            key={String(index)}
             name="file"
             placeholder={formik.values?.files[index]?.name || 'Attachment file'}
             onChange={e => onFileUpload(index, e)}

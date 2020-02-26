@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -17,6 +17,7 @@ import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
 import FormModal from './modals/Form';
 import DeleteModal from './modals/Delete';
+import { useUserContext } from '~/context/UserContext';
 
 import validationSchema from '~/validations/user';
 
@@ -61,7 +62,7 @@ const useStyles = makeStyles({
     width: '100%',
   },
   container: {
-    maxHeight: 440,
+    maxHeight: window.innerHeight - 270,
   },
 });
 
@@ -74,6 +75,11 @@ export default function Users() {
   const [schools, setSchools] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+  const { user } = useCallback(useUserContext(), []);
+
+  const isIIntosPartner = useMemo(() => {
+    return user?.role === 'IINTOS-Partner';
+  }, [user]);
 
   const fetchUsers = async () => {
     const response = await api.get('users');
@@ -93,9 +99,6 @@ export default function Users() {
   useEffect(() => {
     fetchRoles();
     fetchSchools();
-  }, []);
-
-  useState(() => {
     fetchUsers();
   }, []);
 
@@ -185,7 +188,7 @@ export default function Users() {
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
-    if (column.id === 'delete') {
+    if (column.id === 'delete' && !isIIntosPartner) {
       return (
         <DeleteIcon
           style={{ color: '#cb1010', cursor: 'pointer' }}
@@ -194,7 +197,7 @@ export default function Users() {
       );
     }
 
-    if (column.id === 'see') {
+    if (column.id === 'see' && !isIIntosPartner) {
       return (
         <EditIcon
           style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
@@ -215,11 +218,13 @@ export default function Users() {
         <span>
           <h1>Users</h1>
 
-          <Button
-            title="Create User"
-            type="button"
-            onClick={handleCreateUser}
-          />
+          {!isIIntosPartner && (
+            <Button
+              title="Create User"
+              type="button"
+              onClick={handleCreateUser}
+            />
+          )}
         </span>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

@@ -6,7 +6,9 @@ import Calendar from '~/pages/admin/Calendar';
 import Users from '~/pages/admin/Users';
 import Projects from '~/pages/admin/Projects';
 import School from '~/pages/admin/School';
+import Outputs from '~/pages/admin/Outputs';
 
+import Home from '~/pages/public/Home';
 import Login from '~/pages/public/Login';
 import SignUp from '~/pages/public/SignUp';
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
@@ -23,6 +25,7 @@ export default () => {
   return (
     <Router>
       <Switch>
+        <Route path="/" component={Home} exact />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} exact />
         <Route
@@ -35,15 +38,22 @@ export default () => {
         <Route path="/dashboard" component={Dashboard} isPrivate />
         <Route path="/calendar" component={Calendar} isPrivate />
 
+        <Route
+          path="/outputs/details/:id"
+          component={ProjectDetails}
+          isPrivate
+        />
+
         <Route path="/projects" component={Projects} isPrivate exact />
-        <Route path="/projects/search" component={Projects} isPrivate exact />
         <Route
           path="/projects/details/:id"
           component={ProjectDetails}
           isPrivate
         />
+        <Route path="/projects/search" component={Projects} isPrivate exact />
 
         <Route path="/users" component={Users} isPrivate />
+        <Route path="/outputs" component={Outputs} isPrivate />
         <Route path="/school" component={School} isPrivate />
         <Route path="/users/schools" component={Users} isPrivate />
         <Route path="/partners" component={Partners} />

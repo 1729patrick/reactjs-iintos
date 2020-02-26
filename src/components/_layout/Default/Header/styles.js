@@ -7,8 +7,8 @@ export const Container = styled.header`
   display: flex;
   align-items: center;
   padding: 0 35px;
-
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+  position: fixed;
+  width: 100%;
 
   > a {
     font-size: 32px;
@@ -32,19 +32,17 @@ export const Container = styled.header`
       a {
         color: #222;
         font-size: 15px;
+        padding-bottom: 3px;
+        border-bottom: solid 2px transparent;
 
         & + a {
           margin-left: 30px;
         }
-      }
-    }
 
-    img {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      margin-left: 40px;
-      background: #fff;
+        &.active {
+          border-color: #222;
+        }
+      }
     }
   }
 `;

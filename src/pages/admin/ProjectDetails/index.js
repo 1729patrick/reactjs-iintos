@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import { withRouter, NavLink, useLocation } from 'react-router-dom';
 
 import api from '~/services/api';
@@ -9,37 +9,34 @@ import Details from './components/Details';
 import Participants from './components/Participants';
 import Results from './components/Results';
 import Schools from './components/Schools';
+import { useUserContext } from '~/context/UserContext';
 
 export default withRouter(({ computedMatch }) => {
+  const { user, school } = useCallback(useUserContext(), []);
   const [schools, setSchools] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const location = useLocation();
+
+  const type = useMemo(() => {
+    const { pathname } = location;
+    // eslint-disable-next-line no-unused-vars
+    const [_, route] = pathname.split('/');
+
+    return route;
+  }, [location]);
 
   const projectId = useMemo(() => computedMatch.params.id, [
     computedMatch.params.id,
   ]);
 
-  const isProfessor = useMemo(() => {
-    const localUser = localStorage.getItem('user');
+  const isProfessor = useMemo(() => user?.role === 'Professor', [user]);
 
-    if (localUser) {
-      const user = JSON.parse(localUser);
+  const isProject = useMemo(() => type === 'projects', [type]);
 
-      return user.role === 'Professor';
-    }
-  }, []);
-
-  const isParticipant = useMemo(() => {
-    const localSchool = localStorage.getItem('school');
-
-    if (localSchool) {
-      const school = JSON.parse(localSchool);
-      if (!school) {
-        return true;
-      }
-      return schools.includes(school.id);
-    }
-  }, [schools]);
-
-  const [projects, setProjects] = useState([]);
+  const isParticipant = useMemo(
+    () => user?.role === 'Admin' || schools.includes(school?.id),
+    [user, school, schools]
+  );
 
   const fetchProjects = async () => {
     const response = await api.get(`projects/${projectId}`);
@@ -50,21 +47,19 @@ export default withRouter(({ computedMatch }) => {
     setProjects(project);
   };
 
-  const fetchSchools = async () => {
+  const fetchSchools = useCallback(async () => {
     const response = await api.get(`/projects/${projectId}/schools`);
     setSchools(response.data.map(({ schoolId }) => schoolId));
-  };
+  }, [projectId]);
 
   useState(() => {
     fetchProjects();
     fetchSchools();
   }, []);
 
-  const Children = () => {
-    const location = useLocation();
-
+  const Children = useCallback(() => {
     const route = location.pathname.replace(
-      `/projects/details/${projectId}`,
+      `/${type}/details/${projectId}`,
       ''
     );
     if (route === '/participants') {
@@ -91,34 +86,43 @@ export default withRouter(({ computedMatch }) => {
         />
       );
     }
-
     // By default, the content from the IPS will appear
     return (
       <Details
         initialValues={projects}
         isProfessor={isProfessor}
         isParticipant={isParticipant}
+        isProject={isProject}
       />
     );
-  };
+  }, [
+    fetchSchools,
+    isParticipant,
+    isProfessor,
+    projectId,
+    projects,
+    location,
+    type,
+    isProject,
+  ]);
 
   return (
     <Container>
       <Menu>
         <div>
-          <NavLink to={`/projects/details/${projectId}/`} exact>
+          <NavLink to={`/${type}/details/${projectId}/`} exact>
             Details
           </NavLink>
-          <NavLink to={`/projects/details/${projectId}/activities`}>
+          <NavLink to={`/${type}/details/${projectId}/activities`}>
             Activity
           </NavLink>
-          <NavLink to={`/projects/details/${projectId}/schools`}>
+          <NavLink to={`/${type}/details/${projectId}/schools`}>
             Schools
           </NavLink>
-          <NavLink to={`/projects/details/${projectId}/participants`}>
+          <NavLink to={`/${type}/details/${projectId}/participants`}>
             Participants
           </NavLink>
-          <NavLink to={`/projects/details/${projectId}/results`}>
+          <NavLink to={`/${type}/details/${projectId}/results`}>
             Results
           </NavLink>
         </div>

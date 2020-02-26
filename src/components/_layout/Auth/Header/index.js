@@ -1,31 +1,37 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Container } from './styles';
 import Logo from '~/assets/images/logo.png';
+import { useUserContext } from '~/context/UserContext';
+import api from '~/services/api';
+import apiCalendar from '~/services/apiCalendar';
 
 const Header = () => {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useCallback(useUserContext(), []);
 
-  useEffect(() => {
-    const userLocal = localStorage.getItem('user');
-    if (userLocal) {
-      setUser(JSON.parse(userLocal));
-    }
-  }, []);
   const logout = () => {
     localStorage.clear();
+    setUser({
+      user: null,
+      school: null,
+      token: null,
+    });
+
+    api.defaults.headers.authorization = null;
+    apiCalendar.defaults.headers.userID = null;
   };
 
-  const groupAdmin = useCallback(() => {
+  const isGroupAdmin = useCallback(() => {
     return (
       user?.role === 'Admin' ||
       user?.role === 'IINTOS-Admin' ||
-      user?.role === 'Mobility-Admin'
+      user?.role === 'Mobility-Admin' ||
+      user?.role === 'IINTOS-Partner'
     );
   }, [user]);
 
-  const groupSchool = useCallback(() => {
+  const isGroupSchool = useCallback(() => {
     return user?.role === 'Coordinator' || user?.role === 'Professor';
   }, [user]);
 
@@ -37,16 +43,12 @@ const Header = () => {
 
       <div>
         <div>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/partners/IPS">Partners</NavLink>
-          <NavLink to="/news">News</NavLink>
-          <NavLink to="/results/1">Results</NavLink>
           <NavLink to="/projects">Projects</NavLink>
+          {isGroupAdmin() && <NavLink to="/outputs">Outputs</NavLink>}
+          <NavLink to="/results">Results</NavLink>
           <NavLink to="/calendar">Calendar</NavLink>
-
-          {groupAdmin() && <NavLink to="/outputs">Outputs</NavLink>}
-          {groupAdmin() && <NavLink to="/users">Users</NavLink>}
-          {groupSchool() && <NavLink to="/school">School</NavLink>}
+          {isGroupAdmin() && <NavLink to="/users">Users</NavLink>}
+          {isGroupSchool() && <NavLink to="/school">School</NavLink>}
 
           <NavLink to="/login" onClick={logout}>
             Logout

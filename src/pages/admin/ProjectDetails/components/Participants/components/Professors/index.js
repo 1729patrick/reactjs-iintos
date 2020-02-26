@@ -49,7 +49,7 @@ const useStyles = makeStyles({
     width: '100%',
   },
   container: {
-    maxHeight: 440,
+    maxHeight: window.innerHeight - 270,
   },
 });
 
@@ -143,7 +143,12 @@ export default function Professors({
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(row => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={row.professor?.id}
+                    >
                       {columns.map(column => {
                         return (
                           <TableCell key={column.id} align={column.align}>

@@ -29,7 +29,7 @@ export default function Select({
         value={values[name]}
         disabled={readOnly}
       >
-        <option default selected disabled value="null">
+        <option default value="">
           {placeholder}
         </option>
 

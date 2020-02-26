@@ -1,16 +1,19 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100vh;
   width: 100%;
   display: flex;
 `;
 
 export const Menu = styled.div`
   min-width: 22%;
+  position: fixed;
+  height: 100%;
+  position: fixed;
+  height: 100%;
 
   div {
-    margin-top: 60px;
+    margin-top: 25px;
     padding-left: 50px;
     font-size: 16px;
 
@@ -36,10 +39,11 @@ export const Menu = styled.div`
 
 export const Content = styled.div`
 padding-right:100px;
-padding-left:20px;
+padding-left:22%;
 
 
 	div{
+    padding-top: 15px;
 		width:80%;
 		display: flex;
     flex-direction: column;
@@ -49,11 +53,10 @@ padding-left:20px;
 
 	h1{
 		display:flex;
-		margin-top:14px;	
 	}
 
 	img{
-		margin:24px auto 10px auto;
+		margin:20px auto 6px auto;
 		border-radius: 8px;
 	}
 ul{

@@ -9,7 +9,7 @@ export const Menu = styled.div`
   width: 18%;
 
   div {
-    margin-top: 60px;
+    margin-top: 70px;
     padding-left: 50px;
 
     a {

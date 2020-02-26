@@ -10,20 +10,25 @@ import Input from '~/components/Input';
 import { Form } from './styles';
 import api from '~/services/api';
 
-export default ({ initialValues, isProfessor, isParticipant }) => {
+export default ({ initialValues, isProfessor, isParticipant, isProject }) => {
   const formik = useFormik({ initialValues });
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
 
   const handleUpdate = async (id, values) => {
     try {
-      const response = await api.put(`projects/${id}`, values);
+      const response = await api.put(
+        `projects/${id}`,
+        isProject ? values : { ...values, type: 'Output' }
+      );
       setModalOpen(false);
       formik.setValues({
         ...response.data,
         ageRange: `${response.data.ageRangeStart} - ${response.data.ageRangeEnd}`,
       });
-      toast.success('Project updated with success!');
+      toast.success(
+        `${isProject ? 'Project' : 'Output'} updated with success!`
+      );
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid request, try again');
     }
@@ -35,7 +40,7 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
       validationSchema,
       onSubmit: values => handleUpdate(formik.values.id, values),
       submitText: 'Save',
-      modalTitle: 'Project',
+      modalTitle: isProject ? 'Project' : 'Output',
     });
     // handleUpdate(row.id, values)
     setModalOpen(true);
@@ -52,19 +57,21 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
     <Form>
       <span>
         <h2>{formik.values.title}</h2>
-        {isProfessor !== undefined && !isProfessor && isParticipant && (
+        {!isProfessor && isParticipant && (
           <EditIcon onClick={handleEditProject} />
         )}
       </span>
-      <Input
-        label="Goal"
-        type="text"
-        placeholder="Type the project goal"
-        name="goal"
-        readOnly
-        values={formik.values}
-        background="#fff"
-      />
+      {isProject && (
+        <Input
+          label="Goal"
+          type="text"
+          placeholder="Type the project goal"
+          name="goal"
+          readOnly
+          values={formik.values}
+          background="#fff"
+        />
+      )}
 
       <Input
         label="Description"
@@ -76,44 +83,54 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
         values={formik.values}
         background="#fff"
       />
-      <Input
-        label="Links"
-        type="text"
-        placeholder="links"
-        name="links"
-        readOnly
-        values={formik.values}
-        background="#fff"
-      />
-      <Input
-        label="Age Range"
-        type="ageRange"
-        placeholder="What's the project target audience"
-        name="ageRange"
-        readOnly
-        values={formik.values}
-        background="#fff"
-      />
-      <Input
-        label="Mobility Type"
-        type="type"
-        placeholder="What's the mobility type?"
-        name="type"
-        readOnly
-        values={formik.values}
-        background="#fff"
-      />
-      <Input
-        label="Limit Date"
-        type="type"
-        placeholder="What's the limit date"
-        name="endDate"
-        readOnly
-        values={formattedLimitDate}
-        background="#fff"
-      />
 
-      <FormModal open={modalOpen} setOpen={setModalOpen} {...modalParams} />
+      {isProject && (
+        <>
+          <Input
+            label="Links"
+            type="text"
+            placeholder="links"
+            name="links"
+            readOnly
+            values={formik.values}
+            background="#fff"
+          />
+          <Input
+            label="Age Range"
+            type="ageRange"
+            placeholder="What's the project target audience"
+            name="ageRange"
+            readOnly
+            values={formik.values}
+            background="#fff"
+          />
+          <Input
+            label="Mobility Type"
+            type="type"
+            placeholder="What's the mobility type?"
+            name="type"
+            readOnly
+            values={formik.values}
+            background="#fff"
+          />
+          <Input
+            label="Limit Date"
+            type="type"
+            placeholder="What's the limit date"
+            name="endDate"
+            readOnly
+            values={formattedLimitDate}
+            background="#fff"
+          />
+        </>
+      )}
+
+      <FormModal
+        open={modalOpen}
+        setOpen={setModalOpen}
+        {...modalParams}
+        isProject={isProject}
+      />
     </Form>
   );
 };

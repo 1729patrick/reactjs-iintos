@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -8,10 +8,14 @@ import Button from '~/components/Button';
 import { Container, Content } from './styles';
 
 import api from '~/services/api';
+import apiCalendar from '~/services/apiCalendar';
 
 import validationSchema from '~/validations/login';
+import { useUserContext } from '~/context/UserContext';
 
 const Login = ({ history }) => {
+  const { setUser } = useCallback(useUserContext(), []);
+
   const submitForm = async credentials => {
     try {
       const response = await api.post('/sessions', credentials);
@@ -26,7 +30,9 @@ const Login = ({ history }) => {
       localStorage.setItem('token', token);
 
       api.defaults.headers.authorization = `Bearer ${token}`;
+      apiCalendar.defaults.headers.userID = user?.email;
 
+      setUser({ user, school, token });
       history.push('/dashboard');
     } catch ({ response }) {
       toast.error(response?.data?.error || 'Invalid credentials');

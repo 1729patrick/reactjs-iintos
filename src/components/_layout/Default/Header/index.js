@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { Container } from './styles';
 import Logo from '~/assets/images/logo.png';
@@ -7,18 +7,19 @@ import Logo from '~/assets/images/logo.png';
 const Header = () => {
   return (
     <Container>
-      <Link to="/">
+      <NavLink to="/">
         <img src={Logo} alt="" style={{ width: 150 }} />
-      </Link>
+      </NavLink>
 
       <div>
         <div>
-          <Link to="/about">About</Link>
-          <Link to="/partners/IPS">Partners</Link>
-          <Link to="/news">News</Link>
-          <Link to="/results/1">Results</Link>
+          <NavLink to="/about">About</NavLink>
+          <NavLink to="/partners">Partners</NavLink>
+          {/* <NavLink to="/news">News</NavLink> */}
 
-          <Link to="/login">Login</Link>
+          <NavLink to="/results">Results</NavLink>
+
+          <NavLink to="/login">Login</NavLink>
         </div>
       </div>
     </Container>
