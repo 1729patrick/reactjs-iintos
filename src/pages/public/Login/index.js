@@ -8,6 +8,7 @@ import Button from '~/components/Button';
 import { Container, Content } from './styles';
 
 import api from '~/services/api';
+import apiCalendar from '~/services/apiCalendar';
 
 import validationSchema from '~/validations/login';
 import { useUserContext } from '~/context/UserContext';
@@ -27,6 +28,9 @@ const Login = ({ history }) => {
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('school', JSON.stringify(school));
       localStorage.setItem('token', token);
+
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      apiCalendar.defaults.headers.userID = user?.email;
 
       setUser({ user, school, token });
       history.push('/dashboard');

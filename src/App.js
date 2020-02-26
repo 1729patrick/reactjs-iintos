@@ -13,17 +13,13 @@ function App() {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    setUser(persistedUser());
+    const loggedUser = persistedUser();
+
+    api.defaults.headers.authorization = `Bearer ${loggedUser?.token}`;
+    apiCalendar.defaults.headers.userID = loggedUser?.user?.email;
+
+    setUser(loggedUser);
   }, []);
-
-  useEffect(() => {
-    api.defaults.headers.authorization = `Bearer ${user?.token}`;
-    apiCalendar.defaults.headers.userID = user?.user?.email;
-  }, [user]);
-
-  if (!user) {
-    return <div />;
-  }
 
   return (
     <UserProvider value={{ ...user, setUser }}>
