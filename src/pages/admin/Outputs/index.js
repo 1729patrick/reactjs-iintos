@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import { isBefore, format } from 'date-fns';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -50,10 +49,6 @@ const Projects = ({ history, location }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
 
-  const route = useMemo(() => location.pathname.replace('/projects', ''), [
-    location.pathname,
-  ]);
-
   const isProfessor = useMemo(() => user.role === 'Professor', [user]);
 
   const fetchProjects = async () => {
@@ -65,12 +60,6 @@ const Projects = ({ history, location }) => {
       const formattedProjects = response.data.map(project => ({
         ...project,
         isBeforeToday: false,
-        endDate: project.endDate
-          ? format(new Date(project.endDate), 'yyyy-MM-dd')
-          : '',
-        startDate: project.startDate
-          ? format(new Date(project.startDate), 'yyyy-MM-dd')
-          : '',
       }));
 
       setProjects(formattedProjects);
@@ -110,7 +99,7 @@ const Projects = ({ history, location }) => {
       validationSchema,
       onSubmit: () => handleDelete(row.id),
       submitText: 'Save',
-      modalTitle: 'Are you sure you want to delete this project?',
+      modalTitle: 'Are you sure you want to delete this output?',
     });
 
     setModalOpen('delete');

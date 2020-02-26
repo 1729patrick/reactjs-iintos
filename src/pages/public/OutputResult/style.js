@@ -20,6 +20,9 @@ export const Menu = styled.div`
       align-items: center;
       color: #444;
       font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: 300px;
 
       & + a {
         margin-top: 25px;
@@ -38,8 +41,8 @@ export const Menu = styled.div`
 `;
 
 export const Content = styled.div`
-padding-right:100px;
-padding-left:20px;
+padding: 40px 30px;
+width: 100%;
 
 span{
 	display:flex;
@@ -51,7 +54,6 @@ span{
 }
 
 	div{
-		width:80%;
 		display: flex;
     flex-direction: column;
 		margin:0 auto;
@@ -60,7 +62,7 @@ span{
 
 	h1{
 		display:flex;
-		margin-top:14px;	
+		margin-top:14px;
 	}
 
 	img{

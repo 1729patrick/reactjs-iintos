@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
@@ -11,10 +11,13 @@ import DeleteModal from './components/Delete';
 import validationSchema from '~/validations/result';
 import { useUserContext } from '~/context/UserContext';
 
-export default withRouter(({ location }) => {
+export default withRouter(({ location, history }) => {
   const [results, setResults] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+  const route = useMemo(() => location.pathname.replace('/results/', ''), [
+    location,
+  ]);
   const { user } = useCallback(useUserContext(), []);
 
   const groupAdmin = useCallback(() => {
@@ -27,7 +30,7 @@ export default withRouter(({ location }) => {
   /**
    * gets, async, all the public output
    */
-  const fetchResults = async () => {
+  const fetchResults = useCallback(async () => {
     const response = await api.get('outputResults');
 
     const resultsList = response.data.map(result => ({
@@ -35,23 +38,30 @@ export default withRouter(({ location }) => {
       title: result.title,
       description: result.description,
       link: `/results/${result.id}`,
+      files: result.files,
     }));
 
+    if ((!route || route === '/results') && resultsList[0]?.link)
+      history.push(resultsList[0]?.link);
     setResults(resultsList);
-  };
+  }, [route, history]);
+
   useEffect(() => {
     fetchResults();
-  }, []);
-  useState(() => {
-    fetchResults();
-  }, []);
+  }, [fetchResults]);
 
   // does the api call to create a new result
   const handleCreate = async values => {
     try {
-      await api.post('outputResults', values);
+      const files = values.files?.filter(f => f).map(({ id }) => id);
+      const response = await api.post('outputResults', { ...values, files });
+
+      if (response.data) {
+        history.push(`/results/${response.data.id}`);
+      }
       setModalOpen(false);
       toast.success('Result created with success!');
+
       fetchResults();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
@@ -64,15 +74,13 @@ export default withRouter(({ location }) => {
       validationSchema,
       onSubmit: handleCreate,
       submitText: 'Create',
-      modalTitle: 'Create a new Project',
+      modalTitle: 'Create a new Result',
     });
 
     setModalOpen('form');
   };
 
   const Children = () => {
-    const route = location.pathname.replace('/results/', '');
-
     const res = results.find(result => {
       return result.id === +route;
     });
@@ -83,7 +91,8 @@ export default withRouter(({ location }) => {
 
     const handleUpdate = async (id, values) => {
       try {
-        await api.put(`outputResults/${id}`, values);
+        const files = values.files?.filter(f => f).map(({ id }) => id);
+        await api.put(`outputResults/${id}`, { ...values, files });
         setModalOpen(false);
         fetchResults();
         toast.success('Result updated with success!');
@@ -94,14 +103,17 @@ export default withRouter(({ location }) => {
 
     const handleEditProject = () => {
       setModalParams({
-        initialValues: { title: res.title, description: res.description },
+        initialValues: {
+          title: res.title,
+          description: res.description,
+          files: [...res.files, ''],
+        },
         validationSchema,
         onSubmit: values => handleUpdate(res.id, values),
         submitText: 'Save',
-        modalTitle: 'Project',
+        modalTitle: 'Result',
       });
-      // handleUpdate(row.id, values)
-      console.log('ersdlkoiyutfhyuj');
+
       setModalOpen('form');
     };
 
@@ -110,7 +122,9 @@ export default withRouter(({ location }) => {
       try {
         await api.delete(`outputResults/${id}`);
         setModalOpen(false);
+        history.push('/results');
         toast.success('Result deleted with success!');
+
         fetchResults();
       } catch (e) {
         toast.error(e?.response?.data?.error || 'Invalid request, try again');
@@ -123,7 +137,7 @@ export default withRouter(({ location }) => {
         validationSchema,
         onSubmit: () => handleDelete(res.id),
         submitText: 'Save',
-        modalTitle: 'Are you sure you want to delete this project?',
+        modalTitle: 'Are you sure you want to delete this result?',
       });
 
       setModalOpen('delete');
@@ -133,12 +147,12 @@ export default withRouter(({ location }) => {
       <Result
         id={res.id}
         title={res.title}
+        files={res.files}
         description={res.description}
         handleEditProject={handleEditProject}
         handleDeleteRow={handleDeleteRow}
       />
     );
-    // return <Result title="title" description="{x.description} " />;
   };
 
   return (
@@ -146,11 +160,15 @@ export default withRouter(({ location }) => {
       <Menu>
         <div>
           {results.map(row => {
-            return <NavLink to={row.link}>{row.title}</NavLink>;
+            return (
+              <NavLink key={row.link} to={row.link}>
+                {row.title}
+              </NavLink>
+            );
           })}
           {groupAdmin() && (
             <Button
-              title="Add New Result"
+              title="Create Result"
               type="button"
               onClick={handleCreateProjects}
             />
@@ -173,13 +191,3 @@ export default withRouter(({ location }) => {
     </Container>
   );
 });
-/**
- *  <NavLink to="/results/1">Curricula analysis and comparison</NavLink>
-          <NavLink to="/results/2">
-            CMS and TMS web-based platform and database implementation
-          </NavLink>
-          <NavLink to="/results/3">Pilot schools activities e-books</NavLink>
-          <NavLink to="/results/4">
-            User's guide for international office in school implementation
-          </NavLink>
- */

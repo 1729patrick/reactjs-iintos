@@ -14,7 +14,7 @@ const Header = () => {
       user: null,
       school: null,
       token: null,
-    })
+    });
   };
 
   const groupAdmin = useCallback(() => {
@@ -40,7 +40,7 @@ const Header = () => {
           <NavLink to="/about">About</NavLink>
           <NavLink to="/partners/IPS">Partners</NavLink>
           <NavLink to="/news">News</NavLink>
-          <NavLink to="/results/1">Results</NavLink>
+          <NavLink to="/results">Results</NavLink>
           <NavLink to="/projects">Projects</NavLink>
           <NavLink to="/calendar">Calendar</NavLink>
 

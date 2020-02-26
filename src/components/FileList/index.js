@@ -51,7 +51,11 @@ export default function FileList({ files }) {
               {files.map(({ name, url }) => (
                 <a
                   key={url}
-                  style={{ display: 'block', marginBottom: '7px' }}
+                  style={{
+                    display: 'block',
+                    marginBottom: '7px',
+                    color: 'blue',
+                  }}
                   href={url}
                   target="__blank"
                 >

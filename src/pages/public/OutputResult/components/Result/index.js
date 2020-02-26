@@ -3,12 +3,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Content } from './style';
 import { useUserContext } from '~/context/UserContext';
+import FilesList from '~/components/FileList';
 
 export default function Result({
   id,
   title,
   description,
   handleEditProject,
+  files,
   handleDeleteRow,
 }) {
   const { user } = useCallback(useUserContext(), []);
@@ -25,13 +27,17 @@ export default function Result({
     <Content>
       <span>
         <h1>{title}</h1>
+
         <div>
-          {groupAdmin() && <EditIcon onClick={handleEditProject} />}
+          {files.length ? <FilesList files={files} /> : null}
           {groupAdmin() && (
-            <DeleteIcon
-              style={{ color: '#cb1010', cursor: 'pointer' }}
-              onClick={handleDeleteRow}
-            />
+            <>
+              <EditIcon onClick={handleEditProject} />
+              <DeleteIcon
+                style={{ color: '#cb1010', cursor: 'pointer' }}
+                onClick={handleDeleteRow}
+              />
+            </>
           )}
         </div>
       </span>
