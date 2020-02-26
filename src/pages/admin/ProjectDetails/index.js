@@ -15,12 +15,23 @@ export default withRouter(({ computedMatch }) => {
   const { user, school } = useCallback(useUserContext(), []);
   const [schools, setSchools] = useState([]);
   const [projects, setProjects] = useState([]);
+  const location = useLocation();
+
+  const type = useMemo(() => {
+    const { pathname } = location;
+    // eslint-disable-next-line no-unused-vars
+    const [_, route] = pathname.split('/');
+
+    return route;
+  }, [location]);
 
   const projectId = useMemo(() => computedMatch.params.id, [
     computedMatch.params.id,
   ]);
 
   const isProfessor = useMemo(() => user?.role === 'Professor', [user]);
+
+  const isProject = useMemo(() => type === 'projects', [type]);
 
   const isParticipant = useMemo(
     () => user?.role === 'Admin' || schools.includes(school?.id),
@@ -47,10 +58,8 @@ export default withRouter(({ computedMatch }) => {
   }, []);
 
   const Children = useCallback(() => {
-    const location = useLocation();
-
     const route = location.pathname.replace(
-      `/projects/details/${projectId}`,
+      `/${type}/details/${projectId}`,
       ''
     );
     if (route === '/participants') {
@@ -83,27 +92,37 @@ export default withRouter(({ computedMatch }) => {
         initialValues={projects}
         isProfessor={isProfessor}
         isParticipant={isParticipant}
+        isProject={isProject}
       />
     );
-  }, [fetchSchools, isParticipant, isProfessor, projectId, projects]);
+  }, [
+    fetchSchools,
+    isParticipant,
+    isProfessor,
+    projectId,
+    projects,
+    location,
+    type,
+    isProject,
+  ]);
 
   return (
     <Container>
       <Menu>
         <div>
-          <NavLink to={`/projects/details/${projectId}/`} exact>
+          <NavLink to={`/${type}/details/${projectId}/`} exact>
             Details
           </NavLink>
-          <NavLink to={`/projects/details/${projectId}/activities`}>
+          <NavLink to={`/${type}/details/${projectId}/activities`}>
             Activity
           </NavLink>
-          <NavLink to={`/projects/details/${projectId}/schools`}>
+          <NavLink to={`/${type}/details/${projectId}/schools`}>
             Schools
           </NavLink>
-          <NavLink to={`/projects/details/${projectId}/participants`}>
+          <NavLink to={`/${type}/details/${projectId}/participants`}>
             Participants
           </NavLink>
-          <NavLink to={`/projects/details/${projectId}/results`}>
+          <NavLink to={`/${type}/details/${projectId}/results`}>
             Results
           </NavLink>
         </div>

@@ -39,6 +39,6 @@ export const Container = styled.div`
   }
 
   textarea {
-    padding-top: 9px;
+    padding: 9px;
   }
 `;

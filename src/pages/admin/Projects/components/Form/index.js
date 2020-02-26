@@ -44,6 +44,7 @@ export default ({
   modalTitle,
   onSubmit,
   validationSchema,
+  isProject,
 }) => {
   if (!open) {
     return null;
@@ -78,7 +79,7 @@ export default ({
             <Input
               label="Title"
               type="text"
-              placeholder="Type the project title"
+              placeholder={`Type the ${isProject ? 'project' : 'output'} title`}
               name="title"
               onChange={formik.handleChange}
               values={formik.values}
@@ -86,22 +87,27 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
-            <Input
-              label="Goal"
-              type="text"
-              placeholder="Type the project goal"
-              name="goal"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
+            {isProject && (
+              <Input
+                label="Goal"
+                type="text"
+                placeholder="Type the project goal"
+                name="goal"
+                onChange={formik.handleChange}
+                values={formik.values}
+                errors={formik.errors}
+                touched={formik.touched}
+                submitted={formik.submitCount}
+              />
+            )}
+
             <Input
               label="Description"
               type="text"
               textarea
-              placeholder="Tell more about this project"
+              placeholder={`Tell more about this ${
+                isProject ? 'project' : 'output'
+              }`}
               name="description"
               onChange={formik.handleChange}
               values={formik.values}
@@ -109,88 +115,92 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
-            <Input
-              label="Links"
-              type="text"
-              placeholder="links"
-              name="links"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
-            <span>
-              <Input
-                label="Age Start"
-                type="number"
-                placeholder="Age Range Start"
-                name="ageRangeStart"
-                onChange={formik.handleChange}
-                values={formik.values}
-                errors={formik.errors}
-                touched={formik.touched}
-                submitted={formik.submitCount}
-              />
-              <Input
-                label="Age End"
-                type="ageRangeEnd"
-                placeholder="Age Range End"
-                name="ageRangeEnd"
-                onChange={formik.handleChange}
-                values={formik.values}
-                errors={formik.errors}
-                touched={formik.touched}
-                submitted={formik.submitCount}
-              />
-            </span>
-            <Select
-              label="Mobility Type"
-              type="type"
-              placeholder="What's the mobility type?"
-              name="type"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-              options={[
-                { id: 'Online', name: 'Online' },
-                { id: 'Presential', name: 'Presential' },
-              ]}
-            />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                autoOk
-                disableToolbar
-                variant="inline"
-                format="yyyy-MM-dd"
-                margin="normal"
-                id="date-picker-inline"
-                name="StartDate"
-                label="Start date"
-                value={formik?.values?.startDate}
-                onChange={event => formik.setFieldValue('startDate', event)}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-              <KeyboardDatePicker
-                autoOk
-                disableToolbar
-                variant="inline"
-                format="yyyy-MM-dd"
-                margin="normal"
-                id="date-picker-inline"
-                name="endDate"
-                label="Limit date"
-                value={formik?.values?.endDate}
-                onChange={event => formik.setFieldValue('endDate', event)}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </MuiPickersUtilsProvider>
+            {isProject && (
+              <>
+                <Input
+                  label="Links"
+                  type="text"
+                  placeholder="links"
+                  name="links"
+                  onChange={formik.handleChange}
+                  values={formik.values}
+                  errors={formik.errors}
+                  touched={formik.touched}
+                  submitted={formik.submitCount}
+                />
+                <span>
+                  <Input
+                    label="Age Start"
+                    type="number"
+                    placeholder="Age Range Start"
+                    name="ageRangeStart"
+                    onChange={formik.handleChange}
+                    values={formik.values}
+                    errors={formik.errors}
+                    touched={formik.touched}
+                    submitted={formik.submitCount}
+                  />
+                  <Input
+                    label="Age End"
+                    type="ageRangeEnd"
+                    placeholder="Age Range End"
+                    name="ageRangeEnd"
+                    onChange={formik.handleChange}
+                    values={formik.values}
+                    errors={formik.errors}
+                    touched={formik.touched}
+                    submitted={formik.submitCount}
+                  />
+                </span>
+                <Select
+                  label="Mobility Type"
+                  type="type"
+                  placeholder="What's the mobility type?"
+                  name="type"
+                  onChange={formik.handleChange}
+                  values={formik.values}
+                  errors={formik.errors}
+                  touched={formik.touched}
+                  submitted={formik.submitCount}
+                  options={[
+                    { id: 'Online', name: 'Online' },
+                    { id: 'Presential', name: 'Presential' },
+                  ]}
+                />
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    autoOk
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy-MM-dd"
+                    margin="normal"
+                    id="date-picker-inline"
+                    name="StartDate"
+                    label="Start date"
+                    value={formik?.values?.startDate}
+                    onChange={event => formik.setFieldValue('startDate', event)}
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                  />
+                  <KeyboardDatePicker
+                    autoOk
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy-MM-dd"
+                    margin="normal"
+                    id="date-picker-inline"
+                    name="endDate"
+                    label="Limit date"
+                    value={formik?.values?.endDate}
+                    onChange={event => formik.setFieldValue('endDate', event)}
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </>
+            )}
             <Button title={submitText} type="submit" />
           </Form>
         </div>

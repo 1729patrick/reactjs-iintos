@@ -12,6 +12,8 @@ import { Container, ContainerWrap } from '../../styles';
 import Button from '~/components/Button';
 
 export default function MyProject({
+  title = 'My Projects',
+  buttonCreateTitle = 'Create Project',
   isProfessor,
   handleCreateProject,
   columns,
@@ -36,11 +38,11 @@ export default function MyProject({
     <Container>
       <ContainerWrap>
         <span>
-          <h1>My Projects</h1>
+          <h1>{title}</h1>
 
           {!isProfessor && (
             <Button
-              title="Create Project"
+              title={buttonCreateTitle}
               type="button"
               onClick={handleCreateProject}
             />
