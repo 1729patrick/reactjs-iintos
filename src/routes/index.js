@@ -8,6 +8,7 @@ import Projects from '~/pages/admin/Projects';
 import School from '~/pages/admin/School';
 import Outputs from '~/pages/admin/Outputs';
 
+import Home from '~/pages/public/Home';
 import Login from '~/pages/public/Login';
 import SignUp from '~/pages/public/SignUp';
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
@@ -17,7 +18,6 @@ import About from '~/pages/public/About';
 import Partners from '~/pages/public/Partners';
 import ProjectDetails from '~/pages/admin/ProjectDetails';
 import OutputResult from '~/pages/public/OutputResult';
-// import LandingPage from '~/pages/public/LandingPage';
 
 import Route from './Route';
 
@@ -25,6 +25,7 @@ export default () => {
   return (
     <Router>
       <Switch>
+        <Route path="/" component={Home} exact />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} exact />
         <Route
