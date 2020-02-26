@@ -22,10 +22,10 @@ export default withRouter(({ computedMatch }) => {
 
   const isProfessor = useMemo(() => user?.role === 'Professor', [user]);
 
-  const isParticipant = useMemo(() => schools.includes(school?.id), [
-    school,
-    schools,
-  ]);
+  const isParticipant = useMemo(
+    () => user?.role === 'Admin' || schools.includes(school?.id),
+    [user, school, schools]
+  );
 
   const fetchProjects = async () => {
     const response = await api.get(`projects/${projectId}`);
@@ -36,17 +36,17 @@ export default withRouter(({ computedMatch }) => {
     setProjects(project);
   };
 
-  const fetchSchools = async () => {
+  const fetchSchools = useCallback(async () => {
     const response = await api.get(`/projects/${projectId}/schools`);
     setSchools(response.data.map(({ schoolId }) => schoolId));
-  };
+  }, [projectId]);
 
   useState(() => {
     fetchProjects();
     fetchSchools();
   }, []);
 
-  const Children = () => {
+  const Children = useCallback(() => {
     const location = useLocation();
 
     const route = location.pathname.replace(
@@ -77,7 +77,6 @@ export default withRouter(({ computedMatch }) => {
         />
       );
     }
-
     // By default, the content from the IPS will appear
     return (
       <Details
@@ -86,7 +85,7 @@ export default withRouter(({ computedMatch }) => {
         isParticipant={isParticipant}
       />
     );
-  };
+  }, [fetchSchools, isParticipant, isProfessor, projectId, projects]);
 
   return (
     <Container>

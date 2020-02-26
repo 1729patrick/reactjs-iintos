@@ -15,7 +15,7 @@ export default withRouter(({ location }) => {
   const [results, setResults] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
-  const { user, setUser } = useCallback(useUserContext(), []);
+  const { user } = useCallback(useUserContext(), []);
 
   const groupAdmin = useCallback(() => {
     return (

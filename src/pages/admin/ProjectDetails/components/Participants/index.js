@@ -64,6 +64,7 @@ const Participants = ({ location, isProfessor, isParticipant }) => {
   // api call to delete
   const handleDelete = async id => {
     try {
+      console.log(id);
       await api.delete(`projectUser/${id}`);
       setModalOpen(false);
       toast.success('Participant removed with success!');
@@ -77,7 +78,7 @@ const Participants = ({ location, isProfessor, isParticipant }) => {
   const handleDeleteRow = row => {
     setModalParams({
       initialValues: row,
-      onSubmit: () => handleDelete(row.id),
+      onSubmit: () => handleDelete(row.professor?.id),
       submitText: 'Save',
       modalTitle: 'Are you sure you want to delete this participant?',
     });

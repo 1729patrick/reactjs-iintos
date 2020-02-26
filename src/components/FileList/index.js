@@ -50,6 +50,7 @@ export default function FileList({ files }) {
             <div style={{ marginTop: '15px' }}>
               {files.map(({ name, url }) => (
                 <a
+                  key={url}
                   style={{ display: 'block', marginBottom: '7px' }}
                   href={url}
                   target="__blank"

@@ -11,7 +11,7 @@ export default function Result({
   handleEditProject,
   handleDeleteRow,
 }) {
-  const { user, setUser } = useCallback(useUserContext(), []);
+  const { user } = useCallback(useUserContext(), []);
 
   const groupAdmin = useCallback(() => {
     return (

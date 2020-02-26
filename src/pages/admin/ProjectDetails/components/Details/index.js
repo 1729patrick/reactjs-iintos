@@ -52,7 +52,7 @@ export default ({ initialValues, isProfessor, isParticipant }) => {
     <Form>
       <span>
         <h2>{formik.values.title}</h2>
-        {isProfessor !== undefined && !isProfessor && isParticipant && (
+        {!isProfessor && isParticipant && (
           <EditIcon onClick={handleEditProject} />
         )}
       </span>
