@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { Container } from './styles';
 import Logo from '~/assets/images/logo.png';
 import { useUserContext } from '~/context/UserContext';
+import api from '~/services/api';
+import apiCalendar from '~/services/apiCalendar';
 
 const Header = () => {
   const { user, setUser } = useCallback(useUserContext(), []);
@@ -15,6 +17,9 @@ const Header = () => {
       school: null,
       token: null,
     });
+
+    api.defaults.headers.authorization = null;
+    apiCalendar.defaults.headers.userID = null;
   };
 
   const isGroupAdmin = useCallback(() => {

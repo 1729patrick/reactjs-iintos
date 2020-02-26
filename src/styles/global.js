@@ -37,7 +37,7 @@ export default createGlobalStyle`
   html, body, #root {
     height: 100%;
     background: #eaeaea;
-    overflow-y: scroll;
+ 
   }
 
 body {
