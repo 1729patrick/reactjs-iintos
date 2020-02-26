@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   user-select: none;
   width: 100%;
-  height: calc(100vh - 80px);
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(12, 1fr);

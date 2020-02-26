@@ -11,6 +11,10 @@ export const Container = styled.div`
 export const ContainerWrap = styled.div`
   width: 100%;
 
+  h1 {
+    margin-top: 15px;
+  }
+
   > span {
     display: flex;
     flex-direction: row;

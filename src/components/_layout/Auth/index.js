@@ -10,7 +10,7 @@ const AuthLayout = ({ children }) => {
       <Wrapper>
         <Header />
         <div>{children}</div>
-        <Footer />
+        <Footer links />
       </Wrapper>
     </>
   );

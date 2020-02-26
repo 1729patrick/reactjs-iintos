@@ -4,13 +4,8 @@ export const Container = styled.div`
   width: 100%;
 display: flex;
 justify-content: center;
-padding-top: 40px;
 
 
-html, body, #root {
-
-    background: #fff !important;
-  }
 	div{
 		width:80%;
 		text-align:justify;
@@ -18,7 +13,7 @@ html, body, #root {
 
 	h1{
 		display:flex;
-		margin-top:14px;
+		margin-top:15px;
 	}
 ul{
 	display: block;

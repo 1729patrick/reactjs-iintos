@@ -7,9 +7,15 @@ export const Container = styled.div`
 
 export const Menu = styled.div`
   min-width: 22%;
+  position: fixed;
+  height: 100%;
 
   div {
-    margin-top: 60px;
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    margin-top: 15px;
     padding-left: 50px;
     font-size: 16px;
 
@@ -40,7 +46,7 @@ export const Menu = styled.div`
 `;
 
 export const Content = styled.div`
-padding: 40px 30px;
+padding: 15px 30px 15px calc(22% + 30px);
 width: 100%;
 
 span{
@@ -61,7 +67,6 @@ span{
 
 	h1{
 		display:flex;
-		margin-top:14px;
 	}
 
 	img{

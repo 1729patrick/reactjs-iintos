@@ -74,6 +74,14 @@ const Projects = ({ history, location, columns = projectColumns }) => {
   ]);
 
   const isProfessor = useMemo(() => user.role === 'Professor', [user]);
+  const isGroupAdmin = useMemo(() => {
+    return (
+      user?.role === 'Admin' ||
+      user?.role === 'IINTOS-Admin' ||
+      user?.role === 'Mobility-Admin'
+    );
+  }, [user]);
+
 
   const fetchProjects = async avaliable => {
     const response = await api.get('projects', {
@@ -201,22 +209,25 @@ const Projects = ({ history, location, columns = projectColumns }) => {
         projects={projects}
         getRowContent={getRowContent}
         useStyles={useStyles}
+        title={isGroupAdmin ? 'Projects' : 'My Projects'}
       />
     );
   };
 
   return (
     <Container>
-      <Menu>
-        <div>
-          <NavLink to="/projects" exact>
-            My Projects
-          </NavLink>
-          {!isProfessor && (
-            <NavLink to="/projects/search">Search Projects</NavLink>
-          )}
-        </div>
-      </Menu>
+      {!isGroupAdmin && (
+        <Menu>
+          <div>
+            <NavLink to="/projects" exact>
+              My Projects
+            </NavLink>
+            {!isProfessor && (
+              <NavLink to="/projects/search">Search Projects</NavLink>
+            )}
+          </div>
+        </Menu>
+      )}
       <Content>
         <Children />
         <FormModal

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: calc(100vh - 130px);
   width: 100%;
   display: flex;
   align-items: center;
@@ -10,9 +9,12 @@ export const Container = styled.div`
 
 export const ContainerWrap = styled.div`
   width: 100%;
-  height: calc(100vh - 130px);
+  height: calc(100vh - 140px);
   width: 78%;
   padding-top: 20px;
+  > .fc {
+    padding-bottom: 30px;
+  }
 
   .MuiAlert-message {
     display: flex;

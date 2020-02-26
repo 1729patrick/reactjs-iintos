@@ -159,6 +159,7 @@ export default withRouter(({ location, history }) => {
     <Container>
       <Menu>
         <div>
+          <h1>Results</h1>
           {results.map(row => {
             return (
               <NavLink key={row.link} to={row.link}>
