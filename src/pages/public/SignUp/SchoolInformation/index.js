@@ -23,6 +23,19 @@ const SchoolInformation = ({ location, history }) => {
   const [schools, setSchools] = useState([]);
 
   useEffect(() => {
+    const registration = localStorage.getItem(
+      'registration_school_information'
+    );
+
+    if (registration) {
+      const values = JSON.parse(registration);
+
+      formik.setValues(values);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     async function loadSchools() {
       const response = await api.get('/schools', { params: { active: true } });
 
@@ -56,6 +69,11 @@ const SchoolInformation = ({ location, history }) => {
 
   const submitForm = async ({ fileVerification, ...school }) => {
     try {
+      localStorage.setItem(
+        'registration_school_information',
+        JSON.stringify(formik.values)
+      );
+
       const userData = fileVerification
         ? { ...user, fileVerificationId: fileVerification.id }
         : user;
@@ -66,7 +84,7 @@ const SchoolInformation = ({ location, history }) => {
       });
 
       toast.success('Account created with success');
-      localStorage.removeItem('registration');
+      localStorage.clear();
       history.push('login');
     } catch ({ response }) {
       toast.error(response?.data?.error || 'Invalid data');
@@ -89,7 +107,6 @@ const SchoolInformation = ({ location, history }) => {
 
     formik.setFieldValue('fileVerification', response.data);
   };
-
 
   return (
     <Container>

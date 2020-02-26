@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Container } from './styles';
 import Logo from '~/assets/images/logo.png';
+import { useUserContext } from '~/context/UserContext';
 
 const Header = () => {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useCallback(useUserContext(), []);
 
-  useEffect(() => {
-    const userLocal = localStorage.getItem('user');
-    if (userLocal) {
-      setUser(JSON.parse(userLocal));
-    }
-  }, []);
   const logout = () => {
     localStorage.clear();
+    setUser({
+      user: null,
+      school: null,
+      token: null,
+    })
   };
 
   const groupAdmin = useCallback(() => {

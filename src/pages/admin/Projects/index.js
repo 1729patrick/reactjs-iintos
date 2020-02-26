@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { isBefore, format } from 'date-fns';
 import { withRouter, NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,6 +13,7 @@ import FormModal from './components/Form';
 import DeleteModal from './components/Delete';
 import MyProject from './components/MyProject';
 import SearchProject from './components/SearchProject';
+import { useUserContext } from '~/context/UserContext';
 
 import validationSchema from '~/validations/project';
 
@@ -62,23 +63,18 @@ const useStyles = makeStyles({
 });
 
 const Projects = ({ history, location }) => {
+  const { user } = useCallback(useUserContext(), []);
+
   const [projects, setProjects] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+
 
   const route = useMemo(() => location.pathname.replace('/projects', ''), [
     location.pathname,
   ]);
 
-  const isProfessor = useMemo(() => {
-    const localUser = localStorage.getItem('user');
-
-    if (localUser) {
-      const user = JSON.parse(localUser);
-
-      return user.role === 'Professor';
-    }
-  }, []);
+  const isProfessor = useMemo(() => user.role === 'Professor', [user]);
 
   const fetchProjects = async avaliable => {
     const response = await api.get('projects', { params: { avaliable } });

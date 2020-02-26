@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -10,8 +10,11 @@ import { Container, Content } from './styles';
 import api from '~/services/api';
 
 import validationSchema from '~/validations/login';
+import { useUserContext } from '~/context/UserContext';
 
 const Login = ({ history }) => {
+  const { setUser } = useCallback(useUserContext(), []);
+
   const submitForm = async credentials => {
     try {
       const response = await api.post('/sessions', credentials);
@@ -25,8 +28,7 @@ const Login = ({ history }) => {
       localStorage.setItem('school', JSON.stringify(school));
       localStorage.setItem('token', token);
 
-      api.defaults.headers.authorization = `Bearer ${token}`;
-
+      setUser({ user, school, token });
       history.push('/dashboard');
     } catch ({ response }) {
       toast.error(response?.data?.error || 'Invalid credentials');

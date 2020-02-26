@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import { Container, Menu, Content } from './styles';
@@ -6,19 +6,12 @@ import { Container, Menu, Content } from './styles';
 import Schools from './components/Schools';
 import Users from './components/Users';
 import Approve from './components/Approve';
+import { useUserContext } from '~/context/UserContext';
 
 export default withRouter(({ location }) => {
-  const [user, setUser] = useState({});
+  const { user } = useCallback(useUserContext(), []);
 
-  useEffect(() => {
-    const localUser = localStorage.getItem('user');
-
-    if (localUser) {
-      setUser(JSON.parse(localUser));
-    }
-  }, []);
-
-  const hasCoordinator = useMemo(() => user.role === 'Coordinator', [user]);
+  const hasCoordinator = useMemo(() => user?.role === 'Coordinator', [user]);
 
   const Children = () => {
     const route = location.pathname.replace('/school', '');

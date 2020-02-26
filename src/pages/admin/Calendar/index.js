@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import { addHours, format } from 'date-fns';
 
@@ -20,17 +20,19 @@ import FormModal from './components/Form';
 import { Container, ContainerWrap } from './styles';
 import validationSchema from '~/validations/event';
 import api, { CALENDAR_URL } from '~/services/apiCalendar';
+import { useUserContext } from '~/context/UserContext';
 
 const Calendar = () => {
+  const { user } = useCallback(useUserContext(), []);
+
   const [events, setEvents] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
-  const [user, setUser] = useState({});
   const [showAlert, setShowAlert] = useState(false);
 
   const fetchEvents = async () => {
     try {
-      const response = await api().get('events');
+      const response = await api.get('events');
 
       const formattedEvents = response.data.map(event => ({
         id: event.id,
@@ -54,14 +56,6 @@ const Calendar = () => {
     fetchEvents();
   }, []);
 
-  useEffect(() => {
-    const localUser = localStorage.getItem('user');
-
-    if (localUser) {
-      setUser(JSON.parse(localUser));
-    }
-  }, []);
-
   const handleCreateEvent = async ({ event, revert = () => {} }) => {
     const { title, extendedProps, _instance } = event;
     const { start, end } = _instance.range;
@@ -76,7 +70,7 @@ const Calendar = () => {
     };
 
     try {
-      const response = await api().post(`events`, newEvent);
+      const response = await api.post(`events`, newEvent);
       const createdEvent = response.data;
 
       toast.success('Event created with success!');
@@ -106,7 +100,7 @@ const Calendar = () => {
     };
 
     try {
-      await api().put(`events/${id}`, newEvent);
+      await api.put(`events/${id}`, newEvent);
       toast.success('Event updated with success!');
       setModalOpen(false);
 
@@ -177,7 +171,7 @@ const Calendar = () => {
         {showAlert && (
           <Alert severity="warning">
             You'r must log in google account to see the events
-            <a href={`${CALENDAR_URL}/login/${user.email}`} target="__blank">
+            <a href={`${CALENDAR_URL}/login/${user?.email}`} target="__blank">
               Google Login
             </a>
           </Alert>
