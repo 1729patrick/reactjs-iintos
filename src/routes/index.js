@@ -16,6 +16,7 @@ import About from '~/pages/public/About';
 import Partners from '~/pages/public/Partners';
 import ProjectDetails from '~/pages/admin/ProjectDetails';
 import OutputResult from '~/pages/public/OutputResult';
+import LandingPage from '~/pages/public/LandingPage';
 
 import Route from './Route';
 

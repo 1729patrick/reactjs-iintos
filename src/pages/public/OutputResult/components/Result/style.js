@@ -4,5 +4,10 @@ export const Content = styled.div`
   span {
     display: flex;
     justify-content: space-between;
+    div {
+      img {
+        float: right;
+      }
+    }
   }
 `;
