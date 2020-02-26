@@ -8,7 +8,7 @@ import { useUserContext } from '~/context/UserContext';
 const Route = ({ isPrivate, component: Component, location, ...rest }) => {
   const { token } = useUserContext();
 
-  if (token && location.pathname === '/login') {
+  if (token && (location.pathname === '/login' || location.pathname === '/')) {
     return <Redirect to="/dashboard" />;
   }
 
@@ -25,9 +25,7 @@ const Route = ({ isPrivate, component: Component, location, ...rest }) => {
   }
 
   return (
-    <DefaultLayout
-      hiddenFooter={!location.pathname || location.pathname === '/'}
-    >
+    <DefaultLayout hiddenFooter={location.pathname === '/'}>
       <Component />
     </DefaultLayout>
   );
