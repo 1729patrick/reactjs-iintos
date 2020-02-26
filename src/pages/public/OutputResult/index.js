@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
@@ -9,12 +9,21 @@ import Button from '~/components/Button';
 import FormModal from './components/Form';
 import DeleteModal from './components/Delete';
 import validationSchema from '~/validations/result';
+import { useUserContext } from '~/context/UserContext';
 
 export default withRouter(({ location }) => {
   const [results, setResults] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+  const { user, setUser } = useCallback(useUserContext(), []);
 
+  const groupAdmin = useCallback(() => {
+    return (
+      user?.role === 'Admin' ||
+      user?.role === 'IINTOS-Admin' ||
+      user?.role === 'Mobility-Admin'
+    );
+  }, [user]);
   /**
    * gets, async, all the public output
    */
@@ -139,11 +148,13 @@ export default withRouter(({ location }) => {
           {results.map(row => {
             return <NavLink to={row.link}>{row.title}</NavLink>;
           })}
-          <Button
-            title="Add New Result"
-            type="button"
-            onClick={handleCreateProjects}
-          />
+          {groupAdmin() && (
+            <Button
+              title="Add New Result"
+              type="button"
+              onClick={handleCreateProjects}
+            />
+          )}
         </div>
       </Menu>
       <Content>
