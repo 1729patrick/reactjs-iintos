@@ -25,7 +25,9 @@ const Route = ({ isPrivate, component: Component, location, ...rest }) => {
   }
 
   return (
-    <DefaultLayout hiddenFooter={location.pathname === '/'}>
+    <DefaultLayout
+      hiddenFooter={!location.pathname || location.pathname === '/'}
+    >
       <Component />
     </DefaultLayout>
   );
