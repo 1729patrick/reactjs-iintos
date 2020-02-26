@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import { Container, Menu, Content } from './style';
@@ -8,13 +8,18 @@ import Olomouc from './components/Olomouc';
 import Saramago from './components/Saramago';
 import Vallauri from './components/Vallauri';
 
-export default withRouter(({ location }) => {
-  const Children = () => {
-    const route = location.pathname.replace('/partners', '');
-    if (route === '/IPS') {
-      return <IPS />;
-    }
+export default withRouter(({ location, history }) => {
+  const route = useMemo(() => location.pathname.replace('/partners', ''), [
+    location,
+  ]);
 
+  useEffect(() => {
+    if (!route) {
+      history.push('/partners/IPS');
+    }
+  }, [route, history]);
+
+  const Children = () => {
     if (route === '/Olomouc') {
       return <Olomouc />;
     }

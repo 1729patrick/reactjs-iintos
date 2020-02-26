@@ -38,15 +38,15 @@ const Header = () => {
       <div>
         <div>
           <NavLink to="/about">About</NavLink>
-          <NavLink to="/partners/IPS">Partners</NavLink>
+          <NavLink to="/partners">Partners</NavLink>
           <NavLink to="/news">News</NavLink>
-          <NavLink to="/results">Results</NavLink>
           <NavLink to="/projects">Projects</NavLink>
-          <NavLink to="/calendar">Calendar</NavLink>
-
           {groupAdmin() && <NavLink to="/outputs">Outputs</NavLink>}
+          <NavLink to="/results">Results</NavLink>
+          <NavLink to="/calendar">Calendar</NavLink>
           {groupAdmin() && <NavLink to="/users">Users</NavLink>}
           {groupSchool() && <NavLink to="/school">School</NavLink>}
+
 
           <NavLink to="/login" onClick={logout}>
             Logout

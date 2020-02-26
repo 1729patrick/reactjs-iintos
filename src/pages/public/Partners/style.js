@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100vh;
   width: 100%;
   display: flex;
 `;
@@ -40,6 +39,7 @@ padding-left:20px;
 
 
 	div{
+    padding-top: 40px;
 		width:80%;
 		display: flex;
     flex-direction: column;
@@ -49,7 +49,7 @@ padding-left:20px;
 
 	h1{
 		display:flex;
-		margin-top:14px;	
+		margin-top:14px;
 	}
 
 	img{

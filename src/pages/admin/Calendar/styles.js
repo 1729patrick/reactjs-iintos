@@ -1,17 +1,16 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  height: calc(100vh - 130px);
   width: 100%;
   display: flex;
-  height: 100%;
   align-items: center;
   justify-content: center;
 `;
 
 export const ContainerWrap = styled.div`
   width: 100%;
-
-  height: 100%;
+  height: calc(100vh - 130px);
   width: 78%;
   padding-top: 20px;
 
