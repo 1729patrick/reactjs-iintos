@@ -31,10 +31,8 @@ export default function EventsCard() {
       });
 
       setEvents(formattedEvents);
-      if (formattedEvents.data.length === 0) {
+      if (formattedEvents.length === 0) {
         setError(true);
-      } else {
-        setError(false);
       }
     } catch (e) {
       setError(true);
