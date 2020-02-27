@@ -45,6 +45,7 @@ export const Card2 = styled.div`
   border-radius: 5px;
   grid-column: 7 / 13;
   grid-row: 1 / 7;
+  overflow: hidden;
 
   @media (max-width: 1024px) and (min-height: 550px) {
     grid-column: 1;
@@ -58,6 +59,7 @@ export const Card3 = styled.div`
   grid-row: 7 / 13;
   background-color: #fff;
   border-radius: 5px;
+  /* overflow: hidden; */
 
   @media (max-width: 1024px) and (min-height: 550px) {
     grid-column: 1;
@@ -71,6 +73,7 @@ export const Card4 = styled.div`
   grid-row: 7 / 13;
   background-color: #fff;
   border-radius: 5px;
+  overflow: hidden;
 
   @media (max-width: 1024px) and (min-height: 550px) {
     grid-column: 1;
