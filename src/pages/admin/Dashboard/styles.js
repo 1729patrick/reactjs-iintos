@@ -85,28 +85,3 @@ export const Text = styled.h3`
   margin: 10px 13px;
   font-weight: 500;
 `;
-
-export const Events = styled.div`
-  padding: 0 15px;
-  margin-top: 10px;
-  overflow-y: auto;
-  height: 100%;
-`;
-
-export const Event = styled.div`
-  display: flex;
-  height: 40px;
-  align-items: center;
-  justify-content: space-between;
-  background: #ddd;
-  padding: 10px;
-  border-radius: 4px;
-
-  & + div {
-    margin-top: 15px;
-  }
-
-  span {
-    color: #777;
-  }
-`;

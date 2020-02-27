@@ -6,7 +6,7 @@ export const Container = styled.div`
 `;
 
 export const Menu = styled.div`
-  min-width: 22%;
+  min-width: 16%;
   position: fixed;
   height: 100%;
   position: fixed;
@@ -39,7 +39,7 @@ export const Menu = styled.div`
 
 export const Content = styled.div`
   width: 100%;
-  padding: 0 30px 0 calc(22% + 30px);
+  padding: 0 30px 0 calc(16% + 30px);
 
   h1 {
     display: flex;
