@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Events = styled.div`
-  padding: 0 15px;
+  /* padding: 0 15px; */
   margin-top: 10px;
   overflow-y: auto;
-  height: 100%;
+  height: calc(100% - 58px);
 `;
 
 export const Event = styled.div`
