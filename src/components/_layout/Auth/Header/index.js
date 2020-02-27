@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Container } from './styles';
@@ -22,7 +22,7 @@ const Header = () => {
     apiCalendar.defaults.headers.userID = null;
   };
 
-  const isGroupAdmin = useCallback(() => {
+  const isGroupAdmin = useMemo(() => {
     return (
       user?.role === 'Admin' ||
       user?.role === 'IINTOS-Admin' ||
@@ -31,7 +31,7 @@ const Header = () => {
     );
   }, [user]);
 
-  const isGroupSchool = useCallback(() => {
+  const isGroupSchool = useMemo(() => {
     return user?.role === 'Coordinator' || user?.role === 'Professor';
   }, [user]);
 
@@ -44,11 +44,11 @@ const Header = () => {
       <div>
         <div>
           <NavLink to="/projects">Projects</NavLink>
-          {isGroupAdmin() && <NavLink to="/outputs">Outputs</NavLink>}
-          <NavLink to="/results">Results</NavLink>
+          {isGroupAdmin && <NavLink to="/outputs">Outputs</NavLink>}
+          {!isGroupSchool && <NavLink to="/results">Results</NavLink>}
           <NavLink to="/calendar">Calendar</NavLink>
-          {isGroupAdmin() && <NavLink to="/users">Users</NavLink>}
-          {isGroupSchool() && <NavLink to="/school">School</NavLink>}
+          {isGroupAdmin && <NavLink to="/users">Users</NavLink>}
+          {isGroupSchool && <NavLink to="/school">School</NavLink>}
 
           <NavLink to="/login" onClick={logout}>
             Logout
