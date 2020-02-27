@@ -4,6 +4,7 @@ export const Container = styled.div``;
 
 export const Form = styled.form`
   padding-top: 50px;
+  margin-bottom: 20px;
 
   > span {
     display: flex;

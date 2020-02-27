@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 import { Container } from './styles';
 import Logo from '~/assets/images/logo.png';
 
-const Header = () => {
+const Header = ({ transparent }) => {
   return (
-    <Container>
+    <Container transparent={transparent}>
       <NavLink to="/">
         <img src={Logo} alt="" style={{ width: 150 }} />
       </NavLink>

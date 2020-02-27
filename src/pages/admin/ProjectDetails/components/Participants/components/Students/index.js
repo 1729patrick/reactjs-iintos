@@ -30,6 +30,7 @@ const columns = [
 const useStyles = makeStyles({
   root: {
     width: '100%',
+    marginBottom: 20,
   },
   container: {
     maxHeight: window.innerHeight - 270,
