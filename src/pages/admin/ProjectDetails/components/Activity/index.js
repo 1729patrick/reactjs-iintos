@@ -57,7 +57,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Activities = ({ isProfessor, isParticipant }) => {
+const Activities = ({ isProfessor, isParticipant, isProject }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -306,6 +306,7 @@ const Activities = ({ isProfessor, isParticipant }) => {
       <FormModal
         open={modalOpen === 'form'}
         setOpen={setModalOpen}
+        isProject={isProject}
         {...modalParams}
       />
       <DeleteModal

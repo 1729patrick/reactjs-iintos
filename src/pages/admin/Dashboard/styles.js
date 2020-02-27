@@ -9,7 +9,7 @@ export const Container = styled.div`
   grid-template-rows: repeat(12, 1fr);
   grid-row-gap: 19px;
   grid-column-gap: 19px;
-  padding: 34px;
+  padding: 20px;
 
   @media (max-width: 1024px) and (min-height: 550px) {
     height: 100%;

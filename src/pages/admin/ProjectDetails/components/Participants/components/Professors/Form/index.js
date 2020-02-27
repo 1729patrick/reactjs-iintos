@@ -39,6 +39,7 @@ export default ({
   onSubmit,
   validationSchema,
   users,
+  isProject,
 }) => {
   if (!open) {
     return null;
@@ -71,9 +72,13 @@ export default ({
         <div id="simple-modal-description">
           <Form onSubmit={formik.handleSubmit}>
             <Select
-              label="Professor"
+              label={isProject ? 'Professor' : 'Partner'}
               type="text"
-              placeholder="Type the professor of this project"
+              placeholder={
+                isProject
+                  ? 'Type the professor of this project'
+                  : 'Type the partner of this output'
+              }
               name="userId"
               onChange={formik.handleChange}
               values={formik.values}

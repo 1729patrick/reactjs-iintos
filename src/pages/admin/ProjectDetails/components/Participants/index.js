@@ -8,7 +8,7 @@ import Students from './components/Students';
 import Professors from './components/Professors';
 import DeleteModal from './components/Delete';
 
-const Participants = ({ location, isProfessor, isParticipant }) => {
+const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
   const [allProfessors, setAllProfessors] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [schools, setSchools] = useState([]);
@@ -32,7 +32,7 @@ const Participants = ({ location, isProfessor, isParticipant }) => {
 
   const fetchAllProfessors = async () => {
     const response = await api.get('professors', {
-      params: { projectId },
+      params: { projectId, destination: isProject ? 'MOBILITY' : 'IINTOS' },
     });
 
     setAllProfessors(response.data);
@@ -64,7 +64,7 @@ const Participants = ({ location, isProfessor, isParticipant }) => {
   // api call to delete
   const handleDelete = async id => {
     try {
-      console.log(id);
+
       await api.delete(`projectUser/${id}`);
       setModalOpen(false);
       toast.success('Participant removed with success!');
@@ -118,22 +118,25 @@ const Participants = ({ location, isProfessor, isParticipant }) => {
           handleDeleteRow={handleDeleteRow}
           isProfessor={isProfessor}
           isParticipant={isParticipant}
+          isProject={isProject}
         />
       </ContainerWrap>
-      <ContainerWrap>
-        <Students
-          users={users.students}
-          handleCreate={handleCreate}
-          modalOpen={modalOpen === 'formStudent'}
-          setModalParams={setModalParams}
-          modalParams={modalParams}
-          setModalOpen={setModalOpen}
-          handleDeleteRow={handleDeleteRow}
-          isProfessor={isProfessor}
-          isParticipant={isParticipant}
-          schools={schools}
-        />
-      </ContainerWrap>
+      {isProject && (
+        <ContainerWrap>
+          <Students
+            users={users.students}
+            handleCreate={handleCreate}
+            modalOpen={modalOpen === 'formStudent'}
+            setModalParams={setModalParams}
+            modalParams={modalParams}
+            setModalOpen={setModalOpen}
+            handleDeleteRow={handleDeleteRow}
+            isProfessor={isProfessor}
+            isParticipant={isParticipant}
+            schools={schools}
+          />
+        </ContainerWrap>
+      )}
 
       <DeleteModal
         open={modalOpen === 'delete'}

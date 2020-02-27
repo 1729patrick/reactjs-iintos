@@ -8,7 +8,7 @@ const DefaultLayout = ({ children, hiddenFooter }) => {
   return (
     <>
       <Wrapper noFooter={hiddenFooter}>
-        <Header />
+        <Header transparent={hiddenFooter} />
         <div>{children}</div>
         {!hiddenFooter && <Footer />}
       </Wrapper>

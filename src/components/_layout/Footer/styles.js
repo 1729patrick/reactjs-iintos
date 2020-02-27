@@ -17,7 +17,7 @@ export const Container = styled.footer`
   a {
         color: #222;
         font-size: 15px;
-        padding-bottom: 3px;
+        padding: 3px 0;
         border-bottom: solid 2px transparent;
 
         & + a {

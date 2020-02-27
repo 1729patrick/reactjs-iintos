@@ -64,6 +64,7 @@ export default function Professors({
   setModalParams,
   isProfessor,
   isParticipant,
+  isProject,
 }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -98,11 +99,11 @@ export default function Professors({
 
   const handleCreateUser = () => {
     setModalParams({
-      initialValues: {},
       validationSchema,
+      initialValues: {},
       onSubmit: handleCreate,
       submitText: 'Add',
-      modalTitle: 'Add a new Professor',
+      modalTitle: isProject ? 'Add a new Professor' : 'Add a new Partner',
     });
 
     setModalOpen('formProfessor');
@@ -111,11 +112,11 @@ export default function Professors({
   return (
     <>
       <span>
-        <h2>Professors</h2>
+        <h2>{isProject ? 'Professors' : 'Partners'}</h2>
 
         {!isProfessor && isParticipant && (
           <Button
-            title="Add Professor"
+            title={isProject ? 'Add Professor' : 'Add Partner'}
             type="button"
             onClick={handleCreateUser}
           />
@@ -176,6 +177,7 @@ export default function Professors({
         users={allProfessors}
         open={modalOpen}
         setOpen={setModalOpen}
+        isProject={isProject}
         {...modalParams}
       />
     </>

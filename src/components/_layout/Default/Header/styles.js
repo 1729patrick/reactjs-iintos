@@ -2,13 +2,14 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   height: 80px;
-  background: #fff;
+  background: ${props => (props.transparent ? 'transparent' : '#fff')};
   font-weight: 500;
   display: flex;
   align-items: center;
   padding: 0 35px;
   position: fixed;
   width: 100%;
+  z-index: 1;
 
   > a {
     font-size: 32px;
@@ -30,9 +31,10 @@ export const Container = styled.header`
       flex-direction: row;
 
       a {
-        color: #222;
+        color: ${props => (props.transparent ? '#fff' : '#222')};
+
         font-size: 15px;
-        padding-bottom: 3px;
+        padding: 3px 0;
         border-bottom: solid 2px transparent;
 
         & + a {
