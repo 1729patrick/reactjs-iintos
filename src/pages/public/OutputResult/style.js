@@ -6,7 +6,7 @@ export const Container = styled.div`
 `;
 
 export const Menu = styled.div`
-  min-width: 22%;
+  max-width: 22%;
   position: fixed;
   height: 100%;
 
