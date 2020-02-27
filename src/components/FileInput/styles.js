@@ -24,6 +24,7 @@ export const Container = styled.div`
       opacity: 0;
       top: 0;
       height: 100%;
+      width: 100%;
       cursor: pointer;
     }
   }
@@ -45,5 +46,36 @@ export const Container = styled.div`
       color: #ff0000;
       white-space: nowrap;
     }
+  }
+`;
+
+export const NoImage = styled.div`
+  height: 150px;
+  width: 150px;
+  min-height: 150px;
+  min-width: 150px;
+  border-radius: 50%;
+  background: #ccc;
+  position: relative;
+  border: 2px solid #aaa;
+  overflow: hidden;
+
+  align-items: center;
+  justify-content: center;
+  display: flex;
+
+  svg {
+    height: 45px;
+    width: 45px;
+    color: #444;
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
   }
 `;

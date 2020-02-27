@@ -10,11 +10,13 @@ import FormModal from './components/Form';
 import DeleteModal from './components/Delete';
 import validationSchema from '~/validations/result';
 import { useUserContext } from '~/context/UserContext';
+import EmptyMessage from '~/components/EmptyMessage';
 
 export default withRouter(({ location, history }) => {
   const [results, setResults] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+
   const route = useMemo(() => location.pathname.replace('/results/', ''), [
     location,
   ]);
@@ -160,6 +162,8 @@ export default withRouter(({ location, history }) => {
       <Menu>
         <div>
           <h1>Results</h1>
+          {results.length === 0 && <EmptyMessage />}
+
           {results.map(row => {
             return (
               <NavLink key={row.link} to={row.link}>

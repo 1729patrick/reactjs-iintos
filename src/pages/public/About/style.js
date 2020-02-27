@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
 
 
 	div{
-		width:80%;
+		width:70%;
 		text-align:justify;
 	}
 

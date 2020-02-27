@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import ConfirmModal from './modals/Confirm';
+import EmptyMessage from '~/components/EmptyMessage';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
@@ -81,12 +82,18 @@ export default function Approve() {
   const [users, setUsers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+  const [error, setError] = useState(false);
 
   const fetchUsers = async () => {
     const response = await api.get('users', {
       params: { role: 'Coordinator' },
     });
     setUsers(response.data);
+    if (response.data.length === 0) {
+      setError(true);
+    } else {
+      setError(false);
+    }
   };
 
   useState(() => {
@@ -180,56 +187,59 @@ export default function Approve() {
         <span>
           <h1>Approve Coodinators</h1>
         </span>
-        <Paper className={classes.root}>
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map(column => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {users
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map(row => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.id}
+        {error && <EmptyMessage />}
+        {!error && (
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map(column => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
                       >
-                        {columns.map(column => {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {getRowContent({ column, row })}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={users.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </Paper>
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map(row => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.id}
+                        >
+                          {columns.map(column => {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {getRowContent({ column, row })}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={users.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </Paper>
+        )}
       </ContainerWrap>
       <ConfirmModal open={modalOpen} setOpen={setModalOpen} {...modalParams} />
     </Container>

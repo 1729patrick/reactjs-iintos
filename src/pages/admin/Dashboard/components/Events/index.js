@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { format, addHours } from 'date-fns';
 import { Link } from 'react-router-dom';
 import api from '~/services/apiCalendar';
+import EmptyMessage from '~/components/EmptyMessage';
 
 import { Events, Event } from './styles';
 
@@ -30,6 +31,9 @@ export default function EventsCard() {
       });
 
       setEvents(formattedEvents);
+      if (formattedEvents.length === 0) {
+        setError(true);
+      }
     } catch (e) {
       setError(true);
     }
@@ -51,6 +55,7 @@ export default function EventsCard() {
           </div>
         </Event>
       ))}
+      {error && <EmptyMessage />}
     </Events>
   );
 }

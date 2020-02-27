@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Container } from './styles';
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import { Container, NoImage } from './styles';
 
 export default function FileInput({
   label,
@@ -8,9 +9,24 @@ export default function FileInput({
   name,
   errors,
   placeholder,
+  file,
   onChange,
   submitted,
+  imagePreview,
+  multiple,
+  ...props
 }) {
+  console.log(props);
+  if (imagePreview) {
+    return (
+      <NoImage {...props}>
+        <CameraAltIcon />
+        {file && <img src={file} alt="Avatar" />}
+        <input type="file" accept="image/*" name={name} onChange={onChange} />
+      </NoImage>
+    );
+  }
+
   return (
     <Container>
       {label && (
@@ -24,7 +40,12 @@ export default function FileInput({
 
       <div>
         <p>{placeholder}</p>
-        <input type="file" name={name} onChange={onChange} />
+        <input
+          multiple={multiple}
+          type="file"
+          name={name}
+          onChange={onChange}
+        />
       </div>
     </Container>
   );

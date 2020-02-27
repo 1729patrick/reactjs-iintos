@@ -19,6 +19,7 @@ import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
 import FormModal from './Form';
 import DeleteModal from '../Delete';
+import EmptyMessage from '~/components/EmptyMessage';
 
 import validationSchema from '~/validations/result';
 
@@ -64,6 +65,7 @@ const Results = ({ isProfessor, isParticipant }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
   const location = useLocation();
+  const [error, setError] = useState(false);
 
   const projectId = useMemo(() => location.pathname.split('/')[3], [
     location.pathname,
@@ -72,6 +74,11 @@ const Results = ({ isProfessor, isParticipant }) => {
   const fetchActivities = async () => {
     const response = await api.get(`projects/${projectId}/results`);
     setActivities(response.data);
+    if (response.data.length === 0) {
+      setError(true);
+    } else {
+      setError(false);
+    }
   };
 
   useState(() => {
@@ -208,56 +215,59 @@ const Results = ({ isProfessor, isParticipant }) => {
             />
           )}
         </span>
-        <Paper className={classes.root}>
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map(column => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {activities
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map(row => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.id}
+        {error && <EmptyMessage />}
+        {!error && (
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map(column => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
                       >
-                        {columns.map(column => {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {getRowContent({ column, row })}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={activities.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </Paper>
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {activities
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map(row => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.id}
+                        >
+                          {columns.map(column => {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {getRowContent({ column, row })}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={activities.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </Paper>
+        )}
       </ContainerWrap>
       <FormModal
         open={modalOpen === 'form'}
