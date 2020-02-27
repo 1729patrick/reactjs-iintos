@@ -169,7 +169,7 @@ const Calendar = () => {
     <Container>
       <ContainerWrap>
         {showAlert && (
-          <Alert severity="warning">
+          <Alert severity="warning" style={{ marginTop: 15 }}>
             You'r must log in google account to see the events
             <a href={`${CALENDAR_URL}/login/${user?.email}`} target="__blank">
               Google Login

@@ -2,18 +2,19 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 10px;
 `;
 
 export const ContainerWrap = styled.div`
   width: 100%;
-  height: calc(100vh - 140px);
-  width: 78%;
-  padding-top: 20px;
+  height: 100%;
+  padding: 0 100px;
   > .fc {
-    padding-bottom: 30px;
+    height: 100%;
   }
 
   .MuiAlert-message {
