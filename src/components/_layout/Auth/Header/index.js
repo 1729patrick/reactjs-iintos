@@ -8,7 +8,7 @@ import api from '~/services/api';
 import apiCalendar from '~/services/apiCalendar';
 
 const Header = () => {
-  const { user, setUser } = useCallback(useUserContext(), []);
+  const { user, setUser } = useUserContext();
 
   const logout = () => {
     localStorage.clear();
@@ -49,6 +49,7 @@ const Header = () => {
           <NavLink to="/calendar">Calendar</NavLink>
           {isGroupAdmin && <NavLink to="/users">Users</NavLink>}
           {isGroupSchool && <NavLink to="/school">School</NavLink>}
+          <NavLink to="/profile">{user.name}</NavLink>
 
           <NavLink to="/login" onClick={logout}>
             Logout
