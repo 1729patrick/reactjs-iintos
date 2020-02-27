@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Wrapper } from '../styles';
 import Header from './Header';
-import Footer from '../Default/Footer';
+import Footer from '../Footer';
 
 const AuthLayout = ({ children }) => {
   return (
