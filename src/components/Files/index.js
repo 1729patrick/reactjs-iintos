@@ -6,16 +6,18 @@ import api from '~/services/api';
 
 export default function Files({ formik }) {
   const onFileUpload = async (index, { target }) => {
-    const [file] = target.files;
+    const { files } = target;
 
-    const formData = new FormData();
+    [...files].forEach(async (file, i) => {
+      const formData = new FormData();
+      formData.append('file', file);
 
-    formData.append('file', file);
+      const response = await api.post('/files', formData);
 
-    const response = await api.post('/files', formData);
+      formik.setFieldValue(`files[${index + i}]`, response.data);
+    });
 
-    formik.setFieldValue(`files[${index}]`, response.data);
-    formik.setFieldValue(`files[${index + 1}]`, '');
+    formik.setFieldValue(`files[${index + [...files].length}]`, '');
   };
 
   const handleRemove = (field, index) => {
@@ -35,6 +37,7 @@ export default function Files({ formik }) {
             values={{ file: formik.values?.files[index] }}
             errors={formik.errors}
             touched={formik.touched}
+            multiple
           />
           {formik.values?.files?.length !== index + 1 && (
             <DeleteIcon

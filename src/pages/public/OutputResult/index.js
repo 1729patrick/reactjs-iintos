@@ -16,7 +16,6 @@ export default withRouter(({ location, history }) => {
   const [results, setResults] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
-  const [error, setError] = useState(false);
 
   const route = useMemo(() => location.pathname.replace('/results/', ''), [
     location,
@@ -47,11 +46,6 @@ export default withRouter(({ location, history }) => {
     if ((!route || route === '/results') && resultsList[0]?.link)
       history.push(resultsList[0]?.link);
     setResults(resultsList);
-    if (resultsList.length === 0) {
-      setError(true);
-    } else {
-      setError(false);
-    }
   }, [route, history]);
 
   useEffect(() => {

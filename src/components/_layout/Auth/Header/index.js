@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Container } from './styles';
@@ -6,6 +6,8 @@ import Logo from '~/assets/images/logo.png';
 import { useUserContext } from '~/context/UserContext';
 import api from '~/services/api';
 import apiCalendar from '~/services/apiCalendar';
+
+import Popup from '../Popup';
 
 const Header = () => {
   const { user, setUser } = useUserContext();
@@ -49,11 +51,7 @@ const Header = () => {
           <NavLink to="/calendar">Calendar</NavLink>
           {isGroupAdmin && <NavLink to="/users">Users</NavLink>}
           {isGroupSchool && <NavLink to="/school">School</NavLink>}
-          <NavLink to="/profile">{user.name}</NavLink>
-
-          <NavLink to="/login" onClick={logout}>
-            Logout
-          </NavLink>
+          <Popup logout={logout} user={user} />
         </div>
       </div>
     </Container>

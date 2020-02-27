@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import Background from '~/assets/images/background.jpg';
 
 export const Container = styled.div`
   width: 100%;
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
 
 
 	div{

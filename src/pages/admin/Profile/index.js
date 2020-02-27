@@ -1,56 +1,116 @@
-import React, { useCallback, useState } from 'react';
-import EditIcon from '@material-ui/icons/Edit';
-
+import React from 'react';
 import { toast } from 'react-toastify';
+import { useFormik } from 'formik';
+
 import { useUserContext } from '~/context/UserContext';
 import api from '~/services/api';
 import validationSchema from '~/validations/updateUser';
-import FormModal from './components/Form';
+
+import Input from '~/components/Input';
+import Button from '~/components/Button';
+
+import { Container, Form, FileInput } from './styles';
 
 export default function Profile() {
   const { user, setUser, token, school } = useUserContext();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalParams, setModalParams] = useState({});
 
-  // api call to post
-  const handleUpdate = async values => {
+  const onSubmit = async values => {
     try {
-      const result = await api.put(`updateUser`, values);
-      console.log('------------');
-      console.log(result.data);
+      const formattedValues = { ...values, avatarId: values.avatar?.saved?.id };
 
-      setUser({ token, school, user: result.data });
-      setModalOpen(false);
+      await api.put(`/users/${user.id}`, formattedValues);
+
+      setUser({
+        token,
+        school,
+        user: { ...user, avatar: formik.values?.avatar?.file },
+      });
       toast.success('User updated with success!');
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
   };
-  const handleDetailRow = row => {
-    setModalParams({
-      initialValues: row,
-      validationSchema,
-      onSubmit: values => handleUpdate(values),
-      submitText: 'Save',
-      modalTitle: 'User',
-    });
+  const formik = useFormik({
+    onSubmit,
+    validationSchema,
+    initialValues: { ...user, avatar: { file: user.avatar } },
+  });
 
-    setModalOpen('form');
+  const onFileUpload = async ({ target }) => {
+    const [file] = target.files;
+
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    const response = await api.post('/files', formData);
+
+    formik.setFieldValue('avatar', {
+      saved: response.data,
+      file: URL.createObjectURL(file),
+    });
   };
+
   return (
-    <div>
-      <ul>
-        <EditIcon onClick={() => handleDetailRow(user)} />
-        <li>Name: {user.name}</li>
-        <li>Email: {user.email}</li>
-        {user.school !== undefined && <li>School: {user.school}</li>}
-        <li>Role: {user.role.name}</li>
-      </ul>
-      <FormModal
-        open={modalOpen === 'form'}
-        setOpen={setModalOpen}
-        {...modalParams}
-      />
-    </div>
+    <Container>
+      <Form onSubmit={formik.handleSubmit}>
+        <div>
+          <FileInput
+            label="Avatar"
+            name="avatar"
+            file={formik.values?.avatar?.file}
+            onChange={onFileUpload}
+            values={formik.values}
+            errors={formik.errors}
+            touched={formik.touched}
+            imagePreview
+          />
+          <Input
+            label="Name"
+            name="name"
+            placeholder="Name"
+            onChange={formik.handleChange}
+            values={formik.values}
+            errors={formik.errors}
+            touched={formik.touched}
+            submitted={formik.submitCount}
+          />
+          <Input
+            label="E-mail"
+            name="email"
+            placeholder="E-mail"
+            onChange={formik.handleChange}
+            values={formik.values}
+            errors={formik.errors}
+            touched={formik.touched}
+            submitted={formik.submitCount}
+          />
+          <Input
+            label="Password"
+            name="oldPassword"
+            placeholder="Passowrd"
+            type="password"
+            onChange={formik.handleChange}
+            values={formik.values}
+            errors={formik.errors}
+            touched={formik.touched}
+            submitted={formik.submitCount}
+          />
+          <Input
+            label="New Password"
+            name="password"
+            placeholder="New Passowrd"
+            type="password"
+            onChange={formik.handleChange}
+            values={formik.values}
+            errors={formik.errors}
+            touched={formik.touched}
+            submitted={formik.submitCount}
+          />
+
+          <Button title="Save" type="submit" />
+        </div>
+      </Form>
+    </Container>
   );
 }
