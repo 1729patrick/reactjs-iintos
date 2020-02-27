@@ -48,6 +48,7 @@ export default ({
     startDate: new Date(),
     endDate: new Date(),
   },
+  isProject,
   submitText,
   open,
   setOpen,
@@ -99,7 +100,7 @@ export default ({
             <Input
               label="Title"
               type="text"
-              placeholder="Type the project title"
+              placeholder="Type the activity title"
               name="title"
               onChange={formik.handleChange}
               values={formik.values}
@@ -112,7 +113,7 @@ export default ({
               label="Description"
               type="text"
               textarea
-              placeholder="Tell more about this project"
+              placeholder="Tell more about this activity"
               name="description"
               onChange={formik.handleChange}
               values={formik.values}
@@ -161,9 +162,15 @@ export default ({
               {formik.values.professors.map((_, index) => (
                 <div key={String(index)}>
                   <Select
-                    label={`Professor ${index + 1}`}
+                    label={
+                      isProject
+                        ? `Professor ${index + 1}`
+                        : `Partner ${index + 1}`
+                    }
                     textarea
-                    placeholder="Add professor to activity"
+                    placeholder={`Add ${
+                      isProject ? 'professor' : 'partner'
+                    } to activity`}
                     name="professor"
                     onChange={value =>
                       formik.setFieldValue(
@@ -184,40 +191,42 @@ export default ({
                 </div>
               ))}
               <button type="button" onClick={() => handleAdd('professors')}>
-                + Add Professor
+                + Add {isProject ? 'Professor' : 'Partner'}
               </button>
             </span>
 
-            <span>
-              {formik.values?.students.map((_, index) => (
-                <div key={String(index)}>
-                  <Select
-                    label={`Student ${index + 1}`}
-                    textarea
-                    placeholder="Add student to activity"
-                    name="student"
-                    onChange={value =>
-                      formik.setFieldValue(
-                        `students[${index}]`,
-                        value.target.value
-                      )
-                    }
-                    values={{ student: formik.values.students[index] }}
-                    errors={formik.errors}
-                    touched={formik.touched}
-                    submitted={formik.submitCount}
-                    options={users.students}
-                  />
-                  <DeleteIcon
-                    style={{ color: '#cb1010', cursor: 'pointer' }}
-                    onClick={() => handleRemove('students', index)}
-                  />
-                </div>
-              ))}
-              <button type="button" onClick={() => handleAdd('students')}>
-                + Add Student
-              </button>
-            </span>
+            {isProject && (
+              <span>
+                {formik.values?.students.map((_, index) => (
+                  <div key={String(index)}>
+                    <Select
+                      label={`Student ${index + 1}`}
+                      textarea
+                      placeholder="Add student to activity"
+                      name="student"
+                      onChange={value =>
+                        formik.setFieldValue(
+                          `students[${index}]`,
+                          value.target.value
+                        )
+                      }
+                      values={{ student: formik.values.students[index] }}
+                      errors={formik.errors}
+                      touched={formik.touched}
+                      submitted={formik.submitCount}
+                      options={users.students}
+                    />
+                    <DeleteIcon
+                      style={{ color: '#cb1010', cursor: 'pointer' }}
+                      onClick={() => handleRemove('students', index)}
+                    />
+                  </div>
+                ))}
+                <button type="button" onClick={() => handleAdd('students')}>
+                  + Add Student
+                </button>
+              </span>
+            )}
             <Button title={submitText} type="submit" />
           </Form>
         </div>

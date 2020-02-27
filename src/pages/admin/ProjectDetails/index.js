@@ -34,7 +34,10 @@ export default withRouter(({ computedMatch }) => {
   const isProject = useMemo(() => type === 'projects', [type]);
 
   const isParticipant = useMemo(
-    () => user?.role === 'Admin' || schools.includes(school?.id),
+    () =>
+      user?.role === 'Admin' ||
+      user?.role === 'IINTOS-Admin' ||
+      schools.includes(school?.id),
     [user, school, schools]
   );
 
@@ -64,7 +67,11 @@ export default withRouter(({ computedMatch }) => {
     );
     if (route === '/participants') {
       return (
-        <Participants isProfessor={isProfessor} isParticipant={isParticipant} />
+        <Participants
+          isProfessor={isProfessor}
+          isParticipant={isParticipant}
+          isProject={isProject}
+        />
       );
     }
     if (route === '/activities') {
@@ -116,9 +123,11 @@ export default withRouter(({ computedMatch }) => {
           <NavLink to={`/${type}/details/${projectId}/activities`}>
             Activity
           </NavLink>
-          <NavLink to={`/${type}/details/${projectId}/schools`}>
-            Schools
-          </NavLink>
+          {isProject && (
+            <NavLink to={`/${type}/details/${projectId}/schools`}>
+              Schools
+            </NavLink>
+          )}
           <NavLink to={`/${type}/details/${projectId}/participants`}>
             Participants
           </NavLink>
