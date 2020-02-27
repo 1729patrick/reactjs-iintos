@@ -17,6 +17,7 @@ import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
 import FormModal from './modals/Form';
 import DeleteModal from './modals/Delete';
+import EmptyMessage from '~/components/EmptyMessage';
 
 import validationSchema from '~/validations/school';
 
@@ -79,10 +80,16 @@ export default function Schools() {
   const [schools, setSchools] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+  const [error, setError] = useState(false);
 
   const fetchSchools = async () => {
     const response = await api.get('schools');
     setSchools(response.data);
+    if (response.data.length === 0) {
+      setError(true);
+    } else {
+      setError(false);
+    }
   };
 
   useState(() => {
@@ -208,56 +215,59 @@ export default function Schools() {
             onClick={handleCreateSchool}
           />
         </span>
-        <Paper className={classes.root}>
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map(column => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {schools
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map(row => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.id}
+        {error && <EmptyMessage />}
+        {!error && (
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map(column => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
                       >
-                        {columns.map(column => {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {getRowContent({ column, row })}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={schools.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </Paper>
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {schools
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map(row => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.id}
+                        >
+                          {columns.map(column => {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {getRowContent({ column, row })}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={schools.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </Paper>
+        )}
       </ContainerWrap>
       <FormModal
         open={modalOpen === 'form'}

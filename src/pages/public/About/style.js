@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Background from '~/assets/images/background.jpg';
 
 export const Container = styled.div`
   width: 100%;
@@ -7,7 +8,7 @@ justify-content: center;
 
 
 	div{
-		width:80%;
+		width:70%;
 		text-align:justify;
 	}
 

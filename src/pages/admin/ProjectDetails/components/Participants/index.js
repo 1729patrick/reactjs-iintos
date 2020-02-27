@@ -17,6 +17,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
     students: [],
   });
   const [modalParams, setModalParams] = useState({});
+ 
 
   const projectId = useMemo(() => location.pathname.split('/')[3], [
     location.pathname,
@@ -26,7 +27,6 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
     const response = await api.get(`projects/${projectId}/users`);
 
     const userList = response.data;
-
     setUsers(userList);
   };
 
@@ -64,7 +64,6 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
   // api call to delete
   const handleDelete = async id => {
     try {
-
       await api.delete(`projectUser/${id}`);
       setModalOpen(false);
       toast.success('Participant removed with success!');
@@ -107,6 +106,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
     <Container>
       <ContainerWrap>
         <h1>Participants</h1>
+
         <Professors
           users={users.professors}
           allProfessors={allProfessors}

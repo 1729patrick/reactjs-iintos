@@ -40,11 +40,7 @@ export default function ActivitiesCard() {
         </Event>
       ))}
 
-      {error && (
-        <div>
-          <EmptyMessage />
-        </div>
-      )}
+      {error && <EmptyMessage />}
     </Events>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '~/services/api';
+import EmptyMessage from '~/components/EmptyMessage';
 
 import { Events, Event } from './styles';
 
@@ -13,7 +14,9 @@ export default function ProjectsCard() {
       const response = await api.get('projects', {
         params: { destination: 'MOBILITY' },
       });
-
+      if (response.data.length === 0) {
+        setError(true);
+      }
       setProjects(response.data);
     } catch (e) {
       setError(true);
@@ -35,6 +38,7 @@ export default function ProjectsCard() {
           </div>
         </Event>
       ))}
+      {error && <EmptyMessage />}
     </Events>
   );
 }
