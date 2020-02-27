@@ -8,8 +8,8 @@ import { Container } from './styles';
 const Footer = ({ links }) => {
   const { user } = useCallback(useUserContext(), []);
   const date = useMemo(() => new Date().getFullYear(), []);
-  const isIintosAdmin = useMemo(() => {
-    return user?.role === 'IINTOS-Admin';
+  const isGroupSchool = useMemo(() => {
+    return user?.role === 'Coordinator' || user?.role === 'Professor';
   }, [user]);
 
   return (
@@ -24,7 +24,7 @@ const Footer = ({ links }) => {
             <NavLink to="/about">About</NavLink>
             <NavLink to="/partners">Partners</NavLink>
             {/* <NavLink to="/news">News</NavLink> */}
-            {isIintosAdmin && <NavLink to="/results">Results</NavLink>}
+            {isGroupSchool && <NavLink to="/results">Results</NavLink>}
           </div>
         )}
       </div>

@@ -22,10 +22,6 @@ const Header = () => {
     apiCalendar.defaults.headers.userID = null;
   };
 
-  const isIintosAdmin = useMemo(() => {
-    return user?.role === 'IINTOS-Admin';
-  }, [user]);
-
   const isGroupAdmin = useMemo(() => {
     return (
       user?.role === 'Admin' ||
@@ -49,7 +45,7 @@ const Header = () => {
         <div>
           <NavLink to="/projects">Projects</NavLink>
           {isGroupAdmin && <NavLink to="/outputs">Outputs</NavLink>}
-          {isIintosAdmin && <NavLink to="/results">Results</NavLink>}
+          {!isGroupSchool && <NavLink to="/results">Results</NavLink>}
           <NavLink to="/calendar">Calendar</NavLink>
           {isGroupAdmin && <NavLink to="/users">Users</NavLink>}
           {isGroupSchool && <NavLink to="/school">School</NavLink>}
