@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   height: 80px;
-  background: ${props => (props.transparent ? 'transparent' : '#fff')};
+  background: #fff;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -31,7 +31,7 @@ export const Container = styled.header`
       flex-direction: row;
 
       a {
-        color: ${props => (props.transparent ? '#fff' : '#222')};
+        color: #222;
 
         font-size: 15px;
         padding: 3px 0;
