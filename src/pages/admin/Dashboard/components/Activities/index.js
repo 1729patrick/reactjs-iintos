@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '~/services/api';
+import EmptyMessage from '~/components/EmptyMessage';
 
 import { Events, Event } from './styles';
 
@@ -12,6 +13,9 @@ export default function ActivitiesCard() {
     try {
       const response = await api.get('activities');
 
+      if (response.data.length === 0) {
+        setError(true);
+      }
       setActivities(response.data);
     } catch (e) {
       setError(true);
@@ -35,6 +39,12 @@ export default function ActivitiesCard() {
           </div>
         </Event>
       ))}
+
+      {error && (
+        <div>
+          <EmptyMessage />
+        </div>
+      )}
     </Events>
   );
 }
