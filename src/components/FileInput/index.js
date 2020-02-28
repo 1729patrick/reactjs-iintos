@@ -16,7 +16,6 @@ export default function FileInput({
   multiple,
   ...props
 }) {
-  console.log(props);
   if (imagePreview) {
     return (
       <NoImage {...props}>
