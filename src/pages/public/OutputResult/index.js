@@ -161,8 +161,16 @@ export default withRouter(({ location, history }) => {
     <Container>
       <Menu>
         <div>
-          <h1>Results</h1>
-          {results.length === 0 && <EmptyMessage />}
+          <span>
+            <h1>Results</h1>
+            {isGroupAdmin() && (
+              <Button
+                title="Create Result"
+                type="button"
+                onClick={handleCreateProjects}
+              />
+            )}
+          </span>
 
           {results.map(row => {
             return (
@@ -171,17 +179,11 @@ export default withRouter(({ location, history }) => {
               </NavLink>
             );
           })}
-          {isGroupAdmin() && (
-            <Button
-              title="Create Result"
-              type="button"
-              onClick={handleCreateProjects}
-            />
-          )}
         </div>
       </Menu>
       <Content>
         <Children />
+        {results.length === 0 && <EmptyMessage />}
       </Content>
       <FormModal
         open={modalOpen === 'form'}
