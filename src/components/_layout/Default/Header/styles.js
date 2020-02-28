@@ -46,5 +46,17 @@ export const Container = styled.header`
         }
       }
     }
+
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  svg {
+    margin-left: auto;
+
+    @media only screen and (min-width: 600px) {
+      display: none;
+    }
   }
 `;

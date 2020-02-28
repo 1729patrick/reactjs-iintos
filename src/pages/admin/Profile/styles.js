@@ -29,6 +29,11 @@ export const Form = styled.form`
       margin-left: auto;
       min-height: 40px;
     }
+
+    @media only screen and (max-width: 600px) {
+      width: 100%;
+      padding: 0 30px;
+    }
   }
 `;
 

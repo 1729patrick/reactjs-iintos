@@ -28,4 +28,20 @@ export const ContainerWrap = styled.div`
       margin-left: auto;
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    padding: 0 15px;
+
+    .fc-toolbar {
+      margin: 20px 0 !important;
+    }
+
+    .fc-left,
+    .fc-right,
+    .fc-center {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+  }
 `;

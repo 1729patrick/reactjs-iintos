@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   display: flex;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 export const Menu = styled.div`
@@ -27,6 +31,20 @@ export const Menu = styled.div`
         background: #ddd;
         color: rgb(239, 108, 0) !important;
         border-radius: 4px 50px 50px 4px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+    padding: 0 30px;
+
+    div {
+      padding: 0;
+      margin-top: 15px;
+
+      a + a {
+        margin-top: 10px;
       }
     }
   }

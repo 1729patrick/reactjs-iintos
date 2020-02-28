@@ -15,6 +15,7 @@ export const Event = styled.div`
   background: #ddd;
   padding: 10px;
   border-radius: 4px;
+  overflow: hidden;
 
   & + div {
     margin-top: 15px;
@@ -28,5 +29,8 @@ export const Event = styled.div`
     span {
       color: #777;
     }
+  }
+  a {
+    white-space: nowrap;
   }
 `;
