@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div``;
 
 export const Form = styled.form`
-  padding-top: 50px;
+  padding-top: 15px;
   margin-bottom: 20px;
 
   > span {

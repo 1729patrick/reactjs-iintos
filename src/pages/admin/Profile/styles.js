@@ -10,9 +10,9 @@ export const Form = styled.form`
   border-radius: 8px 8px 0 0;
   background: #fff;
   padding: 30px 0;
-  height: calc(100% - 120px);
-  margin-top: 120px;
-  border-top: 1px solid #aaa;
+  height: calc(100% - 100px);
+  margin-top: 100px;
+  border-top: 2px solid #aaa;
 
   > div {
     margin: 0 auto;

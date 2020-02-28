@@ -175,7 +175,7 @@ export default withRouter(({ location, history }) => {
           {results.map(row => {
             return (
               <NavLink key={row.link} to={row.link}>
-                {row.title}
+                <p>{row.title}</p>
               </NavLink>
             );
           })}
