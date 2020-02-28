@@ -30,5 +30,6 @@ export const Icon = styled.div`
     margin-left: 30px;
     border: 2px solid #aaa;
     cursor: pointer;
+    background: #ddd;
   }
 `;

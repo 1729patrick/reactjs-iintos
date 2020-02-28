@@ -76,12 +76,20 @@ export default withRouter(({ computedMatch }) => {
     }
     if (route === '/activities') {
       return (
-        <Activity isProfessor={isProfessor} isParticipant={isParticipant} />
+        <Activity
+          isProfessor={isProfessor}
+          isParticipant={isParticipant}
+          isProject={isProject}
+        />
       );
     }
     if (route === '/results') {
       return (
-        <Results isProfessor={isProfessor} isParticipant={isParticipant} />
+        <Results
+          isProfessor={isProfessor}
+          isParticipant={isParticipant}
+          isProject={isProject}
+        />
       );
     }
     if (route === '/schools') {
@@ -90,6 +98,7 @@ export default withRouter(({ computedMatch }) => {
           isProfessor={isProfessor}
           isParticipant={isParticipant}
           refreshParticipants={fetchSchools}
+          isProject={isProject}
         />
       );
     }

@@ -24,7 +24,7 @@ import EmptyMessage from '~/components/EmptyMessage';
 
 import validationSchema from '~/validations/activity';
 
-const columns = [
+const allColumns = [
   { id: 'title', label: 'Title', minWidth: 200 },
   { id: 'startDate', label: 'Start Date', minWidth: 120 },
   { id: 'endDate', label: 'End Date', minWidth: 120 },
@@ -66,6 +66,20 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
   const [error, setError] = useState(false);
+
+  const columns = useMemo(
+    () =>
+      isProject
+        ? allColumns
+        : allColumns
+            .filter(({ id }) => id !== 'studentsStr')
+            .map(column =>
+              column.id === 'professorsStr'
+                ? { ...column, label: 'Participants' }
+                : column
+            ),
+    [isProject]
+  );
 
   const location = useLocation();
   const [users, setUsers] = useState({

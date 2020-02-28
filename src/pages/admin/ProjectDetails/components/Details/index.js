@@ -4,7 +4,8 @@ import { useFormik } from 'formik';
 import EditIcon from '@material-ui/icons/Edit';
 
 import { toast } from 'react-toastify';
-import validationSchema from '~/validations/project';
+import validationSchemaProject from '~/validations/project';
+import validationSchemaOutput from '~/validations/output';
 import FormModal from '~/pages/admin/Projects/components/Form';
 import Input from '~/components/Input';
 import { Form } from './styles';
@@ -37,7 +38,9 @@ export default ({ initialValues, isProfessor, isParticipant, isProject }) => {
   const handleEditProject = () => {
     setModalParams({
       initialValues: formik.values,
-      validationSchema,
+      validationSchema: isProject
+        ? validationSchemaProject
+        : validationSchemaOutput,
       onSubmit: values => handleUpdate(formik.values.id, values),
       submitText: 'Save',
       modalTitle: isProject ? 'Project' : 'Output',
