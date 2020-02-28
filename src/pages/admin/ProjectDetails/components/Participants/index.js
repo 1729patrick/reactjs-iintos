@@ -17,7 +17,6 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
     students: [],
   });
   const [modalParams, setModalParams] = useState({});
- 
 
   const projectId = useMemo(() => location.pathname.split('/')[3], [
     location.pathname,
@@ -77,7 +76,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
   const handleDeleteRow = row => {
     setModalParams({
       initialValues: row,
-      onSubmit: () => handleDelete(row.professor?.id),
+      onSubmit: () => handleDelete(row?.id),
       submitText: 'Save',
       modalTitle: 'Are you sure you want to delete this participant?',
     });
