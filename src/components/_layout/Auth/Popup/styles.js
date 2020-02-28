@@ -24,8 +24,8 @@ export const Container = styled.div`
 
 export const Icon = styled.div`
   img {
-    height: 50px;
-    width: 50px;
+    height: 45px;
+    width: 45px;
     border-radius: 50%;
     margin-left: 30px;
     border: 2px solid #aaa;
