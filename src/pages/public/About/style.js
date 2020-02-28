@@ -53,4 +53,15 @@ li{
     margin-inline-start: 0px;
     margin-inline-end: 0px;
   }
+
+  @media only screen and (max-width: 600px) {
+    div {
+      width: 100%;
+      padding: 0 30px;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
 `;

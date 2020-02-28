@@ -35,4 +35,8 @@ export const Container = styled.div`
       font-weight: 400;
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    padding: 0 15px;
+  }
 `;

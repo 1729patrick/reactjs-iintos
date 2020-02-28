@@ -5,6 +5,10 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   padding: 0 15px;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 export const ContainerWrap = styled.div`
@@ -48,8 +52,28 @@ export const Menu = styled.div`
       }
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+    padding: 0 15px;
+    margin-top: ${props => (props.noMarginTop ? '0' : '80px')};
+
+    div {
+      padding: 0;
+      margin-top: 15px;
+
+      a + a {
+        margin-top: 10px;
+      }
+    }
+  }
 `;
 
 export const Content = styled.div`
   flex: 1;
+
+  @media only screen and (max-width: 600px) {
+    padding-top: 15px;
+    width: 100%;
+  }
 `;

@@ -3,11 +3,14 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   display: flex;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 export const Menu = styled.div`
   min-width: 16%;
-  position: fixed;
   height: 100%;
   position: fixed;
   height: 100%;
@@ -35,6 +38,22 @@ export const Menu = styled.div`
       }
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+    padding: 0 30px;
+    max-width: 100%;
+    position: unset;
+
+    div {
+      padding: 0;
+      margin-top: 15px;
+
+      a + a {
+        margin-top: 10px;
+      }
+    }
+  }
 `;
 
 export const Content = styled.div`
@@ -47,5 +66,9 @@ export const Content = styled.div`
 
   img {
     margin: 0 auto;
+  }
+
+  @media only screen and (max-width: 600px) {
+    padding-left: 30px;
   }
 `;
