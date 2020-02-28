@@ -68,6 +68,7 @@ const Projects = ({ history, location, columns = projectColumns }) => {
   const [projects, setProjects] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
+  const [error, setError] = useState(false);
 
   const route = useMemo(() => location.pathname.replace('/projects', ''), [
     location.pathname,
@@ -108,6 +109,11 @@ const Projects = ({ history, location, columns = projectColumns }) => {
       }));
 
       setProjects(formattedProjects);
+      if (formattedProjects.length === 0) {
+        setError(true);
+      } else {
+        setError(false);
+      }
     }
   };
 
@@ -202,6 +208,7 @@ const Projects = ({ history, location, columns = projectColumns }) => {
           handleCreateProject={handleCreateProjects}
           columns={columns.filter(({ id }) => id !== 'delete')}
           projects={projects}
+          error={error}
           getRowContent={getRowContent}
           useStyles={useStyles}
         />
@@ -214,6 +221,7 @@ const Projects = ({ history, location, columns = projectColumns }) => {
         handleCreateProject={handleCreateProjects}
         columns={columns}
         projects={projects}
+        error={error}
         getRowContent={getRowContent}
         useStyles={useStyles}
         title={isGroupAdmin ? 'Projects' : 'My Projects'}

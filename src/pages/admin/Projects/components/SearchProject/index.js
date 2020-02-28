@@ -18,6 +18,7 @@ export default function SearchProject({
   projects,
   getRowContent,
   useStyles,
+  error,
 }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -38,8 +39,8 @@ export default function SearchProject({
         <span>
           <h1>Search Projects</h1>
         </span>
-        {projects.length === 0 && <EmptyMessage />}
-        {projects.length !== 0 && (
+        {error && <EmptyMessage />}
+        {!error && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">

@@ -21,11 +21,11 @@ export default function MyProject({
   projects,
   getRowContent,
   useStyles,
+  error,
 }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [error, setError] = useState(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -50,8 +50,8 @@ export default function MyProject({
             />
           )}
         </span>
-        {projects.length === 0 && <EmptyMessage />}
-        {projects.length !== 0 && (
+        {error && <EmptyMessage />}
+        {!error && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
