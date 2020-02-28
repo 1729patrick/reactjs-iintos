@@ -15,6 +15,7 @@ export const ContainerWrap = styled.div`
   padding: 0 100px;
   > .fc {
     height: 100%;
+    margin-bottom: 25px;
   }
 
   .MuiAlert-message {

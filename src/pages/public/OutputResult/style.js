@@ -30,6 +30,13 @@ export const Menu = styled.div`
       overflow: hidden;
       max-width: 300px;
 
+      p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 230px;
+      }
+
       & + a {
         margin-top: 25px;
       }
