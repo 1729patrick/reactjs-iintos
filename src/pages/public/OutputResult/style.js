@@ -6,9 +6,10 @@ export const Container = styled.div`
 `;
 
 export const Menu = styled.div`
-  max-width: 22%;
+  max-width: 23%;
   position: fixed;
   height: 100%;
+  width: 23%;
 
   div {
     h1 {
@@ -42,12 +43,24 @@ export const Menu = styled.div`
         border-radius: 4px 50px 50px 4px;
       }
     }
+
+    span {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      button {
+        background: transparent;
+        color: #0c1e3f;
+        padding: 0;
+      }
+    }
   }
 `;
 
 export const Content = styled.div`
-padding: 15px 30px 15px calc(22% + 30px);
-width: 100%;
+  padding: 15px 30px 15px calc(23% + 30px);
+  width: 100%;
 
 span{
 	display:flex;
