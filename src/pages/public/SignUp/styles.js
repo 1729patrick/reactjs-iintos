@@ -6,6 +6,10 @@ export const Container = styled.div`
   justify-content: center;
   height: 100%;
   padding: 60px;
+
+  @media only screen and (max-width: 600px) {
+    padding: 0 20px;
+  }
 `;
 
 export const Content = styled.div`
@@ -13,7 +17,6 @@ export const Content = styled.div`
   background: #fff;
   border-radius: 8px;
   padding: 30px 40px;
-  justify-content: space-between;
   flex-direction: column;
   display: flex;
 
@@ -40,5 +43,9 @@ export const Content = styled.div`
       font-weight: 500;
       cursor: pointer;
     }
+  }
+
+  @media only screen and (max-width: 600px) {
+    margin: 90px 0 20px;
   }
 `;

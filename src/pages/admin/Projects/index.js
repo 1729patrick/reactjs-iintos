@@ -232,7 +232,7 @@ const Projects = ({ history, location, columns = projectColumns }) => {
   return (
     <Container>
       {!isGroupAdmin && (
-        <Menu>
+        <Menu noMarginTop={!route}>
           <div>
             <NavLink to="/projects" exact>
               My Projects

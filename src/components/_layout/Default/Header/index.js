@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import { Container } from './styles';
 import Logo from '~/assets/images/logo.png';
+import Menu from '../Menu';
 
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  if (menuOpen) {
+    return <Menu onClose={() => setMenuOpen(false)} />;
+  }
+
   return (
     <Container>
       <NavLink to="/">
@@ -22,6 +30,8 @@ const Header = () => {
           <NavLink to="/login">Login</NavLink>
         </div>
       </div>
+
+      <MenuIcon onClick={() => setMenuOpen(true)} />
     </Container>
   );
 };

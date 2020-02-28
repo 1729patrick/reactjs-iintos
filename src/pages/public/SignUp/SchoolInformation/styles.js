@@ -9,14 +9,13 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
+  margin-top: 120px;
   width: 400px;
   background: #fff;
   border-radius: 8px;
   padding: 30px 40px;
-  justify-content: space-between;
   flex-direction: column;
   display: flex;
-  height: 100%;
   overflow: hidden;
 
   h1 {
@@ -42,5 +41,9 @@ export const Content = styled.div`
       font-weight: 500;
       cursor: pointer;
     }
+  }
+
+  @media only screen and (max-width: 600px) {
+    margin-top: 190px;
   }
 `;
