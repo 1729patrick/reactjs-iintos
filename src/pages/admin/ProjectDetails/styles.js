@@ -8,6 +8,10 @@ export const Container = styled.div`
     flex-direction: column;
   }
 `;
+export const Title = styled.div`
+  font-weight: 600;
+  width: 250px;
+`;
 
 export const Menu = styled.div`
   min-width: 16%;

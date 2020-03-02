@@ -2,7 +2,7 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { withRouter, NavLink, useLocation } from 'react-router-dom';
 
 import api from '~/services/api';
-import { Container, Menu, Content } from './styles';
+import { Container, Menu, Content, Title } from './styles';
 
 import Activity from './components/Activity';
 import Details from './components/Details';
@@ -125,6 +125,7 @@ export default withRouter(({ computedMatch }) => {
   return (
     <Container>
       <Menu>
+        <Title>{projects.title}</Title>
         <div>
           <NavLink to={`/${type}/details/${projectId}/`} exact>
             Details
