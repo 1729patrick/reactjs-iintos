@@ -43,7 +43,7 @@ export default withRouter(({ location, history }) => {
             Group of Schools José Saramago
           </NavLink>
           <NavLink to="/partners/Vallauri">
-            Istuzione Superiore "G.Vallauri"
+            Istituto “Giancarlo Vallauri” Fossano
           </NavLink>
         </div>
       </Menu>

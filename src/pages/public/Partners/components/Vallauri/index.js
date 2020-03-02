@@ -4,49 +4,62 @@ import vallauriImage from '~/assets/images/vallauriLogo.jpg';
 export default function About() {
   return (
     <div>
-      <h1>Istuzione Superiore "G.Vallauri"</h1>
+      <h1>
+        Istituto di Istruzione Superiore “Giancarlo Vallauri” Fossano (CN)
+      </h1>
       <img src={vallauriImage} width="200" height="150" alt="IPS" />
       <p>
-        Our{' '}
-        <a href="http://www.vallauri.edu/public/ita/pagina.asp">
-          Institute "Istituto Comprensivo "
-        </a>{' '}
-        (ICO) is in OLEGGIO (NO), laying on the sweetest hills of Northern East
-        of Piedmont Region, North of Italy along precious vineyards and rich
-        rise fields includes 3 Primary schools (children from 6 to 10 years old)
-        and a Middle School (from 11 to 13) with almost 960 students.
-      </p>
-      <h2>Our Vision</h2>
-      <p>
-        Above all, here in our Institute we all believe in a "learning
-        organization" where information experiences and the evaluation of each
-        single individual becomes common heritage of the entire organization
-        creating our own values and beliefs, among all: "equity” and "equal
-        opportunities".
-      </p>
-      <h2>Our Mission</h2>
-      <p>
-        To guarantee each and every student with the best learning environment
-        needed to succeed as person and citizen of the world taken into account
-        their own diversity and peculiarity. We are committed to follow, as
-        every public school, the general path suggested by the National
-        curricula and adopted and adjusted according to the specific territorial
-        social, economic and religious contest consolidating good practises
-        especially those mainly focused on inclusiveness (special needs
-        children), to enhance excellence through specific projects (the study of
-        Latin ,ICT, CLIL, European Language Certifications and National Maths
-        games).
+        The IIS “Vallauri” is a secondary school with more than 2,200 students
+        and 150 teachers and was founded in 1962. It is the biggest secondary
+        school for science and technology in the Cuneo Province and offers a
+        wide range of courses: ICT, Applied Sciences, Energy, Mechatronics and
+        Economics.
       </p>
       <p>
-        We are proud to offer our traditional higher education in music,
-        teaching to play many instruments is our peculiarity, our students reach
-        high level of performance and take part at annual regional and national
-        music events.
+        The IIS “Vallauri” is also an ITS (Istituto Tecnico Superiore –
+        Technical High School) centre for students with a secondary education
+        diploma. Its courses provide Level 5 EQF qualifications and are financed
+        by the Piedmont Region.
       </p>
       <p>
-        Wireless, Laptops, projectors, are provided in the whole building, a new
-        special foreign language learning room, indoor and outdoor gym,
-        children’s and teachers’ canteen.
+        The IIS “Vallauri” has been making agreements with almost 400 different
+        local firms to develop innovative work placement projects related to
+        ICT, Mechanics and Energy; in addition, some students have shown great
+        dynamism and good entrepreneurial skills both during their course of
+        studies and in their following careers. For example, the Young Platform
+        start-up was founded by six former students in the ICT course at
+        Vallauri (https://youngplatform.com/) and the founders of Satispay, the
+        revolutionary smart payment system, are from the IIS “Vallauri” too
+        (https://www.satispay.com/).
+      </p>
+      <p>
+        The IIS “Vallauri” is the main training centre of a network of schools
+        in the didactic and educational field, carrying out many projects
+        focused on different methodologies in teaching scientific subjects and
+        endorsing significant learning experiences. Moreover, our school aims at
+        being a learning hub sending local students to other Europen Countries
+        so as to form European citizens that will fertilise our and other’s
+        soils.{' '}
+      </p>
+      <p>
+        The IIS “Vallauri” is a Cambridge English Language Assessment Exam
+        Preparation Centre, ECDL and CISCO Examination Centre.
+      </p>
+      <p>
+        The IIS “Vallauri” has reached prestigious placements and successes in
+        national and international competitions. The areas involved range from
+        the pure theoretical ones (as in Physics and Astronomy Olympic Games) to
+        the technological and design ones (Computer Science, Mechanics, Problem
+        Solving, Zero Robotics and ZR-SAT). The numerous partnerships with
+        various universities, study centers, entrepreneurial realities, amplify
+        the interest and enthusiasm of young students making educational
+        experiments and first-rate successe possible.
+      </p>
+      <p>
+        Furthermore, The IIS “Vallauri” has long collaborated with the
+        Politechnic of Turin providing an orientation course addressed to
+        fifth-year students who want to start engineering studies, in order to
+        strengthen Mathematics and Physics knowledge and skills.
       </p>
     </div>
   );
