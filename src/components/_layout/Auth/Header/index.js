@@ -70,6 +70,7 @@ const Header = () => {
             {isGroupAdmin && <NavLink to="/outputs">Outputs</NavLink>}
             {!isGroupSchool && <NavLink to="/results">Results</NavLink>}
             <NavLink to="/calendar">Calendar</NavLink>
+            <NavLink to="/news">News</NavLink>
             {isGroupAdmin && <NavLink to="/users">Users</NavLink>}
             {isGroupSchool && <NavLink to="/school">School</NavLink>}
             <Popup logout={logout} user={user} />
