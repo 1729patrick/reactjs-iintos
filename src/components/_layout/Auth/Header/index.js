@@ -92,6 +92,7 @@ const Header = () => {
         setOpen={setModalOpen}
         initialValues={user}
         onSubmit={handleHelpSubmit}
+        modalTitle="FeedBack"
       />
     </>
   );

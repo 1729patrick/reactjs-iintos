@@ -67,6 +67,8 @@ export default ({
       <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">{modalTitle}</h2>
         <div id="simple-modal-description">
+          <br />
+          Give us some feedback
           <Form onSubmit={formik.handleSubmit}>
             <Input
               label="Email"
@@ -95,6 +97,8 @@ export default ({
 
             <Button title="Submit" type="submit" />
           </Form>
+          <br />
+          Or send us a e-mail to: <h4>iintosdev@gmail.com</h4>
         </div>
       </div>
     </Modal>
