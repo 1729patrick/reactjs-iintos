@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL:
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3333'
-      : 'https://portalbox.tech',
+      : 'https://iintos.online',
 });
 
 export default api;

@@ -19,6 +19,10 @@ export const Container = styled.header`
     height: 100%;
     display: flex;
   }
+  svg {
+    margin-left: 10px;
+    cursor: pointer;
+  }
 
   div {
     align-items: center;
