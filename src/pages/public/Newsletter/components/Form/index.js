@@ -95,7 +95,7 @@ export default ({
               submitted={formik.submitCount}
             />
 
-            <Files formik={formik} />
+            {/* <Files formik={formik} /> */}
 
             <Button title={submitText} type="submit" />
           </Form>

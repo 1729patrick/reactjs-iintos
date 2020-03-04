@@ -21,8 +21,7 @@ export default function Result({
       user?.role === 'Mobility-Admin'
     );
   }, [user]);
-  console.log('iamge');
-  console.log(image);
+
   return (
     <Content>
       <span>
@@ -41,7 +40,6 @@ export default function Result({
         </div>
       </span>
       <p>{description}</p>
-      <img src={image.url} alt={image.name} />
     </Content>
   );
 }

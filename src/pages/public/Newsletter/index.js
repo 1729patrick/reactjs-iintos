@@ -35,7 +35,6 @@ export default withRouter(({ location, history }) => {
    */
   const fetchResults = useCallback(async () => {
     const response = await api.get('news');
-    console.log(response.data);
     const resultsList = response.data.map(result => ({
       id: result.id,
       title: result.title,
@@ -43,7 +42,6 @@ export default withRouter(({ location, history }) => {
       link: `/news/${result.id}`,
       image: result.image,
     }));
-    console.log(resultsList);
 
     if ((!route || route === '/news') && resultsList[0]?.link)
       history.push(resultsList[0]?.link);
