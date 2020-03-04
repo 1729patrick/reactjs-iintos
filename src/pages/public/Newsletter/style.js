@@ -96,6 +96,7 @@ export const Content = styled.div`
       flex-direction: column;
       margin-bottom: 30px;
       align-items: flex-end;
+			
     }
   }
 `;

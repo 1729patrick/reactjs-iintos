@@ -26,7 +26,8 @@ export default function SimplePopover({ logout, user }) {
         <img src={user.avatar} alt="" />
         {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       </Icon>
-
+      {user.name} <br />
+      {user.role}
       <Popover
         onClick={handleClose}
         id={id}

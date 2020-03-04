@@ -1,12 +1,12 @@
 import React from 'react';
-import olomoucImage from '~/assets/images/Olomouc.png';
+import olomoucImage from '~/assets/images/UP_logo_horizont_en.png';
 import olomoucEdImage from '~/assets/images/olomoucEd.png';
 
 export default function About() {
   return (
     <div>
       <h1>Palacký University Olomouc </h1>
-      <img src={olomoucImage} width="500" height="200" alt="Olomouc" />
+      <img src={olomoucImage} width="400" height="200" alt="Olomouc" />
       <p>
         Palacký University Olomouc is a university with long-standing tradition.
         Founded in 1573, it is the oldest university in Moravia and the

@@ -1,11 +1,11 @@
 import React from 'react';
-import saramagoImage from '~/assets/images/Saramago.png';
+import saramagoImage from '~/assets/images/Saramago.jpg';
 
 export default function About() {
   return (
     <div>
       <h1>Group of Schools José Saramago</h1>
-      <img src={saramagoImage} width="300" height="250" alt="IPS" />
+      <img src={saramagoImage} width="600" height="200" alt="Saramago" />
 
       <p>
         The{' '}

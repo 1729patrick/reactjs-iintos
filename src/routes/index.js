@@ -19,6 +19,7 @@ import Partners from '~/pages/public/Partners';
 import ProjectDetails from '~/pages/admin/ProjectDetails';
 import OutputResult from '~/pages/public/OutputResult';
 import Profile from '~/pages/admin/Profile';
+import News from '~/pages/public/Newsletter';
 
 import Route from './Route';
 
@@ -30,6 +31,7 @@ export default () => {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} exact />
         <Route path="/profile" component={Profile} isPrivate />
+        <Route path="/news" component={News} />
         <Route
           path="/signup/school_information"
           component={SchoolInformation}

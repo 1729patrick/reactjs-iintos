@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
+import HelpIcon from '@material-ui/icons/Help';
+import { toast } from 'react-toastify';
 
 import { Container } from './styles';
 import Logo from '~/assets/images/logo.png';
@@ -9,10 +11,12 @@ import api from '~/services/api';
 import apiCalendar from '~/services/apiCalendar';
 import Menu from '../Menu';
 import Popup from '../Popup';
+import Help from './HelpModal';
 
 const Header = () => {
   const { user, setUser } = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const logout = () => {
     localStorage.clear();
@@ -39,6 +43,20 @@ const Header = () => {
     return user?.role === 'Coordinator' || user?.role === 'Professor';
   }, [user]);
 
+  // Function that opens the Help modal
+  const onClickHelp = () => {
+    setModalOpen('Help');
+  };
+
+  const handleHelpSubmit = async values => {
+    try {
+      await api.post('helpEmail', values);
+      setModalOpen(false);
+      toast.success('Email sent with success, thanks for the feedback');
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
   return (
     <>
       <Container>
@@ -52,9 +70,11 @@ const Header = () => {
             {isGroupAdmin && <NavLink to="/outputs">Outputs</NavLink>}
             {!isGroupSchool && <NavLink to="/results">Results</NavLink>}
             <NavLink to="/calendar">Calendar</NavLink>
+            <NavLink to="/news">News</NavLink>
             {isGroupAdmin && <NavLink to="/users">Users</NavLink>}
             {isGroupSchool && <NavLink to="/school">School</NavLink>}
             <Popup logout={logout} user={user} />
+            <HelpIcon fontSize="large" onClick={() => onClickHelp()} />
           </div>
         </div>
 
@@ -68,6 +88,13 @@ const Header = () => {
           logout={logout}
         />
       )}
+      <Help
+        open={modalOpen === 'Help'}
+        setOpen={setModalOpen}
+        initialValues={user}
+        onSubmit={handleHelpSubmit}
+        modalTitle="FeedBack"
+      />
     </>
   );
 };
