@@ -16,7 +16,7 @@ const Footer = ({ links }) => {
     <Container>
       <div>
         <p>
-          © {date} - <span>IINTOS -</span> <Link to="/">Privacy</Link>
+          © {date} - <span>IINTOS -</span> <Link to="/privacy">Privacy</Link>
         </p>
 
         {links && (

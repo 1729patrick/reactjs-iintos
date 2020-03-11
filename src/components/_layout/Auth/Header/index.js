@@ -12,9 +12,10 @@ import apiCalendar from '~/services/apiCalendar';
 import Menu from '../Menu';
 import Popup from '../Popup';
 import Help from './HelpModal';
+import Privacy from './PrivacyModal';
 
 const Header = () => {
-  const { user, setUser } = useUserContext();
+  const { user, setUser, token, school } = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -57,6 +58,29 @@ const Header = () => {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
   };
+
+  const handlePrivacySubmit = async values => {
+    try {
+      const updatedUser = await api.put(`/users/${user.id}`, values);
+
+      setModalOpen(false);
+
+      setUser({
+        token,
+        school,
+        user: updatedUser,
+      });
+      // toast.success('Email sent with success, thanks for the feedback');
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+  React.useEffect(() => {
+    if (user.isPrivacy === false) {
+      setModalOpen('Privacy');
+    }
+  }, [user.isPrivacy]);
+
   return (
     <>
       <Container>
@@ -95,6 +119,7 @@ const Header = () => {
         onSubmit={handleHelpSubmit}
         modalTitle="FeedBack"
       />
+
     </>
   );
 };

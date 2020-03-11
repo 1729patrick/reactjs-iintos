@@ -27,7 +27,7 @@ export default withRouter(({ location, history }) => {
     return (
       user?.role === 'Admin' ||
       user?.role === 'IINTOS-Admin' ||
-      user?.role === 'Mobility-Admin'
+      user?.role === 'Coordinator'
     );
   }, [user]);
   /**

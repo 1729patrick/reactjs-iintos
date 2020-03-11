@@ -25,6 +25,7 @@ export default function Profile() {
         school,
         user: { ...user, avatar: formik.values?.avatar?.file },
       });
+      // /setItem('user', user);
       toast.success('User updated with success!');
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');

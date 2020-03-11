@@ -14,6 +14,7 @@ import SignUp from '~/pages/public/SignUp';
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
 import AwaitVerification from '~/pages/public/AwaitVerification';
 import About from '~/pages/public/About';
+import Privacy from '~/pages/public/Privacy';
 
 import Partners from '~/pages/public/Partners';
 import ProjectDetails from '~/pages/admin/ProjectDetails';
@@ -37,6 +38,7 @@ export default () => {
           component={SchoolInformation}
         />
         <Route path="/about" component={About} />
+        <Route path="/privacy" component={Privacy} />
 
         <Route path="/await_verification" component={AwaitVerification} />
         <Route path="/dashboard" component={Dashboard} isPrivate />
