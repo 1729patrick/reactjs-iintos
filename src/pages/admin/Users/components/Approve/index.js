@@ -88,6 +88,9 @@ export default function Approve() {
     const response = await api.get('users', {
       params: { role: 'Coordinator' },
     });
+
+    console.log(response.data);
+
     setUsers(response.data);
     if (response.data.length === 0) {
       setError(true);
@@ -141,7 +144,7 @@ export default function Approve() {
       } this coordinator?`,
     });
 
-    setModalOpen(true);
+    setModalOpen(true); // createdAt === updatedAt
   };
 
   const getRowContent = ({ column, row }) => {
@@ -152,10 +155,12 @@ export default function Approve() {
         <ThumbUp
           style={{
             color: 'rgb(23, 179, 14)',
-            cursor: row.active ? 'normal' : 'pointer',
-            opacity: row.active ? 0.3 : 1,
+            cursor: row.createdAt !== row.updatedAt ? 'normal' : 'pointer',
+            opacity: row.createdAt !== row.updatedAt ? 0.3 : 1,
           }}
-          onClick={() => !row.active && handleOpenConfirm(row, true)}
+          onClick={() =>
+            row.createdAt === row.updatedAt && handleOpenConfirm(row, true)
+          }
         />
       );
     }
@@ -165,10 +170,12 @@ export default function Approve() {
         <ThumbDown
           style={{
             color: '#cb1010',
-            cursor: row.active ? 'pointer' : 'normal',
-            opacity: row.active ? 1 : 0.3,
+            cursor: row.createdAt !== row.updatedAt ? 'normal' : 'pointer',
+            opacity: row.createdAt !== row.updatedAt ? 0.3 : 1,
           }}
-          onClick={() => row.active && handleOpenConfirm(row, false)}
+          onClick={() =>
+            row.createdAt === row.updatedAt && handleOpenConfirm(row, false)
+          }
         />
       );
     }
