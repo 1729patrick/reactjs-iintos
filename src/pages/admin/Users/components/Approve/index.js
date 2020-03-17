@@ -89,8 +89,6 @@ export default function Approve() {
       params: { role: 'Coordinator' },
     });
 
-    console.log(response.data);
-
     setUsers(response.data);
     if (response.data.length === 0) {
       setError(true);
