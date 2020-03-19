@@ -22,6 +22,7 @@ import OutputResult from '~/pages/public/OutputResult';
 import Profile from '~/pages/admin/Profile';
 import News from '~/pages/public/Newsletter';
 import STEM from '~/pages/public/Stem';
+import Log from '~/pages/admin/Log';
 
 import Route from './Route';
 
@@ -35,6 +36,7 @@ export default () => {
         <Route path="/profile" component={Profile} isPrivate />
         <Route path="/news" component={News} />
         <Route path="/stem" component={STEM} />
+        <Route path="/log" component={Log} />
 
         <Route
           path="/signup/school_information"
