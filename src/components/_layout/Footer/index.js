@@ -16,13 +16,15 @@ const Footer = ({ links }) => {
     <Container>
       <div>
         <p>
-          © {date} - <span>IINTOS -</span> <Link to="/">Privacy</Link>
+          © {date} - <span>IINTOS -</span> <Link to="/privacy">Privacy</Link>
         </p>
 
         {links && (
           <div>
             <NavLink to="/about">About</NavLink>
             <NavLink to="/partners">Partners</NavLink>
+            <NavLink to="/stem">STEM</NavLink>
+
             {/* <NavLink to="/news">News</NavLink> */}
             {isGroupSchool && <NavLink to="/results">Results</NavLink>}
           </div>

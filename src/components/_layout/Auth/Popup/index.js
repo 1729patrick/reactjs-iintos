@@ -45,6 +45,7 @@ export default function SimplePopover({ logout, user }) {
       >
         <Container>
           <NavLink to="/profile">Profile</NavLink>
+          {user.role === 'Admin' && <NavLink to="/log">Log</NavLink>}
           <NavLink to="/login" onClick={logout}>
             Logout
           </NavLink>

@@ -12,11 +12,12 @@ import apiCalendar from '~/services/apiCalendar';
 import Menu from '../Menu';
 import Popup from '../Popup';
 import Help from './HelpModal';
+import Privacy from './PrivacyModal';
 
 const Header = () => {
-  const { user, setUser } = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const { user, setUser, token, school } = useUserContext();
 
   const logout = () => {
     localStorage.clear();
@@ -47,6 +48,29 @@ const Header = () => {
   const onClickHelp = () => {
     setModalOpen('Help');
   };
+  const handlePrivacySubmit = async values => {
+    try {
+      const updatedUser = await api.put(`/users/${user.id}`, values);
+
+      setModalOpen(false);
+
+      setUser({
+        token,
+        school,
+        user: updatedUser,
+      });
+      // toast.success('Email sent with success, thanks for the feedback');
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+
+  React.useEffect(() => {
+    console.log(user);
+    if (user.isPrivacy === false) {
+      setModalOpen('Privacy');
+    }
+  }, [user.isPrivacy]);
 
   const handleHelpSubmit = async values => {
     try {
@@ -94,6 +118,13 @@ const Header = () => {
         initialValues={user}
         onSubmit={handleHelpSubmit}
         modalTitle="FeedBack"
+      />
+      <Privacy
+        open={modalOpen === 'Privacy'}
+        setOpen={setModalOpen}
+        initialValues={user}
+        onSubmit={handlePrivacySubmit}
+        modalTitle="Privacy"
       />
     </>
   );

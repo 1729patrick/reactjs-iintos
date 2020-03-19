@@ -14,12 +14,15 @@ import SignUp from '~/pages/public/SignUp';
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
 import AwaitVerification from '~/pages/public/AwaitVerification';
 import About from '~/pages/public/About';
+import Privacy from '~/pages/public/Privacy';
 
 import Partners from '~/pages/public/Partners';
 import ProjectDetails from '~/pages/admin/ProjectDetails';
 import OutputResult from '~/pages/public/OutputResult';
 import Profile from '~/pages/admin/Profile';
 import News from '~/pages/public/Newsletter';
+import STEM from '~/pages/public/Stem';
+import Log from '~/pages/admin/Log';
 
 import Route from './Route';
 
@@ -32,11 +35,15 @@ export default () => {
         <Route path="/signup" component={SignUp} exact />
         <Route path="/profile" component={Profile} isPrivate />
         <Route path="/news" component={News} />
+        <Route path="/stem" component={STEM} />
+        <Route path="/log" component={Log} />
+
         <Route
           path="/signup/school_information"
           component={SchoolInformation}
         />
         <Route path="/about" component={About} />
+        <Route path="/privacy" component={Privacy} />
 
         <Route path="/await_verification" component={AwaitVerification} />
         <Route path="/dashboard" component={Dashboard} isPrivate />

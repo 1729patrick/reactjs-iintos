@@ -42,10 +42,10 @@ const Header = () => {
         <div>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/partners">Partners</NavLink>
-          {/* <NavLink to="/news">News</NavLink> */}
           <NavLink to="/news">News</NavLink>
 
           <NavLink to="/results">Results</NavLink>
+          <NavLink to="/stem">STEM</NavLink>
 
           <NavLink to="/login">Login</NavLink>
           <HelpIcon />
