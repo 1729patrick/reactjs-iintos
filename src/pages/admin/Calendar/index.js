@@ -170,7 +170,7 @@ const Calendar = () => {
       <ContainerWrap>
         {showAlert && (
           <Alert severity="warning" style={{ marginTop: 15 }}>
-            You'r must log in google account to see the events
+            You must login with a google account to see the events
             <a href={`${CALENDAR_URL}/login/${user?.email}`} target="__blank">
               Google Login
             </a>

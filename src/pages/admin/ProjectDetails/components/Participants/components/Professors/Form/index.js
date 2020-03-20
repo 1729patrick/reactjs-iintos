@@ -72,11 +72,11 @@ export default ({
         <div id="simple-modal-description">
           <Form onSubmit={formik.handleSubmit}>
             <Select
-              label={isProject ? 'Professor' : 'Partner'}
+              label={isProject ? 'Teacher' : 'Partner'}
               type="text"
               placeholder={
                 isProject
-                  ? 'Type the professor of this project'
+                  ? 'Type the teacher of this project'
                   : 'Type the partner of this output'
               }
               name="userId"

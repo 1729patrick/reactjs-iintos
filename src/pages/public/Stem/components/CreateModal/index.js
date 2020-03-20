@@ -69,9 +69,9 @@ export default ({
         <div id="simple-modal-description">
           <Form onSubmit={formik.handleSubmit}>
             <Input
-              label="Title"
+              label="Description"
               type="text"
-              placeholder="Type "
+              placeholder="Description"
               name="title"
               onChange={formik.handleChange}
               values={formik.values}

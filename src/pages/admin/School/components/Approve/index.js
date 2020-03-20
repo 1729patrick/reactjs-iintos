@@ -185,7 +185,7 @@ export default function Approve() {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Approve Professors</h1>
+          <h1>Approve Teachers</h1>
         </span>
         {error && <EmptyMessage />}
         {!error && (

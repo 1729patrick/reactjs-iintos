@@ -65,7 +65,7 @@ export default function Delete({
                 textarea
                 label="Reason"
                 type="text"
-                placeholder="Reason to professor inactive"
+                placeholder="Reason to teacher inactive"
                 name="reason"
                 onChange={e => setReason(e.target.value)}
               />
