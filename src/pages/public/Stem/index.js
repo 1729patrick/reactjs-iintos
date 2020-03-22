@@ -107,7 +107,7 @@ const Privacy = () => {
         {results.map(row => {
           return (
             <li>
-              <a href={row.link}>{row.link}</a>
+              <a href={row.link}>{row.title}</a>
               {isGroupAdmin() && (
                 <DeleteIcon
                   style={{ color: '#cb1010', cursor: 'pointer' }}

@@ -164,7 +164,7 @@ export default ({
                   submitted={formik.submitCount}
                   options={[
                     { id: 'Online', name: 'Online' },
-                    { id: 'Presential', name: 'Presential' },
+                    { id: 'Presential', name: 'Virtual VS in presence' },
                   ]}
                 />
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>

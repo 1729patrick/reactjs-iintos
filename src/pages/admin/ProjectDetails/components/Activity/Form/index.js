@@ -164,17 +164,17 @@ export default ({
                   <Select
                     label={
                       isProject
-                        ? `Professor ${index + 1}`
+                        ? `Teacher ${index + 1}`
                         : `Partner ${index + 1}`
                     }
                     textarea
                     placeholder={`Add ${
-                      isProject ? 'professor' : 'partner'
+                      isProject ? 'teacher' : 'partner'
                     } to activity`}
                     name="professor"
                     onChange={value =>
                       formik.setFieldValue(
-                        `professors[${index}]`,
+                        `teacher[${index}]`,
                         value.target.value
                       )
                     }
@@ -191,7 +191,7 @@ export default ({
                 </div>
               ))}
               <button type="button" onClick={() => handleAdd('professors')}>
-                + Add {isProject ? 'Professor' : 'Partner'}
+                + Add {isProject ? 'Teacher' : 'Partner'}
               </button>
             </span>
 

@@ -113,11 +113,11 @@ export default function Professors({
   return (
     <>
       <span>
-        <h2>{isProject ? 'Professors' : 'Partners'}</h2>
+        <h2>{isProject ? 'Teachers' : 'Partners'}</h2>
 
         {!isProfessor && isParticipant && (
           <Button
-            title={isProject ? 'Add Professor' : 'Add Partner'}
+            title={isProject ? 'Add Teacher' : 'Add Partner'}
             type="button"
             onClick={handleCreateUser}
           />
