@@ -18,6 +18,8 @@ import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
 import FormModal from './Form';
+import MobilityStepsModal from './MobilityStepsModal';
+
 import DeleteModal from '../Delete';
 import FileList from '~/components/FileList';
 import EmptyMessage from '~/components/EmptyMessage';
@@ -87,6 +89,29 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     students: [],
   });
 
+  const [steps, setSteps] = useState({
+    1: { title: 'Look for a partner on the platform', checked: false },
+    2: {
+      title: 'Analyse curricula and find out what you can share',
+      checked: false,
+    },
+    3: { title: 'Search for financing', checked: false },
+    4: {
+      title: 'Virtual exchange with colleagues to plan activities',
+      checked: false,
+    },
+    5: { title: 'Student selection', checked: false },
+    6: { title: 'Virtual introduction of students', checked: false },
+    7: { title: 'Virtual activities before the exchange', checked: false },
+    8: { title: 'Mobility', checked: false },
+  });
+
+  const handleToggle = ({ target }) => {
+    const x = steps[target.name];
+    x.checked = target.checked;
+    setSteps(x);
+  };
+
   const projectId = useMemo(() => location.pathname.split('/')[3], [
     location.pathname,
   ]);
@@ -106,6 +131,22 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     setUsers({ professors, students });
   };
 
+  // opens the modal
+  const handleMobilitySteps = async activityList => {
+    if (activityList.length !== 0) return;
+
+    setModalParams({
+      onSubmit: handleCreateMobilityStep,
+      submitText: 'Create',
+      handleToggle,
+      steps,
+      users,
+    });
+
+    setModalOpen('step');
+  };
+
+  // gets all the project's activities
   const fetchActivities = async () => {
     const response = await api.get(`projects/${projectId}/activities`);
 
@@ -128,7 +169,47 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
       }
 
       setActivities(formattedActivities);
+
+      if (isProject) handleMobilitySteps(formattedActivities);
     }
+  };
+  // makes the api call
+  const handleCreateMobilityStep = async () => {
+    const list = [];
+
+    const response = await api.get(`projects/${projectId}`);
+    const project = response.data;
+
+    try {
+      for (let i = 1; i < 9; i++) {
+        if (steps[i].checked) {
+          const activity = {
+            title: steps[i].title,
+            description: '',
+            startDate: project.startDate,
+            endDate: project.startDate,
+            projectId,
+          };
+          list.push(activity);
+        }
+      }
+      await api.post(`allActivities`, list);
+
+      setModalOpen(false);
+      toast.success('Activity created with success!');
+      fetchActivities();
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+    /*
+		try {
+      await api.post(`activities`, { ...values, projectId });
+      setModalOpen(false);
+      toast.success('Activity created with success!');
+      fetchActivities();
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    } */
   };
 
   useState(() => {
@@ -333,6 +414,11 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         open={modalOpen === 'form'}
         setOpen={setModalOpen}
         isProject={isProject}
+        {...modalParams}
+      />
+      <MobilityStepsModal
+        open={modalOpen === 'step'}
+        setOpen={setModalOpen}
         {...modalParams}
       />
       <DeleteModal

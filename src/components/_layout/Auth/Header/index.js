@@ -66,7 +66,6 @@ const Header = () => {
   };
 
   React.useEffect(() => {
-    console.log(user);
     if (user.isPrivacy === false) {
       setModalOpen('Privacy');
     }
