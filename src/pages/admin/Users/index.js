@@ -16,7 +16,7 @@ export default withRouter(({ location }) => {
     () => user?.role === 'IINTOS-Admin' || user?.role === 'IINTOS-Partner',
     [user]
   );
-  
+
   const Children = () => {
     const route = location.pathname.replace('/users', '');
     if (route === '/schools') {

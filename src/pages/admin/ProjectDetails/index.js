@@ -29,6 +29,7 @@ export default withRouter(({ computedMatch }) => {
     computedMatch.params.id,
   ]);
 
+  // if isn't a professor can edit
   const isProfessor = useMemo(() => user?.role === 'Professor', [user]);
 
   const isProject = useMemo(() => type === 'projects', [type]);
