@@ -23,7 +23,7 @@ export default function Checkbox({
       />
 
       <span>
-        <label>{label}</label>
+        <label style={{ marginBottom: 0 }}>{label}</label>
         {touched[name] && errors[name] ? <p>{errors[name]}</p> : null}
       </span>
     </Container>

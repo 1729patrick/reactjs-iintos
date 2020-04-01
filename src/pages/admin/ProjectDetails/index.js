@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import { withRouter, NavLink, useLocation } from 'react-router-dom';
 
 import api from '~/services/api';
@@ -15,6 +15,7 @@ export default withRouter(({ computedMatch }) => {
   const { user, school } = useCallback(useUserContext(), []);
   const [schools, setSchools] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [isProfessor, setIsProfessor] = useState(true);
   const location = useLocation();
 
   const type = useMemo(() => {
@@ -30,7 +31,15 @@ export default withRouter(({ computedMatch }) => {
   ]);
 
   // if isn't a professor can edit
-  const isProfessor = useMemo(() => user?.role === 'Professor', [user]);
+  useEffect(() => {
+    (async () => {
+      const response = await api.get(
+        `projectUser/${projectId}/permissions/edit`
+      );
+
+      setIsProfessor(user?.role === 'Professor' && !response.data.canEdit);
+    })();
+  }, [projectId, user]);
 
   const isProject = useMemo(() => type === 'projects', [type]);
 
@@ -126,7 +135,7 @@ export default withRouter(({ computedMatch }) => {
   return (
     <Container>
       <Menu>
-        <Title>{projects.title}</Title>
+        {/* <Title>{projects.title}</Title> */}
         <div>
           <NavLink to={`/${type}/details/${projectId}/`} exact>
             Details

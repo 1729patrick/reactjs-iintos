@@ -76,7 +76,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
   const handleDeleteRow = row => {
     setModalParams({
       initialValues: row,
-      onSubmit: () => handleDelete(row?.id),
+      onSubmit: () => handleDelete(row?.id || row?.professor?.id),
       submitText: 'Save',
       modalTitle: 'Are you sure you want to delete this participant?',
     });
@@ -84,13 +84,19 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
     setModalOpen('delete');
   };
 
-  const handleCreate = async ({ userId, studentName, schoolId }) => {
+  const handleCreate = async ({
+    userId,
+    studentName,
+    schoolId,
+    coordinator,
+  }) => {
     try {
       await api.post('projectUser', {
         userId,
         studentName,
         projectId,
         schoolId,
+        coordinator,
       });
       setModalOpen(false);
       fetchUsers();

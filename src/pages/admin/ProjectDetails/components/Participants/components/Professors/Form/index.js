@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 
 import Button from '~/components/Button';
 import Select from '~/components/Select';
+import Checkbox from '~/components/Checkbox';
 import { Form } from './styles';
 
 function getModalStyle() {
@@ -86,6 +87,16 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
               options={users}
+            />
+            <Checkbox
+              label="Can change information for this project?"
+              placeholder="Can change information for this project?"
+              name="coordinator"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
             />
             <Button title={submitText} type="submit" />
           </Form>
