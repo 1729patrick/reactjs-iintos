@@ -133,8 +133,8 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
               options={[
-                { id: 'Online', name: 'Online' },
-                { id: 'Presential', name: 'Virtual VS in presence' },
+                { id: 'Virtual', name: 'Virtual' },
+                { id: 'In Presence', name: 'In Presence' },
               ]}
             />
             <Button title={submitText} type="submit" />

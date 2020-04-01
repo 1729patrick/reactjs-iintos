@@ -6,8 +6,16 @@ import Events from './components/Events';
 import Outputs from './components/Outputs';
 import Projects from './components/Projects';
 import Activities from './components/Activities';
+import { useUserContext } from '~/context/UserContext';
 
 const Dashboard = () => {
+  const { user } = React.useCallback(useUserContext(), []);
+
+  const isUserIIntos = React.useMemo(
+    () => user?.role === 'IINTOS-Admin' || user?.role === 'IINTOS-Partner',
+    [user] //      user?.role === 'Admin',
+  );
+
   return (
     <Container>
       <Card1>
@@ -16,7 +24,9 @@ const Dashboard = () => {
       </Card1>
 
       <Card2>
-        <Text>Outputs</Text>
+        {isUserIIntos && <Text>Outputs</Text>}
+        {!isUserIIntos && <Text>Projects</Text>}
+
         <Outputs />
       </Card2>
 

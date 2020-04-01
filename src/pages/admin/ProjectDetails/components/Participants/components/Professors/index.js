@@ -31,10 +31,10 @@ const columns = [
     format: value => (value ? 'Yes' : 'No'),
   },
   {
-    id: 'role',
-    label: 'Role',
+    id: 'coordinator',
+    label: 'Can change information for this project',
     minWidth: 100,
-    format: value => value.toFixed(2),
+    format: value => (value ? 'Yes' : 'No'),
   },
   {
     id: 'delete',
