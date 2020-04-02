@@ -13,6 +13,8 @@ import TableRow from '@material-ui/core/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
+import DoneIcon from '@material-ui/icons/Done';
+import NotDoneIcon from '@material-ui/icons/Clear';
 
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
@@ -36,6 +38,10 @@ const allColumns = [
     id: 'files',
     label: 'Files',
     minWidth: 120,
+  },
+  {
+    id: 'done', // trocar
+    label: 'Done',
   },
   {
     id: 'see',
@@ -161,7 +167,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
           ? format(new Date(activity.startDate), 'yyyy-MM-dd')
           : '',
       }));
-
+      console.log(formattedActivities);
       if (formattedActivities.length === 0) {
         setError(true);
       } else {
@@ -186,6 +192,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
           const activity = {
             title: steps[i].title,
             description: '',
+            done: project.done,
             startDate: project.startDate,
             endDate: project.startDate,
             projectId,
@@ -224,6 +231,29 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const handleUpdateDone = async (id, values) => {
+    const activity = {
+      title: values.title,
+      description: values.description,
+      done: !values.done,
+      startDate: values.startDate,
+      endDate: values.startDate,
+      projectId: values.projectId,
+      students: values.students,
+      professors: values.professors,
+    };
+
+    try {
+      const files = values.files?.filter(f => f).map(({ id }) => id);
+      await api.put(`activities/${id}`, { ...activity, files });
+      setModalOpen(false);
+      toast.success('Activity updated with success!');
+      fetchActivities();
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
   };
 
   // api call to post
@@ -328,6 +358,23 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         <EditIcon
           style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
           onClick={() => handleDetailRow(row)}
+        />
+      );
+    }
+    if (column.id === 'done') {
+      let x = '';
+      if (!isProfessor && isParticipant) {
+        x = 'pointer';
+      }
+      return value ? (
+        <DoneIcon
+          style={{ color: '#00961e', cursor: x }}
+          onClick={() => handleUpdateDone(row.id, row)}
+        />
+      ) : (
+        <NotDoneIcon
+          style={{ color: '#cb1010', cursor: x }}
+          onClick={() => handleUpdateDone(row.id, row)}
         />
       );
     }

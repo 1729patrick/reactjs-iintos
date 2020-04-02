@@ -135,7 +135,7 @@ export default withRouter(({ computedMatch }) => {
   return (
     <Container>
       <Menu>
-        {/* <Title>{projects.title}</Title> */}
+        <Title>{projects.title}</Title>
         <div>
           <NavLink to={`/${type}/details/${projectId}/`} exact>
             Details
