@@ -3,7 +3,7 @@ import React from 'react';
 import { Card1, Card3, Card4, Text, Card2, Container } from './styles';
 
 import Events from './components/Events';
-import Outputs from './components/Outputs';
+import Campaign from './components/Campaign';
 import Projects from './components/Projects';
 import Activities from './components/Activities';
 import { useUserContext } from '~/context/UserContext';
@@ -24,14 +24,12 @@ const Dashboard = () => {
       </Card1>
 
       <Card2>
-        {isUserIIntos && <Text>Outputs</Text>}
-        {!isUserIIntos && <Text>Projects</Text>}
-
-        <Outputs />
+        <Text>Campaign</Text>
+        <Campaign />
       </Card2>
 
       <Card3>
-        <Text>Projects</Text>
+        <Text>My Projects</Text>
         <Projects />
       </Card3>
 

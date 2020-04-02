@@ -24,7 +24,7 @@ export default function OutputsCard() {
         });
       } else {
         response = await api.get('projects', {
-          params: { destination: 'MOBILITY' },
+          params: { avaliable: false, destination: 'MOBILITY' },
         });
       }
       setOutputs(response.data);
