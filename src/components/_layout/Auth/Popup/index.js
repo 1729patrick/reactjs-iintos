@@ -4,7 +4,7 @@ import Popover from '@material-ui/core/Popover';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
-import { Icon, Container } from './styles';
+import { Icon, Container, NameDiv } from './styles';
 
 export default function SimplePopover({ logout, user }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -22,12 +22,14 @@ export default function SimplePopover({ logout, user }) {
 
   return (
     <div>
+      <NameDiv>
+        {user.name} <br />
+        {user.role}
+      </NameDiv>
       <Icon onClick={handleClick}>
         <img src={user.avatar} alt="" />
         {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       </Icon>
-      {user.name} <br />
-      {user.role}
       <Popover
         onClick={handleClose}
         id={id}

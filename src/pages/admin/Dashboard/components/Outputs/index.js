@@ -12,7 +12,7 @@ export default function OutputsCard() {
   const { user } = React.useCallback(useUserContext(), []);
   const isUserIIntos = React.useMemo(
     () => user?.role === 'IINTOS-Admin' || user?.role === 'IINTOS-Partner',
-    [user] //      user?.role === 'Admin',
+    [user]
   );
   const fetchOutputs = async () => {
     try {
@@ -24,7 +24,7 @@ export default function OutputsCard() {
         });
       } else {
         response = await api.get('projects', {
-          params: { destination: 'MOBILITY' },
+          params: { avaliable: false, destination: 'MOBILITY' },
         });
       }
       setOutputs(response.data);

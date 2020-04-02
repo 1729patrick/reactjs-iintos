@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+
+import api from '../../../../../services/api';
 import { Content } from './style';
 import { useUserContext } from '~/context/UserContext';
+import FileInput from '../../../../../components/FileInput';
 
 export default function Result({
   id,
@@ -13,6 +16,7 @@ export default function Result({
   handleDeleteRow,
 }) {
   const { user } = useCallback(useUserContext(), []);
+  const [file, setFile] = useState(image?.url);
 
   const isGroupAdmin = useCallback(() => {
     return (
@@ -21,6 +25,20 @@ export default function Result({
       user?.role === 'Mobility-Admin'
     );
   }, [user]);
+
+  const onFileUpload = async ({ target }) => {
+    const [file] = target.files;
+
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    setFile(URL.createObjectURL(file));
+
+    const response = await api.post('/files', formData);
+    const imageId = response.data.id;
+    await api.put(`/news/${id}`, { title, description, imageId });
+  };
 
   return (
     <Content>
@@ -39,6 +57,13 @@ export default function Result({
           )}
         </div>
       </span>
+
+      <FileInput
+        imagePreview
+        style={{ height: 250, width: '100%', borderRadius: 4 }}
+        file={file}
+        onChange={onFileUpload}
+      />
       <p>{description}</p>
     </Content>
   );

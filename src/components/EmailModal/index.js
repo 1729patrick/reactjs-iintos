@@ -36,6 +36,7 @@ export default ({
   setOpen,
   modalTitle,
   validationSchema,
+  onSubmit,
 }) => {
   if (!open) {
     return null;
@@ -45,15 +46,12 @@ export default ({
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
 
-  const onSubmit = () => {};
-
   const handleClose = () => {
     setOpen(false);
   };
 
   // Form controller
   const formik = useFormik({
-    validationSchema,
     initialValues,
     onSubmit,
   });
@@ -68,21 +66,29 @@ export default ({
       <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">{modalTitle}</h2>
         <div id="simple-modal-description">
-          <br />
-          Give us some feedback
           <Form onSubmit={formik.handleSubmit}>
             <Input
-              label="Email"
+              label="SenderEmail"
               type="text"
-              placeholder="Type you email"
-              name="email"
+              placeholder="Type your email"
+              name="sendEmail"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
             />
-
+            <Input
+              label="Reciver Email"
+              type="text"
+              placeholder="Type Reciver Email"
+              name="recEmail"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
+            />
             <Input
               label="Body"
               type="text"
@@ -96,10 +102,8 @@ export default ({
               submitted={formik.submitCount}
             />
 
-            <Button title="Submit" type="submit" />
+            <Button title="Send" type="submit" />
           </Form>
-          <br />
-          Or send us a e-mail to: <h4>iintosdev@gmail.com</h4>
         </div>
       </div>
     </Modal>

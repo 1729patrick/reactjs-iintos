@@ -11,6 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
+import EmailIcon from '@material-ui/icons/Email';
 
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
@@ -19,7 +20,7 @@ import FormModal from './modals/Form';
 import DeleteModal from './modals/Delete';
 import { useUserContext } from '~/context/UserContext';
 import EmptyMessage from '~/components/EmptyMessage';
-
+import EmailModal from '~/components/EmailModal';
 import validationSchema from '~/validations/user';
 
 const columns = [
@@ -40,6 +41,13 @@ const columns = [
     id: 'role',
     label: 'Role',
     minWidth: 100,
+    format: value => value.toFixed(2),
+  },
+  {
+    id: 'emailIcon',
+    label: '',
+    align: 'center',
+    minWidth: 50,
     format: value => value.toFixed(2),
   },
   {
@@ -168,6 +176,30 @@ export default function Users() {
     setModalOpen('delete');
   };
 
+  // Email Handlers
+  const handleEmail = async values => {
+    try {
+      await api.post(`sendEmail`, values);
+      setModalOpen(false);
+      toast.success('Email sent with success!');
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid request, try again');
+    }
+  };
+
+  const handleEmailRow = row => {
+    const initialValues = { sendEmail: user.email, recEmail: row.email };
+    setModalParams({
+      initialValues,
+      validationSchema,
+      onSubmit: handleEmail,
+      submitText: 'Send',
+      modalTitle: 'What do you want to tell this person?',
+    });
+
+    setModalOpen('email');
+  };
+
   const handleCreateUser = () => {
     setModalParams({
       initialValues: {},
@@ -200,6 +232,14 @@ export default function Users() {
         <DeleteIcon
           style={{ color: '#cb1010', cursor: 'pointer' }}
           onClick={() => handleDeleteRow(row)}
+        />
+      );
+    }
+    if (column.id === 'emailIcon' && !isIIntosPartner) {
+      return (
+        <EmailIcon
+          style={{ cursor: 'pointer' }}
+          onClick={() => handleEmailRow(row)}
         />
       );
     }
@@ -296,6 +336,11 @@ export default function Users() {
       />
       <DeleteModal
         open={modalOpen === 'delete'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
+      <EmailModal
+        open={modalOpen === 'email'}
         setOpen={setModalOpen}
         {...modalParams}
       />

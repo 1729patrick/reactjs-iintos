@@ -27,9 +27,14 @@ export const Icon = styled.div`
     height: 45px;
     width: 45px;
     border-radius: 50%;
-    margin-left: 30px;
+    margin-left: 10px;
     border: 2px solid #aaa;
     cursor: pointer;
     background: #ddd;
   }
+`;
+export const NameDiv = styled.div`
+  padding-left: 30px;
+  font-weight: bold;
+  color: #444;
 `;
