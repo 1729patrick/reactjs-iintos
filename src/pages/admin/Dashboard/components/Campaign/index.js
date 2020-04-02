@@ -12,7 +12,7 @@ export default function ProjectsCard() {
   const fetchOutputs = async () => {
     try {
       const response = await api.get('projects', {
-        params: { avaliable: false, destination: 'MOBILITY' },
+        params: { avaliable: true, destination: 'MOBILITY' },
       });
       if (response.data.length === 0) {
         setError(true);
