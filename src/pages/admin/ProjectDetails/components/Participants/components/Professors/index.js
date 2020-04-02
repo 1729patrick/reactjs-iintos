@@ -10,11 +10,13 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import EmailIcon from '@material-ui/icons/Email';
 
 import Button from '~/components/Button';
 import FormModal from './Form';
 import validationSchema from '~/validations/projectProfessor';
 import EmptyMessage from '~/components/EmptyMessage';
+import EmailModal from '~/components/EmailModal';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
@@ -35,6 +37,13 @@ const columns = [
     label: 'Can change information for this project',
     minWidth: 100,
     format: value => (value ? 'Yes' : 'No'),
+  },
+  {
+    id: 'emailIcon',
+    label: '',
+    align: 'center',
+    minWidth: 50,
+    format: value => value.toFixed(2),
   },
   {
     id: 'delete',
@@ -66,6 +75,8 @@ export default function Professors({
   isProfessor,
   isParticipant,
   isProject,
+  handleEmail,
+  handleEmailRow,
 }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -88,6 +99,14 @@ export default function Professors({
         <RemoveCircleOutlineIcon
           style={{ color: '#cb1010', cursor: 'pointer' }}
           onClick={() => handleDeleteRow(row)}
+        />
+      );
+    }
+    if (column.id === 'emailIcon') {
+      return (
+        <EmailIcon
+          style={{ cursor: 'pointer' }}
+          onClick={() => handleEmailRow(row)}
         />
       );
     }
@@ -178,9 +197,14 @@ export default function Professors({
       )}
       <FormModal
         users={allProfessors}
-        open={modalOpen}
+        open={modalOpen === 'formProfessor'}
         setOpen={setModalOpen}
         isProject={isProject}
+        {...modalParams}
+      />
+      <EmailModal
+        open={modalOpen === 'email'}
+        setOpen={setModalOpen}
         {...modalParams}
       />
     </>

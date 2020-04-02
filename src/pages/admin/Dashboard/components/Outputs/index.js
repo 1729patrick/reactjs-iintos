@@ -12,7 +12,7 @@ export default function OutputsCard() {
   const { user } = React.useCallback(useUserContext(), []);
   const isUserIIntos = React.useMemo(
     () => user?.role === 'IINTOS-Admin' || user?.role === 'IINTOS-Partner',
-    [user] //      user?.role === 'Admin',
+    [user]
   );
   const fetchOutputs = async () => {
     try {

@@ -7,6 +7,7 @@ import { Container, ContainerWrap } from './styles';
 import Students from './components/Students';
 import Professors from './components/Professors';
 import DeleteModal from './components/Delete';
+import { useUserContext } from '~/context/UserContext';
 
 const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
   const [allProfessors, setAllProfessors] = useState([]);
@@ -17,6 +18,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
     students: [],
   });
   const [modalParams, setModalParams] = useState({});
+  const { user } = React.useCallback(useUserContext(), []);
 
   const projectId = useMemo(() => location.pathname.split('/')[3], [
     location.pathname,
@@ -107,6 +109,32 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
     }
   };
 
+  // Email Handlers
+  const handleEmail = async values => {
+    try {
+      await api.post(`sendEmail`, values);
+      setModalOpen(false);
+      toast.success('Email sent with success!');
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid request, try again');
+    }
+  };
+  const handleEmailRow = row => {
+    const initialValues = {
+      sendEmail: user.email,
+      recEmail: row.professor.email,
+    };
+
+    setModalParams({
+      initialValues,
+      onSubmit: handleEmail,
+      submitText: 'Send',
+      modalTitle: 'What do you want to tell this person?',
+    });
+
+    setModalOpen('email');
+  };
+
   return (
     <Container>
       <ContainerWrap>
@@ -116,7 +144,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
           users={users.professors}
           allProfessors={allProfessors}
           handleCreate={handleCreate}
-          modalOpen={modalOpen === 'formProfessor'}
+          modalOpen={modalOpen}
           setModalParams={setModalParams}
           modalParams={modalParams}
           setModalOpen={setModalOpen}
@@ -124,6 +152,8 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
           isProfessor={isProfessor}
           isParticipant={isParticipant}
           isProject={isProject}
+          handleEmail={handleEmail}
+          handleEmailRow={handleEmailRow}
         />
       </ContainerWrap>
       {isProject && (
