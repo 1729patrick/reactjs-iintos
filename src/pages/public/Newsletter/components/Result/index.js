@@ -60,9 +60,14 @@ export default function Result({
 
       <FileInput
         imagePreview
-        style={{ height: 250, width: '100%', borderRadius: 4 }}
+        style={{
+          height: 250,
+          width: '100%',
+          borderRadius: 4,
+        }}
         file={file}
         onChange={onFileUpload}
+        readOnly={!isGroupAdmin()}
       />
       <p>{description}</p>
     </Content>

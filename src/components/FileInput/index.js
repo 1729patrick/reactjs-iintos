@@ -14,6 +14,7 @@ export default function FileInput({
   submitted,
   imagePreview,
   multiple,
+  readOnly,
   ...props
 }) {
   if (imagePreview) {
@@ -21,7 +22,9 @@ export default function FileInput({
       <NoImage {...props}>
         <CameraAltIcon />
         {file && <img src={file} alt="Avatar" />}
-        <input type="file" accept="image/*" name={name} onChange={onChange} />
+        {!readOnly && (
+          <input type="file" accept="image/*" name={name} onChange={onChange} />
+        )}
       </NoImage>
     );
   }
