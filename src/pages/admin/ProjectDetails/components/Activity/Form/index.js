@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 import DeleteIcon from '@material-ui/icons/Delete';
-
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -45,6 +46,7 @@ export default ({
     students: [''],
     professors: [''],
     title: '',
+    done: false,
     startDate: new Date(),
     endDate: new Date(),
   },
@@ -56,6 +58,7 @@ export default ({
   onSubmit,
   validationSchema,
   users,
+  handleToggle,
 }) => {
   if (!open) {
     return null;
