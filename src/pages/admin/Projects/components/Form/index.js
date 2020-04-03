@@ -11,6 +11,7 @@ import {
 import Button from '~/components/Button';
 import Select from '~/components/Select';
 import Input from '~/components/Input';
+import Checkbox from '~/components/Checkbox';
 import { Form } from './styles';
 
 function getModalStyle() {
@@ -199,6 +200,16 @@ export default ({
                     }}
                   />
                 </MuiPickersUtilsProvider>
+                <Checkbox
+                  label="Campaing"
+                  type="text"
+                  name="campaing"
+                  onChange={formik.handleChange}
+                  values={formik.values}
+                  errors={formik.errors}
+                  touched={formik.touched}
+                  submitted={formik.submitCount}
+                />
               </>
             )}
             <Button title={submitText} type="submit" />

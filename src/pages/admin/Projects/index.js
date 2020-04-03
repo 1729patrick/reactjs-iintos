@@ -38,6 +38,12 @@ const projectColumns = [
   },
   { id: 'type', label: 'Mobility Type', minWidth: 150 },
   {
+    id: 'campaing',
+    label: 'Campaing',
+    minWidth: 150,
+    format: value => (value ? 'Yes' : 'No'),
+  },
+  {
     id: 'see',
     label: '',
     align: 'center',
@@ -195,7 +201,8 @@ const Projects = ({ history, location, columns = projectColumns }) => {
       return column.format(row);
     }
 
-    return column.format && typeof value === 'number'
+    return column.format &&
+      (typeof value === 'number' || typeof value === 'boolean')
       ? column.format(value)
       : value;
   };
