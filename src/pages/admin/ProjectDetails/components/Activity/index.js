@@ -240,7 +240,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
       done: !values.done,
       startDate: values.startDate,
       endDate: values.startDate,
-      projectId: values.projectId,
+      projectId,
       students: values.students,
       professors: values.professors,
     };

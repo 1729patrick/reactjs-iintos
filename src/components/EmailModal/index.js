@@ -55,7 +55,7 @@ export default ({
     initialValues,
     onSubmit,
   });
-
+  console.log(initialValues);
   return (
     <Modal
       aria-labelledby="simple-modal-title"
@@ -79,8 +79,7 @@ export default ({
               submitted={formik.submitCount}
             />
             <Input
-              label="Reciver Email"
-              type="text"
+              type="hidden"
               placeholder="Type Reciver Email"
               name="recEmail"
               onChange={formik.handleChange}
