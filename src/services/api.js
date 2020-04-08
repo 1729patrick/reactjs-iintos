@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL:
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3333'
-      : 'https://iintos.online',
+      : 'https://iintoska2.ips.pt',
 });
 
 export default api;
