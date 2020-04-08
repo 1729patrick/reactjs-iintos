@@ -68,8 +68,8 @@ export default ({
         <div id="simple-modal-description">
           <Form onSubmit={formik.handleSubmit}>
             <Input
-              label="SenderEmail"
-              type="text"
+              // label="SenderEmail"
+              type="hidden"
               placeholder="Type your email"
               name="sendEmail"
               onChange={formik.handleChange}

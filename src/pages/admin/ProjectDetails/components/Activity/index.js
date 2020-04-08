@@ -17,7 +17,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import NotDoneIcon from '@material-ui/icons/Clear';
 
 import api from '~/services/api';
-import { Container, ContainerWrap } from './styles';
+import { Container, ContainerWrap, ButtonContainer } from './styles';
 import Button from '~/components/Button';
 import FormModal from './Form';
 import MobilityStepsModal from './MobilityStepsModal';
@@ -32,7 +32,7 @@ const allColumns = [
   { id: 'title', label: 'Title', minWidth: 200 },
   { id: 'startDate', label: 'Start Date', minWidth: 120 },
   { id: 'endDate', label: 'End Date', minWidth: 120 },
-  { id: 'professorsStr', label: 'Professors', minWidth: 150 },
+  { id: 'professorsStr', label: 'Teachers', minWidth: 150 },
   { id: 'studentsStr', label: 'Students', minWidth: 150 },
   {
     id: 'files',
@@ -138,8 +138,8 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
   };
 
   // opens the modal
-  const handleMobilitySteps = async activityList => {
-    if (activityList.length !== 0) return;
+  const handleMobilitySteps = async () => {
+    console.log(steps);
 
     setModalParams({
       onSubmit: handleCreateMobilityStep,
@@ -167,7 +167,6 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
           ? format(new Date(activity.startDate), 'yyyy-MM-dd')
           : '',
       }));
-      console.log(formattedActivities);
       if (formattedActivities.length === 0) {
         setError(true);
       } else {
@@ -176,7 +175,11 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
 
       setActivities(formattedActivities);
 
-      if (isProject) handleMobilitySteps(formattedActivities);
+      if (isProject) {
+        if (formattedActivities.length === 0) {
+          handleMobilitySteps();
+        }
+      }
     }
   };
   // makes the api call
@@ -244,7 +247,8 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
       students: values.students,
       professors: values.professors,
     };
-
+    console.log('done');
+    console.log(values);
     try {
       const files = values.files?.filter(f => f).map(({ id }) => id);
       await api.put(`activities/${id}`, { ...activity, files });
@@ -259,8 +263,21 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
   // api call to post
   const handleUpdate = async (id, values) => {
     try {
+      const activity = {
+        title: values.title,
+        description: values.description,
+        done: values.done,
+        startDate: values.startDate,
+        endDate: values.startDate,
+        projectId,
+        students: values.students,
+        professors: values.professors,
+      };
+      console.log('values');
+      console.log(values);
+
       const files = values.files?.filter(f => f).map(({ id }) => id);
-      await api.put(`activities/${id}`, { ...values, files });
+      await api.put(`activities/${id}`, { ...activity, files });
       setModalOpen(false);
       toast.success('Activity updated with success!');
       fetchActivities();
@@ -317,6 +334,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     setModalOpen('form');
   };
 
+  // opens the update modal and initializes with the activity values
   const handleDetailRow = row => {
     const formattedRow = {
       ...row,
@@ -328,6 +346,8 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         ? row.professors.map(({ id }) => id)
         : [undefined],
     };
+    console.log('Row');
+    console.log(row);
 
     setModalParams({
       initialValues: formattedRow,
@@ -396,11 +416,18 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
           <h1>Activities</h1>
 
           {!isProfessor && isParticipant && (
-            <Button
-              title="Create Activty"
-              type="button"
-              onClick={handleCreateActivity}
-            />
+            <ButtonContainer>
+              <Button
+                title="Create Activity"
+                type="button"
+                onClick={handleCreateActivity}
+              />
+              <Button
+                title="Steps of Mobility"
+                type="button"
+                onClick={handleMobilitySteps}
+              />
+            </ButtonContainer>
           )}
         </span>
         {error && <EmptyMessage />}

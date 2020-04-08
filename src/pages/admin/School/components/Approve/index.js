@@ -138,7 +138,7 @@ export default function Approve() {
       active,
       modalTitle: `Are you sure you want to ${
         active ? 'active' : 'inactive'
-      } this professor?`,
+      } this teacher?`,
     });
 
     setModalOpen(true);
