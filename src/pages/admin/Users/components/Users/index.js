@@ -194,7 +194,7 @@ export default function Users() {
       validationSchema,
       onSubmit: handleEmail,
       submitText: 'Send',
-      modalTitle: 'What do you want to tell this person?',
+      modalTitle: `What do you want to tell to ${row.name}?`,
     });
 
     setModalOpen('email');

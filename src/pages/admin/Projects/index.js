@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
+import Button from '~/components/Button';
 
 import { Container, Menu, Content } from './styles';
 import api from '~/services/api';
@@ -191,7 +192,8 @@ const Projects = ({ history, location, columns = projectColumns }) => {
 
     if (column.id === 'see') {
       return (
-        <VisibilityIcon
+        <Button
+          title="Show"
           style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
           onClick={() => handleDetailRow(row)}
         />

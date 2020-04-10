@@ -123,7 +123,7 @@ export default function Professors({
       initialValues: {},
       onSubmit: handleCreate,
       submitText: 'Add',
-      modalTitle: isProject ? 'Add a new Professor' : 'Add a new Partner',
+      modalTitle: isProject ? 'Add a new Teacher' : 'Add a new Partner',
     });
 
     setModalOpen('formProfessor');

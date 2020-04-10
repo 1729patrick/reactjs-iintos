@@ -6,6 +6,13 @@ export const Container = styled.div`
   justify-content: center;
 `;
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  button {
+    margin-left: 10px;
+  }
+`;
+
 export const ContainerWrap = styled.div`
   width: 100%;
 
