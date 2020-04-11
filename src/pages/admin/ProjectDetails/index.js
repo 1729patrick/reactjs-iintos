@@ -140,9 +140,6 @@ export default withRouter(({ computedMatch }) => {
           <NavLink to={`/${type}/details/${projectId}/`} exact>
             Details
           </NavLink>
-          <NavLink to={`/${type}/details/${projectId}/activities`}>
-            Activity
-          </NavLink>
           {isProject && (
             <NavLink to={`/${type}/details/${projectId}/schools`}>
               Schools
@@ -150,6 +147,9 @@ export default withRouter(({ computedMatch }) => {
           )}
           <NavLink to={`/${type}/details/${projectId}/participants`}>
             Participants
+          </NavLink>
+          <NavLink to={`/${type}/details/${projectId}/activities`}>
+            Activity
           </NavLink>
           <NavLink to={`/${type}/details/${projectId}/results`}>
             Results

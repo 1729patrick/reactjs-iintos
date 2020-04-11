@@ -35,6 +35,8 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
     const response = await api.get('professors', {
       params: { projectId, destination: isProject ? 'MOBILITY' : 'IINTOS' },
     });
+    // console.log('Professors');
+    // console.log(response.data);
 
     setAllProfessors(response.data);
   };

@@ -57,18 +57,19 @@ export default function Result({
           )}
         </div>
       </span>
-
-      <FileInput
-        imagePreview
-        style={{
-          height: 250,
-          width: '100%',
-          borderRadius: 4,
-        }}
-        file={file}
-        onChange={onFileUpload}
-        readOnly={!isGroupAdmin()}
-      />
+      {isGroupAdmin() && (
+        <FileInput
+          imagePreview
+          style={{
+            height: 250,
+            width: '100%',
+            borderRadius: 4,
+          }}
+          file={file}
+          onChange={onFileUpload}
+          readOnly={!isGroupAdmin()}
+        />
+      )}
       <p>{description}</p>
     </Content>
   );

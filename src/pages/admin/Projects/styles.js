@@ -6,6 +6,10 @@ export const Container = styled.div`
   justify-content: center;
   padding: 0 15px;
 
+  th {
+    font-weight: bold;
+  }
+
   @media only screen and (max-width: 600px) {
     flex-direction: column;
   }

@@ -25,7 +25,7 @@ const projectColumns = [
     id: 'ageRangeStart',
     format: value => `${value.ageRangeStart} - ${value.ageRangeEnd}`,
     label: 'Age Range',
-    minWidth: 150,
+    minWidth: 100,
   },
   {
     id: 'startDate',
@@ -37,11 +37,11 @@ const projectColumns = [
     label: 'Limit Date',
     minWidth: 120,
   },
-  { id: 'type', label: 'Mobility Type', minWidth: 150 },
+  { id: 'type', label: 'Mobility Type', minWidth: 100 },
   {
     id: 'campaing',
     label: 'Campaing',
-    minWidth: 150,
+    minWidth: 50,
     format: value => (value ? 'Yes' : 'No'),
   },
   {
