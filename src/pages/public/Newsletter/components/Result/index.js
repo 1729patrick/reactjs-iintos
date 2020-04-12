@@ -3,7 +3,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import api from '../../../../../services/api';
-import { Content } from './style';
+import { Content, Credits } from './style';
 import { useUserContext } from '~/context/UserContext';
 import FileInput from '../../../../../components/FileInput';
 
@@ -12,19 +12,18 @@ export default function Result({
   title,
   description,
   image,
+  author,
+  creationDate,
   handleEditProject,
   handleDeleteRow,
 }) {
   const { user } = useCallback(useUserContext(), []);
   const [file, setFile] = useState(image?.url);
 
+  // The admim or the author can alter the new
   const isGroupAdmin = useCallback(() => {
-    return (
-      user?.role === 'Admin' ||
-      user?.role === 'IINTOS-Admin' ||
-      user?.role === 'Mobility-Admin'
-    );
-  }, [user]);
+    return user?.role === 'Admin' || user?.id === author?.id;
+  }, [user, author]);
 
   const onFileUpload = async ({ target }) => {
     const [file] = target.files;
@@ -71,6 +70,12 @@ export default function Result({
         />
       )}
       <p>{description}</p>
+      <Credits>
+        {' '}
+        Created by: {author?.name}
+        <br />
+        {creationDate}
+      </Credits>
     </Content>
   );
 }

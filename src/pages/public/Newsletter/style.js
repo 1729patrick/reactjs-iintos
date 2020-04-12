@@ -19,6 +19,7 @@ export const Menu = styled.div`
   div {
     h1 {
       margin-bottom: 10px;
+      margin-right: 10px;
     }
     margin-top: 15px;
     padding-left: 50px;
@@ -59,12 +60,6 @@ export const Menu = styled.div`
       display: flex;
       justify-content: space-between;
       width: 100%;
-
-      button {
-        background: transparent;
-        color: #0c1e3f;
-        padding: 0;
-      }
     }
   }
 

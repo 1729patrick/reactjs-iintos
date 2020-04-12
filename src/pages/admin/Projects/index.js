@@ -115,7 +115,24 @@ const Projects = ({ history, location, columns = projectColumns }) => {
           : '',
       }));
 
-      setProjects(formattedProjects);
+      // sort the projects by date and by if is campaing
+      const pro = formattedProjects
+        .sort((project1, project2) => {
+          console.log(`${project1.startDate} ------- ${project2.startDate}`);
+          console.log(
+            new Date(project1.startDate) > new Date(project2.startDate)
+          );
+          return project1.startDate > project2.startDate;
+        })
+        .sort((x, y) => {
+          return x.campaing;
+        })
+        .reverse();
+      console.log(formattedProjects);
+      console.log('----------');
+      console.log(pro);
+
+      setProjects(pro);
       if (formattedProjects.length === 0) {
         setError(true);
       } else {
