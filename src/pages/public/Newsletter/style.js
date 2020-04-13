@@ -83,7 +83,6 @@ export const Menu = styled.div`
 export const Content = styled.div`
   padding: 15px 30px 15px calc(23% + 30px);
   width: 100%;
-  background-image: url('Images/stem.jpg');
 
   @media only screen and (max-width: 600px) {
     padding: 30px;

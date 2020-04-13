@@ -58,12 +58,6 @@ export const Menu = styled.div`
       display: flex;
       justify-content: space-between;
       width: 100%;
-
-      button {
-        background: transparent;
-        color: #0c1e3f;
-        padding: 0;
-      }
     }
   }
 
