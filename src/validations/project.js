@@ -13,6 +13,5 @@ export default Yup.object({
     })
     .required('End age of the project is required'),
   type: Yup.string().required('Type of the project requires'),
-  links: Yup.string(),
   campaing: Yup.bool(),
 });

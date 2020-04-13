@@ -151,7 +151,7 @@ export default withRouter(({ location, history }) => {
 
       setModalOpen('delete');
     };
-    //console.log(res);
+    // console.log(res);
     return (
       <Result
         id={res.id}

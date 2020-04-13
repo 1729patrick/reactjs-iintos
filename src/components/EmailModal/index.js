@@ -55,7 +55,6 @@ export default ({
     initialValues,
     onSubmit,
   });
-  console.log(initialValues);
   return (
     <Modal
       aria-labelledby="simple-modal-title"

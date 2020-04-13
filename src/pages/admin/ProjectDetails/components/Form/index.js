@@ -137,6 +137,7 @@ export default ({
                 { id: 'In Presence', name: 'In Presence' },
               ]}
             />
+
             <Button title={submitText} type="submit" />
           </Form>
         </div>

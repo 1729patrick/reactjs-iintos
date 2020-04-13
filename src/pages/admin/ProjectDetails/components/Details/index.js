@@ -17,6 +17,7 @@ export default ({ initialValues, isProfessor, isParticipant, isProject }) => {
   const [modalParams, setModalParams] = useState({});
 
   const handleUpdate = async (id, values) => {
+    console.log(values);
     try {
       const response = await api.put(
         `projects/${id}`,
@@ -125,6 +126,17 @@ export default ({ initialValues, isProfessor, isParticipant, isProject }) => {
             values={formattedLimitDate}
             background="#fff"
           />
+          {formik.values.referenceEmail !== null && (
+            <Input
+              label="If you want to contact the responsable for this project send an email to:"
+              type="type"
+              placeholder="Reference Contact"
+              name="referenceEmail"
+              readOnly
+              values={formik.values}
+              background="#fff"
+            />
+          )}
         </>
       )}
 

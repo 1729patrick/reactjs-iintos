@@ -51,8 +51,7 @@ const Header = () => {
   const handlePrivacySubmit = async values => {
     try {
       const updatedUser = await api.put(`/users/${user.id}`, values);
-      console.log(user);
-      console.log(updatedUser.data);
+      
       setModalOpen(false);
 
       setUser({
