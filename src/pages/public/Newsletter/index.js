@@ -65,7 +65,7 @@ export default withRouter(({ location, history }) => {
   // does the api call to create a new result
   const handleCreate = async values => {
     try {
-      const response = await api.post('news', { ...values });
+      const response = await api.post('news', { ...values, userId: user.id });
 
       if (response.data) {
         history.push(`/news/${response.data.id}`);

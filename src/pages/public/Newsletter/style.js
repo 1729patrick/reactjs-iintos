@@ -5,6 +5,9 @@ export const Container = styled.div`
   display: flex;
   text-align: justify;
 
+  background-image: url('Images/old-newspaper-350376_1920.png');
+  background-size: cover;
+
   @media only screen and (max-width: 600px) {
     flex-direction: column;
   }

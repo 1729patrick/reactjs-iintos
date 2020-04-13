@@ -17,7 +17,6 @@ export default ({ initialValues, isProfessor, isParticipant, isProject }) => {
   const [modalParams, setModalParams] = useState({});
 
   const handleUpdate = async (id, values) => {
-    console.log(values);
     try {
       const response = await api.put(
         `projects/${id}`,
