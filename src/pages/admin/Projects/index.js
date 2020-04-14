@@ -25,7 +25,7 @@ const projectColumns = [
     id: 'ageRangeStart',
     format: value => `${value.ageRangeStart} - ${value.ageRangeEnd}`,
     label: 'Age Range',
-    minWidth: 150,
+    minWidth: 100,
   },
   {
     id: 'startDate',
@@ -37,11 +37,11 @@ const projectColumns = [
     label: 'Limit Date',
     minWidth: 120,
   },
-  { id: 'type', label: 'Mobility Type', minWidth: 150 },
+  { id: 'type', label: 'Mobility Type', minWidth: 100 },
   {
     id: 'campaing',
     label: 'Campaing',
-    minWidth: 150,
+    minWidth: 50,
     format: value => (value ? 'Yes' : 'No'),
   },
   {
@@ -115,7 +115,17 @@ const Projects = ({ history, location, columns = projectColumns }) => {
           : '',
       }));
 
-      setProjects(formattedProjects);
+      // sort the projects by date and by if is campaing
+      const pro = formattedProjects
+        .sort((project1, project2) => {
+          return project1.startDate > project2.startDate;
+        })
+        .sort((x, y) => {
+          return x.campaing;
+        })
+        .reverse();
+
+      setProjects(pro);
       if (formattedProjects.length === 0) {
         setError(true);
       } else {
@@ -130,6 +140,7 @@ const Projects = ({ history, location, columns = projectColumns }) => {
 
   const handleCreate = async values => {
     try {
+      console.log(values);
       await api.post('projects', values);
       setModalOpen(false);
       toast.success('Project created with success!');

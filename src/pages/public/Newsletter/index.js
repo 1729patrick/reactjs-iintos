@@ -35,12 +35,15 @@ export default withRouter(({ location, history }) => {
    */
   const fetchResults = useCallback(async () => {
     const response = await api.get('news');
+
     const resultsList = response.data.map(result => ({
       id: result.id,
       title: result.title,
       description: result.description,
       link: `/news/${result.id}`,
       image: result.image,
+      author: result.author,
+      creationDate: result.createdAt,
     }));
 
     if ((!route || route === '/news') && resultsList[0]?.link)
@@ -62,7 +65,7 @@ export default withRouter(({ location, history }) => {
   // does the api call to create a new result
   const handleCreate = async values => {
     try {
-      const response = await api.post('news', { ...values });
+      const response = await api.post('news', { ...values, userId: user.id });
 
       if (response.data) {
         history.push(`/news/${response.data.id}`);
@@ -148,12 +151,14 @@ export default withRouter(({ location, history }) => {
 
       setModalOpen('delete');
     };
-
+    // console.log(res);
     return (
       <Result
         id={res.id}
         title={res.title}
         image={res.image}
+        author={res.author}
+        creationDate={res.creationDate}
         description={res.description}
         handleEditProject={handleEditProject}
         handleDeleteRow={handleDeleteRow}

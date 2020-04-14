@@ -139,7 +139,6 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
 
   // opens the modal
   const handleMobilitySteps = async () => {
-    console.log(steps);
 
     setModalParams({
       onSubmit: handleCreateMobilityStep,
@@ -247,8 +246,8 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
       students: values.students,
       professors: values.professors,
     };
-    console.log('done');
-    console.log(values);
+    //console.log('done');
+    //console.log(values);
     try {
       const files = values.files?.filter(f => f).map(({ id }) => id);
       await api.put(`activities/${id}`, { ...activity, files });
@@ -273,8 +272,8 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         students: values.students,
         professors: values.professors,
       };
-      console.log('values');
-      console.log(values);
+      //console.log('values');
+      //console.log(values);
 
       const files = values.files?.filter(f => f).map(({ id }) => id);
       await api.put(`activities/${id}`, { ...activity, files });
@@ -346,8 +345,8 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         ? row.professors.map(({ id }) => id)
         : [undefined],
     };
-    console.log('Row');
-    console.log(row);
+    //console.log('Row');
+    //console.log(row);
 
     setModalParams({
       initialValues: formattedRow,

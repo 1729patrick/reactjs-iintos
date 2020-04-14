@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  background-image: url('Images/stem.jpg');
+  background-size: cover;
+
   width: 100%;
   text-align: justify;
   text-align: center;
+
   h1 {
     margin-top: 10px;
     margin-bottom: 20px;

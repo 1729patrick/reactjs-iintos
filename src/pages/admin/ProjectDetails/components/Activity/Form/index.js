@@ -83,8 +83,7 @@ export default ({
 
   const handleAdd = field => {
     const values = formik.values[field];
-    console.log('ADD');
-    console.log(values);
+    
     formik.setFieldValue(field, [...values, '']);
   };
 
@@ -180,8 +179,7 @@ export default ({
                     } to activity`}
                     name="professor"
                     onChange={value => {
-                      console.log(value.target.value);
-                      console.log(formik.values.professors);
+                      
                       formik.setFieldValue(
                         `professors[${index}]`,
                         value.target.value

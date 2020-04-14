@@ -125,6 +125,17 @@ export default ({ initialValues, isProfessor, isParticipant, isProject }) => {
             values={formattedLimitDate}
             background="#fff"
           />
+          {formik.values.referenceEmail !== null && (
+            <Input
+              label="If you want to contact the responsable for this project send an email to:"
+              type="type"
+              placeholder="Reference Contact"
+              name="referenceEmail"
+              readOnly
+              values={formik.values}
+              background="#fff"
+            />
+          )}
         </>
       )}
 

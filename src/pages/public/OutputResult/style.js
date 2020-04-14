@@ -4,6 +4,9 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   text-align: justify;
+  background-image: url('Images/school-2596090_1280.png');
+  background-size: cover;
+
   @media only screen and (max-width: 600px) {
     flex-direction: column;
   }
@@ -58,12 +61,6 @@ export const Menu = styled.div`
       display: flex;
       justify-content: space-between;
       width: 100%;
-
-      button {
-        background: transparent;
-        color: #0c1e3f;
-        padding: 0;
-      }
     }
   }
 

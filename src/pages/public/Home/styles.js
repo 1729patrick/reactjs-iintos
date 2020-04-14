@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   background: url('https://cdn.pixabay.com/photo/2016/08/02/23/52/bag-1565402_960_720.jpg');
   background-size: cover;
+
   position: relative;
   display: flex;
   align-items: center;

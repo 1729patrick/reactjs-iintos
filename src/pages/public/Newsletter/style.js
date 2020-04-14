@@ -4,6 +4,10 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   text-align: justify;
+
+  background-image: url('Images/old-newspaper-350376_1920.png');
+  background-size: cover;
+
   @media only screen and (max-width: 600px) {
     flex-direction: column;
   }
@@ -18,6 +22,7 @@ export const Menu = styled.div`
   div {
     h1 {
       margin-bottom: 10px;
+      margin-right: 10px;
     }
     margin-top: 15px;
     padding-left: 50px;
@@ -58,12 +63,6 @@ export const Menu = styled.div`
       display: flex;
       justify-content: space-between;
       width: 100%;
-
-      button {
-        background: transparent;
-        color: #0c1e3f;
-        padding: 0;
-      }
     }
   }
 
@@ -96,7 +95,6 @@ export const Content = styled.div`
       flex-direction: column;
       margin-bottom: 30px;
       align-items: flex-end;
-			
     }
   }
 `;

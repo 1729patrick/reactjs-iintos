@@ -22,3 +22,7 @@ export const Content = styled.div`
     }
   }
 `;
+
+export const Credits = styled.div`
+  float: right;
+`;
