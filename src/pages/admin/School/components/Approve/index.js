@@ -152,10 +152,16 @@ export default function Approve() {
         <ThumbUp
           style={{
             color: 'rgb(23, 179, 14)',
-            cursor: row.active ? 'normal' : 'pointer',
-            opacity: row.active ? 0.6 : 1,
+            cursor:
+              !row.active || row.createdAt === row.updatedAt
+                ? 'pointer'
+                : 'normal',
+            opacity: !row.active || row.createdAt === row.updatedAt ? 1 : 0.3,
           }}
-          onClick={() => !row.active && handleOpenConfirm(row, true)}
+          onClick={() =>
+            (!row.active || row.createdAt === row.updatedAt) &&
+            handleOpenConfirm(row, true)
+          }
         />
       );
     }
@@ -165,10 +171,16 @@ export default function Approve() {
         <ThumbDown
           style={{
             color: '#cb1010',
-            cursor: row.active ? 'pointer' : 'normal',
-            opacity: row.active ? 1 : 0.6,
+            cursor:
+              row.active || row.createdAt === row.updatedAt
+                ? 'pointer'
+                : 'normal',
+            opacity: row.active || row.createdAt === row.updatedAt ? 1 : 0.3,
           }}
-          onClick={() => row.active && handleOpenConfirm(row, false)}
+          onClick={() =>
+            (row.active || row.createdAt === row.updatedAt) &&
+            handleOpenConfirm(row, false)
+          }
         />
       );
     }
