@@ -14,6 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
 import FileList from '~/components/FileList';
 
+import { useUserContext } from '~/context/UserContext';
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
@@ -29,7 +30,14 @@ const columns = [
   {
     id: 'files',
     label: 'Files',
-    minWidth: 120,
+    minWidth: 100,
+  },
+  {
+    id: 'send',
+    label: '',
+    align: 'center',
+    minWidth: 10,
+    format: value => value.toFixed(2),
   },
   {
     id: 'see',
@@ -38,7 +46,6 @@ const columns = [
     minWidth: 50,
     format: value => value.toFixed(2),
   },
-
   {
     id: 'delete',
     label: '',
@@ -66,6 +73,7 @@ const Results = ({ isProfessor, isParticipant }) => {
   const [modalParams, setModalParams] = useState({});
   const location = useLocation();
   const [error, setError] = useState(false);
+  const { user } = React.useCallback(useUserContext(), []);
 
   const projectId = useMemo(() => location.pathname.split('/')[3], [
     location.pathname,
@@ -171,6 +179,20 @@ const Results = ({ isProfessor, isParticipant }) => {
     setModalOpen('form');
   };
 
+  // Send the request to create the news about this result
+  const handleSendToNews = async values => {
+    try {
+      const response = await api.post('resultNews', {
+        ...values,
+        userId: user.id,
+      });
+
+      toast.success('News created with success!');
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
@@ -182,7 +204,15 @@ const Results = ({ isProfessor, isParticipant }) => {
         />
       );
     }
-
+    if (column.id === 'send' && !isProfessor && isParticipant) {
+      return (
+        <Button
+          title="Send to News"
+          type="button"
+          onClick={() => handleSendToNews(row)}
+        />
+      );
+    }
     if (column.id === 'see' && !isProfessor && isParticipant) {
       return (
         <EditIcon
