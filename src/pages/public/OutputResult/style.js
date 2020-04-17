@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.div `
   width: 100%;
   display: flex;
   text-align: justify;
@@ -12,7 +12,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Menu = styled.div`
+export const Menu = styled.div `
   max-width: 23%;
   position: fixed;
   height: 100%;
@@ -51,7 +51,6 @@ export const Menu = styled.div`
       }
 
       &.active {
-        background: #ddd;
         color: rgb(239, 108, 0) !important;
         border-radius: 4px 50px 50px 4px;
       }
@@ -81,7 +80,7 @@ export const Menu = styled.div`
   }
 `;
 
-export const Content = styled.div`
+export const Content = styled.div `
   padding: 15px 30px 15px calc(23% + 30px);
   width: 100%;
 
