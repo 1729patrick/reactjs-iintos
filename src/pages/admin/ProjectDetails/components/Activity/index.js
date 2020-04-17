@@ -281,9 +281,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         students: values.students,
         professors: values.professors,
       };
-      console.log('values');
-      console.log(values);
-
+    
       const files = values.files?.filter(f => f).map(({ id }) => id);
       await api.put(`activities/${id}`, { ...activity, files });
       setModalOpen(false);

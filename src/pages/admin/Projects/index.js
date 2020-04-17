@@ -140,7 +140,6 @@ const Projects = ({ history, location, columns = projectColumns }) => {
 
   const handleCreate = async values => {
     try {
-      console.log(values);
       await api.post('projects', values);
       setModalOpen(false);
       toast.success('Project created with success!');
