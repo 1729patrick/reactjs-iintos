@@ -171,10 +171,19 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         setError(false);
       }
 
-      setActivities(formattedActivities);
+      // sort the activities
+      const sortedActivities = formattedActivities.sort(
+        (project1, project2) => {
+          return (
+            Date.parse(project1.startDate) - Date.parse(project2.startDate)
+          );
+        }
+      );
+
+      setActivities(sortedActivities);
 
       if (isProject) {
-        if (formattedActivities.length === 0) {
+        if (formattedActivities.length === 0 && !isProfessor && isParticipant) {
           handleMobilitySteps();
         }
       }
@@ -242,7 +251,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
       description: values.description,
       done: !values.done,
       startDate: values.startDate,
-      endDate: values.startDate,
+      endDate: values.endDate,
       projectId,
       students: values.students,
       professors,
@@ -267,7 +276,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         description: values.description,
         done: values.done,
         startDate: values.startDate,
-        endDate: values.startDate,
+        endDate: values.endDate,
         projectId,
         students: values.students,
         professors: values.professors,
@@ -382,18 +391,23 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     }
     if (column.id === 'done') {
       let x = '';
+      const f = '';
       if (!isProfessor && isParticipant) {
         x = 'pointer';
       }
       return value ? (
         <DoneIcon
           style={{ color: '#00961e', cursor: x }}
-          onClick={() => handleUpdateDone(row.id, row)}
+          onClick={() =>
+            !isProfessor && isParticipant ? handleUpdateDone(row.id, row) : null
+          }
         />
       ) : (
         <NotDoneIcon
           style={{ color: '#cb1010', cursor: x }}
-          onClick={() => handleUpdateDone(row.id, row)}
+          onClick={() =>
+            !isProfessor && isParticipant ? handleUpdateDone(row.id, row) : null
+          }
         />
       );
     }
