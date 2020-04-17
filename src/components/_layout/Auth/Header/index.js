@@ -32,7 +32,6 @@ const Header = () => {
   };
 
   const isGroupAdmin = useMemo(() => {
-    console.log(user);
     return (
       user?.role === 'Admin' ||
       user?.role === 'IINTOS-Admin' ||
