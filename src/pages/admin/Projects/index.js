@@ -83,7 +83,7 @@ const Projects = ({ history, location, columns = projectColumns }) => {
 
   const isProfessor = useMemo(
     () =>
-      user?.role === 'Professor' ||
+      user?.role === 'Teacher' ||
       user?.role === 'IINTOS-Admin' ||
       user?.role === 'IINTOS-Partner',
     [user]

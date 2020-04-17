@@ -32,6 +32,7 @@ const Header = () => {
   };
 
   const isGroupAdmin = useMemo(() => {
+    console.log(user);
     return (
       user?.role === 'Admin' ||
       user?.role === 'IINTOS-Admin' ||
@@ -41,7 +42,7 @@ const Header = () => {
   }, [user]);
 
   const isGroupSchool = useMemo(() => {
-    return user?.role === 'Coordinator' || user?.role === 'Professor';
+    return user?.role === 'Coordinator' || user?.role === 'Teacher';
   }, [user]);
 
   // Function that opens the Help modal
@@ -51,7 +52,7 @@ const Header = () => {
   const handlePrivacySubmit = async values => {
     try {
       const updatedUser = await api.put(`/users/${user.id}`, values);
-      
+
       setModalOpen(false);
 
       setUser({
