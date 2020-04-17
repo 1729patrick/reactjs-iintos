@@ -9,7 +9,7 @@ const Footer = ({ links }) => {
   const { user } = useCallback(useUserContext(), []);
   const date = useMemo(() => new Date().getFullYear(), []);
   const isGroupSchool = useMemo(() => {
-    return user?.role === 'Coordinator' || user?.role === 'Professor';
+    return user?.role === 'Coordinator' || user?.role === 'Teacher';
   }, [user]);
 
   return (

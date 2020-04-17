@@ -30,14 +30,14 @@ export default withRouter(({ computedMatch }) => {
     computedMatch.params.id,
   ]);
 
-  // if isn't a professor can edit
+  // if isn't a Teacher can edit
   useEffect(() => {
     (async () => {
       const response = await api.get(
         `projectUser/${projectId}/permissions/edit`
       );
 
-      setIsProfessor(user?.role === 'Professor' && !response.data.canEdit);
+      setIsProfessor(user?.role === 'Teacher' && !response.data.canEdit);
     })();
   }, [projectId, user]);
 
