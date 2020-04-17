@@ -139,7 +139,6 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
 
   // opens the modal
   const handleMobilitySteps = async () => {
-
     setModalParams({
       onSubmit: handleCreateMobilityStep,
       submitText: 'Create',
@@ -235,7 +234,9 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     setPage(0);
   };
 
-  const handleUpdateDone = async (id, values) => {
+  const handleUpdateDone = async (activityId, values) => {
+    const professors = values.professors.map(elem => elem.id);
+
     const activity = {
       title: values.title,
       description: values.description,
@@ -244,13 +245,12 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
       endDate: values.startDate,
       projectId,
       students: values.students,
-      professors: values.professors,
+      professors,
     };
-    //console.log('done');
-    //console.log(values);
+
     try {
       const files = values.files?.filter(f => f).map(({ id }) => id);
-      await api.put(`activities/${id}`, { ...activity, files });
+      await api.put(`activities/${activityId}`, { ...activity, files });
       setModalOpen(false);
       toast.success('Activity updated with success!');
       fetchActivities();
@@ -272,8 +272,8 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         students: values.students,
         professors: values.professors,
       };
-      //console.log('values');
-      //console.log(values);
+      console.log('values');
+      console.log(values);
 
       const files = values.files?.filter(f => f).map(({ id }) => id);
       await api.put(`activities/${id}`, { ...activity, files });
@@ -345,8 +345,8 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         ? row.professors.map(({ id }) => id)
         : [undefined],
     };
-    //console.log('Row');
-    //console.log(row);
+    // console.log('Row');
+    // console.log(row);
 
     setModalParams({
       initialValues: formattedRow,
