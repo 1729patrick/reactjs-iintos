@@ -1,19 +1,23 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.div `
   width: 100%;
   display: flex;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 700px) {
     flex-direction: column;
   }
 `;
-export const Title = styled.div`
+export const Title = styled.div `
   font-weight: 600;
   width: 250px;
+
+  @media only screen and (max-width: 1200px) {
+    width: 150px;
+  }
 `;
 
-export const Menu = styled.div`
+export const Menu = styled.div `
   min-width: 16%;
   height: 100%;
   position: fixed;
@@ -36,14 +40,13 @@ export const Menu = styled.div`
       }
 
       &.active {
-        background: #ddd;
         color: rgb(239, 108, 0) !important;
         border-radius: 4px 50px 50px 4px;
       }
     }
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 700px) {
     width: 100%;
     padding: 0 30px;
     max-width: 100%;
@@ -60,7 +63,7 @@ export const Menu = styled.div`
   }
 `;
 
-export const Content = styled.div`
+export const Content = styled.div `
   width: 100%;
   padding: 0 30px 0 calc(16% + 30px);
 
@@ -72,7 +75,7 @@ export const Content = styled.div`
     margin: 0 auto;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 700px) {
     padding-left: 30px;
   }
 `;

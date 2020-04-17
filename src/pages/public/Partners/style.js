@@ -33,7 +33,6 @@ export const Menu = styled.div`
       }
 
       &.active {
-        background: #ddd;
         color: rgb(239, 108, 0) !important;
         border-radius: 4px 50px 50px 4px;
       }
