@@ -26,7 +26,7 @@ import validationSchema from '~/validations/result';
 
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
-  { id: 'description', label: 'Description', minWidth: 200 },
+  { id: 'description', label: 'Description', minWidth: 200, maxWidth: 250 },
   {
     id: 'files',
     label: 'Files',
@@ -181,7 +181,9 @@ const Results = ({ isProfessor, isParticipant }) => {
 
   // Send the request to create the news about this result
   const handleSendToNews = async values => {
+    console.log('sdadas');
     try {
+      console.log(values);
       const response = await api.post('resultNews', {
         ...values,
         userId: user.id,
@@ -207,7 +209,7 @@ const Results = ({ isProfessor, isParticipant }) => {
     if (column.id === 'send' && !isProfessor && isParticipant) {
       return (
         <Button
-          title="Send to News"
+          title="Send News"
           type="button"
           onClick={() => handleSendToNews(row)}
         />
