@@ -94,7 +94,28 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
-
+            <Input
+              label="Link"
+              type="text"
+              placeholder="Type the single link"
+              name="link"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
+            />
+            <Input
+              label="Youtube Link"
+              type="text"
+              placeholder="Insert a youtube link"
+              name="youtube"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
+            />
             {/* <Files formik={formik} /> */}
 
             <Button title={submitText} type="submit" />

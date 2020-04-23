@@ -3,7 +3,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import api from '../../../../../services/api';
-import { Content, Credits } from './style';
+import { Content, Credits, Links } from './style';
 import { useUserContext } from '~/context/UserContext';
 import FileInput from '../../../../../components/FileInput';
 
@@ -13,6 +13,8 @@ export default function Result({
   description,
   image,
   author,
+  link,
+  youtube,
   creationDate,
   handleEditProject,
   handleDeleteRow,
@@ -70,6 +72,23 @@ export default function Result({
         />
       )}
       <p>{description}</p>
+      {link && (
+        <Links>
+          Link: <a href={link}>{link}</a>
+        </Links>
+      )}
+      {youtube && (
+        <>
+          <iframe
+            width="1200"
+            height="554"
+            src={`https://www.youtube.com/embed/${youtube}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </>
+      )}
       <Credits>
         {' '}
         Created by: {author?.name}

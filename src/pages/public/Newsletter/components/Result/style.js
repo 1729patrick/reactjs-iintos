@@ -26,3 +26,8 @@ export const Content = styled.div`
 export const Credits = styled.div`
   float: right;
 `;
+
+export const Links = styled.div`
+  margin-top: 30px;
+  font-weight: bold;
+`;

@@ -8,7 +8,7 @@ import { Container, Menu, Content } from './style';
 import Button from '~/components/Button';
 import FormModal from './components/Form';
 import DeleteModal from './components/Delete';
-import validationSchema from '~/validations/result';
+import validationSchema from '~/validations/news';
 import { useUserContext } from '~/context/UserContext';
 import EmptyMessage from '~/components/EmptyMessage';
 
@@ -40,6 +40,8 @@ export default withRouter(({ location, history }) => {
       id: result.id,
       title: result.title,
       description: result.description,
+      links: result.link,
+      youtube: result.youtube,
       link: `/news/${result.id}`,
       image: result.image,
       author: result.author,
@@ -158,6 +160,8 @@ export default withRouter(({ location, history }) => {
         title={res.title}
         image={res.image}
         author={res.author}
+        link={res.links}
+        youtube={res.youtube}
         creationDate={res.creationDate}
         description={res.description}
         handleEditProject={handleEditProject}
