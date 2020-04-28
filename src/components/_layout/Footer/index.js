@@ -24,6 +24,7 @@ const Footer = ({ links }) => {
             <NavLink to="/about">About</NavLink>
             <NavLink to="/partners">Partners</NavLink>
             <NavLink to="/stem">STEM</NavLink>
+            <NavLink to="/knowledge">Knowledge base</NavLink>
 
             {/* <NavLink to="/news">News</NavLink> */}
             {isGroupSchool && <NavLink to="/results">Results</NavLink>}

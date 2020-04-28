@@ -23,6 +23,7 @@ import Profile from '~/pages/admin/Profile';
 import News from '~/pages/public/Newsletter';
 import STEM from '~/pages/public/Stem';
 import Log from '~/pages/admin/Log';
+import Knowledge from '~/pages/public/KnowledgeBase';
 
 import Route from './Route';
 
@@ -69,6 +70,7 @@ export default () => {
         <Route path="/users/schools" component={Users} isPrivate />
         <Route path="/partners" component={Partners} />
         <Route path="/results" component={OutputResult} />
+        <Route path="/knowledge" component={Knowledge} />
 
         <Route component={() => <Redirect to="/dashboard" />} isPrivate />
       </Switch>

@@ -45,6 +45,8 @@ const Header = () => {
           <NavLink to="/news">News</NavLink>
 
           <NavLink to="/results">Results</NavLink>
+          <NavLink to="/knowledge">Knowledge base</NavLink>
+
           <NavLink to="/stem">STEM</NavLink>
 
           <NavLink to="/login">Login</NavLink>
