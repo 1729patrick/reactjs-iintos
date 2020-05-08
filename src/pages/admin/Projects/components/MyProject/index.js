@@ -11,6 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { Container, ContainerWrap } from '../../styles';
 import Button from '~/components/Button';
 import EmptyMessage from '~/components/EmptyMessage';
+import Search from '~/components/Search';
 
 export default function MyProject({
   title = 'My Projects',
@@ -50,6 +51,11 @@ export default function MyProject({
             />
           )}
         </span>
+        <Search
+          setDisplay={setDiplayUser}
+          displayOg={users}
+          placeholder="Search by name"
+        />
         {error && <EmptyMessage />}
         {!error && (
           <Paper className={classes.root}>

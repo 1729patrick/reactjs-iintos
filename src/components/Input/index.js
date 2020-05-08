@@ -15,9 +15,10 @@ export default function Input({
   textarea,
   submitted,
   background,
+  border,
 }) {
   return (
-    <Container background={background}>
+    <Container background={background} border={border}>
       <span>
         <label>{label}</label>
         {submitted || (touched[name] && errors[name]) ? (
