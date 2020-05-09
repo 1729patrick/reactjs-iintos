@@ -15,7 +15,9 @@ export const ContainerWrap = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-
+    span {
+      
+    }
     h1 {
       margin: 15px 0;
     }

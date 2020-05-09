@@ -267,20 +267,21 @@ export default function Users() {
       <ContainerWrap>
         <span>
           <h1>Users</h1>
-
-          {!isIIntosPartner && (
-            <Button
-              title="Create User"
-              type="button"
-              onClick={handleCreateUser}
+          <span>
+            {!isIIntosPartner && (
+              <Button
+                title="Create User"
+                type="button"
+                onClick={handleCreateUser}
+              />
+            )}
+            <Search
+              setDisplay={setDiplayUser}
+              displayOg={users}
+              placeholder="Search by name"
             />
-          )}
+          </span>
         </span>
-        <Search
-          setDisplay={setDiplayUser}
-          displayOg={users}
-          placeholder="Search by name"
-        />
 
         {error && <EmptyMessage />}
         {!error && (

@@ -17,6 +17,7 @@ import FormModal from './Form';
 import validationSchema from '~/validations/projectProfessor';
 import EmptyMessage from '~/components/EmptyMessage';
 import EmailModal from '~/components/EmailModal';
+import Search from '~/components/Search';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
@@ -81,7 +82,13 @@ export default function Professors({
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [displayUser, setDisplayUsers] = useState([]);
 
+  React.useEffect(() => {
+    console.log('users');
+    console.log(users);
+    setDisplayUsers(users);
+  }, [users]);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -141,6 +148,11 @@ export default function Professors({
             onClick={handleCreateUser}
           />
         )}
+        <Search
+          setDisplay={setDisplayUsers}
+          displayOg={users}
+          placeholder={isProject ? 'Search by Teacher' : 'Search by Partner'}
+        />
       </span>
       {users.length === 0 && <EmptyMessage />}
       {users.length !== 0 && (
@@ -161,7 +173,7 @@ export default function Professors({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {users
+                {displayUser
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
                     return (

@@ -21,6 +21,7 @@ import Button from '~/components/Button';
 import FormModal from './Form';
 import DeleteModal from '../Delete';
 import EmptyMessage from '~/components/EmptyMessage';
+import Search from '~/components/Search';
 
 import validationSchema from '~/validations/result';
 
@@ -73,6 +74,8 @@ const Results = ({ isProfessor, isParticipant }) => {
   const [modalParams, setModalParams] = useState({});
   const location = useLocation();
   const [error, setError] = useState(false);
+  const [displayResult, setDisplayResult] = useState([]);
+
   const { user } = React.useCallback(useUserContext(), []);
 
   const projectId = useMemo(() => location.pathname.split('/')[3], [
@@ -87,6 +90,7 @@ const Results = ({ isProfessor, isParticipant }) => {
     } else {
       setError(false);
     }
+    setDisplayResult(response.data);
   };
 
   useState(() => {
@@ -238,14 +242,20 @@ const Results = ({ isProfessor, isParticipant }) => {
       <ContainerWrap>
         <span>
           <h1>Results</h1>
-
-          {!isProfessor && isParticipant && (
-            <Button
-              title="Create Result"
-              type="button"
-              onClick={handleCreateResult}
+          <span>
+            {!isProfessor && isParticipant && (
+              <Button
+                title="Create Result"
+                type="button"
+                onClick={handleCreateResult}
+              />
+            )}
+            <Search
+              setDisplay={setDisplayResult}
+              displayOg={activities}
+              placeholder="Search by Result"
             />
-          )}
+          </span>
         </span>
         {error && <EmptyMessage />}
         {!error && (
@@ -266,7 +276,7 @@ const Results = ({ isProfessor, isParticipant }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {activities
+                  {displayResult
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map(row => {
                       return (

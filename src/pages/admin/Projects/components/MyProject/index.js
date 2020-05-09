@@ -27,6 +27,11 @@ export default function MyProject({
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [displayProject, setDiplayProject] = useState([]);
+
+  React.useEffect(() => {
+    setDiplayProject(projects);
+  }, [projects]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -42,20 +47,22 @@ export default function MyProject({
       <ContainerWrap>
         <span>
           <h1>{title}</h1>
-
-          {!isProfessor && (
-            <Button
-              title={buttonCreateTitle}
-              type="button"
-              onClick={handleCreateProject}
+          <span>
+            {!isProfessor && (
+              <Button
+                title={buttonCreateTitle}
+                type="button"
+                onClick={handleCreateProject}
+              />
+            )}
+            <Search
+              setDisplay={setDiplayProject}
+              displayOg={projects}
+              placeholder="Search by project"
             />
-          )}
+          </span>
         </span>
-        <Search
-          setDisplay={setDiplayUser}
-          displayOg={users}
-          placeholder="Search by name"
-        />
+
         {error && <EmptyMessage />}
         {!error && (
           <Paper className={classes.root}>
@@ -75,7 +82,7 @@ export default function MyProject({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {projects
+                  {displayProject
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map(row => {
                       return (

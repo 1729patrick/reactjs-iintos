@@ -25,7 +25,7 @@ import MobilityStepsModal from './MobilityStepsModal';
 import DeleteModal from '../Delete';
 import FileList from '~/components/FileList';
 import EmptyMessage from '~/components/EmptyMessage';
-
+import Search from '~/components/Search';
 import validationSchema from '~/validations/activity';
 
 const allColumns = [
@@ -74,6 +74,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
   const [error, setError] = useState(false);
+  const [displayActivity, setDisplayActivity] = useState([]);
 
   const columns = useMemo(
     () =>
@@ -181,7 +182,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
       );
 
       setActivities(sortedActivities);
-
+      setDisplayActivity(sortedActivities);
       if (isProject) {
         if (formattedActivities.length === 0 && !isProfessor && isParticipant) {
           handleMobilitySteps();
@@ -281,7 +282,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         students: values.students,
         professors: values.professors,
       };
-    
+
       const files = values.files?.filter(f => f).map(({ id }) => id);
       await api.put(`activities/${id}`, { ...activity, files });
       setModalOpen(false);
@@ -438,6 +439,11 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
                 type="button"
                 onClick={handleMobilitySteps}
               />
+              <Search
+                setDisplay={setDisplayActivity}
+                displayOg={activities}
+                placeholder="Search by Activity"
+              />
             </ButtonContainer>
           )}
         </span>
@@ -460,7 +466,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {activities
+                  {displayActivity
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map(row => {
                       return (

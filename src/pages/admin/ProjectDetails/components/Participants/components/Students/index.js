@@ -15,6 +15,7 @@ import Button from '~/components/Button';
 import FormModal from './Form';
 import validationSchema from '~/validations/projectStudent';
 import EmptyMessage from '~/components/EmptyMessage';
+import Search from '~/components/Search';
 
 const columns = [
   { id: 'studentName', label: 'Name', minWidth: 200 },
@@ -53,11 +54,14 @@ export default function Professors({
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [displayUsers, setDisplayUsers] = useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
+  React.useEffect(() => {
+    setDisplayUsers(users);
+  }, [users]);
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(+event.target.value);
     setPage(0);
@@ -97,17 +101,23 @@ export default function Professors({
     <>
       <span>
         <h2>Students</h2>
-
-        {!isProfessor && isParticipant && (
-          <Button
-            title="Add Student"
-            type="button"
-            onClick={handleCreateUser}
+        <span>
+          {!isProfessor && isParticipant && (
+            <Button
+              title="Add Student"
+              type="button"
+              onClick={handleCreateUser}
+            />
+          )}
+          <Search
+            setDisplay={setDisplayUsers}
+            displayOg={users}
+            placeholder="Search by Students"
           />
-        )}
+        </span>
       </span>
-      {users.length === 0 && <EmptyMessage />}
-      {users.length !== 0 && (
+      {users?.length === 0 && <EmptyMessage />}
+      {users?.length !== 0 && (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
             <Table stickyHeader aria-label="sticky table">
@@ -125,9 +135,10 @@ export default function Professors({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {users
+                {displayUsers
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
+                    console.log(displayUsers);
                     return (
                       <TableRow
                         hover
