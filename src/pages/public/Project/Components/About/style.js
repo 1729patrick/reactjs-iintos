@@ -7,13 +7,11 @@ export const Container = styled.div`
 
 
 	div{
-		width:70%;
 		text-align:justify;
 	}
 
 	h1{
 		display:flex;
-		margin-top:15px;
 	}
 ul{
 	display: block;

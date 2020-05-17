@@ -2,8 +2,30 @@ import React, { useMemo, useEffect } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import { Container, Menu, Content } from './style';
+import About from './Components/About';
+import Partners from './Components/Partners';
 
 export default withRouter(({ location, history }) => {
+  const route = useMemo(() => location.pathname.replace('/iproject', ''), [
+    location,
+  ]);
+
+  useEffect(() => {
+    if (!route) {
+      history.push('/iproject/about');
+    }
+  }, [route, history]);
+
+  const Children = () => {
+    if (route === '/about') {
+      return <About />;
+    }
+    if (route === '/partners') {
+      return <Partners />;
+    }
+    return () => null;
+  };
+
   return (
     <Container>
       <Menu>
@@ -14,7 +36,9 @@ export default withRouter(({ location, history }) => {
           <NavLink to="/iproject/products">IIntos Products</NavLink>
         </div>
       </Menu>
-      <Content>{/* <Children /> */}</Content>
+      <Content>
+        <Children />
+      </Content>
     </Container>
   );
 });

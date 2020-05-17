@@ -30,7 +30,7 @@ export default () => {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} exact />
 
-        <Route path="/iproject" component={IProject} exact />
+        <Route path="/iproject" component={IProject} />
         <Route
           path="/signup/school_information"
           component={SchoolInformation}

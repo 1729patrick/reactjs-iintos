@@ -59,11 +59,10 @@ export const Menu = styled.div`
 export const Content = styled.div`
 padding-right:100px;
 padding-left:22%;
-
+width: 100%;
 
 	div{
     padding-top: 15px;
-		width:80%;
 		display: flex;
     flex-direction: column;
 		margin:0 auto;
