@@ -4,6 +4,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { Container, Menu, Content } from './style';
 import About from './Components/About';
 import Partners from './Components/Partners';
+import Products from './Components/Products';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location.pathname.replace('/iproject', ''), [
@@ -23,6 +24,10 @@ export default withRouter(({ location, history }) => {
     if (route === '/partners') {
       return <Partners />;
     }
+    if (route === '/products') {
+      return <Products />;
+    }
+
     return () => null;
   };
 
