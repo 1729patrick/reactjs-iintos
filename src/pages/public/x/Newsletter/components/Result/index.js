@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import api from '../../../../../services/api';
+import api from '../../../../../../services/api';
 import { Content, Credits, Links } from './style';
 import { useUserContext } from '~/context/UserContext';
-import FileInput from '../../../../../components/FileInput';
+import FileInput from '../../../../../../components/FileInput';
 
 export default function Result({
   id,

@@ -11,19 +11,14 @@ import Outputs from '~/pages/admin/Outputs';
 import Home from '~/pages/public/Home';
 import Login from '~/pages/public/Login';
 import SignUp from '~/pages/public/SignUp';
+
+import IProject from '~/pages/public/Project';
+
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
 import AwaitVerification from '~/pages/public/AwaitVerification';
-import About from '~/pages/public/About';
-import Privacy from '~/pages/public/Privacy';
 
-import Partners from '~/pages/public/Partners';
 import ProjectDetails from '~/pages/admin/ProjectDetails';
-import OutputResult from '~/pages/public/OutputResult';
 import Profile from '~/pages/admin/Profile';
-import News from '~/pages/public/Newsletter';
-import STEM from '~/pages/public/Stem';
-import Log from '~/pages/admin/Log';
-import Knowledge from '~/pages/public/KnowledgeBase';
 
 import Route from './Route';
 
@@ -34,28 +29,23 @@ export default () => {
         <Route path="/" component={Home} exact />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} exact />
-        <Route path="/profile" component={Profile} isPrivate />
-        <Route path="/news" component={News} />
-        <Route path="/stem" component={STEM} />
-        <Route path="/log" component={Log} />
 
+        <Route path="/iproject" component={IProject} exact />
         <Route
           path="/signup/school_information"
           component={SchoolInformation}
         />
-        <Route path="/about" component={About} />
-        <Route path="/privacy" component={Privacy} />
 
         <Route path="/await_verification" component={AwaitVerification} />
+
         <Route path="/dashboard" component={Dashboard} isPrivate />
         <Route path="/calendar" component={Calendar} isPrivate />
-
+        <Route path="/profile" component={Profile} isPrivate />
         <Route
           path="/outputs/details/:id"
           component={ProjectDetails}
           isPrivate
         />
-
         <Route path="/projects" component={Projects} isPrivate exact />
         <Route
           path="/projects/details/:id"
@@ -63,14 +53,10 @@ export default () => {
           isPrivate
         />
         <Route path="/projects/search" component={Projects} isPrivate exact />
-
         <Route path="/users" component={Users} isPrivate />
         <Route path="/outputs" component={Outputs} isPrivate />
         <Route path="/school" component={School} isPrivate />
         <Route path="/users/schools" component={Users} isPrivate />
-        <Route path="/partners" component={Partners} />
-        <Route path="/results" component={OutputResult} />
-        <Route path="/knowledge" component={Knowledge} />
 
         <Route component={() => <Redirect to="/dashboard" />} isPrivate />
       </Switch>
