@@ -11,8 +11,9 @@ import OutputResult from '~/pages/public/OutputResult';
 
 import Log from '~/pages/admin/Log';
 
-import Home from '~/pages/public/Home';
-import Login from '~/pages/public/Login';
+import Home from '~/pages/public/x/LandingPage/LandingPage';
+// import Login from '~/pages/public/Login';
+import Login from '~/pages/public/x/LoginPage/LoginPage';
 import SignUp from '~/pages/public/SignUp';
 
 import IProject from '~/pages/public/Project';
