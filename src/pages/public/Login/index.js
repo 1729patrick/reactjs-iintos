@@ -22,7 +22,7 @@ const Login = ({ history }) => {
       const { user, token, school } = response.data;
 
       if (!user.active) {
-        return history.push('/await_verification');
+        return history?.push('/await_verification');
       }
 
       localStorage.setItem('user', JSON.stringify(user));
@@ -33,8 +33,10 @@ const Login = ({ history }) => {
       apiCalendar.defaults.headers.userID = user?.email;
 
       setUser({ user, school, token });
+
       history.push('/dashboard');
     } catch ({ response }) {
+      console.log(response);
       toast.error(response?.data?.error || 'Invalid credentials');
     }
   };

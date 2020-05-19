@@ -36,7 +36,6 @@ export default function LoginPage(props) {
   // Variables
   const [cardAnimaton, setCardAnimation] = React.useState('cardHidden');
   const { setUser } = React.useCallback(useUserContext(), []);
-
   setTimeout(function() {
     setCardAnimation('');
   }, 700);
@@ -49,7 +48,7 @@ export default function LoginPage(props) {
       const { user, token, school } = response.data;
 
       if (!user.active) {
-        return props.history.push('/await_verification');
+        return props?.history?.push('/await_verification');
       }
 
       localStorage.setItem('user', JSON.stringify(user));
@@ -60,8 +59,11 @@ export default function LoginPage(props) {
       apiCalendar.defaults.headers.userID = user?.email;
 
       setUser({ user, school, token });
-      props.history.push('/dashboard');
+      console.log(response);
+      console.log(props.history);
+      // props.history.push('/dashboard');
     } catch ({ response }) {
+      console.log({ response });
       toast.error(response?.data?.error || 'Invalid credentials');
     }
   };
@@ -72,7 +74,7 @@ export default function LoginPage(props) {
       email: '',
       password: '',
     },
-    //    validationSchema,
+    validationSchema,
     onSubmit: submitForm,
   });
   const classes = useStyles();

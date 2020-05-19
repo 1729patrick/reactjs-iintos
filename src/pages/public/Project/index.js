@@ -7,13 +7,13 @@ import Partners from './Components/Partners';
 import Products from './Components/Products';
 
 export default withRouter(({ location, history }) => {
-  const route = useMemo(() => location.pathname.replace('/iproject', ''), [
+  const route = useMemo(() => location.pathname.replace('/iprojectEx', ''), [
     location,
   ]);
 
   useEffect(() => {
     if (!route) {
-      history.push('/iproject/about');
+      history.push('/iprojectEx/about');
     }
   }, [route, history]);
 
@@ -35,10 +35,10 @@ export default withRouter(({ location, history }) => {
     <Container>
       <Menu>
         <div>
-          <NavLink to="/iproject/about">About IIntos</NavLink>
-          <NavLink to="/iproject/partners">IIntos Partners</NavLink>
-          <NavLink to="/iproject/events">IIntos Events</NavLink>
-          <NavLink to="/iproject/products">IIntos Products</NavLink>
+          <NavLink to="/iprojectEx/about">About IIntos</NavLink>
+          <NavLink to="/iprojectEx/partners">IIntos Partners</NavLink>
+          <NavLink to="/iprojectEx/events">IIntos Events</NavLink>
+          <NavLink to="/iprojectEx/products">IIntos Products</NavLink>
         </div>
       </Menu>
       <Content>

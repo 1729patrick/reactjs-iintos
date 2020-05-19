@@ -49,6 +49,7 @@ const signupPageStyle = {
   },
   cardHeader: {
     width: 'auto',
+    fontSize: '1.6em',
     textAlign: 'center',
     marginLeft: '20px',
     marginRight: '20px',

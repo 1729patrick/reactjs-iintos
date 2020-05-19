@@ -109,7 +109,7 @@ export default function Header(props) {
         >
           <div className={classes.appResponsive}>
             {leftLinks}
-            {rightLinks}
+            {rightLinks !== undefined ? rightLinks : <HeaderLinks />}
           </div>
         </Drawer>
       </Hidden>

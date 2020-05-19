@@ -38,7 +38,7 @@ export default function HeaderLinks(props) {
         </Link>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Link to="/iproject" className={classes.navLink}>
+        <Link to="/iprojectEx" className={classes.navLink}>
           International Offices
         </Link>
       </ListItem>

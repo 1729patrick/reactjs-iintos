@@ -15,11 +15,11 @@ import Button from '~/components/CustomButtons/Button';
 import HeaderLinks from '~/components/Header/HeaderLinks';
 import Parallax from '~/components/Parallax/Parallax';
 
-import styles from '~/assets/jss/material-kit-react/views/landingPage';
+import styles from '~/assets/jss/material-kit-react/views/iintosProject';
 
 // Sections for this page
-import ProductSection from './Sections/ProductSection';
-import TeamSection from './Sections/TeamSection';
+import AboutIINTOS from './Sections/AboutIINTOS';
+import PartnersSection from './Sections/PartnersSection/PartnersSection';
 import WorkSection from './Sections/WorkSection';
 
 const useStyles = makeStyles(styles);
@@ -33,31 +33,17 @@ export default function LandingPage(props) {
         color="transparent"
         fixed
         changeColorOnScroll={{
-          height: 400,
+          height: 50,
           color: 'white',
         }}
         {...rest}
       />
-      <Parallax
-        filter
-        image={require('~/assets/img/3840x2400_bag-smartphone-notebook.jpg')}
-      >
-        <div className={classes.container}>
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={6}>
-              <h1 className={classes.title}>IINTOS</h1>
-              <h4 className={classes.subtitle}>
-                Implementation of International Offices in Schools
-              </h4>
-              <br />
-            </GridItem>
-          </GridContainer>
-        </div>
-      </Parallax>
+      <Parallax small filter image={require('assets/img/profile-bg.jpg')} />
+
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
-          <ProductSection />
-          <WorkSection />
+          <AboutIINTOS />
+          <PartnersSection />
         </div>
       </div>
       <Footer />
