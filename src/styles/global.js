@@ -83,9 +83,11 @@ body {
   }
 
   .MuiPaper-root {
-    border-radius: 6px !important;
+    /*
+		border-radius: 6px !important;
     overflow: hidden;
-    box-shadow: none !important;
+    box-shadow: none ;
+		*/
   }
 
   .MuiIconButton-root {

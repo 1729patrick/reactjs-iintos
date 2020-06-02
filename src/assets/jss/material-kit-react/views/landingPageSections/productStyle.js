@@ -4,6 +4,8 @@ const productStyle = {
   section: {
     padding: '70px 0',
     textAlign: 'center',
+    paddingRight: '100px',
+    paddingLeft: '100px',
   },
   title: {
     ...title,

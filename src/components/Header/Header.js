@@ -12,6 +12,9 @@ import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import Menu from '@material-ui/icons/Menu';
+
+import { HashLink as Link } from 'react-router-hash-link';
+
 import { NavLink } from 'react-router-dom';
 import Logo from '~/assets/images/logo.png';
 import HeaderLinks from '~/components/Header/HeaderLinks';
@@ -64,11 +67,17 @@ export default function Header(props) {
     [classes.absolute]: absolute,
     [classes.fixed]: fixed,
   });
+  /** <Link to="/#">
+        <img src={Logo} alt="" style={{ width: 150 }} />
+      </Link><a href="/#">
+        {' '}
+        <img src={Logo} alt="" style={{ width: 150 }} />
+      </a> */
   const brandComponent = (
     <Button className={classes.title}>
-      <NavLink to="/">
+      <Link to="/#">
         <img src={Logo} alt="" style={{ width: 150 }} />
-      </NavLink>
+      </Link>
     </Button>
   );
   return (

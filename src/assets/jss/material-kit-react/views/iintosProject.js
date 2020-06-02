@@ -12,11 +12,18 @@ const profilePageStyle = {
       margin: '0 auto',
     },
   },
+  section: {
+    padding: '70px 0',
+    textAlign: 'center',
+    paddingRight: '100px',
+    paddingLeft: '100px',
+  },
   description: {
     margin: '1.071rem auto 0',
     maxWidth: '600px',
     color: '#999',
     textAlign: 'center !important',
+    fontSize: '15px',
   },
   name: {},
   ...imagesStyle,
@@ -38,6 +45,7 @@ const profilePageStyle = {
     marginTop: '30px',
     minHeight: '32px',
     textDecoration: 'none',
+    fontSize: '50px',
   },
   socials: {
     marginTop: '0',

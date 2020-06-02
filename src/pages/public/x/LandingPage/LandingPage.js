@@ -33,7 +33,7 @@ export default function LandingPage(props) {
         color="transparent"
         fixed
         changeColorOnScroll={{
-          height: 400,
+          height: 300,
           color: 'white',
         }}
         {...rest}
@@ -42,7 +42,7 @@ export default function LandingPage(props) {
         filter
         image={require('~/assets/img/3840x2400_bag-smartphone-notebook.jpg')}
       >
-        <div className={classes.container}>
+        <div id="head" className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
               <h1 className={classes.title}>IINTOS</h1>

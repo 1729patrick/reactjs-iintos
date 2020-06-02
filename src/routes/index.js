@@ -17,7 +17,8 @@ import Login from '~/pages/public/x/LoginPage/LoginPage';
 import SignUp from '~/pages/public/SignUp';
 
 import IProject from '~/pages/public/Project';
-import IIntosProject from '~/pages/public/x/IINTOSProject/IINTOSProject';
+import IIntosProject from '~/pages/public/x/IINTOSProject/About&Partner/IINTOSProject';
+import IINTOSEvents from '~/pages/public/x/IINTOSProject/IINTOSEvents/IINTOSEvents';
 
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
 import AwaitVerification from '~/pages/public/AwaitVerification';
@@ -36,6 +37,8 @@ export default () => {
         <Route path="/signup" component={SignUp} exact />
 
         <Route path="/iproject" component={IIntosProject} />
+        <Route path="/ievents" component={IINTOSEvents} />
+
         <Route path="/iprojectEx" component={IProject} />
 
         <Route
