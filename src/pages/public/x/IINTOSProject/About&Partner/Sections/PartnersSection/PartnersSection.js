@@ -61,7 +61,7 @@ export default function SectionPills() {
                   tabContent: <Olomouc />,
                 },
                 {
-                  tabButton: 'Saramago',
+                  tabButton: 'AEJS',
                   tabIcon: List,
                   tabContent: <Saramago />,
                 },

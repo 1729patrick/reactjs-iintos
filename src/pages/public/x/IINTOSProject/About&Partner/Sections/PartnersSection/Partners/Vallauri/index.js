@@ -10,10 +10,12 @@ export default function About() {
 
   return (
     <div>
-      <h1>
-        Istituto di Istruzione Superiore “Giancarlo Vallauri” Fossano (CN)
-      </h1>
-      <img src={vallauriImage} width="200" height="150" alt="IPS" />
+      <a href="www.vallauri.edu">
+        <h1>
+          Istituto di Istruzione Superiore “Giancarlo Vallauri” Fossano (CN)
+        </h1>
+        <img src={vallauriImage} width="400" height="300" alt="IPS" />
+      </a>
       <div className={classes.section}>
         <p>
           The IIS “Vallauri” is a secondary school with more than 2,200 students
@@ -68,7 +70,6 @@ export default function About() {
           fifth-year students who want to start engineering studies, in order to
           strengthen Mathematics and Physics knowledge and skills.
         </p>
-        <a href="www.vallauri.edu">www.vallauri.edu</a>
       </div>
     </div>
   );

@@ -11,8 +11,10 @@ export default function About() {
   const classes = useStyles();
   return (
     <div>
-      <h1>Palacký University Olomouc </h1>
-      <img src={olomoucImage} width="400" height="200" alt="Olomouc" />
+      <a href="https://www.pdf.upol.cz">
+        <h1>Palacký University Olomouc </h1>
+        <img src={olomoucImage} width="400" height="200" alt="Olomouc" />
+      </a>
       <div className={classes.section}>
         <p>
           Palacký University Olomouc is a university with long-standing
@@ -81,7 +83,6 @@ export default function About() {
           member of various organizations, societies, and associations (e.g.
           Czech Pedagogical Society, Czech association of pedagogical research).
         </p>
-        <a href="https://www.pdf.upol.cz">https://www.pdf.upol.cz</a>
       </div>
     </div>
   );

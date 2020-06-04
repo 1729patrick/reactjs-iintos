@@ -12,6 +12,7 @@ import Card from '~/components/Card/Card';
 import CardHeader from '~/components/Card/CardHeader';
 import CardBody from '~/components/Card/CardBody';
 import CardFooter from '~/components/Card/CardFooter';
+import Button from '~/components/CustomButtons/Button';
 
 // import styles from '~/assets/jss/material-kit-react/views/landingPageSections/productStyle';
 
@@ -34,8 +35,16 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProductSection({ title, shortDescription, type }) {
+export default function ProductSection({
+  title,
+  shortDescription,
+  type,
+  link,
+  date,
+}) {
   const classes = useStyles();
+  const x = date.split('T')[0];
+
   return (
     <div>
       <Card>
@@ -44,7 +53,10 @@ export default function ProductSection({ title, shortDescription, type }) {
         </CardHeader>
         <CardBody>{shortDescription}</CardBody>
         <CardFooter>
-          <NavLink to="/iproject">Ler mais</NavLink>
+          Date: {x}
+          <Button color="primary" simple onClick={link}>
+            Ler mais
+          </Button>
         </CardFooter>
       </Card>
     </div>

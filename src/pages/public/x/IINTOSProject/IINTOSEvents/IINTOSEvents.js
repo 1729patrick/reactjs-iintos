@@ -1,16 +1,12 @@
 import React from 'react';
+import { withRouter } from 'react-router';
+
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import Slide from '@material-ui/core/Slide';
 
 // @material-ui/icons
 import { toast } from 'react-toastify';
@@ -41,7 +37,7 @@ const useLocalStyle = makeStyles(theme => ({
 
 const useStyles = makeStyles(styles);
 
-export default function LandingPage(props) {
+const LandingPage = props => {
   const classes = useStyles();
   const localClasses = useLocalStyle();
   const { ...rest } = props;
@@ -81,6 +77,9 @@ export default function LandingPage(props) {
     });
 
     setClassicModal('form');
+  };
+  const handleDetailRow = link => {
+    props.history.push(link);
   };
 
   return (
@@ -128,7 +127,10 @@ export default function LandingPage(props) {
                     title={aux.title}
                     shortDescription={aux.description}
                     type={aux.type}
-                    link="asdsa"
+                    date={aux.date}
+                    link={() => {
+                      handleDetailRow(`/ievents/${aux.id}`);
+                    }}
                   />
                 );
               })}
@@ -146,4 +148,6 @@ export default function LandingPage(props) {
       <Footer />
     </div>
   );
-}
+};
+
+export default withRouter(LandingPage);

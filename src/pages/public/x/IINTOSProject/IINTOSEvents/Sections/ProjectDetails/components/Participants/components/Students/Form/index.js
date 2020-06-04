@@ -2,16 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 
+import Input from '~/components/Input';
 import Button from '~/components/Button';
 import Select from '~/components/Select';
-import Input from '~/components/Input';
-import Checkbox from '~/components/Checkbox';
+
+import { Form } from './styles';
 
 function getModalStyle() {
   const top = 50;
@@ -37,18 +33,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
+  initialValues,
   submitText,
   open,
   setOpen,
-  initialValues = { date: new Date(), type: '' },
   modalTitle,
   onSubmit,
   validationSchema,
+  schools,
 }) => {
   if (!open) {
     return null;
   }
-
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -74,22 +70,12 @@ export default ({
       <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">{modalTitle}</h2>
         <div id="simple-modal-description">
-          <form onSubmit={formik.handleSubmit}>
+          <Form onSubmit={formik.handleSubmit}>
             <Input
-              label="Title"
+              label="Name"
               type="text"
-              name="title"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
-            <Input
-              label="Description"
-              type="text"
-              textarea
-              name="description"
+              placeholder="Type the name of this student"
+              name="studentName"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
@@ -97,41 +83,20 @@ export default ({
               submitted={formik.submitCount}
             />
             <Select
-              label="Event Type"
-              type="type"
-              placeholder="What's the event type?"
-              name="type"
+              label="School"
+              type="text"
+              placeholder="Choose an School"
+              name="schoolId"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
-              options={[
-                { id: 'multiplier', name: 'Multiplier' },
-                { id: 'trainning', name: 'Trainning' },
-                { id: 'meeting', name: 'Meeting' },
-                { id: 'mobility', name: 'Mobility' },
-              ]}
+              options={schools}
             />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                autoOk
-                disableToolbar
-                variant="inline"
-                format="yyyy-MM-dd"
-                margin="normal"
-                id="date-picker-inline"
-                name="date"
-                label="Date"
-                value={formik?.values?.date}
-                onChange={event => formik.setFieldValue('date', event)}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </MuiPickersUtilsProvider>
+
             <Button title={submitText} type="submit" />
-          </form>
+          </Form>
         </div>
       </div>
     </Modal>

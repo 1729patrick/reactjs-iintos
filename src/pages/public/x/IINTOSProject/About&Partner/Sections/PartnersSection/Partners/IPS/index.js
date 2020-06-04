@@ -11,15 +11,17 @@ export default function About() {
   const classes = useStyles();
 
   return (
-    <div>
-      <h1>Polytechnic Institute of Setúbal</h1>
-      <img
-        className={classes.imgRaised}
-        src={ipsImage}
-        width="300"
-        height="200"
-        alt="IPS"
-      />
+    <div className={classes.header}>
+      <a href="https://www.ips.pt/ips_si/web_base.gera_pagina?P_pagina=29906">
+        <h1>Polytechnic Institute of Setúbal</h1>
+        <img
+          className={classes.imgRaised}
+          src={ipsImage}
+          width="600"
+          height="400"
+          alt="IPS"
+        />
+      </a>
       <div className={classes.section}>
         <p>
           Created in 1979, IPS is a public institution of higher education
@@ -72,9 +74,6 @@ export default function About() {
           involved in several European projects, namely under Erasmus+ and
           Horizon 2020 programs.
         </p>
-        <a href="https://www.ips.pt/ips_si/web_base.gera_pagina?P_pagina=29906">
-          ips{' '}
-        </a>
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 import React from 'react';
-import saramagoImage from '~/assets/images/Saramago.jpg';
-
 import { makeStyles } from '@material-ui/core/styles';
+import saramagoImage from '~/assets/images/Saramago.jpg';
 
 import styles from '~/assets/jss/Views/partnersSection';
 
@@ -11,8 +10,10 @@ export default function About() {
 
   return (
     <div>
-      <h1>Group of Schools José Saramago</h1>
-      <img src={saramagoImage} width="600" height="200" alt="Saramago" />
+      <a href="http://aejs.pt/site/">
+        <h1>Group of Schools José Saramago</h1>
+        <img src={saramagoImage} width="600" height="200" alt="Saramago" />
+      </a>
       <div className={classes.section}>
         <p>
           The{' '}

@@ -5,6 +5,9 @@ const partnersSection = {
     padding: '70px 0',
     textAlign: 'justify',
   },
+  header: {
+    justifyContent: 'center',
+  },
   title: {
     ...title,
     marginBottom: '1rem',
@@ -15,8 +18,7 @@ const partnersSection = {
   },
   description: {
     color: '#999',
-		fontSize: '20px',
-		
+    fontSize: '20px',
   },
 };
 

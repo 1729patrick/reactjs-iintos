@@ -65,6 +65,7 @@ export default function ProductSection() {
           </h5>
         </GridItem>
       </GridContainer>
+      <br />
       <div>
         <GridContainer>
           <GridItem>
@@ -73,18 +74,22 @@ export default function ProductSection() {
               in schools for students and teachers, to replicate throughout
               Europe and reach the following objectives:
             </h2>
+            <br />
             <List component="nav" class={classes.description}>
               {firstList.map(aux => (
                 <ListItemText primary={aux} />
               ))}
             </List>
           </GridItem>
+          <br />
           <h2>Our project has developed:</h2>
+          <br />
           <List component="nav" class={classes.description}>
             {secondList.map(aux => (
               <ListItemText primary={aux} />
             ))}
           </List>
+          <br />
           <GridItem />
           <h4 div={classes.description}>
             During the project, we focus on the STEM subjects for two main
@@ -96,7 +101,9 @@ export default function ProductSection() {
             schools.
           </h4>
         </GridContainer>
+        <br />
         <h2 classes={classes.title}>In Conclusion </h2>
+        <br />
         <div className={classes.description}>
           The project greater aim is to facilitate the exchanges between schools
           across Europe and make more common and usual teaching and learning by
@@ -105,6 +112,7 @@ export default function ProductSection() {
           pupil competence development.
         </div>
       </div>
+      <br />
       <img
         className={classes.imgRaised}
         src={GroupFoto}

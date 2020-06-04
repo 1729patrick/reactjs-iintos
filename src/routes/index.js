@@ -37,7 +37,8 @@ export default () => {
         <Route path="/signup" component={SignUp} exact />
 
         <Route path="/iproject" component={IIntosProject} />
-        <Route path="/ievents" component={IINTOSEvents} />
+        <Route path="/ievents" component={IINTOSEvents} exact />
+        <Route path="/ievents/:id" compoment={Home} />
 
         <Route path="/iprojectEx" component={IProject} />
 

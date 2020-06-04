@@ -2,16 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 
 import Button from '~/components/Button';
 import Select from '~/components/Select';
-import Input from '~/components/Input';
 import Checkbox from '~/components/Checkbox';
+import { Form } from './styles';
 
 function getModalStyle() {
   const top = 50;
@@ -37,13 +32,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
+  initialValues,
   submitText,
   open,
   setOpen,
-  initialValues = { date: new Date(), type: '' },
   modalTitle,
   onSubmit,
   validationSchema,
+  users,
+  isProject,
 }) => {
   if (!open) {
     return null;
@@ -74,64 +71,35 @@ export default ({
       <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">{modalTitle}</h2>
         <div id="simple-modal-description">
-          <form onSubmit={formik.handleSubmit}>
-            <Input
-              label="Title"
-              type="text"
-              name="title"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
-            <Input
-              label="Description"
-              type="text"
-              textarea
-              name="description"
-              onChange={formik.handleChange}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-              submitted={formik.submitCount}
-            />
+          <Form onSubmit={formik.handleSubmit}>
             <Select
-              label="Event Type"
-              type="type"
-              placeholder="What's the event type?"
-              name="type"
+              label={isProject ? 'Teacher' : 'Partner'}
+              type="text"
+              placeholder={
+                isProject
+                  ? 'Type the teacher of this project'
+                  : 'Type the partner of this output'
+              }
+              name="userId"
               onChange={formik.handleChange}
               values={formik.values}
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
-              options={[
-                { id: 'multiplier', name: 'Multiplier' },
-                { id: 'trainning', name: 'Trainning' },
-                { id: 'meeting', name: 'Meeting' },
-                { id: 'mobility', name: 'Mobility' },
-              ]}
+              options={users}
             />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                autoOk
-                disableToolbar
-                variant="inline"
-                format="yyyy-MM-dd"
-                margin="normal"
-                id="date-picker-inline"
-                name="date"
-                label="Date"
-                value={formik?.values?.date}
-                onChange={event => formik.setFieldValue('date', event)}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </MuiPickersUtilsProvider>
+            <Checkbox
+              label="Can change information for this project?"
+              placeholder="Can change information for this project?"
+              name="coordinator"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
+            />
             <Button title={submitText} type="submit" />
-          </form>
+          </Form>
         </div>
       </div>
     </Modal>
