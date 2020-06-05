@@ -16,6 +16,8 @@ import Login from '~/pages/public/Login';
 import SignUp from '~/pages/public/SignUp';
 
 import IProject from '~/pages/public/Project';
+import IProjects from '~/pages/public/Projects';
+import IOffices from '~/pages/public/Offices';
 
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
 import AwaitVerification from '~/pages/public/AwaitVerification';
@@ -34,6 +36,8 @@ export default () => {
         <Route path="/signup" component={SignUp} exact />
 
         <Route path="/iproject" component={IProject} />
+        <Route path="/iprojects" component={IProjects} />
+        <Route path="/ioffices" component={IOffices} />
         <Route
           path="/signup/school_information"
           component={SchoolInformation}
