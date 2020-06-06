@@ -6,6 +6,7 @@ import About from './Components/About';
 import Partners from './Components/Partners';
 import Products from './Components/Products';
 import Stem from './Components/Stem';
+import Events from './Components/Events';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location.pathname.replace('/iproject', ''), [
@@ -27,6 +28,10 @@ export default withRouter(({ location, history }) => {
     }
     if (route === '/products') {
       return <Products />;
+    }
+
+    if (route === '/events') {
+      return <Events />;
     }
 
     if (route === '/stem') {

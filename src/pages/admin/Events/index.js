@@ -181,7 +181,9 @@ export default function Events() {
       initialValues: {
         files: [''],
         date: new Date().toISOString(),
-        sessions: [{ files: [''], date: new Date().toISOString() }],
+        sessions: [
+          { files: [''], date: new Date().toISOString(), links: [''] },
+        ],
       },
       validationSchema,
       onSubmit: handleCreate,

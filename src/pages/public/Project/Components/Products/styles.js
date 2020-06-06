@@ -25,5 +25,6 @@ export const Detail = styled.div`
     border: none;
     height: 500px;
     line-height: 1.8;
+    background: #fff;
   }
 `;

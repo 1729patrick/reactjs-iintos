@@ -11,9 +11,8 @@ import { Container, Detail } from './styles';
 import api from '~/services/api';
 import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 
-function Partners() {
+function Products() {
   const classes = useStyles();
-  const [open, setOpen] = useState(null);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -42,7 +41,7 @@ function Partners() {
 
           <ExpansionPanelDetails>
             <Detail>
-              <TextareaAutosize defaultValue={description} />
+              <TextareaAutosize disabled defaultValue={description} />
             </Detail>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -51,4 +50,4 @@ function Partners() {
   );
 }
 
-export default Partners;
+export default Products;

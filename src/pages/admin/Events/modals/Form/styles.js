@@ -12,16 +12,16 @@ export const Form = styled.form`
 `;
 
 export const Sessions = styled.div`
+  h3 {
+    margin-bottom: 10px;
+  }
+
   > div {
-    border: 1px dashed #444;
+    border: 1px dashed #666;
     border-radius: 4px;
     padding: 10px;
     display: flex;
     align-items: center;
-
-    h3 {
-      margin-bottom: 15px;
-    }
 
     & + div {
       margin-top: 10px;

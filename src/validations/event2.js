@@ -10,6 +10,7 @@ export default Yup.object({
     Yup.object().shape({
       id: Yup.string(),
       title: Yup.string().required('Section title is required'),
+      url: Yup.string(),
       description: Yup.string().required('Section description is required'),
       date: Yup.date().required('Section date is required'),
     })

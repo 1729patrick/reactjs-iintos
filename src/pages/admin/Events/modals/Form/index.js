@@ -13,7 +13,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-
+import URLs from '../../../../../components/URLs';
 import Files from '~/components/Files';
 
 function getModalStyle() {
@@ -208,6 +208,11 @@ export default ({
                       formik={formik}
                       path={`sessions[${index}].files`}
                       values={formik.values.sessions[index]?.files}
+                    />
+                    <URLs
+                      formik={formik}
+                      values={formik.values.sessions[index]?.links}
+                      name={`sessions[${index}]`}
                     />
                   </div>
                   <DeleteIcon
