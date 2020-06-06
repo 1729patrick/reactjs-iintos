@@ -1,13 +1,30 @@
 import React, { useState } from 'react';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import Collapse from '@material-ui/core/Collapse';
+
+import { makeStyles } from '@material-ui/core/styles';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import ipsImage from '~/assets/images/IPS.jpg';
 import olomoucImage from '~/assets/images/UP_logo_horizont_en.png';
 import saramagoImage from '~/assets/images/Saramago.jpg';
 import vallauriImage from '~/assets/images/vallauriLogo.jpg';
 
-import { Container } from './styles';
+import { Container, Detail } from './styles';
+import { Button } from '@material-ui/core';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+  },
+  heading: {
+    color: '#000',
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+}));
 
 const partners = [
   {
@@ -58,7 +75,9 @@ const partners = [
   },
 ];
 function Partners() {
-  const [open, setOpen] = useState(null);
+  const classes = useStyles();
+
+  const openLink = link => {};
 
   return (
     <Container>
@@ -66,26 +85,38 @@ function Partners() {
         The partners of this project are 2 Higher Education institutions and 2
         Secondary Schools, from 3 European countries:
       </h1>
-      {partners.map(({ title, description, link, logo }, index) => (
-        <div key={title} onClick={() => setOpen(open === index ? null : index)}>
-          <span>
-            <p>{title}</p>
-            {open === index ? <ExpandLess /> : <ExpandMore />}
-          </span>
+      <div className={classes.root}>
+        {partners.map(partner => (
+          <ExpansionPanel defaultExpanded>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography className={classes.heading}>
+                {partner.title}
+              </Typography>
+            </ExpansionPanelSummary>
 
-          <Collapse in={open === index} timeout="auto" unmountOnExit>
-            {description}
-            <img src={logo} width="300" height="200" alt="IPS" />
+            <ExpansionPanelDetails>
+              <Detail>
+                <img src={partner.logo} style={{ width: 250 }} />
+                <span>
+                  <Typography>{partner.description}</Typography>
 
-            <p>
-              Site:{' '}
-              <a href={link} target="_blank">
-                {link}
-              </a>
-            </p>
-          </Collapse>
-        </div>
-      ))}
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => openLink(partner.link)}
+                  >
+                    Learn More
+                  </Button>
+                </span>
+              </Detail>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        ))}
+      </div>
     </Container>
   );
 }

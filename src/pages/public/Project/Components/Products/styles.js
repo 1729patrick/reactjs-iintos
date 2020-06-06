@@ -4,32 +4,26 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-
-  div {
-    padding: 0 12px;
-    background-color: #fff;
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 16px;
-
-    span {
-      cursor: pointer;
-      align-items: center;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-
-    a {
-      margin-bottom: 10px;
-    }
-  }
-
-  .MuiCollapse-wrapper {
-    margin-bottom: 0;
-  }
+  padding-bottom: 20px;
 
   h1 {
     margin-bottom: 20px;
+  }
+`;
+
+export const Detail = styled.div`
+  display: flex;
+  flex: 1;
+
+  img {
+    margin-right: 15px;
+  }
+
+  textarea {
+    width: 100%;
+    flex: 1;
+    border: none;
+    height: 500px;
+    line-height: 1.8;
   }
 `;

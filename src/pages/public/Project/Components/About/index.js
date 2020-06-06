@@ -1,26 +1,24 @@
 import React from 'react';
-import erasmusCo from '~/assets/images/erasmusCoFunded.jpg';
-import erasmusFlag from '~/assets/images/erasmusFlag.png';
 import { Container } from './style';
 
 export default function About() {
   return (
     <Container>
       <div>
-        <h1>About IINTOS</h1>
+        <h1>What is IINTOS?</h1>
         <p>
-          The aim of our project is to develop international teaching and
+          The aim of this project is to develop international teaching and
           learning processes that lead our main target groups, teachers,
           students and schools stakeholders, able to make the schools more
           international and at the same time raise the competence levels in STEM
           education. For this purpose, an international office in school is the
           way to encourage, facilitate, help and promote the
           internationalization of the school at the national, European and
-          international level.
+          international level
         </p>
-        Thus, we are developing a framework of international offices in schools
-        for students and teachers, to generalize throughout Europe, to realize
-        the following objectives:
+        Thus, the project developed a framework of international offices in
+        schools for students and teachers, to replicate throughout Europe and
+        reach the following objectives:
         <ul>
           <li>The global education objectives in schools;</li>
           <li>Education for global citizen in formal education;</li>
@@ -47,45 +45,27 @@ export default function About() {
             competencies.
           </li>
         </ul>
-        <h4>Our project will develop:</h4>
-        <ul>
-          <li>
+        <h4>Our project has developed:</h4>
+        <span>
+          <p>
             Comparison of curricula and the way to develop the European and
-            international dimension in the curriculum;
-          </li>
-          <li>
-            The definition and the development of the coordinator activities in
-            every international office in school;
-          </li>
-          <li>
-            The production of interactive Internet web-based platform for
-            coordinators, teachers and all the schools stakeholders;
-          </li>
-          <li>
-            The organization of exchanges activities in two pilot schools.
-          </li>
-        </ul>
-        <p>
-          During the project, we will focus on the STEM subjects for two main
-          reasons: they are subjects fairly cultural independent and therefore
-          transversal to European curricula and there is a need to increase
-          pupils competences on this key subjects.
-        </p>
-        <p>
-          Our web-based open source platform will store resources, existing
-          projects and all relevant information related to the
-          internationalization of the schools. Within the platform a Task
-          Management System (TMS) will be available for the coordinators daily
-          use. The aim is to help the coordinators to manage their offices in
-          their own schools, organizing, monitoring, interacting and
-          establishing new partnerships with the schools actors and the others
-          coordinators in their country or across Europe.
-        </p>
-        <p>
-          This TMS manages: coordinators contacts, schools, exchanges with
-          others coordinators, tasks such as phone calls, e-mails, notes and
-          meetings, campaigns, e-mailings, newsletters, workflows, documents.
-        </p>
+            international dimension in the curriculum; The definition and the
+            development of the coordinator activities in every international
+            office in school; The production of interactive Internet web-based
+            platform for coordinators, teachers and all the schools
+            stakeholders; The organization of exchanges activities in two pilot
+            schools.
+          </p>
+          <p>
+            During the project, we focus on the STEM subjects for two main
+            reasons: they are subjects fairly cultural independent and therefore
+            transversal to European curricula and there is a need to increase
+            pupils competences on this key subjects. IINTOS web-based open
+            source platform has stored resources, existing projects and all
+            relevant information related to the internationalization of the
+            schools.
+          </p>
+        </span>
         <h4>In Conclusion</h4>
         <p>
           The project greater aim is to facilitate the exchanges between schools
@@ -94,14 +74,6 @@ export default function About() {
           of practices in the STEM subjects increasing awareness and promoting
           pupil competence development.
         </p>
-        <p>
-          With this project, we want to help all the European countries to
-          develop the internationalization of their schools, to establish
-          sustainable partnerships with others schools and to build and manage
-          an international office in their schools without spending money.
-        </p>
-        <img src={erasmusCo} width="400" height="121" alt="Erasmus Co Funded" />
-        <img src={erasmusFlag} width="400" height="121" alt="Erasmus Flag" />
       </div>
     </Container>
   );

@@ -31,6 +31,7 @@ export default withRouter(({ location, history }) => {
     return () => null;
   };
 
+  // return <Partners />;
   return (
     <Container>
       <Menu>
