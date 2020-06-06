@@ -75,6 +75,7 @@ export default ({
 
   const handleRemove = (field, index) => {
     const newState = formik.values[field].filter((_, i) => i !== index);
+
     formik.setFieldValue(field, newState);
   };
 
@@ -103,6 +104,7 @@ export default ({
 
             <Input
               label="Description"
+              textarea
               type="text"
               placeholder="Description of the event"
               name="description"
@@ -147,7 +149,7 @@ export default ({
 
             <Sections>
               <h3>Sections</h3>
-              {formik.values.sections.map((_, index) => (
+              {formik.values.sections.map((value, index) => (
                 <div key={String(index)}>
                   <div>
                     <Input
@@ -155,21 +157,23 @@ export default ({
                       type="text"
                       placeholder="Type the tile of this section"
                       name={`sections[${index}].title`}
-                      error={formik.errors?.sections?.[index].title}
-                      value={formik.values.sections?.[index].title}
+                      error={formik.errors?.sections?.[index]?.title}
+                      value={formik.values.sections?.[index]?.title}
                       onChange={formik.handleChange}
                       submitted={formik.submitCount}
                     />
 
                     <Input
                       label="Description"
+                      textarea
                       type="text"
                       placeholder="Description of the section"
                       name={`sections[${index}].description`}
                       onChange={formik.handleChange}
-                      error={formik.errors?.sections?.[index].description}
-                      value={formik.values.sections?.[index].description}
+                      error={formik.errors?.sections?.[index]?.description}
+                      value={formik.values.sections?.[index]?.description}
                       submitted={formik.submitCount}
+                      style={{ marginTop: 10 }}
                     />
 
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -182,7 +186,7 @@ export default ({
                         id="date-picker-inline"
                         name={`sections[${index}].date`}
                         label="Date"
-                        value={formik.values.sections?.[index].date}
+                        value={formik.values.sections?.[index]?.date}
                         onChange={event =>
                           formik.setFieldValue(`sections[${index}].date`, event)
                         }

@@ -18,9 +18,10 @@ export default function Input({
   error,
   value,
   border,
+  style,
 }) {
   return (
-    <Container background={background} border={border}>
+    <Container background={background} border={border} style={style}>
       <span>
         <label>{label}</label>
         {submitted || error || (touched[name] && errors[name]) ? (
@@ -43,7 +44,7 @@ export default function Input({
           type={type}
           placeholder={placeholder}
           name={name}
-          value={values && values[name]}
+          value={value || (values && values[name])}
           onChange={onChange}
           readOnly={readOnly}
         />

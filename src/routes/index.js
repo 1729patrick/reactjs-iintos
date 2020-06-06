@@ -18,6 +18,7 @@ import SignUp from '~/pages/public/SignUp';
 import IProject from '~/pages/public/Project';
 import IProjects from '~/pages/public/Projects';
 import IOffices from '~/pages/public/Offices';
+import Newsletter from '~/pages/public/x/Newsletter';
 
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
 import AwaitVerification from '~/pages/public/AwaitVerification';
@@ -42,6 +43,7 @@ export default () => {
           path="/signup/school_information"
           component={SchoolInformation}
         />
+        <Route path="/news" component={Newsletter} />
 
         <Route path="/await_verification" component={AwaitVerification} />
 
