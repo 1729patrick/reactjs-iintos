@@ -23,10 +23,14 @@ export default function Files({ formik, path, values }) {
   };
 
   const handleRemove = (field, index) => {
-    const newState = formik.values[field].filter((_, i) => i !== index);
+    const newState = (values || formik.values[field]).filter(
+      (_, i) => i !== index
+    );
+
     formik.setFieldValue(field, newState);
   };
 
+  console.log('*', formik.values?.files);
   return (
     <div>
       <label>Files</label>
@@ -50,7 +54,7 @@ export default function Files({ formik, path, values }) {
           {(values || formik.values?.files)?.length !== index + 1 && (
             <DeleteIcon
               style={{ color: '#cb1010', cursor: 'pointer' }}
-              onClick={() => handleRemove('files', index)}
+              onClick={() => handleRemove(name, index)}
             />
           )}
         </div>

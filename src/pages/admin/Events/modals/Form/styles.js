@@ -11,13 +11,17 @@ export const Form = styled.form`
   }
 `;
 
-export const Sections = styled.div`
+export const Sessions = styled.div`
   > div {
     border: 1px dashed #444;
     border-radius: 4px;
     padding: 10px;
     display: flex;
     align-items: center;
+
+    h3 {
+      margin-bottom: 15px;
+    }
 
     & + div {
       margin-top: 10px;

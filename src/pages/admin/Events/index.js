@@ -110,9 +110,19 @@ export default function Events() {
   };
 
   // api call to post
-  const handleUpdate = async (id, values) => {
+  const handleUpdate = async (id, { sessions, ...event }) => {
     try {
-      await api.put(`events/${id}`, values);
+      event = {
+        ...event,
+        files: event.files.filter(v => v).map(({ id }) => id),
+      };
+
+      sessions = sessions.map(session => ({
+        ...session,
+        files: session.files.filter(v => v).map(({ id }) => id),
+      }));
+
+      await api.put(`events/${id}`, { event, sessions });
       setModalOpen(false);
       toast.success('Event updated with success!');
       fetchEvents();
@@ -121,12 +131,19 @@ export default function Events() {
     }
   };
 
-  const handleCreate = async event => {
+  const handleCreate = async ({ sessions, ...event }) => {
     try {
-      await api.post('events', {
-        event,
-        school: { schoolId: event.schoolId },
-      });
+      event = {
+        ...event,
+        files: event.files.filter(v => v).map(({ id }) => id),
+      };
+
+      sessions = sessions.map(session => ({
+        ...session,
+        files: session.files.filter(v => v).map(({ id }) => id),
+      }));
+
+      await api.post('events', { sessions, event });
       setModalOpen(false);
       toast.success('Event created with success!');
       fetchEvents();
@@ -163,7 +180,8 @@ export default function Events() {
     setModalParams({
       initialValues: {
         files: [''],
-        sections: [{ files: [''] }],
+        date: new Date().toISOString(),
+        sessions: [{ files: [''], date: new Date().toISOString() }],
       },
       validationSchema,
       onSubmit: handleCreate,
@@ -176,7 +194,14 @@ export default function Events() {
 
   const handleDetailRow = row => {
     setModalParams({
-      initialValues: row,
+      initialValues: {
+        ...row,
+        files: [...row.files, ''],
+        sessions: row.sessions.map(session => ({
+          ...session,
+          files: [...session.files, ''],
+        })),
+      },
       validationSchema,
       onSubmit: values => handleUpdate(row.id, values),
       submitText: 'Save',
@@ -205,6 +230,10 @@ export default function Events() {
           onClick={() => handleDetailRow(row)}
         />
       );
+    }
+
+    if (column.id === 'type') {
+      return `${row.type?.charAt(0)?.toUpperCase()}${row.type?.slice(1)}`;
     }
 
     if (column.id === 'date') {

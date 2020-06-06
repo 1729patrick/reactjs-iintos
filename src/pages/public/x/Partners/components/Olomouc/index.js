@@ -52,7 +52,7 @@ export default function About() {
       </p>
       <p>
         The Institute of Education and Social Studies was established on 2009.
-        The Institute has three sections: education, teaching licensure, and
+        The Institute has three sessions: education, teaching licensure, and
         social studies. The Institute offers courses in theory of education and
         educational disciplines to prospective teachers at primary and secondary
         schools. The main research areas are Future Teachers training, 21st

@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import Select from '~/components/Select';
-import { Form, Sections } from './styles';
+import { Form, Sessions } from './styles';
 import DateFnsUtils from '@date-io/date-fns';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {
@@ -70,7 +70,10 @@ export default ({
   const handleAdd = field => {
     const values = formik.values[field];
 
-    formik.setFieldValue(field, [...values, { files: [''] }]);
+    formik.setFieldValue(field, [
+      ...values,
+      { files: [''], date: new Date().toISOString() },
+    ]);
   };
 
   const handleRemove = (field, index) => {
@@ -124,7 +127,12 @@ export default ({
               errors={formik.errors}
               touched={formik.touched}
               submitted={formik.submitCount}
-              options={[]}
+              options={[
+                { id: 'multiplier', name: 'Multiplier' },
+                { id: 'trainning', name: 'Trainning' },
+                { id: 'meeting', name: 'Meeting' },
+                { id: 'mobility', name: 'Mobility' },
+              ]}
             />
 
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -147,18 +155,18 @@ export default ({
 
             <Files formik={formik} />
 
-            <Sections>
-              <h3>Sections</h3>
-              {formik.values.sections.map((value, index) => (
+            <Sessions>
+              <h3>Sessions</h3>
+              {formik.values.sessions.map((value, index) => (
                 <div key={String(index)}>
                   <div>
                     <Input
                       label="Title"
                       type="text"
                       placeholder="Type the tile of this section"
-                      name={`sections[${index}].title`}
-                      error={formik.errors?.sections?.[index]?.title}
-                      value={formik.values.sections?.[index]?.title}
+                      name={`sessions[${index}].title`}
+                      error={formik.errors?.sessions?.[index]?.title}
+                      value={formik.values.sessions?.[index]?.title}
                       onChange={formik.handleChange}
                       submitted={formik.submitCount}
                     />
@@ -168,10 +176,10 @@ export default ({
                       textarea
                       type="text"
                       placeholder="Description of the section"
-                      name={`sections[${index}].description`}
+                      name={`sessions[${index}].description`}
                       onChange={formik.handleChange}
-                      error={formik.errors?.sections?.[index]?.description}
-                      value={formik.values.sections?.[index]?.description}
+                      error={formik.errors?.sessions?.[index]?.description}
+                      value={formik.values.sessions?.[index]?.description}
                       submitted={formik.submitCount}
                       style={{ marginTop: 10 }}
                     />
@@ -184,11 +192,11 @@ export default ({
                         format="yyyy-MM-dd"
                         margin="normal"
                         id="date-picker-inline"
-                        name={`sections[${index}].date`}
+                        name={`sessions[${index}].date`}
                         label="Date"
-                        value={formik.values.sections?.[index]?.date}
+                        value={formik.values.sessions?.[index]?.date}
                         onChange={event =>
-                          formik.setFieldValue(`sections[${index}].date`, event)
+                          formik.setFieldValue(`sessions[${index}].date`, event)
                         }
                         KeyboardButtonProps={{
                           'aria-label': 'change date',
@@ -198,20 +206,20 @@ export default ({
 
                     <Files
                       formik={formik}
-                      path={`sections[${index}].files`}
-                      values={formik.values.sections[index]?.files}
+                      path={`sessions[${index}].files`}
+                      values={formik.values.sessions[index]?.files}
                     />
                   </div>
                   <DeleteIcon
                     style={{ color: '#cb1010', cursor: 'pointer' }}
-                    onClick={() => handleRemove('sections', index)}
+                    onClick={() => handleRemove('sessions', index)}
                   />
                 </div>
               ))}
-              <button type="button" onClick={() => handleAdd('sections')}>
+              <button type="button" onClick={() => handleAdd('sessions')}>
                 + Add Section
               </button>
-            </Sections>
+            </Sessions>
 
             <Button title={submitText} type="submit" />
           </Form>

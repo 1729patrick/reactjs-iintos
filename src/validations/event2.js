@@ -5,8 +5,8 @@ export default Yup.object({
   title: Yup.string().required('Event title is required'),
   description: Yup.string().required('Event description is required'),
   date: Yup.date().required('Event date is required'),
-  type: Yup.date().required('Event type is required'),
-  sections: Yup.array().of(
+  type: Yup.string().required('Event type is required'),
+  sessions: Yup.array().of(
     Yup.object().shape({
       id: Yup.string(),
       title: Yup.string().required('Section title is required'),
