@@ -7,10 +7,10 @@ import Users from '~/pages/admin/Users';
 import Projects from '~/pages/admin/Projects';
 import School from '~/pages/admin/School';
 import Outputs from '~/pages/admin/Outputs';
-import OutputResult from '~/pages/public/OutputResult';
-
 import Log from '~/pages/admin/Log';
+import Events from '~/pages/admin/Events';
 
+import OutputResult from '~/pages/public/OutputResult';
 import Home from '~/pages/public/Home';
 import Login from '~/pages/public/Login';
 import SignUp from '~/pages/public/SignUp';
@@ -48,6 +48,8 @@ export default () => {
         <Route path="/dashboard" component={Dashboard} isPrivate />
         <Route path="/calendar" component={Calendar} isPrivate />
         <Route path="/profile" component={Profile} isPrivate />
+        <Route path="/profile" component={Profile} isPrivate />
+        <Route path="/events" component={Events} isPrivate />
         <Route
           path="/outputs/details/:id"
           component={ProjectDetails}

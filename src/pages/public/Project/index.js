@@ -5,6 +5,7 @@ import { Container, Menu, Content } from './style';
 import About from './Components/About';
 import Partners from './Components/Partners';
 import Products from './Components/Products';
+import Stem from './Components/Stem';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location.pathname.replace('/iproject', ''), [
@@ -28,6 +29,10 @@ export default withRouter(({ location, history }) => {
       return <Products />;
     }
 
+    if (route === '/stem') {
+      return <Stem />;
+    }
+
     return () => null;
   };
 
@@ -40,6 +45,7 @@ export default withRouter(({ location, history }) => {
           <NavLink to="/iproject/partners">IIntos Partners</NavLink>
           <NavLink to="/iproject/events">IIntos Events</NavLink>
           <NavLink to="/iproject/products">IIntos Products</NavLink>
+          <NavLink to="/iproject/stem">STEM</NavLink>
         </div>
       </Menu>
       <Content>

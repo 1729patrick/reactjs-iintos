@@ -13,9 +13,10 @@ export default function Select({
   options,
   submitted,
   readOnly,
+  style,
 }) {
   return (
-    <Container>
+    <Container style={style}>
       <span>
         <label>{label}</label>
         {submitted || (touched[name] && errors[name]) ? (

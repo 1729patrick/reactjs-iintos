@@ -21,9 +21,9 @@ const Footer = ({ links }) => {
 
         {links && (
           <div>
-            <NavLink to="/about">About</NavLink>
-            <NavLink to="/partners">Partners</NavLink>
-            <NavLink to="/stem">STEM</NavLink>
+            <NavLink to="/iproject">IINTOS Project</NavLink>
+            <NavLink to="/iprojects">International Projects</NavLink>
+            <NavLink to="/ioffices">International Offices</NavLink>
             <NavLink to="/knowledge">Knowledge base</NavLink>
 
             {/* <NavLink to="/news">News</NavLink> */}

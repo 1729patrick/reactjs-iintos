@@ -19,7 +19,7 @@ export default function MyProject({
   isProfessor,
   handleCreateProject,
   columns,
-  projects,
+  projects = [],
   getRowContent,
   useStyles,
   error,

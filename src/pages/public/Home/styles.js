@@ -49,7 +49,7 @@ export const Info = styled.div`
   width: 80%;
   margin: 0 auto;
   margin-top: -100px;
-  z-index: 100;
+  z-index: 1;
   position: relative;
   align-items: center;
   display: flex;

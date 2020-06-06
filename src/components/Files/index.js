@@ -4,7 +4,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FileInput from '~/components/FileInput';
 import api from '~/services/api';
 
-export default function Files({ formik }) {
+export default function Files({ formik, path, values }) {
+  const name = path ? path : 'files';
+
   const onFileUpload = async (index, { target }) => {
     const { files } = target;
 
@@ -14,10 +16,10 @@ export default function Files({ formik }) {
 
       const response = await api.post('/files', formData);
 
-      formik.setFieldValue(`files[${index + i}]`, response.data);
+      formik.setFieldValue(`${name}[${index + i}]`, response.data);
     });
 
-    formik.setFieldValue(`files[${index + [...files].length}]`, '');
+    formik.setFieldValue(`${name}[${index + [...files].length}]`, '');
   };
 
   const handleRemove = (field, index) => {
@@ -26,20 +28,26 @@ export default function Files({ formik }) {
   };
 
   return (
-    <span>
+    <div>
       <label>Files</label>
-      {formik.values?.files?.map((file, index) => (
-        <div key={String(index)}>
+      {(values || formik.values?.files)?.map((file, index) => (
+        <div
+          key={String(index)}
+          style={{ display: 'flex', alignItems: 'center', marginBottom: 10 }}
+        >
           <FileInput
             name="file"
-            placeholder={formik.values?.files[index]?.name || 'Attachment file'}
+            placeholder={
+              (values || formik.values?.files)[index]?.name || 'Attachment file'
+            }
             onChange={e => onFileUpload(index, e)}
-            values={{ file: formik.values?.files[index] }}
+            values={{ file: (values || formik.values?.files)[index] }}
             errors={formik.errors}
             touched={formik.touched}
             multiple
+            style={{ flex: 1 }}
           />
-          {formik.values?.files?.length !== index + 1 && (
+          {(values || formik.values?.files)?.length !== index + 1 && (
             <DeleteIcon
               style={{ color: '#cb1010', cursor: 'pointer' }}
               onClick={() => handleRemove('files', index)}
@@ -47,6 +55,6 @@ export default function Files({ formik }) {
           )}
         </div>
       ))}
-    </span>
+    </div>
   );
 }

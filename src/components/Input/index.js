@@ -15,14 +15,16 @@ export default function Input({
   textarea,
   submitted,
   background,
+  error,
+  value,
   border,
 }) {
   return (
     <Container background={background} border={border}>
       <span>
         <label>{label}</label>
-        {submitted || (touched[name] && errors[name]) ? (
-          <p>{errors[name]}</p>
+        {submitted || error || (touched[name] && errors[name]) ? (
+          <p>{error || errors[name]}</p>
         ) : null}
       </span>
 
@@ -31,7 +33,7 @@ export default function Input({
           type={type}
           placeholder={placeholder}
           name={name}
-          value={values && values[name]}
+          value={value || (values && values[name])}
           onChange={onChange}
           readOnly={readOnly}
           rows="8"
