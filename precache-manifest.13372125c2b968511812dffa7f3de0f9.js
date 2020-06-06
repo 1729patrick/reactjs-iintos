@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "22d07503d1a4bb13dd041e8489f54fa2",
+    "revision": "87c04e2ba55d45d73d0ca7e40c21e294",
     "url": "/reactjs-iintos/index.html"
   },
   {
-    "revision": "248a2364a4dd80a16f72",
-    "url": "/reactjs-iintos/static/css/2.a7bfd12a.chunk.css"
+    "revision": "6e105d407a935fd70c85",
+    "url": "/reactjs-iintos/static/css/2.b2a652f3.chunk.css"
   },
   {
-    "revision": "d6f3c59c87238716900c",
+    "revision": "d97c01fbd354b5670d33",
     "url": "/reactjs-iintos/static/css/main.06a24e61.chunk.css"
   },
   {
-    "revision": "248a2364a4dd80a16f72",
-    "url": "/reactjs-iintos/static/js/2.b1d7a37d.chunk.js"
+    "revision": "6e105d407a935fd70c85",
+    "url": "/reactjs-iintos/static/js/2.1f9bdb7a.chunk.js"
   },
   {
     "revision": "e0e8b7adf8250499389ccf909f54a9a3",
-    "url": "/reactjs-iintos/static/js/2.b1d7a37d.chunk.js.LICENSE.txt"
+    "url": "/reactjs-iintos/static/js/2.1f9bdb7a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d6f3c59c87238716900c",
-    "url": "/reactjs-iintos/static/js/main.93970c3b.chunk.js"
+    "revision": "d97c01fbd354b5670d33",
+    "url": "/reactjs-iintos/static/js/main.44b374bd.chunk.js"
   },
   {
     "revision": "feeb49cf711b494dfb82",
@@ -56,19 +56,27 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/reactjs-iintos/static/media/arrow_right.469961bd.svg"
   },
   {
-    "revision": "081a89ebd3ade330dd1d623ee9520c4d",
-    "url": "/reactjs-iintos/static/media/erasmusCoFunded.081a89eb.jpg"
-  },
-  {
-    "revision": "3cbe5ed072b0edd5b6b8117185ac5bdf",
-    "url": "/reactjs-iintos/static/media/erasmusFlag.3cbe5ed0.png"
-  },
-  {
     "revision": "3c4679d6d5f29fbab544edade24a3864",
     "url": "/reactjs-iintos/static/media/logo.3c4679d6.png"
   },
   {
     "revision": "33cfafeb86614f8f89a32bb01089a75c",
     "url": "/reactjs-iintos/static/media/noData.33cfafeb.png"
+  },
+  {
+    "revision": "b7c9e1e479de3b53f1e4e30ebac2403a",
+    "url": "/reactjs-iintos/static/media/slick.b7c9e1e4.woff"
+  },
+  {
+    "revision": "ced611daf7709cc778da928fec876475",
+    "url": "/reactjs-iintos/static/media/slick.ced611da.eot"
+  },
+  {
+    "revision": "d41f55a78e6f49a5512878df1737e58a",
+    "url": "/reactjs-iintos/static/media/slick.d41f55a7.ttf"
+  },
+  {
+    "revision": "f97e3bbf73254b0112091d0192f17aec",
+    "url": "/reactjs-iintos/static/media/slick.f97e3bbf.svg"
   }
 ]);
