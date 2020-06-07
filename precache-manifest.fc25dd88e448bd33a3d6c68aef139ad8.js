@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cbc069f8eb8c21e2ff0868c2203c4175",
+    "revision": "349dad5b5dd739616646d5a11899ea40",
     "url": "/reactjs-iintos/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/reactjs-iintos/static/css/2.b2a652f3.chunk.css"
   },
   {
-    "revision": "d58d87fbd7dfcbd56d65",
+    "revision": "a201cfe84f79076ed970",
     "url": "/reactjs-iintos/static/css/main.06a24e61.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/reactjs-iintos/static/js/2.6cc1ea0d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d58d87fbd7dfcbd56d65",
-    "url": "/reactjs-iintos/static/js/main.324ce2d9.chunk.js"
+    "revision": "a201cfe84f79076ed970",
+    "url": "/reactjs-iintos/static/js/main.72b6e77f.chunk.js"
   },
   {
     "revision": "feeb49cf711b494dfb82",
