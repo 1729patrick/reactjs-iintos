@@ -44,8 +44,11 @@ function Events() {
 
           <ExpansionPanelDetails>
             <Detail>
-              <TextareaAutosize disabled defaultValue={description} />
+              <span>
+                {files[0]?.url && <img src={files[0]?.url}></img>}
 
+                <TextareaAutosize disabled defaultValue={description} />
+              </span>
               <div>
                 {sessions?.map((session, index) => (
                   <Session>
@@ -61,34 +64,31 @@ function Events() {
                         {format(new Date(session.date), 'yyyy-MM-dd')}
                       </span>
                     </h1>
+
                     <TextareaAutosize
                       disabled
                       defaultValue={session.description}
                     />
 
-                    {session.files?.filter(({ link }) => !link)?.length ? (
+                    {session.files?.length ? (
                       <div>
                         Docs:{' '}
-                        {session.files
-                          ?.filter(({ link }) => !link)
-                          ?.map(({ url, name }) => (
-                            <a href={url} target="_blank">
-                              {name}
-                            </a>
-                          ))}
+                        {session.files?.map(({ url, name }) => (
+                          <a href={url} target="_blank">
+                            {name}
+                          </a>
+                        ))}
                       </div>
                     ) : null}
 
-                    {session.files?.filter(({ link }) => link)?.length ? (
+                    {session.links?.length ? (
                       <div>
                         Links:{' '}
-                        {session.files
-                          ?.filter(({ link }) => link)
-                          ?.map(({ link }) => (
-                            <a href={link} target="_blank">
-                              {link}
-                            </a>
-                          ))}
+                        {session.links?.map(link => (
+                          <a href={link} target="_blank">
+                            {link}
+                          </a>
+                        ))}
                       </div>
                     ) : null}
                   </Session>

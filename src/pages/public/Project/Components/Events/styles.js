@@ -28,6 +28,22 @@ export const Detail = styled.div`
   flex-direction: column;
   flex: 1;
 
+  > span {
+    display: flex;
+    margin-right: 15px;
+    justify-content: space-between;
+
+    img {
+      border: 1px solid #eee;
+      width: 35%;
+      margin: 0;
+    }
+
+    textarea {
+      width: 64%;
+    }
+  }
+
   textarea {
     width: 100%;
     border: none;

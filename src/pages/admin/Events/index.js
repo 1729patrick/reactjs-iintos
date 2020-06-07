@@ -120,6 +120,7 @@ export default function Events() {
       sessions = sessions.map(session => ({
         ...session,
         files: session.files.filter(v => v).map(({ id }) => id),
+        links: session.links.filter(v => v),
       }));
 
       await api.put(`events/${id}`, { event, sessions });
@@ -141,6 +142,7 @@ export default function Events() {
       sessions = sessions.map(session => ({
         ...session,
         files: session.files.filter(v => v).map(({ id }) => id),
+        links: session.links.filter(v => v),
       }));
 
       await api.post('events', { sessions, event });
@@ -202,6 +204,7 @@ export default function Events() {
         sessions: row.sessions.map(session => ({
           ...session,
           files: [...session.files, ''],
+          links: session.links ? [...session.links, ''] : [''],
         })),
       },
       validationSchema,
