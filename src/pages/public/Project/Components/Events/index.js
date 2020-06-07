@@ -37,7 +37,8 @@ function Events() {
           >
             <Typography className={classes.heading}>
               <h2>
-                {title} - <span>{format(new Date(date), 'yyyy-MM-dd')}</span>
+                {title}
+                {/* - <span>{format(new Date(date), 'yyyy-MM-dd')}</span> */}
               </h2>
             </Typography>
           </ExpansionPanelSummary>
