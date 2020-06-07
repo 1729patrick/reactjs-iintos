@@ -134,7 +134,7 @@ export default ({
                 { id: 'mobility', name: 'Mobility' },
               ]}
             />
-
+            {/*
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 autoOk
@@ -151,7 +151,7 @@ export default ({
                   'aria-label': 'change date',
                 }}
               />
-            </MuiPickersUtilsProvider>
+            </MuiPickersUtilsProvider> */}
 
             <Files formik={formik} />
 
