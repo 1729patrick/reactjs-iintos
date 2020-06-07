@@ -49,6 +49,7 @@ function Events() {
 
                 <TextareaAutosize disabled defaultValue={description} />
               </span>
+
               <div>
                 {sessions?.map((session, index) => (
                   <Session>
