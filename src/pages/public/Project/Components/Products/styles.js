@@ -13,6 +13,7 @@ export const Container = styled.div`
 
 export const Detail = styled.div`
   display: flex;
+  flex-direction: column;
   flex: 1;
 
   img {
@@ -21,10 +22,12 @@ export const Detail = styled.div`
 
   textarea {
     width: 100%;
-    flex: 1;
     border: none;
-    height: 500px;
-    line-height: 1.8;
     background: #fff;
+    width: 100%;
+    border: none;
+    line-height: 1.8;
+    color: #666;
+    margin-bottom: 15px;
   }
 `;

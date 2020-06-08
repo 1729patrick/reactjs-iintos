@@ -32,11 +32,14 @@ export const Detail = styled.div`
     display: flex;
     margin-right: 15px;
     justify-content: space-between;
+    align-items: center;
 
     img {
       border: 1px solid #eee;
-      width: 35%;
-      margin: 0;
+      max-width: 35%;
+      max-height: 400px;
+      margin-top: auto;
+      margin: 0 auto;
     }
 
     textarea {
@@ -47,10 +50,11 @@ export const Detail = styled.div`
   textarea {
     width: 100%;
     border: none;
-    height: 500px;
+    height: 600px;
     line-height: 1.8;
     color: #666;
     background: #fff;
+    min-height: 100px;
   }
 `;
 

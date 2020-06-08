@@ -19,11 +19,96 @@ function Events() {
   useEffect(() => {
     const fetchResults = async () => {
       const response = await api.get('events');
-      setEvents(response.data);
+
+      const eventsFormatted = response.data.map(event => ({
+        ...event,
+        sessions: event.sessions.map(session => {
+          const preview = [];
+          const files = [];
+
+          session.files.forEach(file => {
+            const [type] = file.name.split('.').reverse();
+
+            const isImage = type === 'png' || type === 'jpg' || type === 'jpeg';
+
+            if (isImage) {
+              preview.push({ type: 'image', file });
+            } else {
+              files.push(file);
+            }
+          });
+
+          session.links.forEach(link => {
+            preview.push({ type: 'link', link });
+          });
+
+          return { ...session, preview, files };
+        }),
+      }));
+
+      setEvents(eventsFormatted);
     };
 
     fetchResults();
   }, []);
+
+  const mountFiles = ({ files }) => {
+    const getContent = ({ url, name }) => (
+      <a href={url} style={{ marginLeft: 10 }}>
+        {name}
+      </a>
+    );
+
+    console.log(files);
+    if (!files.length) {
+      return null;
+    }
+
+    return (
+      <div style={{ marginTop: 10 }}>
+        Docs: {files?.map(({ url, name }) => getContent({ url, name }))}
+      </div>
+    );
+  };
+
+  const mountPreview = ({ preview }) => {
+    const getContent = ({ type, file, link }) => {
+      if (type === 'image') {
+        return (
+          <img
+            src={file.url}
+            style={{
+              width: 150,
+              marginRight: 10,
+              marginTop: 0,
+              marginLeft: 0,
+              marginBottom: 0,
+            }}
+          />
+        );
+      }
+
+      return (
+        <iframe
+          width="200"
+          height="150"
+          src={link}
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ marginRight: 10, borderRadius: 4 }}
+        />
+      );
+    };
+
+    return (
+      <div style={{ alignItems: 'center', display: 'flex' }}>
+        {preview?.map(({ type, file, link }) =>
+          getContent({ type, file, link })
+        )}
+      </div>
+    );
+  };
 
   return (
     <Container>
@@ -72,27 +157,8 @@ function Events() {
                       defaultValue={session.description}
                     />
 
-                    {session.files?.length ? (
-                      <div>
-                        Docs:{' '}
-                        {session.files?.map(({ url, name }) => (
-                          <a href={url} target="_blank">
-                            {name}
-                          </a>
-                        ))}
-                      </div>
-                    ) : null}
-
-                    {session.links?.length ? (
-                      <div>
-                        Links:{' '}
-                        {session.links?.map(link => (
-                          <a href={link} target="_blank">
-                            {link}
-                          </a>
-                        ))}
-                      </div>
-                    ) : null}
+                    {mountPreview(session)}
+                    {mountFiles(session)}
                   </Session>
                 ))}
               </div>

@@ -42,6 +42,17 @@ function Products() {
           <ExpansionPanelDetails>
             <Detail>
               <TextareaAutosize disabled defaultValue={description} />
+
+              {files?.length ? (
+                <div>
+                  Docs:{' '}
+                  {files?.map(({ url, name }) => (
+                    <a href={url} target="_blank">
+                      {name}
+                    </a>
+                  ))}
+                </div>
+              ) : null}
             </Detail>
           </ExpansionPanelDetails>
         </ExpansionPanel>

@@ -14,6 +14,7 @@ import OutputResult from '~/pages/public/OutputResult';
 import Home from '~/pages/public/Home';
 import Login from '~/pages/public/Login';
 import SignUp from '~/pages/public/SignUp';
+import Privacy from '~/pages/public/Privacy';
 
 import IProject from '~/pages/public/Project';
 import IProjects from '~/pages/public/Projects';
@@ -39,6 +40,7 @@ export default () => {
         <Route path="/iproject" component={IProject} />
         <Route path="/iprojects" component={IProjects} />
         <Route path="/ioffices" component={IOffices} />
+        <Route path="/privacy" component={Privacy} />
         <Route
           path="/signup/school_information"
           component={SchoolInformation}

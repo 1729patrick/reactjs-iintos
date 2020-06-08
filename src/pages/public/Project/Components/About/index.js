@@ -16,35 +16,46 @@ export default function About() {
           internationalization of the school at the national, European and
           international level
         </p>
-        Thus, the project developed a framework of international offices in
-        schools for students and teachers, to replicate throughout Europe and
-        reach the following objectives:
-        <ul>
-          <li>The global education objectives in schools;</li>
-          <li>Education for global citizen in formal education;</li>
-          <li>Global education in the European curricula;</li>
-          <li>
-            Tool for analyzing and comparing the curricula for STEM education;
-          </li>
-          <li>Increase students STEM competences;</li>
-          <li>
-            Including the Common Framework of Europe Competence in the school
-            policy plan;
-          </li>
-          <li>Best practices of global education to implement in schools;</li>
-          <li>Virtual and real-life contexts exchanges and meetings;</li>
-          <li>Global competencies and life skills;</li>
-          <li>Build long-lasting international relationships;</li>
-          <li>Intercultural competencies development of the teachers;</li>
-          <li>
-            Develop cross-cultural leadership and professional skills by
-            collaborating with students from various cultures;
-          </li>
-          <li>
-            Make the students able to graduate with increased STEM and global
-            competencies.
-          </li>
-        </ul>
+        <span style={{ display: 'flex' }}>
+          <img
+            src={require('../../../../../assets/images/group.jpg')}
+            style={{ width: 650, marginRight: 15 }}
+          ></img>
+          <span>
+            Thus, the project developed a framework of international offices in
+            schools for students and teachers, to replicate throughout Europe
+            and reach the following objectives:
+            <ul>
+              <li>The global education objectives in schools;</li>
+              <li>Education for global citizen in formal education;</li>
+              <li>Global education in the European curricula;</li>
+              <li>
+                Tool for analyzing and comparing the curricula for STEM
+                education;
+              </li>
+              <li>Increase students STEM competences;</li>
+              <li>
+                Including the Common Framework of Europe Competence in the
+                school policy plan;
+              </li>
+              <li>
+                Best practices of global education to implement in schools;
+              </li>
+              <li>Virtual and real-life contexts exchanges and meetings;</li>
+              <li>Global competencies and life skills;</li>
+              <li>Build long-lasting international relationships;</li>
+              <li>Intercultural competencies development of the teachers;</li>
+              <li>
+                Develop cross-cultural leadership and professional skills by
+                collaborating with students from various cultures;
+              </li>
+              <li>
+                Make the students able to graduate with increased STEM and
+                global competencies.
+              </li>
+            </ul>
+          </span>
+        </span>
         <h4>Our project has developed:</h4>
         <span>
           <p>

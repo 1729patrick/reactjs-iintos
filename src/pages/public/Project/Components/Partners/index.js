@@ -60,7 +60,7 @@ const partners = [
   Municipality of Palmela, Setúbal District (about 40 KM, south of
   Lisbon). It is integrated in an Educational Territory of Priority
   Intervention (ETPI) project since 2009.`,
-    link: 'http://www.aejs.pt/home/',
+    link: 'http://aejs.pt/site/',
     logo: saramagoImage,
   },
   {
@@ -77,7 +77,9 @@ const partners = [
 function Partners() {
   const classes = useStyles();
 
-  const openLink = link => {};
+  const openLink = link => {
+    window.open(link, '_blank');
+  };
 
   return (
     <Container>
@@ -86,7 +88,7 @@ function Partners() {
         Secondary Schools, from 3 European countries:
       </h1>
       <div className={classes.root}>
-        {partners.map(partner => (
+        {partners.map((partner, index) => (
           <ExpansionPanel defaultExpanded>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
@@ -100,7 +102,10 @@ function Partners() {
 
             <ExpansionPanelDetails>
               <Detail>
-                <img src={partner.logo} style={{ width: 250 }} />
+                <img
+                  src={partner.logo}
+                  style={{ width: 250, height: index === 1 ? 150 : null }}
+                />
                 <span>
                   <Typography>{partner.description}</Typography>
 

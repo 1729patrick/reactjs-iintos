@@ -14,7 +14,7 @@ const Footer = ({ links }) => {
 
   return (
     <Container>
-      <div>
+      <div style={{ zIndex: 100 }}>
         <p>
           © {date} - <span>IINTOS -</span> <Link to="/privacy">Privacy</Link>
         </p>
