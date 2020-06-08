@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "349dad5b5dd739616646d5a11899ea40",
+    "revision": "429c27a6d1eb6add43d931fe7a1c8ba5",
     "url": "/reactjs-iintos/index.html"
   },
   {
-    "revision": "52b88836abe3518ca833",
+    "revision": "86cba5d17094ff2a9358",
     "url": "/reactjs-iintos/static/css/2.b2a652f3.chunk.css"
   },
   {
-    "revision": "a201cfe84f79076ed970",
+    "revision": "c22a6207c336c329637e",
     "url": "/reactjs-iintos/static/css/main.06a24e61.chunk.css"
   },
   {
-    "revision": "52b88836abe3518ca833",
-    "url": "/reactjs-iintos/static/js/2.6cc1ea0d.chunk.js"
+    "revision": "86cba5d17094ff2a9358",
+    "url": "/reactjs-iintos/static/js/2.94b05b44.chunk.js"
   },
   {
     "revision": "e0e8b7adf8250499389ccf909f54a9a3",
-    "url": "/reactjs-iintos/static/js/2.6cc1ea0d.chunk.js.LICENSE.txt"
+    "url": "/reactjs-iintos/static/js/2.94b05b44.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a201cfe84f79076ed970",
-    "url": "/reactjs-iintos/static/js/main.72b6e77f.chunk.js"
+    "revision": "c22a6207c336c329637e",
+    "url": "/reactjs-iintos/static/js/main.56b8e86c.chunk.js"
   },
   {
     "revision": "feeb49cf711b494dfb82",
@@ -56,6 +56,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/reactjs-iintos/static/media/arrow_right.469961bd.svg"
   },
   {
+    "revision": "d63be16ba32be00ed92f3cf07004d9d9",
+    "url": "/reactjs-iintos/static/media/group.d63be16b.jpg"
+  },
+  {
     "revision": "3c4679d6d5f29fbab544edade24a3864",
     "url": "/reactjs-iintos/static/media/logo.3c4679d6.png"
   },
@@ -78,5 +82,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "f97e3bbf73254b0112091d0192f17aec",
     "url": "/reactjs-iintos/static/media/slick.f97e3bbf.svg"
+  },
+  {
+    "revision": "29b0763338abc3a53501d795856f1109",
+    "url": "/reactjs-iintos/static/media/vallauriLogo.29b07633.jpg"
   }
 ]);
