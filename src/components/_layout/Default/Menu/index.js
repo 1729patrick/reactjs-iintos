@@ -14,14 +14,15 @@ export default function Menu({ onClose }) {
         <NavLink to="/iproject" onClick={onClose}>
           IINTOS Project
         </NavLink>
-        <NavLink to="/iprojects" onClick={onClose}>
-          International Projects
-        </NavLink>
-        {/* <NavLink to="/news">News</NavLink> */}
 
         <NavLink to="/ioffices" onClick={onClose}>
           International Offices
         </NavLink>
+
+        <NavLink to="/iprojects" onClick={onClose}>
+          International Projects
+        </NavLink>
+        {/* <NavLink to="/news">News</NavLink> */}
 
         <NavLink to="/login" onClick={onClose}>
           Login

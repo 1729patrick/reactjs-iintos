@@ -41,8 +41,8 @@ const Header = () => {
       <div>
         <div>
           <NavLink to="/iproject">IINTOS Project</NavLink>
-          <NavLink to="/iprojects">International Projects</NavLink>
           <NavLink to="/ioffices">International Offices</NavLink>
+          <NavLink to="/iprojects">International Projects</NavLink>
 
           <NavLink to="/login">Login</NavLink>
           <HelpIcon />

@@ -155,7 +155,7 @@ function Events() {
           <Collapse in={open[key]} timeout="auto" unmountOnExit>
             {events[key].map(
               ({ title, description, files, sessions }, index) => (
-                <ExpansionPanel>
+                <ExpansionPanel defaultExpanded={!index}>
                   <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"

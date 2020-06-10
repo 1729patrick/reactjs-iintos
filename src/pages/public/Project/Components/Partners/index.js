@@ -113,9 +113,7 @@ function Partners() {
                   marginRight: 15,
                 }}
               />
-              <Typography className={classes.heading}>
-                {partner.title}
-              </Typography>
+              <h4>{partner.title}</h4>
             </ExpansionPanelSummary>
 
             <ExpansionPanelDetails>
