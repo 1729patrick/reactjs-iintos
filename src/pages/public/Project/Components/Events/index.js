@@ -145,7 +145,7 @@ function Events() {
           <ListItem
             button
             onClick={() => handleOpen(key)}
-            style={{ marginBottom: 15 }}
+            style={{ marginTop: 30 }}
           >
             <ListItemText
               primary={`${key.charAt(0)?.toUpperCase()}${key?.slice(1)}`}

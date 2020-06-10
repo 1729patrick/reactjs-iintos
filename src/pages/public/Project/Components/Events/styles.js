@@ -15,6 +15,10 @@ export const Container = styled.div`
     margin: 15px 0;
   }
 
+  .MuiExpansionPanelSummary-content {
+    margin: 0 !important;
+  }
+
   h2 {
     font-size: 16px;
     font-weight: 500;
@@ -59,7 +63,6 @@ export const Detail = styled.div`
     line-height: 1.8;
     color: #666;
     background: #fff;
-    min-height: 100px;
   }
 `;
 
