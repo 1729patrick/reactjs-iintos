@@ -4,7 +4,19 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  padding-bottom: 15px;
 
+  .MuiExpansionPanel-root {
+    margin: 15px 0;
+  }
+
+  .MuiExpansionPanelSummary-content.Mui-expanded {
+    margin: 0;
+  }
+
+  .MuiExpansionPanelDetails-root {
+    padding-top: 0;
+  }
 
 	div{
 		text-align:justify;

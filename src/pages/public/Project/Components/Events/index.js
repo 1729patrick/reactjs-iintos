@@ -5,48 +5,59 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+
 import TextareaAutosize from 'react-textarea-autosize';
 
 import { Container, Detail, Session } from './styles';
 import api from '~/services/api';
 import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 import { format } from 'date-fns';
+import { Collapse, ListItem, ListItemText } from '@material-ui/core';
 
 function Events() {
   const classes = useStyles();
   const [events, setEvents] = useState([]);
+  const [open, setOpen] = useState([]);
 
   useEffect(() => {
     const fetchResults = async () => {
       const response = await api.get('events');
 
-      const eventsFormatted = response.data.map(event => ({
-        ...event,
-        sessions: event.sessions.map(session => {
-          const preview = [];
-          const files = [];
+      const eventsType = {};
+      response.data.forEach(event => {
+        const e = {
+          ...event,
+          sessions: event.sessions.map(session => {
+            const preview = [];
+            const files = [];
 
-          session.files.forEach(file => {
-            const [type] = file.name.split('.').reverse();
+            session.files.forEach(file => {
+              const [type] = file.name.split('.').reverse();
 
-            const isImage = type === 'png' || type === 'jpg' || type === 'jpeg';
+              const isImage =
+                type === 'png' || type === 'jpg' || type === 'jpeg';
 
-            if (isImage) {
-              preview.push({ type: 'image', file });
-            } else {
-              files.push(file);
-            }
-          });
+              if (isImage) {
+                preview.push({ type: 'image', file });
+              } else {
+                files.push(file);
+              }
+            });
 
-          session.links.forEach(link => {
-            preview.push({ type: 'link', link });
-          });
+            session.links.forEach(link => {
+              preview.push({ type: 'link', link });
+            });
 
-          return { ...session, preview, files };
-        }),
-      }));
+            return { ...session, preview, files };
+          }),
+        };
 
-      setEvents(eventsFormatted);
+        eventsType[event.type] = [...(eventsType[event.type] || []), e];
+      });
+
+      setEvents(eventsType);
     };
 
     fetchResults();
@@ -59,7 +70,6 @@ function Events() {
       </a>
     );
 
-    console.log(files);
     if (!files.length) {
       return null;
     }
@@ -71,27 +81,38 @@ function Events() {
     );
   };
 
+  const handleOpen = key => {
+    setOpen({ ...open, [key]: !open[key] });
+  };
   const mountPreview = ({ preview }) => {
     const getContent = ({ type, file, link }) => {
       if (type === 'image') {
         return (
-          <img
-            src={file.url}
+          <div
             style={{
-              width: 150,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
               marginRight: 10,
-              marginTop: 0,
-              marginLeft: 0,
-              marginBottom: 0,
             }}
-          />
+          >
+            <img
+              src={file.url}
+              style={{
+                margin: '0 auto',
+                marginBottom: 5,
+                width: 150,
+              }}
+            />
+            {file.name}
+          </div>
         );
       }
 
       return (
         <iframe
-          width="200"
-          height="150"
+          width="250"
+          height="125"
           src={link}
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -102,10 +123,16 @@ function Events() {
     };
 
     return (
-      <div style={{ alignItems: 'center', display: 'flex' }}>
-        {preview?.map(({ type, file, link }) =>
-          getContent({ type, file, link })
-        )}
+      <div
+        style={{
+          alignItems: 'center',
+          display: 'flex',
+          overflowX: 'auto',
+        }}
+      >
+        {preview?.map(({ type, file, link, name }) => {
+          return getContent({ type, file, link, name });
+        })}
       </div>
     );
   };
@@ -113,58 +140,76 @@ function Events() {
   return (
     <Container>
       <h1>Within the scope of this project, the following events were held:</h1>
-      {events.map(({ title, description, files, date, sessions }, index) => (
-        <ExpansionPanel defaultExpanded={!index}>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
+      {Object.keys(events).map(key => (
+        <>
+          <ListItem
+            button
+            onClick={() => handleOpen(key)}
+            style={{ marginBottom: 15 }}
           >
-            <Typography className={classes.heading}>
-              <h2>
-                {title}
-                {/* - <span>{format(new Date(date), 'yyyy-MM-dd')}</span> */}
-              </h2>
-            </Typography>
-          </ExpansionPanelSummary>
+            <ListItemText
+              primary={`${key.charAt(0)?.toUpperCase()}${key?.slice(1)}`}
+            />
+            {open[key] ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={open[key]} timeout="auto" unmountOnExit>
+            {events[key].map(
+              ({ title, description, files, sessions }, index) => (
+                <ExpansionPanel>
+                  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography className={classes.heading}>
+                      <h2>
+                        {title}
+                        {/* - <span>{format(new Date(date), 'yyyy-MM-dd')}</span> */}
+                      </h2>
+                    </Typography>
+                  </ExpansionPanelSummary>
 
-          <ExpansionPanelDetails>
-            <Detail>
-              <span>
-                {files[0]?.url && <img src={files[0]?.url}></img>}
+                  <ExpansionPanelDetails>
+                    <Detail>
+                      <span>
+                        {files[0]?.url && <img src={files[0]?.url}></img>}
 
-                <TextareaAutosize disabled defaultValue={description} />
-              </span>
-
-              <div>
-                {sessions?.map((session, index) => (
-                  <Session>
-                    <h1>
-                      Session {index + 1}: <span>{session.title}</span>
-                      <span
-                        style={{
-                          color: '#666',
-                          marginLeft: 'auto',
-                          fontSize: 14,
-                        }}
-                      >
-                        {format(new Date(session.date), 'yyyy-MM-dd')}
+                        <TextareaAutosize disabled defaultValue={description} />
                       </span>
-                    </h1>
 
-                    <TextareaAutosize
-                      disabled
-                      defaultValue={session.description}
-                    />
+                      <div>
+                        {sessions?.map((session, index) => (
+                          <Session>
+                            <h1>
+                              Session {index + 1}: <span>{session.title}</span>
+                              <span
+                                style={{
+                                  color: '#666',
+                                  marginLeft: 'auto',
+                                  fontSize: 14,
+                                }}
+                              >
+                                {format(new Date(session.date), 'yyyy-MM-dd')}
+                              </span>
+                            </h1>
 
-                    {mountPreview(session)}
-                    {mountFiles(session)}
-                  </Session>
-                ))}
-              </div>
-            </Detail>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+                            <TextareaAutosize
+                              disabled
+                              defaultValue={session.description}
+                            />
+
+                            {mountPreview(session)}
+                            {mountFiles(session)}
+                          </Session>
+                        ))}
+                      </div>
+                    </Detail>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+              )
+            )}
+          </Collapse>
+        </>
       ))}
     </Container>
   );

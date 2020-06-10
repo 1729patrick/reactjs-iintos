@@ -9,6 +9,13 @@ export const Container = styled.div`
   h1 {
     margin-bottom: 20px;
   }
+
+  .MuiExpansionPanelSummary-content {
+    align-items: center;
+  }
+  .MuiExpansionPanel-root {
+    margin: 15px 0;
+  }
 `;
 
 export const Detail = styled.div`

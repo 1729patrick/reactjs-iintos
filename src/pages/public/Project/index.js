@@ -7,6 +7,7 @@ import Partners from './Components/Partners';
 import Products from './Components/Products';
 import Stem from './Components/Stem';
 import Events from './Components/Events';
+import { Collapse, ListItem, ListItemIcon } from '@material-ui/core';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location.pathname.replace('/iproject', ''), [
@@ -50,7 +51,7 @@ export default withRouter(({ location, history }) => {
           <NavLink to="/iproject/partners">IIntos Partners</NavLink>
           <NavLink to="/iproject/events">IIntos Events</NavLink>
           <NavLink to="/iproject/products">IIntos Products</NavLink>
-          <NavLink to="/iproject/stem">STEM</NavLink>
+          {/* <NavLink to="/iproject/stem">STEM</NavLink> */}
         </div>
       </Menu>
       <Content>

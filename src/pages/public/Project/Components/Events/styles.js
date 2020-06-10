@@ -8,6 +8,11 @@ export const Container = styled.div`
 
   h1 {
     margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .MuiExpansionPanel-root {
+    margin: 15px 0;
   }
 
   h2 {

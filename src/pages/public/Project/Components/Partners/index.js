@@ -36,8 +36,9 @@ const partners = [
   and services provision, contributing to the creation, development,
   dissemination and transfer of knowledge, as well as the promotion of
   science and culture.`,
-    link: 'http://www.ips.pt/ips_si/web_page.inicial',
+    link: 'https://www.ips.pt/ips_si/web_base.gera_pagina?P_pagina=29906',
     logo: ipsImage,
+    image: require('~/assets/images/ips_image.png'),
   },
   {
     title: 'Palacký University Olomouc (Czech Republic)',
@@ -50,8 +51,9 @@ const partners = [
   Bachelor’s, Master’s, and Doctoral. Palacký
   University Olomouc is one of the top Czech universities, and ranks among
   the best universities in the world, according to international rankings`,
-    link: 'https://edis.upol.cz/cc',
+    link: 'https://www.pdf.upol.cz',
     logo: olomoucImage,
+    image: require('~/assets/images/ips_image.png'),
   },
   {
     title: 'Group of Schools José Saramago (Portugal)',
@@ -62,6 +64,7 @@ const partners = [
   Intervention (ETPI) project since 2009.`,
     link: 'http://aejs.pt/site/',
     logo: saramagoImage,
+    image: require('~/assets/images/ips_image.png'),
   },
   {
     title: 'Istituto “Giancarlo Vallauri” Fossano (Italy)',
@@ -70,8 +73,9 @@ const partners = [
   school for science and technology in the Cuneo Province and offers a
   wide range of courses: ICT, Applied Sciences, Energy, Mechatronics and
   Economics.`,
-    link: 'https://www.satispay.com/',
+    link: 'http://www.vallauri.edu',
     logo: vallauriImage,
+    image: require('~/assets/images/vallauri_image.png'),
   },
 ];
 function Partners() {
@@ -95,6 +99,20 @@ function Partners() {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
+              <img
+                src={partner.logo}
+                style={{
+                  ...(index === 0
+                    ? { width: 100 }
+                    : index === 1
+                    ? { height: 75, width: 150 }
+                    : index === 2
+                    ? { height: 75, width: 140 }
+                    : { width: 70 }),
+                  margin: 0,
+                  marginRight: 15,
+                }}
+              />
               <Typography className={classes.heading}>
                 {partner.title}
               </Typography>
@@ -102,10 +120,7 @@ function Partners() {
 
             <ExpansionPanelDetails>
               <Detail>
-                <img
-                  src={partner.logo}
-                  style={{ width: 250, height: index === 1 ? 150 : null }}
-                />
+                <img src={partner.image} style={{ width: 250 }} />
                 <span>
                   <Typography>{partner.description}</Typography>
 
