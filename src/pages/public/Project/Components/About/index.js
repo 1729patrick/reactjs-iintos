@@ -6,21 +6,25 @@ export default function About() {
     <Container>
       <div>
         <h1>What is IINTOS?</h1>
-        <p>
-          The aim of this project is to develop international teaching and
-          learning processes that lead our main target groups, teachers,
-          students and schools stakeholders, able to make the schools more
-          international and at the same time raise the competence levels in STEM
-          education. For this purpose, an international office in school is the
-          way to encourage, facilitate, help and promote the
-          internationalization of the school at the national, European and
-          international level
-        </p>
+
         <span style={{ display: 'flex' }}>
           <img
             src={require('../../../../../assets/images/group.jpg')}
-            style={{ width: 650, marginRight: 15 }}
+            style={{ width: 600, marginRight: 15 }}
           ></img>
+          <p>
+            The aim of this project is to develop international teaching and
+            learning processes that lead our main target groups, teachers,
+            students and schools stakeholders, able to make the schools more
+            international and at the same time raise the competence levels in
+            STEM education. For this purpose, an international office in school
+            is the way to encourage, facilitate, help and promote the
+            internationalization of the school at the national, European and
+            international level
+          </p>
+        </span>
+
+        <span style={{ display: 'flex' }}>
           <span>
             Thus, the project developed a framework of international offices in
             schools for students and teachers, to replicate throughout Europe
