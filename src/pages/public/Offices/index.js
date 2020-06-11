@@ -6,6 +6,8 @@ import { Container, Menu, Content } from './style';
 import Policy from './components/Policy';
 import Goals from './components/Goals';
 import InternationalCordinator from './components/InternationalCordinator';
+import Management from './components/Management';
+import UserGuide from './components/UserGuide';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location.pathname.replace('/ioffices', ''), [
@@ -32,7 +34,7 @@ export default withRouter(({ location, history }) => {
     }
 
     if (route === '/management') {
-      return null;
+      return <Management />;
     }
 
     if (route === '/forum') {
@@ -40,7 +42,7 @@ export default withRouter(({ location, history }) => {
     }
 
     if (route === '/user-guide') {
-      return null;
+      return <UserGuide />;
     }
 
     return () => null;
@@ -56,7 +58,7 @@ export default withRouter(({ location, history }) => {
             International coordinator
           </NavLink>
           <NavLink to="/ioffices/management">Management</NavLink>
-          <NavLink to="/ioffices/forum">Forum</NavLink>
+          {/* <NavLink to="/ioffices/forum">Forum</NavLink> */}
           <NavLink to="/ioffices/user-guide">User Guide</NavLink>
         </div>
       </Menu>
