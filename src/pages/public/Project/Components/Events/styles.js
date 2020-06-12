@@ -86,7 +86,6 @@ export const Session = styled.div`
     }
 
     span {
-      margin-left: 10px;
       color: #555;
     }
   }

@@ -72,7 +72,7 @@ export default ({
 
     formik.setFieldValue(field, [
       ...values,
-      { files: [''], date: new Date().toISOString() },
+      { files: [''], links: [''], date: new Date().toISOString() },
     ]);
   };
 
@@ -222,7 +222,7 @@ export default ({
                 </div>
               ))}
               <button type="button" onClick={() => handleAdd('sessions')}>
-                + Add Section
+                + Add Session
               </button>
             </Sessions>
 

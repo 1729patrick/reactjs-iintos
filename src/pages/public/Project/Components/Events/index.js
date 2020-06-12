@@ -15,6 +15,7 @@ import api from '~/services/api';
 import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 import { format } from 'date-fns';
 import { Collapse, ListItem, ListItemText } from '@material-ui/core';
+import FileList from '~/components/FileList';
 
 function Events() {
   const classes = useStyles();
@@ -64,6 +65,13 @@ function Events() {
   }, []);
 
   const mountFiles = ({ files }) => {
+    files = files.filter(file => {
+      const [_, type] = file?.name?.split('.');
+
+      const isImage = type === 'png' || type === 'jpg' || type === 'jpeg';
+      return !isImage;
+    });
+
     const getContent = ({ url, name }) => (
       <a href={url} style={{ marginLeft: 10 }}>
         {name}
@@ -84,6 +92,7 @@ function Events() {
   const handleOpen = key => {
     setOpen({ ...open, [key]: !open[key] });
   };
+
   const mountPreview = ({ preview }) => {
     const getContent = ({ type, file, link }) => {
       if (type === 'image') {
@@ -137,6 +146,20 @@ function Events() {
     );
   };
 
+  const getImage = files => {
+    for (let file of files) {
+      const [_, type] = file?.name?.split('.');
+
+      const isImage = type === 'png' || type === 'jpg' || type === 'jpeg';
+
+      if (isImage) {
+        return file.url;
+      }
+    }
+
+    return null;
+  };
+
   return (
     <Container>
       <h1>Within the scope of this project, the following events were held:</h1>
@@ -154,7 +177,7 @@ function Events() {
           </ListItem>
           <Collapse in={open[key]} timeout="auto" unmountOnExit>
             {events[key].map(
-              ({ title, description, files, sessions }, index) => (
+              ({ id, title, description, files, sessions }, index) => (
                 <ExpansionPanel defaultExpanded={!index}>
                   <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -172,16 +195,34 @@ function Events() {
                   <ExpansionPanelDetails>
                     <Detail>
                       <span>
-                        {files[0]?.url && <img src={files[0]?.url}></img>}
+                        {getImage(files) && <img src={getImage(files)}></img>}
 
                         <TextareaAutosize disabled defaultValue={description} />
                       </span>
+
+                      {id === 11 && (
+                        <a
+                          href="https://bit.ly/30ACC2X"
+                          target="__blank"
+                          style={{ marginBottom: 10 }}
+                        >
+                          Pre-register form
+                        </a>
+                      )}
+                      {mountFiles({ files })}
 
                       <div>
                         {sessions?.map((session, index) => (
                           <Session>
                             <h1>
-                              Session {index + 1}: <span>{session.title}</span>
+                              {session?.title?.trim()?.lenght > 0 ? (
+                                <span>
+                                  Session {index + 1}:{' '}
+                                  <span>{session.title}</span>
+                                </span>
+                              ) : (
+                                <span>Session {index + 1}</span>
+                              )}
                               <span
                                 style={{
                                   color: '#666',
@@ -189,17 +230,21 @@ function Events() {
                                   fontSize: 14,
                                 }}
                               >
-                                {format(new Date(session.date), 'yyyy-MM-dd')}
+                                {/* {format(new Date(session.date), 'yyyy-MM-dd')} */}
                               </span>
                             </h1>
 
-                            <TextareaAutosize
-                              disabled
-                              defaultValue={session.description}
-                            />
+                            {session?.description?.trim().length > 0 && (
+                              <TextareaAutosize
+                                disabled
+                                defaultValue={session.description}
+                              />
+                            )}
 
                             {mountPreview(session)}
-                            {mountFiles(session)}
+                            {session?.files?.length > 0 && (
+                              <FileList files={session.files} />
+                            )}
                           </Session>
                         ))}
                       </div>

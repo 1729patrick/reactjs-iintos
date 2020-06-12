@@ -112,16 +112,32 @@ export default function Events() {
   // api call to post
   const handleUpdate = async (id, { sessions, ...event }) => {
     try {
+      const eventFiles = event.files.filter(v => v).map(({ id }) => id);
+
+      const ids = {};
+      eventFiles.forEach(id => {
+        ids[id] = true;
+      });
+
       event = {
         ...event,
-        files: event.files.filter(v => v).map(({ id }) => id),
+        files: Object.keys(ids),
       };
 
-      sessions = sessions.map(session => ({
-        ...session,
-        files: session.files.filter(v => v).map(({ id }) => id),
-        links: session.links.filter(v => v),
-      }));
+      sessions = sessions.map(session => {
+        const sessionFiles = session.files.filter(v => v).map(({ id }) => id);
+
+        const ids_ = {};
+        sessionFiles.forEach(id => {
+          ids_[id] = true;
+        });
+
+        return {
+          ...session,
+          files: Object.keys(ids_),
+          links: session.links.filter(v => v),
+        };
+      });
 
       await api.put(`events/${id}`, { event, sessions });
       setModalOpen(false);
@@ -134,17 +150,32 @@ export default function Events() {
 
   const handleCreate = async ({ sessions, ...event }) => {
     try {
+      const eventFiles = event.files.filter(v => v).map(({ id }) => id);
+
+      const ids = {};
+      eventFiles.forEach(id => {
+        ids[id] = true;
+      });
+
       event = {
         ...event,
-        files: event.files.filter(v => v).map(({ id }) => id),
+        files: Object.keys(ids),
       };
 
-      sessions = sessions.map(session => ({
-        ...session,
-        files: session.files.filter(v => v).map(({ id }) => id),
-        links: session.links.filter(v => v),
-      }));
+      sessions = sessions.map(session => {
+        const sessionFiles = session.files.filter(v => v).map(({ id }) => id);
 
+        const ids_ = {};
+        sessionFiles.forEach(id => {
+          ids_[id] = true;
+        });
+
+        return {
+          ...session,
+          files: Object.keys(ids_),
+          links: session.links.filter(v => v),
+        };
+      });
       await api.post('events', { sessions, event });
       setModalOpen(false);
       toast.success('Event created with success!');
