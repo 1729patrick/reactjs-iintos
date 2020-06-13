@@ -9,15 +9,29 @@ export const Container = styled.div`
   h1 {
     margin-bottom: 20px;
   }
+
+  .MuiExpansionPanelSummary-content {
+    align-items: center;
+  }
+  .MuiExpansionPanel-root {
+    margin-bottom: 15px;
+  }
+
+  .MuiExpansionPanelSummary-content {
+    margin: 0 !important;
+  }
 `;
 
 export const Detail = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  flex: 1;
 
   img {
-    margin-right: 15px;
+    max-width: 450px;
+    max-height: 450px;
+    margin: 0 auto;
+    margin-bottom: 15px;
   }
 
   textarea {

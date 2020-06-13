@@ -2,6 +2,7 @@ import React, { useMemo, useEffect } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import { Container, Menu, Content } from './style';
+import News from './components/News';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location.pathname.replace('/iprojects', ''), [
@@ -16,7 +17,7 @@ export default withRouter(({ location, history }) => {
 
   const Children = () => {
     if (route === '/news') {
-      return null;
+      return <News />;
     }
     if (route === '/projects') {
       return null;
