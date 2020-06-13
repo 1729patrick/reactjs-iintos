@@ -49,6 +49,7 @@ export const Detail = styled.div`
       max-height: 400px;
       margin-top: auto;
       margin: 0 auto;
+      margin-right: 15px;
     }
 
     textarea {

@@ -10,7 +10,7 @@ import Management from './components/Management';
 import UserGuide from './components/UserGuide';
 
 export default withRouter(({ location, history }) => {
-  const route = useMemo(() => location.pathname.replace('/ioffices', ''), [
+  const route = useMemo(() => location?.pathname.replace('/ioffices', ''), [
     location,
   ]);
 
@@ -37,15 +37,15 @@ export default withRouter(({ location, history }) => {
       return <Management />;
     }
 
-    if (route === '/forum') {
-      return null;
-    }
-
     if (route === '/user-guide') {
       return <UserGuide />;
     }
 
     return () => null;
+  };
+
+  const openForum = () => {
+    window.open('https://iintoska2.ips.pt/forum/', '__blank');
   };
 
   return (
@@ -58,7 +58,9 @@ export default withRouter(({ location, history }) => {
             International coordinator
           </NavLink>
           <NavLink to="/ioffices/management">Management</NavLink>
-          {/* <NavLink to="/ioffices/forum">Forum</NavLink> */}
+          <a style={{ cursor: 'pointer' }} onClick={openForum}>
+            Forum
+          </a>
           <NavLink to="/ioffices/user-guide">User Guide</NavLink>
         </div>
       </Menu>
