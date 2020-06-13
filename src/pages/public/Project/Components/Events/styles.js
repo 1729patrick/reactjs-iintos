@@ -39,7 +39,7 @@ export const Detail = styled.div`
 
   > span {
     display: flex;
-    margin-right: 15px;
+    margin-right: 30px;
     justify-content: space-between;
     align-items: center;
 
@@ -60,7 +60,7 @@ export const Detail = styled.div`
     width: 100%;
     border: none;
     height: 600px;
-    line-height: 1.8;
+    line-height: 1.5;
     color: #666;
     background: #fff;
   }

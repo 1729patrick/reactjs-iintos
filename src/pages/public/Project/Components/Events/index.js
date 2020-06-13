@@ -16,6 +16,7 @@ import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 import { format } from 'date-fns';
 import { Collapse, ListItem, ListItemText } from '@material-ui/core';
 import FileList from '~/components/FileList';
+import Alert from '@material-ui/lab/Alert';
 
 function Events() {
   const classes = useStyles();
@@ -160,9 +161,16 @@ function Events() {
     return null;
   };
 
+  const onOpen = () => {
+    setOpen({ ['multiplier']: true });
+  };
+
   return (
     <Container>
       <h1>Within the scope of this project, the following events were held:</h1>
+      <Alert severity="info" style={{ cursor: 'pointer' }} onClick={onOpen}>
+        Final Conference – June 20 and 25
+      </Alert>
       {Object.keys(events).map(key => (
         <>
           <ListItem
