@@ -44,10 +44,6 @@ export default withRouter(({ location, history }) => {
     return () => null;
   };
 
-  const openForum = () => {
-    window.open('https://iintoska2.ips.pt/forum/', '__blank');
-  };
-
   return (
     <Container>
       <Menu>
@@ -58,9 +54,7 @@ export default withRouter(({ location, history }) => {
             International coordinator
           </NavLink>
           <NavLink to="/ioffices/management">Management</NavLink>
-          <a style={{ cursor: 'pointer' }} onClick={openForum}>
-            Forum
-          </a>
+
           <NavLink to="/ioffices/user-guide">User Guide</NavLink>
         </div>
       </Menu>

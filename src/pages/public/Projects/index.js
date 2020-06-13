@@ -3,6 +3,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 
 import { Container, Menu, Content } from './style';
 import News from './components/Newsletter';
+import UserGuide from './components/UserGuide';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location.pathname.replace('/iprojects', ''), [
@@ -19,14 +20,20 @@ export default withRouter(({ location, history }) => {
     if (route === '/news') {
       return <News />;
     }
-    if (route === '/projects') {
-      return null;
-    }
-    if (route === '/wiki') {
-      return null;
+
+    if (route === '/user-guide') {
+      return <UserGuide />;
     }
 
     return () => null;
+  };
+
+  const openForum = () => {
+    window.open('https://iintoska2.ips.pt/forum/', '__blank');
+  };
+
+  const openWiki = () => {
+    window.open('https://iintoska2.ips.pt/wiki/', '__blank');
   };
 
   return (
@@ -34,8 +41,14 @@ export default withRouter(({ location, history }) => {
       <Menu>
         <div>
           <NavLink to="/iprojects/news">News</NavLink>
-          <NavLink to="/iprojects/projects">Projects</NavLink>
-          <NavLink to="/iprojects/wiki">Wiki</NavLink>
+          <a style={{ cursor: 'pointer' }} onClick={openForum}>
+            Forum
+          </a>
+          <a style={{ cursor: 'pointer' }} onClick={openWiki}>
+            Wiki
+          </a>
+
+          <NavLink to="/iprojects/user-guide">User Guide</NavLink>
         </div>
       </Menu>
       <Content>
