@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "706e26057e79422e845a19317627c813",
+    "revision": "01a49c71a5761672f72f5308170b1a8d",
     "url": "/reactjs-iintos/index.html"
   },
   {
-    "revision": "4850f69e4c7256e0b3c6",
+    "revision": "876fe4f2f2ca2bb63cf4",
     "url": "/reactjs-iintos/static/css/2.b2a652f3.chunk.css"
   },
   {
-    "revision": "2bd58cbf245b7cf7a24a",
+    "revision": "d150480090c9a486f8a2",
     "url": "/reactjs-iintos/static/css/main.06a24e61.chunk.css"
   },
   {
-    "revision": "4850f69e4c7256e0b3c6",
-    "url": "/reactjs-iintos/static/js/2.8ed9977b.chunk.js"
+    "revision": "876fe4f2f2ca2bb63cf4",
+    "url": "/reactjs-iintos/static/js/2.3dc0a53a.chunk.js"
   },
   {
     "revision": "e0e8b7adf8250499389ccf909f54a9a3",
-    "url": "/reactjs-iintos/static/js/2.8ed9977b.chunk.js.LICENSE.txt"
+    "url": "/reactjs-iintos/static/js/2.3dc0a53a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2bd58cbf245b7cf7a24a",
-    "url": "/reactjs-iintos/static/js/main.669e0e72.chunk.js"
+    "revision": "d150480090c9a486f8a2",
+    "url": "/reactjs-iintos/static/js/main.c51233c7.chunk.js"
   },
   {
     "revision": "feeb49cf711b494dfb82",

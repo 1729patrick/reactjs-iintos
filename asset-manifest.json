@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/reactjs-iintos/static/css/main.06a24e61.chunk.css",
-    "main.js": "/reactjs-iintos/static/js/main.669e0e72.chunk.js",
-    "main.js.map": "/reactjs-iintos/static/js/main.669e0e72.chunk.js.map",
+    "main.js": "/reactjs-iintos/static/js/main.c51233c7.chunk.js",
+    "main.js.map": "/reactjs-iintos/static/js/main.c51233c7.chunk.js.map",
     "runtime-main.js": "/reactjs-iintos/static/js/runtime-main.b9508b9e.js",
     "runtime-main.js.map": "/reactjs-iintos/static/js/runtime-main.b9508b9e.js.map",
     "static/css/2.b2a652f3.chunk.css": "/reactjs-iintos/static/css/2.b2a652f3.chunk.css",
-    "static/js/2.8ed9977b.chunk.js": "/reactjs-iintos/static/js/2.8ed9977b.chunk.js",
-    "static/js/2.8ed9977b.chunk.js.map": "/reactjs-iintos/static/js/2.8ed9977b.chunk.js.map",
+    "static/js/2.3dc0a53a.chunk.js": "/reactjs-iintos/static/js/2.3dc0a53a.chunk.js",
+    "static/js/2.3dc0a53a.chunk.js.map": "/reactjs-iintos/static/js/2.3dc0a53a.chunk.js.map",
     "index.html": "/reactjs-iintos/index.html",
-    "precache-manifest.85a98f67ffbce88d4f264982e97b5088.js": "/reactjs-iintos/precache-manifest.85a98f67ffbce88d4f264982e97b5088.js",
+    "precache-manifest.578ccb61675d2f8d70b4cc24bfe5048a.js": "/reactjs-iintos/precache-manifest.578ccb61675d2f8d70b4cc24bfe5048a.js",
     "service-worker.js": "/reactjs-iintos/service-worker.js",
     "static/css/2.b2a652f3.chunk.css.map": "/reactjs-iintos/static/css/2.b2a652f3.chunk.css.map",
     "static/css/main.06a24e61.chunk.css.map": "/reactjs-iintos/static/css/main.06a24e61.chunk.css.map",
-    "static/js/2.8ed9977b.chunk.js.LICENSE.txt": "/reactjs-iintos/static/js/2.8ed9977b.chunk.js.LICENSE.txt",
+    "static/js/2.3dc0a53a.chunk.js.LICENSE.txt": "/reactjs-iintos/static/js/2.3dc0a53a.chunk.js.LICENSE.txt",
     "static/media/GoogleSans-Medium.ttf": "/reactjs-iintos/static/media/GoogleSans-Medium.8d57e401.ttf",
     "static/media/GoogleSans-Regular.ttf": "/reactjs-iintos/static/media/GoogleSans-Regular.b5c77a6a.ttf",
     "static/media/IPS.jpg": "/reactjs-iintos/static/media/IPS.41db6669.jpg",
@@ -31,8 +31,8 @@
   "entrypoints": [
     "static/js/runtime-main.b9508b9e.js",
     "static/css/2.b2a652f3.chunk.css",
-    "static/js/2.8ed9977b.chunk.js",
+    "static/js/2.3dc0a53a.chunk.js",
     "static/css/main.06a24e61.chunk.css",
-    "static/js/main.669e0e72.chunk.js"
+    "static/js/main.c51233c7.chunk.js"
   ]
 }
