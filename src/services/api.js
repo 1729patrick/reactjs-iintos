@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL:
-    !process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3333'
+    process.env.NODE_ENV === 'development'
+      ? 'https://iintoska2.ips.pt',
       : 'https://iintoska2.ips.pt',
 });
 
