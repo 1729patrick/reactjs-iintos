@@ -16,6 +16,10 @@ export const Container = styled.div`
   .MuiExpansionPanel-root {
     margin: 15px 0;
   }
+
+  .MuiExpansionPanelSummary-content {
+    margin: 0 !important;
+  }
 `;
 
 export const Detail = styled.div`

@@ -103,7 +103,7 @@ function Partners() {
                 src={partner.logo}
                 style={{
                   ...(index === 0
-                    ? { width: 100 }
+                    ? { width: 80 }
                     : index === 1
                     ? { height: 75, width: 150 }
                     : index === 2

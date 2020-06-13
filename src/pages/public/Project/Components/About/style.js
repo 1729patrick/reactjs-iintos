@@ -18,6 +18,10 @@ export const Container = styled.div`
     padding-top: 0;
   }
 
+  .MuiExpansionPanelSummary-content {
+    margin: 0 !important;
+  }
+
 	div{
 		text-align:justify;
 	}
