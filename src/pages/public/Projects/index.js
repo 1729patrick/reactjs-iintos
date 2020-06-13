@@ -33,7 +33,7 @@ export default withRouter(({ location, history }) => {
   };
 
   const openWiki = () => {
-    window.open('https://iintoska2.ips.pt/wiki/', '__blank');
+    window.open('https://iintoska2.ips.pt/', '__blank');
   };
 
   return (
