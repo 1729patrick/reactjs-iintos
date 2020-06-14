@@ -32,15 +32,17 @@ const Home = ({ history }) => {
             <h3>IINTOS Project</h3>
             <p>See what outputs we have done</p>
           </span>
-          <span>
-            <VerifiedUserIcon style={{ color: '#00655c', fontSize: 45 }} />
-            <h3>International Projects</h3>
-            <p>We are a platform that host multiple mobility projects</p>
-          </span>
+
           <span>
             <HomeWorkIcon style={{ color: '#e65100', fontSize: 45 }} />
             <h3>International Offices</h3>
             <p>Learn how you can create your mobility office in your school</p>
+          </span>
+
+          <span>
+            <VerifiedUserIcon style={{ color: '#00655c', fontSize: 45 }} />
+            <h3>International Projects</h3>
+            <p>We are a platform that host multiple mobility projects</p>
           </span>
         </div>
 

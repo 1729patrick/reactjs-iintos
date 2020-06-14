@@ -44,7 +44,7 @@ export const Container = styled.div`
 `;
 
 export const Info = styled.div`
-  background: #f1f4fa;
+  background: #fff;
   border-radius: 8px;
   width: 80%;
   margin: 0 auto;
