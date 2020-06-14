@@ -183,35 +183,26 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
 
       setActivities(sortedActivities);
       setDisplayActivity(sortedActivities);
-      if (isProject) {
-        if (formattedActivities.length === 0 && !isProfessor && isParticipant) {
-          handleMobilitySteps();
-        }
-      }
     }
   };
-  // makes the api call
-  const handleCreateMobilityStep = async () => {
-    const list = [];
 
+  const handleCreateMobilityStep = async steps => {
     const response = await api.get(`projects/${projectId}`);
     const project = response.data;
 
     try {
-      for (let i = 1; i < 9; i++) {
-        if (steps[i].checked) {
-          const activity = {
-            title: steps[i].title,
-            description: '',
-            done: project.done,
-            startDate: project.startDate,
-            endDate: project.startDate,
-            projectId,
-          };
-          list.push(activity);
-        }
-      }
-      await api.post(`allActivities`, list);
+      steps = steps
+        .filter(step => step.checked)
+        .map(({ title }) => ({
+          title,
+          description: '',
+          done: project.done,
+          startDate: project.startDate,
+          endDate: project.startDate,
+          projectId,
+        }));
+
+      await api.post(`allActivities`, steps);
 
       setModalOpen(false);
       toast.success('Activity created with success!');
@@ -219,15 +210,6 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
-    /*
-		try {
-      await api.post(`activities`, { ...values, projectId });
-      setModalOpen(false);
-      toast.success('Activity created with success!');
-      fetchActivities();
-    } catch (e) {
-      toast.error(e?.response?.data?.error || 'Invalid data, try again');
-    } */
   };
 
   useState(() => {

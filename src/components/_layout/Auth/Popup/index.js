@@ -6,7 +6,7 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 import { Icon, Container, NameDiv } from './styles';
 
-export default function SimplePopover({ logout, user }) {
+export default function SimplePopover({ logout, user, onClickHelp }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -21,7 +21,13 @@ export default function SimplePopover({ logout, user }) {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <div>
+    <div
+      style={{
+        paddingLeft: 20,
+        marginLeft: 20,
+        borderLeft: '1px solid #eee',
+      }}
+    >
       <NameDiv>
         {user.name} <br />
         {user.role}
@@ -48,6 +54,9 @@ export default function SimplePopover({ logout, user }) {
         <Container>
           <NavLink to="/profile">Profile</NavLink>
           {user.role === 'Admin' && <NavLink to="/log">Log</NavLink>}
+          <a onClick={onClickHelp} style={{ cursor: 'pointer' }}>
+            Give us Feedback
+          </a>
           <NavLink to="/login" onClick={logout}>
             Logout
           </NavLink>

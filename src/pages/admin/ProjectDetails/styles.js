@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div `
+export const Container = styled.div`
   width: 100%;
   display: flex;
 
@@ -8,8 +8,8 @@ export const Container = styled.div `
     flex-direction: column;
   }
 `;
-export const Title = styled.div `
-  font-weight: 600;
+export const Title = styled.div`
+  font-weight: 500;
   width: 250px;
 
   @media only screen and (max-width: 1200px) {
@@ -17,7 +17,7 @@ export const Title = styled.div `
   }
 `;
 
-export const Menu = styled.div `
+export const Menu = styled.div`
   min-width: 16%;
   height: 100%;
   position: fixed;
@@ -63,7 +63,7 @@ export const Menu = styled.div `
   }
 `;
 
-export const Content = styled.div `
+export const Content = styled.div`
   width: 100%;
   padding: 0 30px 0 calc(16% + 30px);
 

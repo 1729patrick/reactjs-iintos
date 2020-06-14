@@ -96,8 +96,7 @@ const Header = () => {
             {isGroupAdmin && <NavLink to="/events">Events</NavLink>}
             {isGroupAdmin && <NavLink to="/users">Users</NavLink>}
             {isGroupSchool && <NavLink to="/school">School</NavLink>}
-            <Popup logout={logout} user={user} />
-            <HelpIcon fontSize="large" onClick={() => onClickHelp()} />
+            <Popup logout={logout} user={user} onClickHelp={onClickHelp} />
           </div>
         </div>
 
