@@ -74,7 +74,7 @@ function Events() {
     });
 
     const getContent = ({ url, name }) => (
-      <a href={url} style={{ marginLeft: 10 }}>
+      <a href={url} style={{ marginLeft: 10 }} target="_blank">
         {name}
       </a>
     );
@@ -162,7 +162,7 @@ function Events() {
   };
 
   const onOpen = () => {
-    setOpen({ ['multiplier']: true });
+    setOpen({ ['Multiplier Events']: true });
   };
 
   return (
@@ -211,7 +211,7 @@ function Events() {
                       {id === 11 && (
                         <a
                           href="https://bit.ly/30ACC2X"
-                          target="__blank"
+                          target="_blank"
                           style={{ marginBottom: 10 }}
                         >
                           Pre-register form

@@ -128,10 +128,19 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
               options={[
-                { id: 'multiplier', name: 'Multiplier' },
-                { id: 'trainning', name: 'Trainning' },
-                { id: 'meeting', name: 'Meeting' },
-                { id: 'mobility', name: 'Mobility' },
+                { id: 'Multiplier Events', name: 'Multiplier Events' },
+                {
+                  id: 'Short-term joint staff training events',
+                  name: 'Short-term joint staff training events',
+                },
+                {
+                  id: 'Transnational Meetings',
+                  name: 'Transnational Meetings',
+                },
+                {
+                  id: 'Short-term exchanges of groups of pupils',
+                  name: 'Short-term exchanges of groups of pupils',
+                },
               ]}
             />
             {/*

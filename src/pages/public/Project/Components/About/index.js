@@ -12,7 +12,14 @@ export default function About() {
       <div>
         <h1>What is IINTOS?</h1>
 
-        <span style={{ display: 'flex', alignItems: 'center' }}>
+        <span
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+          }}
+        >
           <p>
             The aim of this project is to develop international teaching and
             learning processes that lead our main target groups, teachers,
@@ -25,7 +32,7 @@ export default function About() {
           </p>
           <img
             src={require('../../../../../assets/images/group.jpg')}
-            style={{ width: '60%', marginLeft: 15 }}
+            style={{ width: '90%', marginLeft: 15, margin: '0 auto' }}
           ></img>
         </span>
 
