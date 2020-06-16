@@ -20,12 +20,24 @@ export const Container = styled.div`
   .MuiExpansionPanelSummary-content {
     margin: 0 !important;
   }
+
+  textarea {
+    width: 100%;
+    border: none;
+    height: 600px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666;
+    background: #fff;
+  }
 `;
 
 export const Detail = styled.div`
   display: flex;
+  width: 100%;
 
   img {
     margin-right: 15px;
+    margin-left: 0;
   }
 `;
