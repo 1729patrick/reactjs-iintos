@@ -54,11 +54,8 @@ export default function About() {
               <li>The global education objectives in schools;</li>
               <li>Education for global citizen in formal education;</li>
               <li>Global education in the European curricula;</li>
-              <li>
-                Tool for analyzing and comparing the curricula for STEM
-                education;
-              </li>
-              <li>Increase students STEM competences;</li>
+              <li>Tool for analyzing and comparing the curricula;</li>
+              <li>Increase students competences;</li>
               <li>
                 Including the Common Framework of Europe Competence in the
                 school policy plan;
@@ -75,8 +72,8 @@ export default function About() {
                 collaborating with students from various cultures;
               </li>
               <li>
-                Make the students able to graduate with increased STEM and
-                global competencies.
+                Make the students able to graduate with increased, among others,
+                STEM and global competencies.
               </li>
             </ul>
           </ExpansionPanelDetails>

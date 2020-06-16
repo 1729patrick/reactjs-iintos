@@ -53,7 +53,7 @@ const partners = [
   the best universities in the world, according to international rankings`,
     link: 'https://www.pdf.upol.cz',
     logo: olomoucImage,
-    image: require('~/assets/images/ips_image.png'),
+    image: require('~/assets/images/olomuc.jpg'),
   },
   {
     title: 'Group of Schools José Saramago (Portugal)',
@@ -64,7 +64,7 @@ const partners = [
   Intervention (ETPI) project since 2009.`,
     link: 'http://aejs.pt/site/',
     logo: saramagoImage,
-    image: require('~/assets/images/ips_image.png'),
+    image: null,
   },
   {
     title: 'Istituto “Giancarlo Vallauri” Fossano (Italy)',
@@ -118,7 +118,9 @@ function Partners() {
 
             <ExpansionPanelDetails>
               <Detail>
-                <img src={partner.image} style={{ width: 250 }} />
+                {partner.image && (
+                  <img src={partner.image} style={{ width: 250 }} />
+                )}
                 <span>
                   <Typography>{partner.description}</Typography>
 
