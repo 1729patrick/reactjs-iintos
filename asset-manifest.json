@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/reactjs-iintos/static/css/main.16e3465c.chunk.css",
-    "main.js": "/reactjs-iintos/static/js/main.953abf18.chunk.js",
-    "main.js.map": "/reactjs-iintos/static/js/main.953abf18.chunk.js.map",
+    "main.js": "/reactjs-iintos/static/js/main.54d37d57.chunk.js",
+    "main.js.map": "/reactjs-iintos/static/js/main.54d37d57.chunk.js.map",
     "runtime-main.js": "/reactjs-iintos/static/js/runtime-main.b9508b9e.js",
     "runtime-main.js.map": "/reactjs-iintos/static/js/runtime-main.b9508b9e.js.map",
     "static/css/2.b2a652f3.chunk.css": "/reactjs-iintos/static/css/2.b2a652f3.chunk.css",
-    "static/js/2.842c0fbc.chunk.js": "/reactjs-iintos/static/js/2.842c0fbc.chunk.js",
-    "static/js/2.842c0fbc.chunk.js.map": "/reactjs-iintos/static/js/2.842c0fbc.chunk.js.map",
+    "static/js/2.1e6c381c.chunk.js": "/reactjs-iintos/static/js/2.1e6c381c.chunk.js",
+    "static/js/2.1e6c381c.chunk.js.map": "/reactjs-iintos/static/js/2.1e6c381c.chunk.js.map",
     "index.html": "/reactjs-iintos/index.html",
-    "precache-manifest.35605c4d077baef63c76194b01354d56.js": "/reactjs-iintos/precache-manifest.35605c4d077baef63c76194b01354d56.js",
+    "precache-manifest.a62474d24b2a5d87aaefdf80c78b34ba.js": "/reactjs-iintos/precache-manifest.a62474d24b2a5d87aaefdf80c78b34ba.js",
     "service-worker.js": "/reactjs-iintos/service-worker.js",
     "static/css/2.b2a652f3.chunk.css.map": "/reactjs-iintos/static/css/2.b2a652f3.chunk.css.map",
     "static/css/main.16e3465c.chunk.css.map": "/reactjs-iintos/static/css/main.16e3465c.chunk.css.map",
-    "static/js/2.842c0fbc.chunk.js.LICENSE.txt": "/reactjs-iintos/static/js/2.842c0fbc.chunk.js.LICENSE.txt",
+    "static/js/2.1e6c381c.chunk.js.LICENSE.txt": "/reactjs-iintos/static/js/2.1e6c381c.chunk.js.LICENSE.txt",
     "static/media/GoogleSans-Medium.ttf": "/reactjs-iintos/static/media/GoogleSans-Medium.8d57e401.ttf",
     "static/media/GoogleSans-Regular.ttf": "/reactjs-iintos/static/media/GoogleSans-Regular.b5c77a6a.ttf",
     "static/media/IPS.jpg": "/reactjs-iintos/static/media/IPS.41db6669.jpg",
@@ -24,6 +24,7 @@
     "static/media/ips_image.png": "/reactjs-iintos/static/media/ips_image.6b796b03.png",
     "static/media/logo.png": "/reactjs-iintos/static/media/logo.3c4679d6.png",
     "static/media/noData.png": "/reactjs-iintos/static/media/noData.33cfafeb.png",
+    "static/media/olomuc.jpg": "/reactjs-iintos/static/media/olomuc.a402f298.jpg",
     "static/media/slick-theme.css": "/reactjs-iintos/static/media/slick.f97e3bbf.svg",
     "static/media/vallauriLogo.jpg": "/reactjs-iintos/static/media/vallauriLogo.29b07633.jpg",
     "static/media/vallauri_image.png": "/reactjs-iintos/static/media/vallauri_image.a04ce8f2.png"
@@ -31,8 +32,8 @@
   "entrypoints": [
     "static/js/runtime-main.b9508b9e.js",
     "static/css/2.b2a652f3.chunk.css",
-    "static/js/2.842c0fbc.chunk.js",
+    "static/js/2.1e6c381c.chunk.js",
     "static/css/main.16e3465c.chunk.css",
-    "static/js/main.953abf18.chunk.js"
+    "static/js/main.54d37d57.chunk.js"
   ]
 }
