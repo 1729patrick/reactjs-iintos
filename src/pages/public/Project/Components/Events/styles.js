@@ -26,7 +26,7 @@ export const Container = styled.div`
     text-transform: uppercase;
 
     span {
-      color: #666;
+      color: #444;
       font-size: 14px;
     }
   }
@@ -62,7 +62,7 @@ export const Detail = styled.div`
     border: none;
     height: 600px;
     line-height: 1.5;
-    color: #666;
+    color: #444;
     background: #fff;
   }
 `;
@@ -79,7 +79,7 @@ export const Session = styled.div`
     text-transform: uppercase;
 
     p {
-      color: #666;
+      color: #444;
       font-size: 15px;
       font-weight: 400;
       margin-left: auto;

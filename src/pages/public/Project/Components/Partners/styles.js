@@ -27,7 +27,7 @@ export const Container = styled.div`
     height: 600px;
     font-size: 16px;
     line-height: 1.5;
-    color: #666;
+    color: #444;
     background: #fff;
   }
 `;

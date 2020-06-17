@@ -8,6 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Button1 from '~/components/Button';
 import { Form, Circle } from './styles';
 import { useMemo } from 'react';
+import { TextareaAutosize } from '@material-ui/core';
 
 function getModalStyle() {
   const top = 50;
@@ -159,6 +160,10 @@ export default ({
             can find the tasks we propose, and others can be created according
             to each project, country, characteristics of the financing program.
           </span>
+
+          <h3 style={{ marginTop: 15 }}>
+            You can select the activities for your project
+          </h3>
           <div
             style={{
               height: 450,
@@ -166,24 +171,34 @@ export default ({
               position: 'relative',
             }}
           >
-            {steps_.map(({ title, top, left, checked }, index) => (
+            {steps_.map(({ title, top, left, description, checked }, index) => (
               <HtmlTooltip
                 title={
-                  <React.Fragment>
-                    <p>
-                      The tooltip needs to apply DOM event listeners to its
-                      child element. If the child is a custom React element, you
-                      need to make sure that it spreads its properties to the
-                      underlying DOM element.
-                    </p>
-                  </React.Fragment>
+                  <div
+                    style={{
+                      width: 500,
+                      borderRadius: 6,
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <TextareaAutosize
+                      style={{
+                        width: '100%',
+                        border: 'none',
+                        color: '#444',
+                        background: '#f5f5f5',
+                      }}
+                    >
+                      {description}
+                    </TextareaAutosize>
+                  </div>
                 }
               >
                 <Circle
                   style={{
                     top,
                     left,
-                    background: checked ? '#3f50b5' : 'rgba(63, 80, 181, 0.7)',
+                    background: checked ? '#0c1e3f' : '#3f50b5',
                     borderColor: checked ? 'black' : null,
                   }}
                   onClick={() => onSelect(index)}

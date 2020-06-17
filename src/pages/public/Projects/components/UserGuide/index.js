@@ -13,7 +13,7 @@ function UserGuide() {
         <p>
           <a
             target="__blank"
-            href="https://iintoska2.ips.pt/api/files/4f7657e25a3fe13d398caa9ef13fd692.pdf"
+            href="https://iintoska2.ips.pt/api/files/62b9ae9fea15be6f2c1abc7ecc5b049c.pdf"
           >
             Download
           </a>

@@ -291,7 +291,7 @@ function Events() {
                               )}
                               <span
                                 style={{
-                                  color: '#666',
+                                  color: '#444',
                                   marginLeft: 'auto',
                                   fontSize: 14,
                                 }}

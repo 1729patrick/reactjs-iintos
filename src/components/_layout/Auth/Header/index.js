@@ -11,7 +11,6 @@ import api from '~/services/api';
 import apiCalendar from '~/services/apiCalendar';
 import Menu from '../Menu';
 import Popup from '../Popup';
-import Help from './HelpModal';
 import Privacy from './PrivacyModal';
 
 const Header = () => {

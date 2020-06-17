@@ -41,7 +41,7 @@ export const Detail = styled.div`
     width: 100%;
     border: none;
     line-height: 1.5;
-    color: #666;
+    color: #444;
     margin-bottom: 15px;
   }
 `;
