@@ -24,7 +24,13 @@ const Home = ({ history }) => {
       </Container>
       <Info>
         <h1>What's this all about?</h1>
-        <p>Description....Implementation of International Offices in Schools</p>
+        <p style={{ textAlign: 'center' }}>
+          The aim of this project is to develop international teaching and
+          learning processes that lead our main target groups, teachers,
+          students and schools stakeholders, able to make the schools more
+          international and at the same time raise the competence levels in STEM
+          education.
+        </p>
 
         <div>
           <span>
