@@ -19,7 +19,7 @@ import Privacy from '~/pages/public/Privacy';
 import IProject from '~/pages/public/Project';
 import IProjects from '~/pages/public/Projects';
 import IOffices from '~/pages/public/Offices';
-// import Newsletter from '~/pages/public/x/Newsletter';
+import KnowLedge from '~/pages/public/KnowledgeBase';
 
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
 import AwaitVerification from '~/pages/public/AwaitVerification';
@@ -40,6 +40,7 @@ export default () => {
         <Route path="/iproject" component={IProject} />
         <Route path="/iprojects" component={IProjects} />
         <Route path="/ioffices" component={IOffices} />
+        <Route path="/knowledge" component={KnowLedge} />
         <Route path="/privacy" component={Privacy} />
         <Route
           path="/signup/school_information"
