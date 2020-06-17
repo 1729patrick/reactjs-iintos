@@ -130,8 +130,8 @@ export default ({
               options={[
                 { id: 'Multiplier Events', name: 'Multiplier Events' },
                 {
-                  id: 'Short-term joint staff training events',
-                  name: 'Short-term joint staff training events',
+                  id: 'Short-term joint staff training event',
+                  name: 'Short-term joint staff training event',
                 },
                 {
                   id: 'Transnational Meetings',

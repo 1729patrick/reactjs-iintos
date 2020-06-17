@@ -29,8 +29,31 @@ function Events() {
 
       const eventsType = {};
       response.data.forEach(event => {
+        const preview_ = [];
+        const files_ = [];
+
+        event.files &&
+          event.files.forEach(file => {
+            const [type] = file.name.split('.').reverse();
+
+            const isImage = type === 'png' || type === 'jpg' || type === 'jpeg';
+
+            if (isImage) {
+              preview_.push({ type: 'image', file });
+            } else {
+              files_.push(file);
+            }
+          });
+
+        event.links &&
+          event.links.forEach(link => {
+            preview_.push({ type: 'link', link });
+          });
+
         const e = {
           ...event,
+          files: files_,
+          preview: preview_,
           sessions: event.sessions.map(session => {
             const preview = [];
             const files = [];
@@ -67,7 +90,7 @@ function Events() {
 
   const mountFiles = ({ files }) => {
     files = files.filter(file => {
-      const [_, type] = file?.name?.split('.');
+      const [type] = file?.name?.split('.').reverse();
 
       const isImage = type === 'png' || type === 'jpg' || type === 'jpeg';
       return !isImage;
@@ -98,7 +121,9 @@ function Events() {
     const getContent = ({ type, file, link }) => {
       if (type === 'image') {
         return (
-          <div
+          <a
+            href={file.url}
+            target="_blank"
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -115,7 +140,7 @@ function Events() {
               }}
             />
             {file.name}
-          </div>
+          </a>
         );
       }
 
@@ -132,12 +157,15 @@ function Events() {
       );
     };
 
+    if (preview.length === 1) return null;
+
     return (
       <div
         style={{
           alignItems: 'center',
           display: 'flex',
           overflowX: 'auto',
+          marginTop: 15,
         }}
       >
         {preview?.map(({ type, file, link, name }) => {
@@ -147,18 +175,10 @@ function Events() {
     );
   };
 
-  const getImage = files => {
-    for (let file of files) {
-      const [_, type] = file?.name?.split('.');
+  const getImage = preview => {
+    if (!preview.length || preview.length > 1) return null;
 
-      const isImage = type === 'png' || type === 'jpg' || type === 'jpeg';
-
-      if (isImage) {
-        return file.url;
-      }
-    }
-
-    return null;
+    return preview[0].file.url;
   };
 
   const onOpen = () => {
@@ -185,7 +205,7 @@ function Events() {
           </ListItem>
           <Collapse in={open[key]} timeout="auto" unmountOnExit>
             {events[key].map(
-              ({ id, title, description, files, sessions }, index) => (
+              ({ id, title, description, files, preview, sessions }, index) => (
                 <ExpansionPanel defaultExpanded={!index}>
                   <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -203,20 +223,58 @@ function Events() {
                   <ExpansionPanelDetails>
                     <Detail>
                       <span>
-                        {getImage(files) && <img src={getImage(files)}></img>}
+                        {getImage(preview) && (
+                          <img src={getImage(preview)}></img>
+                        )}
 
                         <TextareaAutosize disabled defaultValue={description} />
                       </span>
 
                       {id === 11 && (
-                        <a
-                          href="https://bit.ly/30ACC2X"
-                          target="_blank"
-                          style={{ marginBottom: 10 }}
-                        >
-                          Pre-register form
-                        </a>
+                        <>
+                          <div
+                            style={{
+                              justifyContent: 'flex-start',
+                              margin: '15px 0',
+                            }}
+                          >
+                            The program is available for consultation in
+                            <a
+                              href="https://iintoska2.ips.pt/api/files/1efa581965d8b324c9acae39a27ea796.pdf"
+                              target="_blank"
+                              style={{ margin: '0 10px' }}
+                            >
+                              Portuguese (June 20)
+                            </a>
+                            and
+                            <a
+                              href="https://iintoska2.ips.pt/api/files/bdf32e7ddf54d32b3510c2424ab9f946.pdf"
+                              target="_blank"
+                              style={{ marginLeft: 10 }}
+                            >
+                              English (June 25)
+                            </a>
+                          </div>
+                          <div
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'flex-start',
+                            }}
+                          >
+                            <a href="https://bit.ly/30ACC2X" target="_blank">
+                              Pre-register form (Portuguese)
+                            </a>
+                            <a
+                              href="https://bit.ly/2N706VA"
+                              target="_blank"
+                              style={{ marginLeft: 15 }}
+                            >
+                              Pre-register form (English)
+                            </a>
+                          </div>
+                        </>
                       )}
+                      {mountPreview({ preview })}
                       {mountFiles({ files })}
 
                       <div>

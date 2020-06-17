@@ -58,7 +58,7 @@ export const Detail = styled.div`
   }
 
   textarea {
-    width: 100%;
+    flex: 1;
     border: none;
     height: 600px;
     line-height: 1.5;
