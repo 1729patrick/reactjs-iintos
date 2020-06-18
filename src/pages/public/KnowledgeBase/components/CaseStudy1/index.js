@@ -7,7 +7,7 @@ export default function Video1() {
       <h1> IINTOS - Saramago Vallauri Case Study </h1>
       <br />
       <iframe
-        width="1100"
+        width={window.innerWidth - window.innerWidth * 0.32}
         height="554"
         src="https://www.youtube.com/embed/hLFcpvNVtGs"
         frameBorder="0"

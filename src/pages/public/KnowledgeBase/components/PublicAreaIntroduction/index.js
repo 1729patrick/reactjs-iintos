@@ -7,7 +7,7 @@ export default function Video1() {
       <h1> IINTOS - Public Area Introduction </h1>
       <br />
       <iframe
-        width="1100"
+        width={window.innerWidth - window.innerWidth * 0.32}
         height="554"
         src="https://www.youtube.com/embed/XrsamNblAHc"
         frameBorder="0"

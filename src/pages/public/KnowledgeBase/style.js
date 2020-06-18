@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const Menu = styled.div`
-  min-width: 22%;
+  width: 30%;
   position: fixed;
   height: 100%;
   position: fixed;
@@ -57,13 +57,11 @@ export const Menu = styled.div`
 `;
 
 export const Content = styled.div`
-padding-right:100px;
-padding-left:22%;
+padding-left: 30%;
 
 
 	div{
     padding-top: 15px;
-		width:80%;
 		display: flex;
     flex-direction: column;
 		margin:0 auto;
