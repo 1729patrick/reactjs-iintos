@@ -4,13 +4,17 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 700px) {
     flex-direction: column;
   }
 `;
 export const Title = styled.div`
-  font-weight: 600;
+  font-weight: 500;
   width: 250px;
+
+  @media only screen and (max-width: 1200px) {
+    width: 150px;
+  }
 `;
 
 export const Menu = styled.div`
@@ -36,14 +40,13 @@ export const Menu = styled.div`
       }
 
       &.active {
-        background: #ddd;
         color: rgb(239, 108, 0) !important;
         border-radius: 4px 50px 50px 4px;
       }
     }
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 700px) {
     width: 100%;
     padding: 0 30px;
     max-width: 100%;
@@ -72,7 +75,7 @@ export const Content = styled.div`
     margin: 0 auto;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 700px) {
     padding-left: 30px;
   }
 `;

@@ -16,6 +16,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
+import Search from '~/components/Search';
 import FormModal from './modals/Form';
 import DeleteModal from './modals/Delete';
 import { useUserContext } from '~/context/UserContext';
@@ -80,6 +81,7 @@ export default function Users() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [users, setUsers] = useState([]);
+  const [displayUser, setDiplayUser] = useState([]);
   const [roles, setRoles] = useState([]);
   const [schools, setSchools] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -99,6 +101,7 @@ export default function Users() {
     } else {
       setError(false);
     }
+    setDiplayUser(response.data);
   };
 
   const fetchRoles = async () => {
@@ -194,7 +197,7 @@ export default function Users() {
       validationSchema,
       onSubmit: handleEmail,
       submitText: 'Send',
-      modalTitle: 'What do you want to tell this person?',
+      modalTitle: `What do you want to tell to ${row.name}?`,
     });
 
     setModalOpen('email');
@@ -264,15 +267,22 @@ export default function Users() {
       <ContainerWrap>
         <span>
           <h1>Users</h1>
-
-          {!isIIntosPartner && (
-            <Button
-              title="Create User"
-              type="button"
-              onClick={handleCreateUser}
+          <span>
+            {!isIIntosPartner && (
+              <Button
+                title="Create User"
+                type="button"
+                onClick={handleCreateUser}
+              />
+            )}
+            <Search
+              setDisplay={setDiplayUser}
+              displayOg={users}
+              placeholder="Search by name"
             />
-          )}
+          </span>
         </span>
+
         {error && <EmptyMessage />}
         {!error && (
           <Paper className={classes.root}>
@@ -292,7 +302,7 @@ export default function Users() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {users
+                  {displayUser
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map(row => {
                       return (

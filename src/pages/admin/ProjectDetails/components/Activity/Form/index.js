@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -63,6 +61,8 @@ export default ({
   if (!open) {
     return null;
   }
+  // console.log('initial');
+  // console.log(initialValues);
 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
@@ -71,6 +71,8 @@ export default ({
   const handleClose = () => {
     setOpen(false);
   };
+  // console.log('fomrik');
+  // console.log(initialValues);
 
   // Form controller
   const formik = useFormik({
@@ -81,6 +83,7 @@ export default ({
 
   const handleAdd = field => {
     const values = formik.values[field];
+    
     formik.setFieldValue(field, [...values, '']);
   };
 
@@ -175,17 +178,18 @@ export default ({
                       isProject ? 'teacher' : 'partner'
                     } to activity`}
                     name="professor"
-                    onChange={value =>
+                    onChange={value => {
+                      
                       formik.setFieldValue(
-                        `teacher[${index}]`,
+                        `professors[${index}]`,
                         value.target.value
-                      )
-                    }
+                      );
+                    }}
                     values={{ professor: formik.values.professors[index] }}
                     errors={formik.errors}
                     touched={formik.touched}
                     submitted={formik.submitCount}
-                    options={users.professors}
+                    options={users?.professors}
                   />
                   <DeleteIcon
                     style={{ color: '#cb1010', cursor: 'pointer' }}
@@ -217,7 +221,7 @@ export default ({
                       errors={formik.errors}
                       touched={formik.touched}
                       submitted={formik.submitCount}
-                      options={users.students}
+                      options={users?.students}
                     />
                     <DeleteIcon
                       style={{ color: '#cb1010', cursor: 'pointer' }}

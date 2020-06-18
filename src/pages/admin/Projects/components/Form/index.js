@@ -210,6 +210,17 @@ export default ({
                   touched={formik.touched}
                   submitted={formik.submitCount}
                 />
+                <Input
+                  label="Reference Contact"
+                  type="text"
+                  placeholder="Reference Contact"
+                  name="referenceEmail"
+                  onChange={formik.handleChange}
+                  values={formik.values}
+                  errors={formik.errors}
+                  touched={formik.touched}
+                  submitted={formik.submitCount}
+                />
               </>
             )}
             <Button title={submitText} type="submit" />

@@ -4,6 +4,9 @@ import { UserProvider, persistedUser } from './context/UserContext';
 
 import GlobalStyle from '~/styles/global';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import api from '~/services/api';
 import apiCalendar from '~/services/apiCalendar';
 

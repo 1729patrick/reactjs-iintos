@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
+import Button from '~/components/Button';
 
 import { Container, Menu, Content } from './styles';
 import api from '~/services/api';
@@ -24,7 +25,7 @@ const projectColumns = [
     id: 'ageRangeStart',
     format: value => `${value.ageRangeStart} - ${value.ageRangeEnd}`,
     label: 'Age Range',
-    minWidth: 150,
+    minWidth: 100,
   },
   {
     id: 'startDate',
@@ -36,11 +37,11 @@ const projectColumns = [
     label: 'Limit Date',
     minWidth: 120,
   },
-  { id: 'type', label: 'Mobility Type', minWidth: 150 },
+  { id: 'type', label: 'Mobility Type', minWidth: 100 },
   {
     id: 'campaing',
     label: 'Campaing',
-    minWidth: 150,
+    minWidth: 50,
     format: value => (value ? 'Yes' : 'No'),
   },
   {
@@ -82,7 +83,7 @@ const Projects = ({ history, location, columns = projectColumns }) => {
 
   const isProfessor = useMemo(
     () =>
-      user?.role === 'Professor' ||
+      user?.role === 'Teacher' ||
       user?.role === 'IINTOS-Admin' ||
       user?.role === 'IINTOS-Partner',
     [user]
@@ -114,7 +115,17 @@ const Projects = ({ history, location, columns = projectColumns }) => {
           : '',
       }));
 
-      setProjects(formattedProjects);
+      // sort the projects by date and by if is campaing
+      const pro = formattedProjects
+        .sort((project1, project2) => {
+          return project1.startDate > project2.startDate;
+        })
+        .sort((x, y) => {
+          return x.campaing;
+        })
+        .reverse();
+
+      setProjects(pro);
       if (formattedProjects.length === 0) {
         setError(true);
       } else {
@@ -191,7 +202,8 @@ const Projects = ({ history, location, columns = projectColumns }) => {
 
     if (column.id === 'see') {
       return (
-        <VisibilityIcon
+        <Button
+          title="Show"
           style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
           onClick={() => handleDetailRow(row)}
         />

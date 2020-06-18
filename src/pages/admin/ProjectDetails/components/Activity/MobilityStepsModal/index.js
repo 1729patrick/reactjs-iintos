@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-
-import Button from '~/components/Button';
-import Files from '~/components/Files';
-import Select from '~/components/Select';
-import Input from '~/components/Input';
-import { Form } from './styles';
+import Button1 from '~/components/Button';
+import { Form, Circle } from './styles';
+import { useMemo } from 'react';
+import { TextareaAutosize } from '@material-ui/core';
 
 function getModalStyle() {
   const top = 50;
@@ -32,7 +24,7 @@ function getModalStyle() {
 const useStyles = makeStyles(theme => ({
   paper: {
     position: 'absolute',
-    width: 400,
+    width: '70%',
     backgroundColor: theme.palette.background.paper,
     borderRadius: 8,
     maxHeight: '85%',
@@ -41,9 +33,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const HtmlTooltip = withStyles(theme => ({
+  tooltip: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+  },
+}))(Tooltip);
+
 export default ({
   initialValues = {},
-  isProject,
   submitText,
   open,
   setOpen,
@@ -57,6 +58,8 @@ export default ({
   if (!open) {
     return null;
   }
+
+  const [steps_, setSteps_] = useState([]);
 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
@@ -73,6 +76,68 @@ export default ({
     onSubmit,
   });
 
+  useEffect(() => {
+    const width = window.innerWidth * 0.7 - 150;
+    const height = 450 - 150;
+
+    const lefts = [];
+
+    let sum = 0;
+    while (true) {
+      if (sum < width) {
+        lefts.push(sum);
+        sum += 150;
+        continue;
+      }
+
+      break;
+    }
+
+    const tops = [];
+
+    let sumT = 0;
+    while (true) {
+      if (sumT <= height) {
+        tops.push(sumT);
+        sumT += 150;
+        continue;
+      }
+
+      break;
+    }
+
+    let sorted = {};
+    let steps_a = Object.keys(steps).map((key, index) => {
+      const left = lefts[index % lefts.length];
+      let topSorted = tops[(Math.random() * tops.length).toFixed(0)];
+
+      while (true) {
+        if (topSorted !== undefined && !sorted[`${topSorted}${left}`]) {
+          sorted[`${topSorted}${left}`] = true;
+          break;
+        } else {
+          topSorted = tops[(Math.random() * tops.length).toFixed(0)];
+        }
+      }
+
+      return {
+        ...steps[key],
+        top: topSorted,
+        left,
+      };
+    });
+
+    return setSteps_(steps_a);
+  }, []);
+
+  const onSelect = index => {
+    setSteps_(
+      steps_.map((step, i) =>
+        i === index ? { ...step, checked: !step.checked } : step
+      )
+    );
+  };
+
   return (
     <Modal
       aria-labelledby="simple-modal-title"
@@ -81,23 +146,68 @@ export default ({
       onClose={handleClose}
     >
       <div style={modalStyle} className={classes.paper}>
-        <h2 id="simple-modal-title">Mobility Steps</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <h2 id="simple-modal-title" style={{ marginBottom: 15 }}>
+            Steps and tasks to follow in the elaboration of an international
+            project
+          </h2>
+          <Button1 title={submitText} onClick={() => onSubmit(steps_)} />
+        </div>
         <div id="simple-modal-description">
-          <span>Here are some sugestions to start of this project</span>
-          <Form onSubmit={formik.handleSubmit}>
-            {Object.keys(steps).map(key => (
-              <FormControlLabel
-                value={steps[key]?.title}
-                control={<Checkbox color="primary" onChange={handleToggle} />}
-                label={steps[key]?.title}
-                labelPlacement="end"
-                key={key}
-                name={key}
-              />
-            ))}
+          <span>
+            Here you can find proposals for steps and tasks to build your
+            international project. There is no single order. In each circle you
+            can find the tasks we propose, and others can be created according
+            to each project, country, characteristics of the financing program.
+          </span>
 
-            <Button title={submitText} type="submit" />
-          </Form>
+          <h3 style={{ marginTop: 15 }}>
+            You can select the activities for your project
+          </h3>
+          <div
+            style={{
+              height: 450,
+              marginTop: 25,
+              position: 'relative',
+            }}
+          >
+            {steps_.map(({ title, top, left, description, checked }, index) => (
+              <HtmlTooltip
+                title={
+                  <div
+                    style={{
+                      width: 500,
+                      borderRadius: 6,
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <TextareaAutosize
+                      style={{
+                        width: '100%',
+                        border: 'none',
+                        color: '#444',
+                        background: '#f5f5f5',
+                      }}
+                    >
+                      {description}
+                    </TextareaAutosize>
+                  </div>
+                }
+              >
+                <Circle
+                  style={{
+                    top,
+                    left,
+                    background: checked ? '#0c1e3f' : '#3f50b5',
+                    borderColor: checked ? 'black' : null,
+                  }}
+                  onClick={() => onSelect(index)}
+                >
+                  {title}
+                </Circle>
+              </HtmlTooltip>
+            ))}
+          </div>
         </div>
       </div>
     </Modal>

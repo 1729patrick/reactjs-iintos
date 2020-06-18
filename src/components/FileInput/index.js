@@ -14,6 +14,7 @@ export default function FileInput({
   submitted,
   imagePreview,
   multiple,
+  style,
   readOnly,
   ...props
 }) {
@@ -30,7 +31,7 @@ export default function FileInput({
   }
 
   return (
-    <Container>
+    <Container style={style}>
       {label && (
         <span>
           <label>{label}</label>

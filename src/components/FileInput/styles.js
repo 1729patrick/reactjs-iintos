@@ -8,6 +8,7 @@ export const Container = styled.div`
     border-radius: 4px;
     border: none;
     background: #eee;
+    overflow: hidden;
 
     font-weight: 500;
     color: #444 !important;

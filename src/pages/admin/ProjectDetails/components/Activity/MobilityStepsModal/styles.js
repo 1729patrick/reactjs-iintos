@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Form = styled.form`
   padding-top: 30px;
+
   div + div {
     margin-top: 10px;
   }
@@ -41,4 +42,21 @@ export const Form = styled.form`
       display: block;
     }
   }
+`;
+
+export const Circle = styled.div`
+  position: absolute;
+  height: 150px;
+  width: 150px;
+  border-radius: 75px;
+  padding: 15px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  border: solid 2px #eee;
+  box-shadow: 0 1px 20px 0 rgba(46, 61, 73, 0.2) !important;
 `;

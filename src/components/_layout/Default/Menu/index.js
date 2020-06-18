@@ -11,17 +11,18 @@ export default function Menu({ onClose }) {
         <CloseIcon onClick={onClose} />
       </header>
       <div>
-        <NavLink to="/about" onClick={onClose}>
-          About
+        <NavLink to="/iproject" onClick={onClose}>
+          IINTOS Project
         </NavLink>
-        <NavLink to="/partners" onClick={onClose}>
-          Partners
+
+        <NavLink to="/ioffices" onClick={onClose}>
+          International Offices
+        </NavLink>
+
+        <NavLink to="/iprojects" onClick={onClose}>
+          International Projects
         </NavLink>
         {/* <NavLink to="/news">News</NavLink> */}
-
-        <NavLink to="/results" onClick={onClose}>
-          Results
-        </NavLink>
 
         <NavLink to="/login" onClick={onClose}>
           Login

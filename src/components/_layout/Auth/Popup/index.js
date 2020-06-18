@@ -21,7 +21,13 @@ export default function SimplePopover({ logout, user }) {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <div>
+    <div
+      style={{
+        paddingLeft: 20,
+        marginLeft: 20,
+        borderLeft: '1px solid #eee',
+      }}
+    >
       <NameDiv>
         {user.name} <br />
         {user.role}
@@ -48,6 +54,7 @@ export default function SimplePopover({ logout, user }) {
         <Container>
           <NavLink to="/profile">Profile</NavLink>
           {user.role === 'Admin' && <NavLink to="/log">Log</NavLink>}
+
           <NavLink to="/login" onClick={logout}>
             Logout
           </NavLink>

@@ -9,6 +9,7 @@ export const Container = styled.header`
   padding: 0 25px;
   position: fixed;
   width: 100%;
+  border-bottom: 1px solid #ccc;
 
   > a {
     font-size: 32px;

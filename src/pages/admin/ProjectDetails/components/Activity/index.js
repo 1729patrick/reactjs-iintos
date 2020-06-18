@@ -17,7 +17,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import NotDoneIcon from '@material-ui/icons/Clear';
 
 import api from '~/services/api';
-import { Container, ContainerWrap } from './styles';
+import { Container, ContainerWrap, ButtonContainer } from './styles';
 import Button from '~/components/Button';
 import FormModal from './Form';
 import MobilityStepsModal from './MobilityStepsModal';
@@ -25,14 +25,14 @@ import MobilityStepsModal from './MobilityStepsModal';
 import DeleteModal from '../Delete';
 import FileList from '~/components/FileList';
 import EmptyMessage from '~/components/EmptyMessage';
-
+import Search from '~/components/Search';
 import validationSchema from '~/validations/activity';
 
 const allColumns = [
   { id: 'title', label: 'Title', minWidth: 200 },
   { id: 'startDate', label: 'Start Date', minWidth: 120 },
   { id: 'endDate', label: 'End Date', minWidth: 120 },
-  { id: 'professorsStr', label: 'Professors', minWidth: 150 },
+  { id: 'professorsStr', label: 'Teachers', minWidth: 150 },
   { id: 'studentsStr', label: 'Students', minWidth: 150 },
   {
     id: 'files',
@@ -74,6 +74,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
   const [error, setError] = useState(false);
+  const [displayActivity, setDisplayActivity] = useState([]);
 
   const columns = useMemo(
     () =>
@@ -96,20 +97,84 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
   });
 
   const [steps, setSteps] = useState({
-    1: { title: 'Look for a partner on the platform', checked: false },
+    1: {
+      title: 'Classes and student selection',
+      description: `The selection of students and classes depends on the themes, ages and years of
+      schooling chosen for the projects. Schools are responsible for establishing selection
+      criteria. some are suggested as a reference. An example of Skills and personal
+      competences that pupils should have:
+      ·   The real motivation to take part in the project
+      ·   Their reliability
+      ·   Motivation to travel to a foreign country
+      ·   Their real possibility to host a foreign partner
+      ·   Their adaptability and flexibility
+      ·   Their communication skills in English.
+      During the selection process, some information should be collected from
+      students that will be useful during mobility.
+
+      · Allergies
+      · Special medical treatments needed
+      · Particular nutritional necessities
+      · Their hobbies
+      · Their qualities
+      · Their defects
+      · Their favourite subject matter.`,
+    },
     2: {
-      title: 'Analyse curricula and find out what you can share',
-      checked: false,
+      title: 'Analyse curricula',
+      description: ` How to find the main idea of the project? You could compare:
+      Curricula documents of each partner country.
+      Standards for basic and/or secondary education.
+      Subjects which are taught: STEM, languages, social sciences – history, citizenship education, ethics, etc.
+      Topics taught in classes.
+      Methods which are used by teaching/learning: CLIL, Inquiry-based learning, Project-based learning, etc.
+      The ideas about the leisure and hobbies of the students/pupils.
+      The life style of young people from each country.
+      The age of students/pupils.
+      `,
     },
-    3: { title: 'Search for financing', checked: false },
+    3: {
+      title: 'Find the main idea of the project',
+      description: `Brainstorming, Disscussion, Activation methods, Mind Maps, Problem-solving, etc.
+      Future workshop (it is a time-consuming method, good to identify a problem, which followed by a critique of the current state which results in a vision of the problem solving and the idea implementation in practice – the most important part):
+      1.	Preparation Phase: the method, its rules and the scheduled course of the workshop (in accordance with the participants) is introduced.
+      2.	Critique phase: The problem is investigated critically and thoroughly. First of all, a visualised brainstorming is performed and a general and critical question concerning the problem is framed.
+      3.	Fantasy or visionary phase: All participants try to work out a vision of the future, to draw a picture of future possibilities.
+      4.	Implementation phase: The ideas found are checked and evaluated in regard to their practicability. Discussions are. made related to the first step to make in order to achieve the vision.
+      `,
+    },
     4: {
-      title: 'Virtual exchange with colleagues to plan activities',
-      checked: false,
+      title: 'Look for a partner',
+      description: ` The search for the partner can be done on specific platforms of international programs, through contacts between partners of other programs or between schools.`,
     },
-    5: { title: 'Student selection', checked: false },
-    6: { title: 'Virtual introduction of students', checked: false },
-    7: { title: 'Virtual activities before the exchange', checked: false },
-    8: { title: 'Mobility', checked: false },
+    5: {
+      title: 'Search for financing',
+      description: `The search for financing can occur at the beginning of the project using several specific programs for financing, among which erasmus + stands out. Smaller funding can also be raised to complement the main funding, and even logistical and material support.`,
+    },
+    6: {
+      title: 'Virtual activities before the exchange',
+      description: `Before the start of a mobility, schools must develop distance activities in a virtual way. These activities can be planning, or even preparatory tasks for the activities to be carried out in person.
+      These activities can be carried out using e-mails and also Skype conversations, to further increase collaboration and mutual esteem between students and teachers.
+      `,
+    },
+    7: {
+      title: 'Exchange activity selection',
+      description: `The selection of activities to be developed will be based on the theme of mobility or project. There will be one or more themes around which students and teachers will plan and develop activities.
+      The selection of topics will be based on the information collected during the curriculum analysis phase.
+      `,
+    },
+    8: {
+      title: 'Virtual exchange with colleagues',
+      description: `After defining the group of participants in the mobility exchange, the teachers of the two schools decide and plan the activities to be carried out in the first mobility. A curricular analysis has already been carried out to identify common subjects in the curricula and in the moments of virtual exchanges and work sessions, other aspects related to the organization of mobility are also addressed.`,
+    },
+    9: {
+      title: 'Areas or themes selection',
+      description: `The selection of themes or areas is carried out after the schools involved have carried out the curriculum analysis. An area could be chosen, for example STEM or a theme such as the history of the European Union.`,
+    },
+    10: {
+      title: 'Virtual introduction of students',
+      description: `After the planning activities between teachers, there is a virtual presentation phase for students and teachers. Previously, teachers match students for future mobility. In this session, students introduce themselves to the group in general and to their mobility partner. This moment can open possibilities for students to communicate with each other until the moment of their first mobility.`,
+    },
   });
 
   const handleToggle = ({ target }) => {
@@ -138,9 +203,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
   };
 
   // opens the modal
-  const handleMobilitySteps = async activityList => {
-    if (activityList.length !== 0) return;
-
+  const handleMobilitySteps = async () => {
     setModalParams({
       onSubmit: handleCreateMobilityStep,
       submitText: 'Create',
@@ -167,40 +230,43 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
           ? format(new Date(activity.startDate), 'yyyy-MM-dd')
           : '',
       }));
-      console.log(formattedActivities);
       if (formattedActivities.length === 0) {
         setError(true);
       } else {
         setError(false);
       }
 
-      setActivities(formattedActivities);
+      // sort the activities
+      const sortedActivities = formattedActivities.sort(
+        (project1, project2) => {
+          return (
+            Date.parse(project1.startDate) - Date.parse(project2.startDate)
+          );
+        }
+      );
 
-      if (isProject) handleMobilitySteps(formattedActivities);
+      setActivities(sortedActivities);
+      setDisplayActivity(sortedActivities);
     }
   };
-  // makes the api call
-  const handleCreateMobilityStep = async () => {
-    const list = [];
 
+  const handleCreateMobilityStep = async steps => {
     const response = await api.get(`projects/${projectId}`);
     const project = response.data;
 
     try {
-      for (let i = 1; i < 9; i++) {
-        if (steps[i].checked) {
-          const activity = {
-            title: steps[i].title,
-            description: '',
-            done: project.done,
-            startDate: project.startDate,
-            endDate: project.startDate,
-            projectId,
-          };
-          list.push(activity);
-        }
-      }
-      await api.post(`allActivities`, list);
+      steps = steps
+        .filter(step => step.checked)
+        .map(({ title }) => ({
+          title,
+          description: '',
+          done: project.done,
+          startDate: project.startDate,
+          endDate: project.startDate,
+          projectId,
+        }));
+
+      await api.post(`allActivities`, steps);
 
       setModalOpen(false);
       toast.success('Activity created with success!');
@@ -208,15 +274,6 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
-    /*
-		try {
-      await api.post(`activities`, { ...values, projectId });
-      setModalOpen(false);
-      toast.success('Activity created with success!');
-      fetchActivities();
-    } catch (e) {
-      toast.error(e?.response?.data?.error || 'Invalid data, try again');
-    } */
   };
 
   useState(() => {
@@ -233,21 +290,23 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     setPage(0);
   };
 
-  const handleUpdateDone = async (id, values) => {
+  const handleUpdateDone = async (activityId, values) => {
+    const professors = values.professors.map(elem => elem.id);
+
     const activity = {
       title: values.title,
       description: values.description,
       done: !values.done,
       startDate: values.startDate,
-      endDate: values.startDate,
-      projectId: values.projectId,
+      endDate: values.endDate,
+      projectId,
       students: values.students,
-      professors: values.professors,
+      professors,
     };
 
     try {
       const files = values.files?.filter(f => f).map(({ id }) => id);
-      await api.put(`activities/${id}`, { ...activity, files });
+      await api.put(`activities/${activityId}`, { ...activity, files });
       setModalOpen(false);
       toast.success('Activity updated with success!');
       fetchActivities();
@@ -259,8 +318,19 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
   // api call to post
   const handleUpdate = async (id, values) => {
     try {
+      const activity = {
+        title: values.title,
+        description: values.description,
+        done: values.done,
+        startDate: values.startDate,
+        endDate: values.endDate,
+        projectId,
+        students: values.students,
+        professors: values.professors,
+      };
+
       const files = values.files?.filter(f => f).map(({ id }) => id);
-      await api.put(`activities/${id}`, { ...values, files });
+      await api.put(`activities/${id}`, { ...activity, files });
       setModalOpen(false);
       toast.success('Activity updated with success!');
       fetchActivities();
@@ -317,6 +387,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     setModalOpen('form');
   };
 
+  // opens the update modal and initializes with the activity values
   const handleDetailRow = row => {
     const formattedRow = {
       ...row,
@@ -328,6 +399,8 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         ? row.professors.map(({ id }) => id)
         : [undefined],
     };
+    // console.log('Row');
+    // console.log(row);
 
     setModalParams({
       initialValues: formattedRow,
@@ -363,18 +436,23 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     }
     if (column.id === 'done') {
       let x = '';
+      const f = '';
       if (!isProfessor && isParticipant) {
         x = 'pointer';
       }
       return value ? (
         <DoneIcon
           style={{ color: '#00961e', cursor: x }}
-          onClick={() => handleUpdateDone(row.id, row)}
+          onClick={() =>
+            !isProfessor && isParticipant ? handleUpdateDone(row.id, row) : null
+          }
         />
       ) : (
         <NotDoneIcon
           style={{ color: '#cb1010', cursor: x }}
-          onClick={() => handleUpdateDone(row.id, row)}
+          onClick={() =>
+            !isProfessor && isParticipant ? handleUpdateDone(row.id, row) : null
+          }
         />
       );
     }
@@ -396,11 +474,23 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
           <h1>Activities</h1>
 
           {!isProfessor && isParticipant && (
-            <Button
-              title="Create Activty"
-              type="button"
-              onClick={handleCreateActivity}
-            />
+            <ButtonContainer>
+              <Button
+                title="Create Activity"
+                type="button"
+                onClick={handleCreateActivity}
+              />
+              <Button
+                title="Steps of Mobility"
+                type="button"
+                onClick={handleMobilitySteps}
+              />
+              <Search
+                setDisplay={setDisplayActivity}
+                displayOg={activities}
+                placeholder="Search by Activity"
+              />
+            </ButtonContainer>
           )}
         </span>
         {error && <EmptyMessage />}
@@ -422,7 +512,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {activities
+                  {displayActivity
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map(row => {
                       return (

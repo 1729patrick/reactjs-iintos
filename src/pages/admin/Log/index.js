@@ -76,7 +76,16 @@ export default function Logs() {
 
   const fetchUsers = async () => {
     const response = await api.get('log');
-    setUsers(response.data);
+
+    const projects = response.data;
+
+    const pro = projects
+      .sort((project1, project2) => {
+        return project1.startDate > project2.startDate;
+      })
+      .reverse();
+
+    setUsers(pro);
     if (response.data.length === 0) {
       setError(true);
     } else {

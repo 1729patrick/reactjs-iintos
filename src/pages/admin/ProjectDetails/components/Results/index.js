@@ -14,22 +14,31 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
 import FileList from '~/components/FileList';
 
+import { useUserContext } from '~/context/UserContext';
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
 import FormModal from './Form';
 import DeleteModal from '../Delete';
 import EmptyMessage from '~/components/EmptyMessage';
+import Search from '~/components/Search';
 
 import validationSchema from '~/validations/result';
 
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
-  { id: 'description', label: 'Description', minWidth: 200 },
+  { id: 'description', label: 'Description', minWidth: 200, maxWidth: 250 },
   {
     id: 'files',
     label: 'Files',
-    minWidth: 120,
+    minWidth: 100,
+  },
+  {
+    id: 'send',
+    label: '',
+    align: 'center',
+    minWidth: 10,
+    format: value => value.toFixed(2),
   },
   {
     id: 'see',
@@ -38,7 +47,6 @@ const columns = [
     minWidth: 50,
     format: value => value.toFixed(2),
   },
-
   {
     id: 'delete',
     label: '',
@@ -66,6 +74,9 @@ const Results = ({ isProfessor, isParticipant }) => {
   const [modalParams, setModalParams] = useState({});
   const location = useLocation();
   const [error, setError] = useState(false);
+  const [displayResult, setDisplayResult] = useState([]);
+
+  const { user } = React.useCallback(useUserContext(), []);
 
   const projectId = useMemo(() => location.pathname.split('/')[3], [
     location.pathname,
@@ -79,6 +90,7 @@ const Results = ({ isProfessor, isParticipant }) => {
     } else {
       setError(false);
     }
+    setDisplayResult(response.data);
   };
 
   useState(() => {
@@ -171,6 +183,22 @@ const Results = ({ isProfessor, isParticipant }) => {
     setModalOpen('form');
   };
 
+  // Send the request to create the news about this result
+  const handleSendToNews = async values => {
+    console.log('sdadas');
+    try {
+      console.log(values);
+      const response = await api.post('resultNews', {
+        ...values,
+        userId: user.id,
+      });
+
+      toast.success('News created with success!');
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
@@ -182,7 +210,15 @@ const Results = ({ isProfessor, isParticipant }) => {
         />
       );
     }
-
+    if (column.id === 'send' && !isProfessor && isParticipant) {
+      return (
+        <Button
+          title="Send News"
+          type="button"
+          onClick={() => handleSendToNews(row)}
+        />
+      );
+    }
     if (column.id === 'see' && !isProfessor && isParticipant) {
       return (
         <EditIcon
@@ -206,14 +242,20 @@ const Results = ({ isProfessor, isParticipant }) => {
       <ContainerWrap>
         <span>
           <h1>Results</h1>
-
-          {!isProfessor && isParticipant && (
-            <Button
-              title="Create Result"
-              type="button"
-              onClick={handleCreateResult}
+          <span>
+            {!isProfessor && isParticipant && (
+              <Button
+                title="Create Result"
+                type="button"
+                onClick={handleCreateResult}
+              />
+            )}
+            <Search
+              setDisplay={setDisplayResult}
+              displayOg={activities}
+              placeholder="Search by Result"
             />
-          )}
+          </span>
         </span>
         {error && <EmptyMessage />}
         {!error && (
@@ -234,7 +276,7 @@ const Results = ({ isProfessor, isParticipant }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {activities
+                  {displayResult
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map(row => {
                       return (

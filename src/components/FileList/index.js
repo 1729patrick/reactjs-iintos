@@ -16,7 +16,7 @@ function getModalStyle() {
 const useStyles = makeStyles(theme => ({
   paper: {
     position: 'absolute',
-    width: 400,
+    width: 600,
     backgroundColor: theme.palette.background.paper,
     borderRadius: 8,
     maxHeight: '85%',
@@ -66,7 +66,9 @@ export default function FileList({ files }) {
           </div>
         </div>
       </Modal>
-      <button onClick={handleOpen}>Show Files</button>
+      <button onClick={handleOpen} style={{ color: 'blue' }}>
+        Show Files
+      </button>
     </>
   );
 }

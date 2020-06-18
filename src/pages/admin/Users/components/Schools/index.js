@@ -18,7 +18,7 @@ import Button from '~/components/Button';
 import FormModal from './modals/Form';
 import DeleteModal from './modals/Delete';
 import EmptyMessage from '~/components/EmptyMessage';
-
+import Search from '~/components/Search';
 import validationSchema from '~/validations/school';
 
 const columns = [
@@ -81,6 +81,7 @@ export default function Schools() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
   const [error, setError] = useState(false);
+  const [displaySchool, setDisplaySchool] = useState([]);
 
   const fetchSchools = async () => {
     const response = await api.get('schools');
@@ -90,6 +91,7 @@ export default function Schools() {
     } else {
       setError(false);
     }
+    setDisplaySchool(response.data);
   };
 
   useState(() => {
@@ -208,13 +210,20 @@ export default function Schools() {
       <ContainerWrap>
         <span>
           <h1>Schools</h1>
-
-          <Button
-            title="Create School"
-            type="button"
-            onClick={handleCreateSchool}
-          />
+          <span>
+            <Button
+              title="Create School"
+              type="button"
+              onClick={handleCreateSchool}
+            />
+            <Search
+              setDisplay={setDisplaySchool}
+              displayOg={schools}
+              placeholder="Search by school"
+            />
+          </span>
         </span>
+
         {error && <EmptyMessage />}
         {!error && (
           <Paper className={classes.root}>
@@ -234,7 +243,7 @@ export default function Schools() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {schools
+                  {displaySchool
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map(row => {
                       return (
