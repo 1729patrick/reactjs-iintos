@@ -210,7 +210,7 @@ const partners_ = [
   learning difficulties associated with significant emotional disorders.`,
     link: 'http://aejs.pt/site/',
     logo: saramagoImage,
-    image: null,
+    image: require('~/assets/images/aejs.jpeg'),
   },
   {
     title: 'Istituto “Giancarlo Vallauri” Fossano (Italy)',

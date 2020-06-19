@@ -146,18 +146,18 @@ function Events() {
 
       return (
         <iframe
-          width="250"
-          height="125"
+          width="300"
+          height="150"
           src={link}
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          style={{ marginRight: 10, borderRadius: 4 }}
+          style={{ marginRight: 10, borderRadius: 4, marginBottom: 10 }}
         />
       );
     };
 
-    if (preview.length === 1) return null;
+    if (preview.length === 1 && !preview[0].link) return null;
 
     return (
       <div
