@@ -85,7 +85,7 @@ const SchoolInformation = ({ location, history }) => {
 
       toast.success('Account created with success');
       localStorage.clear();
-      history.push('login');
+      history.push('/await_verification');
     } catch ({ response }) {
       toast.error(response?.data?.error || 'Invalid data');
     }

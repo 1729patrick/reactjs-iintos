@@ -49,6 +49,7 @@ const Header = () => {
 
       setModalOpen(false);
 
+      localStorage.setItem('user', JSON.stringify(updatedUser.data));
       setUser({
         token,
         school,
@@ -75,16 +76,22 @@ const Header = () => {
 
         <div>
           <div>
-            <NavLink to="/iproject">IINTOS Project</NavLink>
-            <NavLink to="/ioffices">International Offices</NavLink>
-            <NavLink to="/iprojects">International Projects</NavLink>
-
             <NavLink to="/projects">Projects</NavLink>
-            {isGroupAdmin && <NavLink to="/outputs">Outputs</NavLink>}
-            {!isGroupSchool && <NavLink to="/results">Results</NavLink>}
-
-            {isGroupAdmin && <NavLink to="/users">Users</NavLink>}
+            <NavLink to="/calendar">Calendar</NavLink>
             {isGroupSchool && <NavLink to="/school">School</NavLink>}
+            <a
+              style={{ cursor: 'pointer' }}
+              onClick={() =>
+                window.open('https://iintoska2.ips.pt/forum', '_blank')
+              }
+            >
+              Forum
+            </a>
+
+            {isGroupAdmin && <NavLink to="/outputs">Outputs</NavLink>}
+            {isGroupAdmin && <NavLink to="/results">Results</NavLink>}
+            {isGroupAdmin && <NavLink to="/events">Events</NavLink>}
+            {isGroupAdmin && <NavLink to="/users">Users</NavLink>}
             <Popup logout={logout} user={user} />
           </div>
         </div>

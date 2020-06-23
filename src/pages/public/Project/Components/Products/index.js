@@ -47,7 +47,7 @@ function Products() {
                 <div>
                   Docs:{' '}
                   {files?.map(({ url, name }) => (
-                    <a href={url} target="_blank">
+                    <a href={url} target="_blank" style={{ marginRight: 10 }}>
                       {name}
                     </a>
                   ))}

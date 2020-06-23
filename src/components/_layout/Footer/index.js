@@ -51,17 +51,15 @@ const Footer = ({ links }) => {
 
         {links && (
           <div>
-            <NavLink to="/calendar">Calendar</NavLink>
-            {isGroupAdmin && <NavLink to="/events">Events</NavLink>}
+            <NavLink to="/iproject">IINTOS Project</NavLink>
+            <NavLink to="/ioffices">International Offices</NavLink>
+            <NavLink to="/iprojects">International Projects</NavLink>
 
             <NavLink to="/knowledge">Knowledge base</NavLink>
 
             <a onClick={onClickHelp} style={{ cursor: 'pointer' }}>
               Contact
             </a>
-
-            {/* <NavLink to="/news">News</NavLink> */}
-            {isGroupSchool && <NavLink to="/results">Results</NavLink>}
           </div>
         )}
       </div>

@@ -156,7 +156,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
           handleEmailRow={handleEmailRow}
         />
       </ContainerWrap>
-      {isProject && (
+      {/* {isProject && (
         <ContainerWrap>
           <Students
             users={users.students}
@@ -171,7 +171,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
             schools={schools}
           />
         </ContainerWrap>
-      )}
+      )} */}
 
       <DeleteModal
         open={modalOpen === 'delete'}

@@ -4,6 +4,8 @@ import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
 
 import Button1 from '~/components/Button';
 import { Form, Circle } from './styles';
@@ -31,17 +33,11 @@ const useStyles = makeStyles(theme => ({
     overflowY: 'auto',
     padding: theme.spacing(2, 4, 3),
   },
-}));
-
-const HtmlTooltip = withStyles(theme => ({
-  tooltip: {
-    backgroundColor: '#f5f5f9',
-    color: 'rgba(0, 0, 0, 0.87)',
-    maxWidth: 220,
-    fontSize: theme.typography.pxToRem(12),
-    border: '1px solid #dadde9',
+  popover: {
+    pointerEvents: 'none',
+    width: 500,
   },
-}))(Tooltip);
+}));
 
 export default ({
   initialValues = {},
@@ -58,6 +54,20 @@ export default ({
   if (!open) {
     return null;
   }
+
+  const [popupOpen, setPopupOpen] = useState(null);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event, index) => {
+    setAnchorEl(event.currentTarget);
+    setPopupOpen(index);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+    setPopupOpen(null);
+  };
 
   const [steps_, setSteps_] = useState([]);
 
@@ -172,29 +182,10 @@ export default ({
             }}
           >
             {steps_.map(({ title, top, left, description, checked }, index) => (
-              <HtmlTooltip
-                title={
-                  <div
-                    style={{
-                      width: 500,
-                      borderRadius: 6,
-                      overflow: 'hidden',
-                    }}
-                  >
-                    <TextareaAutosize
-                      style={{
-                        width: '100%',
-                        border: 'none',
-                        color: '#444',
-                        background: '#f5f5f5',
-                      }}
-                    >
-                      {description}
-                    </TextareaAutosize>
-                  </div>
-                }
-              >
+              <>
                 <Circle
+                  onMouseEnter={e => handlePopoverOpen(e, index)}
+                  onMouseLeave={handlePopoverClose}
                   style={{
                     top,
                     left,
@@ -205,7 +196,39 @@ export default ({
                 >
                   {title}
                 </Circle>
-              </HtmlTooltip>
+
+                <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={popupOpen === index}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  <Typography>
+                    <TextareaAutosize
+                      defaultValue={description}
+                      style={{
+                        width: '100%',
+                        border: 'none',
+                        color: '#444',
+                        background: '#fff',
+                      }}
+                    ></TextareaAutosize>
+                  </Typography>
+                </Popover>
+              </>
             ))}
           </div>
         </div>

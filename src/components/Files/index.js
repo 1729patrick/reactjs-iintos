@@ -30,7 +30,10 @@ export default function Files({ formik, path, values }) {
     formik.setFieldValue(field, newState);
   };
 
-  console.log('*', formik.values?.files);
+  console.log(
+    '*',
+    formik.values?.files.map(x => x?.id)
+  );
   return (
     <div>
       <label>Files</label>
