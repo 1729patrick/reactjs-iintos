@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { format, addHours } from 'date-fns';
 import { Link } from 'react-router-dom';
-import api from '~/services/apiCalendar';
+import api, { CALENDAR_URL } from '~/services/apiCalendar';
 import EmptyMessage from '~/components/EmptyMessage';
 
 import { Events, Event } from './styles';
+import { useUserContext } from '~/context/UserContext';
 
 export default function EventsCard() {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(false);
+  const { user } = useCallback(useUserContext(), []);
 
   const fetchEvents = async () => {
     try {
@@ -55,7 +57,16 @@ export default function EventsCard() {
           </div>
         </Event>
       ))}
-      {error && <EmptyMessage />}
+      {error && (
+        <EmptyMessage
+          message="You must login with a google account to see the events!"
+          Action={() => (
+            <a href={`${CALENDAR_URL}/login/${user?.email}`} target="__blank">
+              Google Login
+            </a>
+          )}
+        />
+      )}
     </Events>
   );
 }

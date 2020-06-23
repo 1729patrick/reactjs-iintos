@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
-import HelpIcon from '@material-ui/icons/Help';
 import { toast } from 'react-toastify';
 
 import { Container } from './styles';

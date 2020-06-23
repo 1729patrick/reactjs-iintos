@@ -146,6 +146,7 @@ function Events() {
 
       return (
         <iframe
+          key={1}
           width="300"
           height="150"
           src={link}

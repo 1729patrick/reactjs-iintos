@@ -80,6 +80,7 @@ export default function Result({
       {youtube && (
         <>
           <iframe
+            key={1}
             width="1200"
             height="554"
             src={`https://www.youtube.com/embed/${youtube}`}

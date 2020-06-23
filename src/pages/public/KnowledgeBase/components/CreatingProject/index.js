@@ -7,6 +7,7 @@ export default function Video1() {
       <h1> IINTOS - How to Create a Mobility Project </h1>
       <br />
       <iframe
+        key={1}
         width={window.innerWidth - window.innerWidth * 0.32}
         height="554"
         src="https://www.youtube.com/embed/9zRyZn-DCHo"

@@ -40,7 +40,7 @@ export default function ActivitiesCard() {
         </Event>
       ))}
 
-      {error && <EmptyMessage />}
+      {error && <EmptyMessage message="No activities available!" />}
     </Events>
   );
 }

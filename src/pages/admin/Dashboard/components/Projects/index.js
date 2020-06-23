@@ -38,7 +38,7 @@ export default function ProjectsCard() {
           </div>
         </Event>
       ))}
-      {error && <EmptyMessage />}
+      {error && <EmptyMessage message="No projects available!" />}
     </Events>
   );
 }

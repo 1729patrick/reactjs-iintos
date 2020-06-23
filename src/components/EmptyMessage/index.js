@@ -2,11 +2,12 @@ import React from 'react';
 import { Container } from './style';
 import NoData from '../../assets/images/noData.png';
 
-export default function EmptyMessage() {
+export default function EmptyMessage({ message, Action }) {
   return (
     <Container>
       <img src={NoData} alt="" style={{ width: 100, marginBottom: 15 }} />
-      <div>No data available!</div>
+      <div>{message || 'No data available!'}</div>
+      {Action && <Action />}
     </Container>
   );
 }
