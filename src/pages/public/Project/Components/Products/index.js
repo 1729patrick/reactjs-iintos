@@ -10,6 +10,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { Container, Detail } from './styles';
 import api from '~/services/api';
 import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
+import FileList from '~/components/FileList';
 
 function Products() {
   const classes = useStyles();
@@ -43,16 +44,21 @@ function Products() {
             <Detail>
               <TextareaAutosize disabled defaultValue={description} />
 
-              {files?.length ? (
+              {files?.length === 1 && (
                 <div>
-                  Docs:{' '}
                   {files?.map(({ url, name }) => (
                     <a href={url} target="_blank" style={{ marginRight: 10 }}>
                       {name}
                     </a>
                   ))}
                 </div>
-              ) : null}
+              )}
+
+              {files?.length > 1 && (
+                <div>
+                  <FileList files={files} />
+                </div>
+              )}
             </Detail>
           </ExpansionPanelDetails>
         </ExpansionPanel>

@@ -97,7 +97,7 @@ function Events() {
     });
 
     const getContent = ({ url, name }) => (
-      <a href={url} style={{ marginLeft: 10 }} target="_blank">
+      <a href={url} style={{ marginRight: 10 }} target="_blank">
         {name}
       </a>
     );
@@ -106,9 +106,17 @@ function Events() {
       return null;
     }
 
+    if (files.length > 1) {
+      return (
+        <div style={{ marginTop: 10 }}>
+          <FileList files={files} />
+        </div>
+      );
+    }
+
     return (
       <div style={{ marginTop: 10 }}>
-        Docs: {files?.map(({ url, name }) => getContent({ url, name }))}
+        {files?.map(({ url, name }) => getContent({ url, name }))}
       </div>
     );
   };
@@ -249,7 +257,7 @@ function Events() {
                             </a>
                             and
                             <a
-                              href="https://iintoska2.ips.pt/api/files/bdf32e7ddf54d32b3510c2424ab9f946.pdf"
+                              href="https://iintoska2.ips.pt/api/files/856131650a6900f25610efc3babe8969.pdf"
                               target="_blank"
                               style={{ marginLeft: 10 }}
                             >
