@@ -8,6 +8,7 @@ import Projects from '~/pages/admin/Projects';
 import School from '~/pages/admin/School';
 import Outputs from '~/pages/admin/Outputs';
 import Log from '~/pages/admin/Log';
+import Downloads from '~/pages/admin/Downloads';
 import Events from '~/pages/admin/Events';
 
 import OutputResult from '~/pages/public/OutputResult';
@@ -73,6 +74,7 @@ export default () => {
         <Route path="/school" component={School} isPrivate />
         <Route path="/users/schools" component={Users} isPrivate />
         <Route path="/log" component={Log} isPrivate />
+        <Route path="/downloads" component={Downloads} isPrivate />
 
         <Route component={() => <Redirect to="/dashboard" />} isPrivate />
       </Switch>
