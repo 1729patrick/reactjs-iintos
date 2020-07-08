@@ -141,6 +141,7 @@ function Events() {
               flexDirection: 'column',
               alignItems: 'center',
               marginRight: 10,
+              marginBottom: 10,
             }}
           >
             <img
@@ -177,7 +178,9 @@ function Events() {
         style={{
           alignItems: 'center',
           display: 'flex',
+          flexWrap: 'wrap',
           overflowX: 'auto',
+
           marginTop: 15,
         }}
       >
