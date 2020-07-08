@@ -10,13 +10,13 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import TextareaAutosize from 'react-textarea-autosize';
 
-import { Container, Detail, Session } from './styles';
-import api from '~/services/api';
 import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 import { format } from 'date-fns';
 import { Collapse, ListItem, ListItemText } from '@material-ui/core';
-import FileList from '~/components/FileList';
 import Alert from '@material-ui/lab/Alert';
+import FileList from '~/components/FileList';
+import api from '~/services/api';
+import { Container, Detail, Session } from './styles';
 
 function Events() {
   const classes = useStyles();
@@ -36,7 +36,11 @@ function Events() {
           event.files.forEach(file => {
             const [type] = file.name.split('.').reverse();
 
-            const isImage = type === 'png' || type === 'jpg' || type === 'jpeg';
+            const isImage =
+              type === 'png' ||
+              type === 'jpg' ||
+              type === 'jpeg' ||
+              type === 'JPG';
 
             if (isImage) {
               preview_.push({ type: 'image', file });
@@ -191,15 +195,13 @@ function Events() {
   };
 
   const onOpen = () => {
-    setOpen({ ['Multiplier Events']: true });
+    setOpen({ 'Multiplier Events': true });
   };
 
   return (
     <Container>
       <h1>Within the scope of this project, the following events were held:</h1>
-      <Alert severity="info" style={{ cursor: 'pointer' }} onClick={onOpen}>
-        Final Conference – June 20 and 25
-      </Alert>
+
       {Object.keys(events).map(key => (
         <>
           <ListItem
@@ -232,11 +234,30 @@ function Events() {
                   <ExpansionPanelDetails>
                     <Detail>
                       <span>
-                        {getImage(preview) && (
-                          <img src={getImage(preview)}></img>
-                        )}
+                        {getImage(preview) && <img src={getImage(preview)} />}
 
-                        <TextareaAutosize disabled defaultValue={description} />
+                        {description.includes('{{fbgroupss}}') ? (
+                          <span style={{ width: '64%' }}>
+                            <TextareaAutosize
+                              disabled
+                              defaultValue={description.replace(
+                                '{{fbgroupss}}',
+                                ''
+                              )}
+                            />
+                            <a
+                              href="https://www.facebook.com/groups/226456891770079"
+                              target="_blank"
+                            >
+                              https://www.facebook.com/groups/226456891770079
+                            </a>
+                          </span>
+                        ) : (
+                          <TextareaAutosize
+                            disabled
+                            defaultValue={description}
+                          />
+                        )}
                       </span>
 
                       {id === 11 && (
@@ -245,24 +266,11 @@ function Events() {
                             style={{
                               justifyContent: 'flex-start',
                               margin: '15px 0',
+                              fontSize: 17,
+                              textTransform: 'uppercase',
                             }}
                           >
-                            The program is available for consultation in
-                            <a
-                              href="https://iintoska2.ips.pt/api/files/1efa581965d8b324c9acae39a27ea796.pdf"
-                              target="_blank"
-                              style={{ margin: '0 10px' }}
-                            >
-                              Portuguese (June 20)
-                            </a>
-                            and
-                            <a
-                              href="https://iintoska2.ips.pt/api/files/856131650a6900f25610efc3babe8969.pdf"
-                              target="_blank"
-                              style={{ marginLeft: 10 }}
-                            >
-                              English (June 25)
-                            </a>
+                            News about this event
                           </div>
                           <div
                             style={{
@@ -270,15 +278,19 @@ function Events() {
                               justifyContent: 'flex-start',
                             }}
                           >
-                            <a href="https://bit.ly/30ACC2X" target="_blank">
-                              Pre-register form (Portuguese)
+                            <a
+                              href="https://www.si.ips.pt/ips_si/noticias_geral.ver_noticia?P_NR=7796"
+                              target="_blank"
+                            >
+                              Conferência IINTOS | Projeto para agilizar
+                              mobilidade internacional nas escolas
                             </a>
                             <a
-                              href="https://bit.ly/2N706VA"
+                              href="https://issuu.com/ipsetubal/docs/jornalmovete_mai_jun2020"
                               target="_blank"
                               style={{ marginLeft: 15 }}
                             >
-                              Pre-register form (English)
+                              Jornal MOVEte | nº14 | maio/junho 2020
                             </a>
                           </div>
                         </>
@@ -290,9 +302,8 @@ function Events() {
                         {sessions?.map((session, index) => (
                           <Session>
                             <h1>
-                              {session?.title?.trim()?.lenght > 0 ? (
+                              {session?.title?.trim()?.length > 0 ? (
                                 <span>
-                                  Session {index + 1}:{' '}
                                   <span>{session.title}</span>
                                 </span>
                               ) : (

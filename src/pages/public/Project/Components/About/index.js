@@ -1,10 +1,10 @@
 import React from 'react';
-import { Container } from './style';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Container } from './style';
 
 export default function About() {
   return (
@@ -33,7 +33,7 @@ export default function About() {
           <img
             src={require('../../../../../assets/images/group.jpg')}
             style={{ width: '90%', marginLeft: 15, margin: '0 auto' }}
-          ></img>
+          />
         </span>
 
         <ExpansionPanel>
@@ -108,13 +108,13 @@ export default function About() {
                 </li>
               </ul>
               <p>
-                During the project, we focus on the STEM subjects for two main
-                reasons: they are subjects fairly cultural independent and
-                therefore transversal to European curricula and there is a need
-                to increase pupils competences on this key subjects. IINTOS
-                web-based open source platform has stored resources, existing
-                projects and all relevant information related to the
-                internationalization of the schools.
+                During the project, we initially focused on the STEM subjects
+                for two main reasons: they are subjects fairly cultural
+                independent and therefore transversal to European curricula and
+                there is a need to increase pupils competences on this key
+                subjects. IINTOS web-based open source platform has stored
+                resources, existing projects and all relevant information
+                related to the internationalization of the schools.
               </p>
             </span>
           </ExpansionPanelDetails>
@@ -134,8 +134,8 @@ export default function About() {
               The project greater aim is to facilitate the exchanges between
               schools across Europe and make more common and usual teaching and
               learning by having an international approach, it also allows the
-              informal exchange of practices in the STEM subjects increasing
-              awareness and promoting pupil competence development.
+              informal exchange of practices in, for example, the STEM subjects
+              increasing awareness and promoting pupil competence development.
             </p>
           </ExpansionPanelDetails>
         </ExpansionPanel>
