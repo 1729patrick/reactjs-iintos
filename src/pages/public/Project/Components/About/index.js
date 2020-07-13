@@ -133,9 +133,9 @@ export default function About() {
             <p>
               The project greater aim is to facilitate the exchanges between
               schools across Europe and make more common and usual teaching and
-              learning by having an international approach, iCt also enables the
+              learning by having an international approach, it also enables the
               informal exchange of practices in, for example, the STEM subjects
-              increasing awareness and promoting pupil competence development.
+              increasing awareness and promoting pupil competence development
             </p>
           </ExpansionPanelDetails>
         </ExpansionPanel>
