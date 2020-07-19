@@ -29,6 +29,7 @@ export const Container = styled.div`
     line-height: 1.5;
     color: #444;
     background: #fff;
+    text-align: justify;
   }
 `;
 

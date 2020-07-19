@@ -3,16 +3,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
 
-import Button from '~/components/Button';
-import Input from '~/components/Input';
-import Select from '~/components/Select';
-import { Form, Sessions } from './styles';
 import DateFnsUtils from '@date-io/date-fns';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import Button from '~/components/Button';
+import Input from '~/components/Input';
+import Select from '~/components/Select';
+import { Form, Sessions } from './styles';
 import URLs from '../../../../../components/URLs';
 import Files from '~/components/Files';
 
@@ -143,7 +143,7 @@ export default ({
                 },
               ]}
             />
-            {/*
+
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 autoOk
@@ -160,7 +160,7 @@ export default ({
                   'aria-label': 'change date',
                 }}
               />
-            </MuiPickersUtilsProvider> */}
+            </MuiPickersUtilsProvider>
 
             <Files formik={formik} />
 

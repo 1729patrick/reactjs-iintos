@@ -21,6 +21,7 @@ import IProject from '~/pages/public/Project';
 import IProjects from '~/pages/public/Projects';
 import IOffices from '~/pages/public/Offices';
 import KnowLedge from '~/pages/public/KnowledgeBase';
+import Contacs from '~/pages/public/Contacs';
 
 import SchoolInformation from '~/pages/public/SignUp/SchoolInformation';
 import AwaitVerification from '~/pages/public/AwaitVerification';
@@ -43,6 +44,7 @@ export default () => {
         <Route path="/ioffices" component={IOffices} />
         <Route path="/knowledge" component={KnowLedge} />
         <Route path="/privacy" component={Privacy} />
+        <Route path="/contacts" component={Contacs} />
         <Route
           path="/signup/school_information"
           component={SchoolInformation}

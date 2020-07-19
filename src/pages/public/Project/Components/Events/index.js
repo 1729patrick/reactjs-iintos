@@ -4,6 +4,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SimpleImageSlider from 'react-simple-image-slider';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -129,46 +130,22 @@ function Events() {
     setOpen({ ...open, [key]: !open[key] });
   };
 
-  const mountPreview = ({ preview }) => {
+  const mountVideos = ({ preview }) => {
     const getContent = ({ type, file, link }) => {
-      if (type === 'image') {
+      if (type !== 'image') {
         return (
-          <a
-            href={file.url}
-            target="_blank"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              marginRight: 10,
-              marginBottom: 10,
-            }}
-          >
-            <img
-              src={file.url}
-              style={{
-                margin: '0 auto',
-                marginBottom: 5,
-                width: 150,
-              }}
-            />
-            {file.name}
-          </a>
+          <iframe
+            key={1}
+            width="300"
+            height="150"
+            src={link}
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ marginRight: 10, borderRadius: 4, marginBottom: 10 }}
+          />
         );
       }
-
-      return (
-        <iframe
-          key={1}
-          width="300"
-          height="150"
-          src={link}
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          style={{ marginRight: 10, borderRadius: 4, marginBottom: 10 }}
-        />
-      );
     };
 
     if (preview.length === 1 && !preview[0].link) return null;
@@ -187,6 +164,37 @@ function Events() {
         {preview?.map(({ type, file, link, name }) => {
           return getContent({ type, file, link, name });
         })}
+      </div>
+    );
+  };
+
+  const mountImages = ({ preview }) => {
+    if (preview.length === 1 && !preview[0].link) return null;
+
+    const images = preview
+      ?.filter(({ type }) => type === 'image')
+      .map(({ file }) => ({ url: file.url }));
+
+    if (!images.length) return null;
+
+    return (
+      <div
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          display: 'flex',
+          flexWrap: 'wrap',
+          overflowX: 'auto',
+
+          marginTop: 15,
+        }}
+      >
+        <SimpleImageSlider
+          width={896}
+          height={504}
+          images={images}
+          slideDuration={1}
+        />
       </div>
     );
   };
@@ -298,7 +306,8 @@ function Events() {
                           </div>
                         </>
                       )}
-                      {mountPreview({ preview })}
+                      {mountImages({ preview })}
+                      {mountVideos({ preview })}
                       {mountFiles({ files })}
 
                       <div>
@@ -330,7 +339,8 @@ function Events() {
                               />
                             )}
 
-                            {mountPreview(session)}
+                            {mountImages(session)}
+                            {mountVideos(session)}
                             {session?.files?.length > 0 && (
                               <FileList files={session.files} />
                             )}

@@ -36,6 +36,7 @@ export default ({
   setOpen,
   modalTitle,
   validationSchema,
+  onSubmit,
 }) => {
   if (!open) {
     return null;
@@ -44,8 +45,6 @@ export default ({
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
-
-  const onSubmit = () => {};
 
   const handleClose = () => {
     setOpen(false);
