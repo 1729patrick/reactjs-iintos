@@ -102,13 +102,6 @@ export default function Professors({
       <span>
         <h2>Students</h2>
         <span>
-          {!isProfessor && isParticipant && (
-            <Button
-              title="Add Student"
-              type="button"
-              onClick={handleCreateUser}
-            />
-          )}
           <Search
             setDisplay={setDisplayUsers}
             displayOg={users}

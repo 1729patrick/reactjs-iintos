@@ -83,7 +83,7 @@ export default ({
 
   const handleAdd = field => {
     const values = formik.values[field];
-    
+
     formik.setFieldValue(field, [...values, '']);
   };
 
@@ -179,7 +179,6 @@ export default ({
                     } to activity`}
                     name="professor"
                     onChange={value => {
-                      
                       formik.setFieldValue(
                         `professors[${index}]`,
                         value.target.value
@@ -202,38 +201,6 @@ export default ({
               </button>
             </span>
 
-            {isProject && (
-              <span>
-                {formik.values?.students.map((_, index) => (
-                  <div key={String(index)}>
-                    <Select
-                      label={`Student ${index + 1}`}
-                      textarea
-                      placeholder="Add student to activity"
-                      name="student"
-                      onChange={value =>
-                        formik.setFieldValue(
-                          `students[${index}]`,
-                          value.target.value
-                        )
-                      }
-                      values={{ student: formik.values.students[index] }}
-                      errors={formik.errors}
-                      touched={formik.touched}
-                      submitted={formik.submitCount}
-                      options={users?.students}
-                    />
-                    <DeleteIcon
-                      style={{ color: '#cb1010', cursor: 'pointer' }}
-                      onClick={() => handleRemove('students', index)}
-                    />
-                  </div>
-                ))}
-                <button type="button" onClick={() => handleAdd('students')}>
-                  + Add Student
-                </button>
-              </span>
-            )}
             <Button title={submitText} type="submit" />
           </Form>
         </div>
