@@ -121,12 +121,8 @@ const Contacts = () => {
   return (
     <div
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        paddingTop: 120,
-        paddingBottom: 40,
+        padding: '50px 30%',
+        margin: ' 0 auto',
       }}
     >
       <h1>Contact Us</h1>
