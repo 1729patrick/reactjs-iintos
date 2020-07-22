@@ -10,7 +10,25 @@ const Footer = ({ links }) => {
     <Container>
       <div style={{ zIndex: 100 }}>
         <p>
-          © {date} - <span>IINTOS -</span> <Link to="/privacy">Privacy</Link>
+          © {date} -{' '}
+          <span>
+            <Link to="/privacy">Privacy</Link> - IINTOS | Development by{' '}
+            <a
+              style={{ marginLeft: 0 }}
+              href="https://www.linkedin.com/in/nuno-pina-gon%C3%A7alves-143931/"
+              target="_blank"
+            >
+              Nuno Pina
+            </a>{' '}
+            and{' '}
+            <a
+              style={{ marginLeft: 0 }}
+              href="https://www.linkedin.com/in/patrickbattisti/"
+              target="_blank"
+            >
+              Patrick Forsthofer
+            </a>
+          </span>
         </p>
 
         {links && (
