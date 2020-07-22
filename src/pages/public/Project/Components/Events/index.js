@@ -213,148 +213,156 @@ function Events() {
     <Container>
       <h1>Within the scope of this project, the following events were held:</h1>
 
-      {Object.keys(events).map(key => (
-        <>
-          <ListItem
-            button
-            onClick={() => handleOpen(key)}
-            style={{ marginTop: 30 }}
-          >
-            <ListItemText
-              primary={`${key.charAt(0)?.toUpperCase()}${key?.slice(1)}`}
-            />
-            {open[key] ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={open[key]} timeout="auto" unmountOnExit>
-            {events[key].map(
-              ({ id, title, description, files, preview, sessions }, index) => (
-                <ExpansionPanel defaultExpanded={!index}>
-                  <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    <Typography className={classes.heading}>
-                      <h2>
-                        {title}
-                        {/* - <span>{format(new Date(date), 'yyyy-MM-dd')}</span> */}
-                      </h2>
-                    </Typography>
-                  </ExpansionPanelSummary>
+      {Object.keys(events).map(
+        key =>
+          key !== 'Transnational Meetings' && (
+            <>
+              <ListItem
+                button
+                onClick={() => handleOpen(key)}
+                style={{ marginTop: 30 }}
+              >
+                <ListItemText
+                  primary={`${key.charAt(0)?.toUpperCase()}${key?.slice(1)}`}
+                />
+                {open[key] ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+              <Collapse in={open[key]} timeout="auto" unmountOnExit>
+                {events[key].map(
+                  (
+                    { id, title, description, files, preview, sessions },
+                    index
+                  ) => (
+                    <ExpansionPanel defaultExpanded={!index}>
+                      <ExpansionPanelSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                      >
+                        <Typography className={classes.heading}>
+                          <h2>
+                            {title}
+                            {/* - <span>{format(new Date(date), 'yyyy-MM-dd')}</span> */}
+                          </h2>
+                        </Typography>
+                      </ExpansionPanelSummary>
 
-                  <ExpansionPanelDetails>
-                    <Detail>
-                      <span>
-                        {getImage(preview) && <img src={getImage(preview)} />}
+                      <ExpansionPanelDetails>
+                        <Detail>
+                          <span>
+                            {getImage(preview) && (
+                              <img src={getImage(preview)} />
+                            )}
 
-                        {description.includes('{{fbgroupss}}') ? (
-                          <span style={{ width: '64%' }}>
-                            <TextareaAutosize
-                              disabled
-                              defaultValue={description.replace(
-                                '{{fbgroupss}}',
-                                ''
-                              )}
-                            />
-                            <a
-                              href="https://www.facebook.com/groups/226456891770079"
-                              target="_blank"
-                            >
-                              https://www.facebook.com/groups/226456891770079
-                            </a>
-                          </span>
-                        ) : (
-                          <TextareaAutosize
-                            disabled
-                            defaultValue={description}
-                          />
-                        )}
-                      </span>
-
-                      {id === 11 && (
-                        <>
-                          <div
-                            style={{
-                              justifyContent: 'flex-start',
-                              margin: '15px 0',
-                              fontSize: 17,
-                              textTransform: 'uppercase',
-                            }}
-                          >
-                            News about this event
-                          </div>
-                          <div
-                            style={{
-                              display: 'flex',
-                              justifyContent: 'flex-start',
-                            }}
-                          >
-                            <a
-                              href="https://www.si.ips.pt/ips_si/noticias_geral.ver_noticia?P_NR=7796"
-                              target="_blank"
-                            >
-                              Conferência IINTOS | Projeto para agilizar
-                              mobilidade internacional nas escolas
-                            </a>
-                            <a
-                              href="https://issuu.com/ipsetubal/docs/jornalmovete_mai_jun2020"
-                              target="_blank"
-                              style={{ marginLeft: 15 }}
-                            >
-                              Jornal MOVEte | nº14 | maio/junho 2020
-                            </a>
-                          </div>
-                        </>
-                      )}
-                      {mountImages({ preview })}
-                      {mountVideos({ preview })}
-                      {mountFiles({ files })}
-
-                      <div>
-                        {sessions?.map((session, index) => (
-                          <Session>
-                            <h1>
-                              {session?.title?.trim()?.length > 0 ? (
-                                <span>
-                                  <span>{session.title}</span>
-                                </span>
-                              ) : (
-                                <span>Session {index + 1}</span>
-                              )}
-                              <span
-                                style={{
-                                  color: '#444',
-                                  marginLeft: 'auto',
-                                  fontSize: 14,
-                                }}
-                              >
-                                {/* {format(new Date(session.date), 'yyyy-MM-dd')} */}
+                            {description.includes('{{fbgroupss}}') ? (
+                              <span style={{ width: '64%' }}>
+                                <TextareaAutosize
+                                  disabled
+                                  defaultValue={description.replace(
+                                    '{{fbgroupss}}',
+                                    ''
+                                  )}
+                                />
+                                <a
+                                  href="https://www.facebook.com/groups/226456891770079"
+                                  target="_blank"
+                                >
+                                  https://www.facebook.com/groups/226456891770079
+                                </a>
                               </span>
-                            </h1>
-
-                            {session?.description?.trim().length > 0 && (
+                            ) : (
                               <TextareaAutosize
                                 disabled
-                                defaultValue={session.description}
+                                defaultValue={description}
                               />
                             )}
+                          </span>
 
-                            {mountImages(session)}
-                            {mountVideos(session)}
-                            {session?.files?.length > 0 && (
-                              <FileList files={session.files} />
-                            )}
-                          </Session>
-                        ))}
-                      </div>
-                    </Detail>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-              )
-            )}
-          </Collapse>
-        </>
-      ))}
+                          {id === 11 && (
+                            <>
+                              <div
+                                style={{
+                                  justifyContent: 'flex-start',
+                                  margin: '15px 0',
+                                  fontSize: 17,
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                News about this event
+                              </div>
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'flex-start',
+                                }}
+                              >
+                                <a
+                                  href="https://www.si.ips.pt/ips_si/noticias_geral.ver_noticia?P_NR=7796"
+                                  target="_blank"
+                                >
+                                  Conferência IINTOS | Projeto para agilizar
+                                  mobilidade internacional nas escolas
+                                </a>
+                                <a
+                                  href="https://issuu.com/ipsetubal/docs/jornalmovete_mai_jun2020"
+                                  target="_blank"
+                                  style={{ marginLeft: 15 }}
+                                >
+                                  Jornal MOVEte | nº14 | maio/junho 2020
+                                </a>
+                              </div>
+                            </>
+                          )}
+                          {mountImages({ preview })}
+                          {mountVideos({ preview })}
+                          {mountFiles({ files })}
+
+                          <div>
+                            {sessions?.map((session, index) => (
+                              <Session>
+                                <h1>
+                                  {session?.title?.trim()?.length > 0 ? (
+                                    <span>
+                                      <span>{session.title}</span>
+                                    </span>
+                                  ) : (
+                                    <span>Session {index + 1}</span>
+                                  )}
+                                  <span
+                                    style={{
+                                      color: '#444',
+                                      marginLeft: 'auto',
+                                      fontSize: 14,
+                                    }}
+                                  >
+                                    {/* {format(new Date(session.date), 'yyyy-MM-dd')} */}
+                                  </span>
+                                </h1>
+
+                                {session?.description?.trim().length > 0 && (
+                                  <TextareaAutosize
+                                    disabled
+                                    defaultValue={session.description}
+                                  />
+                                )}
+
+                                {mountImages(session)}
+                                {mountVideos(session)}
+                                {session?.files?.length > 0 && (
+                                  <FileList files={session.files} />
+                                )}
+                              </Session>
+                            ))}
+                          </div>
+                        </Detail>
+                      </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                  )
+                )}
+              </Collapse>
+            </>
+          )
+      )}
     </Container>
   );
 }
