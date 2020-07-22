@@ -31,16 +31,18 @@ const Footer = ({ links }) => {
           </span>
         </p>
 
-        {links && (
-          <div>
-            <NavLink to="/iproject">IINTOS Project</NavLink>
-            <NavLink to="/ioffices">International Offices</NavLink>
-            <NavLink to="/iprojects">International Projects</NavLink>
+        <div>
+          {links && (
+            <>
+              <NavLink to="/iproject">IINTOS Project</NavLink>
+              <NavLink to="/ioffices">International Offices</NavLink>
+              <NavLink to="/iprojects">International Projects</NavLink>
 
-            <NavLink to="/knowledge">Knowledge base</NavLink>
-          </div>
-        )}
-        <NavLink to="/contacts">Contacts</NavLink>
+              <NavLink to="/knowledge">Knowledge base</NavLink>
+            </>
+          )}
+          <NavLink to="/contacts">Contacts</NavLink>
+        </div>
       </div>
     </Container>
   );
