@@ -257,7 +257,7 @@ const Projects = ({ history, location, columns = projectColumns }) => {
               My Projects
             </NavLink>
             {!isProfessor && (
-              <NavLink to="/projects/search">Search Projects</NavLink>
+              <NavLink to="/projects/search">Find Project’s</NavLink>
             )}
           </div>
         </Menu>

@@ -37,7 +37,7 @@ export default function SearchProject({
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Search Projects</h1>
+          <h1>Find Project’s</h1>
         </span>
         {error && <EmptyMessage />}
         {!error && (
