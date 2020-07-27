@@ -12,6 +12,10 @@ const schools = [
         name: 'José Miguel Freitas',
         email: 'jose.freitas@ese.ips.pt',
       },
+      {
+        name: 'Nuno Pina',
+        email: 'nuno.pina@estsetubal.ips.pt',
+      },
     ],
     address: (
       <p>

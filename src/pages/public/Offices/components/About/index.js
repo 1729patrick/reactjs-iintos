@@ -23,7 +23,7 @@ function About() {
       </p>
 
       <img
-        src="https://iintoska2.ips.pt/api/files/a34b704093833be39b6f9aff8f72b30c.jpg"
+        src="https://iintoska2.ips.pt/api/files/12e5bbdf5b055a61e60f0ae2141fa10a.JPG"
         style={{ width: '90%', paddingBottom: 40 }}
       />
     </div>
