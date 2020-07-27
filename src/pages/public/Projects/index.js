@@ -4,6 +4,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { Container, Menu, Content } from './style';
 import News from './components/Newsletter';
 import UserGuide from './components/UserGuide';
+import About from './components/About';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location.pathname.replace('/iprojects', ''), [
@@ -12,7 +13,7 @@ export default withRouter(({ location, history }) => {
 
   useEffect(() => {
     if (!route) {
-      history.push('/iprojects/news');
+      history.push('/iprojects/about');
     }
   }, [route, history]);
 
@@ -23,6 +24,10 @@ export default withRouter(({ location, history }) => {
 
     if (route === '/user-guide') {
       return <UserGuide />;
+    }
+
+    if (route === '/about') {
+      return <About />;
     }
 
     return () => null;
@@ -40,6 +45,7 @@ export default withRouter(({ location, history }) => {
     <Container>
       <Menu>
         <div>
+          <NavLink to="/iprojects/about">About International Projects</NavLink>
           <NavLink to="/iprojects/news">News</NavLink>
           <a style={{ cursor: 'pointer' }} onClick={openForum}>
             Forum

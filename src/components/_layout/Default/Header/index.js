@@ -3,16 +3,15 @@ import { NavLink } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import HelpIcon from '@material-ui/icons/Help';
 import { toast } from 'react-toastify';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import Help from './HelpModal';
 import api from '~/services/api';
 
 import { Container } from './styles';
 import Logo from '~/assets/images/logo.png';
 import Menu from '../Menu';
-
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   popover: {
@@ -66,8 +65,8 @@ const Header = () => {
   const [content, setContent] = useState(null);
 
   const handlePopoverOpen = (event, index) => {
-    setAnchorEl(event.currentTarget);
-    setContent(description[index]);
+    // setAnchorEl(event.currentTarget);
+    // setContent(description[index]);
   };
 
   const handlePopoverClose = () => {
@@ -104,7 +103,7 @@ const Header = () => {
               handlePopoverClose,
               content,
             }}
-          ></Popup>
+          />
 
           <NavLink to="/iproject">IINTOS Project</NavLink>
           <NavLink

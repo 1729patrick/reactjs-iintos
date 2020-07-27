@@ -8,6 +8,7 @@ import Goals from './components/Goals';
 import InternationalCordinator from './components/InternationalCordinator';
 import Management from './components/Management';
 import UserGuide from './components/UserGuide';
+import About from './components/About';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location?.pathname.replace('/ioffices', ''), [
@@ -16,7 +17,7 @@ export default withRouter(({ location, history }) => {
 
   useEffect(() => {
     if (!route) {
-      history.push('/ioffices/policy');
+      history.push('/ioffices/about');
     }
   }, [route, history]);
 
@@ -40,6 +41,9 @@ export default withRouter(({ location, history }) => {
     if (route === '/user-guide') {
       return <UserGuide />;
     }
+    if (route === '/about') {
+      return <About />;
+    }
 
     return () => null;
   };
@@ -48,6 +52,7 @@ export default withRouter(({ location, history }) => {
     <Container>
       <Menu>
         <div>
+          <NavLink to="/ioffices/about">About International Offices</NavLink>
           <NavLink to="/ioffices/policy">School policy plan</NavLink>
           <NavLink to="/ioffices/goals">Goals and organization</NavLink>
           <NavLink to="/ioffices/international-coordinator">
