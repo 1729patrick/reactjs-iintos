@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -20,10 +20,8 @@ import api from '~/services/api';
 import { Container, Detail, Session } from './styles';
 
 function Events() {
-  const youtubeRef = useRef();
   const classes = useStyles();
   const [events, setEvents] = useState([]);
-  const [playVideo, setPlayVideo] = useState({});
   const [open, setOpen] = useState([]);
 
   useEffect(() => {
@@ -136,38 +134,16 @@ function Events() {
     const getContent = ({ type, file, link }) => {
       if (type !== 'image') {
         return (
-          <div>
-            {/* <div style={{ marginBottom: 15 }}>
-              <a
-                onClick={() => setPlayVideo({ time: 12, link })}
-                style={{ cursor: 'pointer' }}
-              >
-                00:12 Welcome
-              </a>
-              <br />
-              <a
-                onClick={() => setPlayVideo({ time: 300, link })}
-                style={{ cursor: 'pointer' }}
-              >
-                02:32 Project Intro
-              </a>
-            </div> */}
-            <iframe
-              key={1}
-              width="400"
-              start={20}
-              height="200"
-              src={
-                link === playVideo.link
-                  ? `${link}?start=${playVideo.time}?autoplay=1`
-                  : link
-              }
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              style={{ marginRight: 10, borderRadius: 4, marginBottom: 10 }}
-            />
-          </div>
+          <iframe
+            key={1}
+            width="300"
+            height="150"
+            src={link}
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ marginRight: 10, borderRadius: 4, marginBottom: 10 }}
+          />
         );
       }
     };
@@ -337,7 +313,6 @@ function Events() {
                               </div>
                             </>
                           )}
-
                           {mountImages({ preview })}
                           {mountVideos({ preview })}
                           {mountFiles({ files })}
