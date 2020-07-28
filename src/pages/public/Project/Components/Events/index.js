@@ -209,6 +209,57 @@ function Events() {
     setOpen({ 'Multiplier Events': true });
   };
 
+  const mountEvent11 = id => {
+    if (id !== 11) return;
+
+    return (
+      <>
+        <div
+          style={{
+            justifyContent: 'flex-start',
+            margin: '15px 0',
+            fontSize: 17,
+            textTransform: 'uppercase',
+          }}
+        >
+          News about this event
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+          }}
+        >
+          <a
+            href="https://www.si.ips.pt/ips_si/noticias_geral.ver_noticia?P_NR=7796"
+            target="_blank"
+          >
+            Conferência IINTOS | Projeto para agilizar mobilidade internacional
+            nas escolas
+          </a>
+          <a
+            href="https://issuu.com/ipsetubal/docs/jornalmovete_mai_jun2020"
+            target="_blank"
+            style={{ marginLeft: 15 }}
+          >
+            Jornal MOVEte | nº14 | maio/junho 2020
+          </a>
+        </div>
+
+        <iframe
+          key={1}
+          width="300"
+          height="150"
+          src="https://www.youtube.com/embed/DnOvxDtYpn0"
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ marginTop: 10, borderRadius: 4, marginBottom: 10 }}
+        />
+      </>
+    );
+  };
+
   return (
     <Container>
       <h1>Within the scope of this project, the following events were held:</h1>
@@ -278,41 +329,7 @@ function Events() {
                             )}
                           </span>
 
-                          {id === 11 && (
-                            <>
-                              <div
-                                style={{
-                                  justifyContent: 'flex-start',
-                                  margin: '15px 0',
-                                  fontSize: 17,
-                                  textTransform: 'uppercase',
-                                }}
-                              >
-                                News about this event
-                              </div>
-                              <div
-                                style={{
-                                  display: 'flex',
-                                  justifyContent: 'flex-start',
-                                }}
-                              >
-                                <a
-                                  href="https://www.si.ips.pt/ips_si/noticias_geral.ver_noticia?P_NR=7796"
-                                  target="_blank"
-                                >
-                                  Conferência IINTOS | Projeto para agilizar
-                                  mobilidade internacional nas escolas
-                                </a>
-                                <a
-                                  href="https://issuu.com/ipsetubal/docs/jornalmovete_mai_jun2020"
-                                  target="_blank"
-                                  style={{ marginLeft: 15 }}
-                                >
-                                  Jornal MOVEte | nº14 | maio/junho 2020
-                                </a>
-                              </div>
-                            </>
-                          )}
+                          {mountEvent11(id)}
                           {mountImages({ preview })}
                           {mountVideos({ preview })}
                           {mountFiles({ files })}
