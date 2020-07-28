@@ -254,7 +254,7 @@ function Events() {
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          style={{ marginTop: 10, borderRadius: 4, marginBottom: 10 }}
+          style={{ marginTop: 25, borderRadius: 4, marginBottom: 10 }}
         />
       </>
     );
