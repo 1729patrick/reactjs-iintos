@@ -30,12 +30,14 @@ import ProjectDetails from '~/pages/admin/ProjectDetails';
 import Profile from '~/pages/admin/Profile';
 
 import Route from './Route';
+import Documentation from '~/pages/public/Documentation';
 
 export default () => {
   return (
     <Router>
       <Switch>
         <Route path="/" component={Home} exact />
+        <Route path="/doc" component={Documentation} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} exact />
 

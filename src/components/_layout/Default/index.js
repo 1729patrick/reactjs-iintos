@@ -4,11 +4,11 @@ import { Wrapper } from '../styles';
 import Header from './Header';
 import Footer from '../Footer';
 
-const DefaultLayout = ({ children, hiddenFooter }) => {
+const DefaultLayout = ({ children, hiddenFooter, hiddenHeader }) => {
   return (
     <>
       <Wrapper noFooter={hiddenFooter}>
-        <Header transparent={hiddenFooter} />
+        {!hiddenHeader && <Header transparent={hiddenFooter} />}
         <div>{children}</div>
         {!hiddenFooter && <Footer />}
       </Wrapper>
