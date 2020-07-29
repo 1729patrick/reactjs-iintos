@@ -7,9 +7,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import TextareaAutosize from 'react-textarea-autosize';
 
+import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 import { Container, Detail } from './styles';
 import api from '~/services/api';
-import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 import FileList from '~/components/FileList';
 
 function Products() {
@@ -25,12 +25,97 @@ function Products() {
     fetchResults();
   }, []);
 
+  const getDescriptionProduct6 = id => {
+    if (id !== 6) return null;
+
+    return (
+      <div>
+        <p>
+          <b>This User guide has four main components:</b>
+        </p>
+
+        <p>1. Catalogue of Effective Internationalization Strategies;</p>
+
+        <p>2. Guide on Framework for Exchange;</p>
+
+        <p>3. Platform tutorials;</p>
+
+        <p>
+          4. Tutorials on implementation of international offices in schools.
+        </p>
+
+        <div style={{ flexDirection: 'column', display: 'flex' }}>
+          <iframe
+            key={1}
+            width="300"
+            height="150"
+            src="https://www.youtube.com/embed/hqhwhFK7ekI"
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ marginTop: 25, borderRadius: 4, marginBottom: 10 }}
+          />
+          <iframe
+            key={1}
+            width="300"
+            height="150"
+            src="https://www.youtube.com/embed/5nS-RqSIOKk"
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ marginTop: 25, borderRadius: 4, marginBottom: 10 }}
+          />
+          <iframe
+            key={1}
+            width="300"
+            height="150"
+            src="https://www.youtube.com/embed/ApQIAXF2hIU"
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ marginTop: 25, borderRadius: 4, marginBottom: 10 }}
+          />
+          <iframe
+            key={1}
+            width="300"
+            height="150"
+            src="https://www.youtube.com/embed/9TCRWwZV7f4"
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ marginTop: 25, borderRadius: 4, marginBottom: 10 }}
+          />
+          <iframe
+            key={1}
+            width="300"
+            height="150"
+            src="https://www.youtube.com/embed/2w0tmEDXMOE"
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ marginTop: 25, borderRadius: 4, marginBottom: 10 }}
+          />
+          <iframe
+            key={1}
+            width="300"
+            height="150"
+            src="https://www.youtube.com/embed/PPu4T46dY-E"
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ marginTop: 25, borderRadius: 4, marginBottom: 10 }}
+          />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Container>
       <h1>
         Within the scope of this project, the following materials were produced:
       </h1>
-      {products.map(({ title, description, files }, index) => (
+      {products.map(({ id, title, description, files }, index) => (
         <ExpansionPanel defaultExpanded={!index}>
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
@@ -42,7 +127,10 @@ function Products() {
 
           <ExpansionPanelDetails>
             <Detail>
-              <TextareaAutosize disabled defaultValue={description} />
+              {getDescriptionProduct6(id)}
+              {id !== 6 && (
+                <TextareaAutosize disabled defaultValue={description} />
+              )}
 
               {files?.length === 1 && (
                 <div>
