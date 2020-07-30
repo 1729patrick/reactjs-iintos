@@ -12,15 +12,16 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
 
+import { format } from 'date-fns';
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
 import Button from '~/components/Button';
 import Search from '~/components/Search';
 import FormModal from './modals/Form';
 import DeleteModal from './modals/Delete';
+import DetailsModal from './modals/Details';
 import EmptyMessage from '~/components/EmptyMessage';
 import validationSchema from '~/validations/event2';
-import { format } from 'date-fns';
 
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
@@ -41,7 +42,12 @@ const columns = [
     label: '',
     align: 'center',
     minWidth: 50,
-    format: value => value.toFixed(2),
+  },
+  {
+    id: 'edit',
+    label: '',
+    align: 'center',
+    minWidth: 50,
   },
   {
     id: 'delete',
@@ -227,7 +233,7 @@ export default function Events() {
     setModalOpen('form');
   };
 
-  const handleDetailRow = row => {
+  const handleEditRow = row => {
     setModalParams({
       initialValues: {
         ...row,
@@ -247,6 +253,14 @@ export default function Events() {
     setModalOpen('form');
   };
 
+  const handleDetailsRow = row => {
+    setModalParams({
+      row,
+    });
+
+    setModalOpen('details');
+  };
+
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
 
@@ -261,9 +275,18 @@ export default function Events() {
 
     if (column.id === 'see') {
       return (
+        <Button
+          title="Show"
+          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          onClick={() => handleDetailsRow(row)}
+        />
+      );
+    }
+    if (column.id === 'edit') {
+      return (
         <EditIcon
           style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
-          onClick={() => handleDetailRow(row)}
+          onClick={() => handleEditRow(row)}
         />
       );
     }
@@ -364,6 +387,11 @@ export default function Events() {
       />
       <DeleteModal
         open={modalOpen === 'delete'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
+      <DetailsModal
+        open={modalOpen === 'details'}
         setOpen={setModalOpen}
         {...modalParams}
       />
