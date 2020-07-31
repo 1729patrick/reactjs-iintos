@@ -5,6 +5,7 @@ import { Container, Menu, Content } from './style';
 import News from './components/Newsletter';
 import UserGuide from './components/UserGuide';
 import About from './components/About';
+import Stem from './components/Stem';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location.pathname.replace('/iprojects', ''), [
@@ -30,6 +31,10 @@ export default withRouter(({ location, history }) => {
       return <About />;
     }
 
+    if (route === '/stem') {
+      return <Stem />;
+    }
+
     return () => null;
   };
 
@@ -53,6 +58,8 @@ export default withRouter(({ location, history }) => {
           <a style={{ cursor: 'pointer' }} onClick={openWiki}>
             Wiki
           </a>
+
+          <NavLink to="/iprojects/stem">STEM Resources</NavLink>
 
           <NavLink to="/iprojects/user-guide">User Guide</NavLink>
         </div>

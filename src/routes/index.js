@@ -44,6 +44,7 @@ export default () => {
         <Route path="/iproject" component={IProject} />
         <Route path="/iprojects" component={IProjects} />
         <Route path="/ioffices" component={IOffices} />
+
         <Route path="/knowledge" component={KnowLedge} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/contacts" component={Contacs} />
