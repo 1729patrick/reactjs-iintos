@@ -260,6 +260,25 @@ function Events() {
     );
   };
 
+  const mountEvent10 = id => {
+    if (id !== 10) return;
+
+    return (
+      <>
+        <iframe
+          key={1}
+          width="300"
+          height="150"
+          src="https://www.youtube.com/embed/7P3_vypoEuQ"
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ marginTop: 25, borderRadius: 4, marginBottom: 10 }}
+        />
+      </>
+    );
+  };
+
   return (
     <Container>
       <h1>Within the scope of this project, the following events were held:</h1>
@@ -330,6 +349,7 @@ function Events() {
                           </span>
 
                           {mountEvent11(id)}
+                          {mountEvent10(id)}
                           {mountImages({ preview })}
                           {mountVideos({ preview })}
                           {mountFiles({ files })}
