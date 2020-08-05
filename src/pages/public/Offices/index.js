@@ -9,6 +9,7 @@ import InternationalCordinator from './components/InternationalCordinator';
 import Management from './components/Management';
 import UserGuide from './components/UserGuide';
 import About from './components/About';
+import ActiveInternationalOffices from './components/ActiveInternationalOffices';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location?.pathname.replace('/ioffices', ''), [
@@ -45,6 +46,10 @@ export default withRouter(({ location, history }) => {
       return <About />;
     }
 
+    if (route === '/active-international-offices') {
+      return <ActiveInternationalOffices />;
+    }
+
     return () => null;
   };
 
@@ -61,6 +66,9 @@ export default withRouter(({ location, history }) => {
           <NavLink to="/ioffices/management">Management</NavLink>
 
           <NavLink to="/ioffices/user-guide">User Guide</NavLink>
+          <NavLink to="/ioffices/active-international-offices">
+            Active International Offices
+          </NavLink>
         </div>
       </Menu>
       <Content>
