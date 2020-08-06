@@ -28,21 +28,98 @@ function Products() {
   const getDescriptionProduct6 = id => {
     if (id !== 6) return null;
 
+    const files = [
+      {
+        name: 'Effective+strategy-1.pdf',
+        path: '0a866cab0d0bfe72c1c0e02ad7b3d6f9.pdf',
+        updatedAt: '2020-08-06T00:18:05.701Z',
+        url:
+          'https://iintoska2.ips.pt/api/files/0a866cab0d0bfe72c1c0e02ad7b3d6f9.pdf',
+      },
+
+      {
+        name: 'Effective+strategy-2.pdf',
+        path: 'a797d2f50dc027539904122147b7830a.pdf',
+        updatedAt: '2020-08-06T00:17:36.548Z',
+        url:
+          'https://iintoska2.ips.pt/api/files/a797d2f50dc027539904122147b7830a.pdf',
+      },
+
+      {
+        name: 'Effective strategy 3.pdf',
+        path: '7efa198a4b9bc52ff17a59b2c36df590.pdf',
+        updatedAt: '2020-08-06T00:18:05.885Z',
+        url:
+          'https://iintoska2.ips.pt/api/files/7efa198a4b9bc52ff17a59b2c36df590.pdf',
+      },
+      {
+        name: 'Effective strategy 4.pdf',
+        path: 'f3ffc874bc6ee47f8a66fec8ce009ef0.pdf',
+        updatedAt: '2020-08-06T00:18:04.684Z',
+        url:
+          'https://iintoska2.ips.pt/api/files/f3ffc874bc6ee47f8a66fec8ce009ef0.pdf',
+      },
+
+      {
+        name: 'Effective strategy - 5.pdf',
+        path: '4bec1ab2ae3344d58021fc1fa3a1f6d4.pdf',
+        updatedAt: '2020-08-06T00:18:04.908Z',
+        url:
+          'https://iintoska2.ips.pt/api/files/4bec1ab2ae3344d58021fc1fa3a1f6d4.pdf',
+      },
+
+      {
+        name: 'Effective strategy - 6.pdf',
+        path: '1013adc0f3956641bdabda5b581702d8.pdf',
+        updatedAt: '2020-08-06T00:18:06.072Z',
+        url:
+          'https://iintoska2.ips.pt/api/files/1013adc0f3956641bdabda5b581702d8.pdf',
+      },
+
+      {
+        name: 'Effective strategy - 7.pdf',
+        path: '71bb259106ba5f186a0a135283f062f7.pdf',
+        updatedAt: '2020-08-06T00:18:05.742Z',
+        url:
+          'https://iintoska2.ips.pt/api/files/71bb259106ba5f186a0a135283f062f7.pdf',
+      },
+
+      {
+        name: 'Effective strategy - 8.pdf',
+        path: '8d11f38253195379ed7ab467fb98e18a.pdf',
+        updatedAt: '2020-08-06T00:18:00.892Z',
+        url:
+          'https://iintoska2.ips.pt/api/files/8d11f38253195379ed7ab467fb98e18a.pdf',
+      },
+    ];
     return (
       <div>
         <p>
-          <b>This User guide has four main components:</b>
+          <h3>This User guide has four main components:</h3>
         </p>
 
-        <p>1. Catalogue of Effective Internationalization Strategies;</p>
+        <h4>1. Catalogue of Effective Internationalization Strategies;</h4>
 
-        <p>2. Guide on Framework for Exchange;</p>
+        <div style={{ marginLeft: 15 }}>
+          <FileList files={files} />
+        </div>
 
-        <p>3. Platform tutorials;</p>
+        <h4>2. Guide on Framework for Exchange;</h4>
 
-        <p>
+        <div style={{ marginLeft: 15 }}>
+          <a
+            href="https://iintoska2.ips.pt/api/files/e6dfc32b962e0afafb5a29d074c9cf8d.pdf"
+            target="_blank"
+            style={{ marginRight: 10 }}
+          >
+            Guide on Framework for Exchange.pdf
+          </a>
+        </div>
+        <h4>3. Platform tutorials;</h4>
+
+        <h4>
           4. Tutorials on implementation of international offices in schools.
-        </p>
+        </h4>
 
         <div style={{ flexDirection: 'column', display: 'flex' }}>
           <iframe
