@@ -8,7 +8,7 @@ export default () => {
     const fetch = async () => {
       const response = await api.get('schools');
 
-      setSchools(response.data);
+      setSchools(response.data.filter(school => school.active));
     };
 
     fetch();
