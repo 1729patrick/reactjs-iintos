@@ -13,7 +13,7 @@ function About() {
 
       <p>
         Can be a formal structure at the school, reporting directly to the
-        principal
+        principal.
       </p>
 
       <p>
@@ -22,6 +22,9 @@ function About() {
         office in your school.
       </p>
 
+      <p>
+        It is also available a list of active International Offices in Schools.
+      </p>
       <img
         src="https://iintoska2.ips.pt/api/files/12e5bbdf5b055a61e60f0ae2141fa10a.JPG"
         style={{ width: '90%', paddingBottom: 40 }}

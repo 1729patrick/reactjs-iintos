@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useFormik } from 'formik';
@@ -43,7 +43,7 @@ export default ({
   if (!open) {
     return null;
   }
-
+  const [showContact, setShowContact] = useState(false);
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -126,6 +126,29 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
+
+            {formik.values.showContact && (
+              <Input
+                label="Contact Email"
+                type="text"
+                name="contactEmail"
+                placeholder="Type your contact email for your International Office"
+                onChange={formik.handleChange}
+                values={formik.values}
+                errors={formik.errors}
+                touched={formik.touched}
+              />
+            )}
+
+            <Checkbox
+              label="Add email contact for your International Office to be available on the free access"
+              name="showContact"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+            />
+
             <Checkbox
               label="Active"
               type="text"
@@ -137,6 +160,7 @@ export default ({
               touched={formik.touched}
               submitted={formik.submitCount}
             />
+
             <Button title={submitText} type="submit" />
           </Form>
         </div>

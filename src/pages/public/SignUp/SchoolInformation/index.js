@@ -7,6 +7,7 @@ import Input from '~/components/Input';
 import Button from '~/components/Button';
 import Select from '~/components/Select';
 import FileInput from '~/components/FileInput';
+import Checkbox from '~/components/Checkbox';
 
 import {
   coordinator as validationSchemaCoordinator,
@@ -175,6 +176,28 @@ const SchoolInformation = ({ location, history }) => {
                   formik.values?.fileVerification?.name || 'Attachment file'
                 }
                 onChange={onFileUpload}
+                values={formik.values}
+                errors={formik.errors}
+                touched={formik.touched}
+              />
+
+              {formik.values.showContact && (
+                <Input
+                  label="Contact Email"
+                  type="text"
+                  name="contactEmail"
+                  placeholder="Type your contact email for your International Office"
+                  onChange={formik.handleChange}
+                  values={formik.values}
+                  errors={formik.errors}
+                  touched={formik.touched}
+                />
+              )}
+
+              <Checkbox
+                label="Add email contact for your International Office to be available on the free access"
+                name="showContact"
+                onChange={formik.handleChange}
                 values={formik.values}
                 errors={formik.errors}
                 touched={formik.touched}
