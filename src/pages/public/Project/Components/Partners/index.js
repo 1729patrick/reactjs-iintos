@@ -91,7 +91,6 @@ function Partners() {
   };
 
   const setLearMore = ({ title }) => {
-    console.log(partners);
     setPartners(
       partners.map(partner =>
         partner.title === title

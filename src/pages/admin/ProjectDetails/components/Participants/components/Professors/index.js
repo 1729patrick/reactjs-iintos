@@ -85,8 +85,6 @@ export default function Professors({
   const [displayUser, setDisplayUsers] = useState([]);
 
   React.useEffect(() => {
-    console.log('users');
-    console.log(users);
     setDisplayUsers(users);
   }, [users]);
   const handleChangePage = (event, newPage) => {

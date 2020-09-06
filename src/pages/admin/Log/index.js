@@ -22,32 +22,13 @@ import EmptyMessage from '~/components/EmptyMessage';
 import validationSchema from '~/validations/user';
 
 const columns = [
-  { id: 'id', label: 'Id', minWidth: 50 },
-  { id: 'method', label: 'Method', minWidth: 150 },
+  { id: 'user', label: 'Name', format: ({ name }) => name, minWidth: 200 },
+  { id: 'user', label: 'Email', format: ({ email }) => email, minWidth: 150 },
   {
-    id: 'path',
-    label: 'Path',
-    minWidth: 200,
-  },
-  {
-    id: 'body',
-    label: 'Body',
+    id: 'dates',
+    label: 'Access Dates',
     minWidth: 100,
-  },
-  {
-    id: 'params',
-    label: 'Params',
-    minWidth: 100,
-  },
-  {
-    id: 'username',
-    label: 'User',
-    minWidth: 100,
-  },
-  {
-    id: 'createdAt',
-    label: 'Created At',
-    minWidth: 100,
+    format: dates => dates.join(', '),
   },
 ];
 
@@ -202,7 +183,9 @@ export default function Logs() {
     }
 
     return column.format &&
-      (typeof value === 'number' || typeof value === 'boolean')
+      (typeof value === 'number' ||
+        typeof value === 'boolean' ||
+        typeof value === 'object')
       ? column.format(value)
       : value;
   };

@@ -15,6 +15,8 @@ import Select from '~/components/Select';
 import Input from '~/components/Input';
 import { Form } from './styles';
 
+import URLs from '~/components/URLs';
+
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -41,6 +43,7 @@ const useStyles = makeStyles(theme => ({
 export default ({
   initialValues = {
     files: [''],
+    links: [''],
     students: [''],
     professors: [''],
     title: '',
@@ -61,8 +64,6 @@ export default ({
   if (!open) {
     return null;
   }
-  // console.log('initial');
-  // console.log(initialValues);
 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
@@ -71,8 +72,6 @@ export default ({
   const handleClose = () => {
     setOpen(false);
   };
-  // console.log('fomrik');
-  // console.log(initialValues);
 
   // Form controller
   const formik = useFormik({
@@ -200,6 +199,8 @@ export default ({
                 + Add {isProject ? 'Teacher' : 'Partner'}
               </button>
             </span>
+
+            <URLs formik={formik} values={formik.values.links} name="" />
 
             <Button title={submitText} type="submit" />
           </Form>

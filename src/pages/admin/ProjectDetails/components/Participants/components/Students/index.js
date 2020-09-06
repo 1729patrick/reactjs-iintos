@@ -131,7 +131,6 @@ export default function Professors({
                 {displayUsers
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
-                    console.log(displayUsers);
                     return (
                       <TableRow
                         hover

@@ -6,7 +6,6 @@ export default function Search({ setDisplay, displayOg, placeholder }) {
   const search = event => {
     const searchQuery = event.target.value.toLowerCase();
     const displayedUser = displayOg?.filter(el => {
-      console.log(el);
       let serchVal = '';
       if (el.name !== undefined) {
         serchVal = el.name.toLowerCase();
@@ -19,7 +18,6 @@ export default function Search({ setDisplay, displayOg, placeholder }) {
       }
       return serchVal.indexOf(searchQuery) !== -1;
     });
-    console.log(displayedUser);
     setDisplay(displayedUser);
   };
   return (

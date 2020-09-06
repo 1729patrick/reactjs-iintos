@@ -318,19 +318,8 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
   // api call to post
   const handleUpdate = async (id, values) => {
     try {
-      const activity = {
-        title: values.title,
-        description: values.description,
-        done: values.done,
-        startDate: values.startDate,
-        endDate: values.endDate,
-        projectId,
-        students: values.students,
-        professors: values.professors,
-      };
-
       const files = values.files?.filter(f => f).map(({ id }) => id);
-      await api.put(`activities/${id}`, { ...activity, files });
+      await api.put(`activities/${id}`, { ...values, files, projectId });
       setModalOpen(false);
       toast.success('Activity updated with success!');
       fetchActivities();
@@ -392,6 +381,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     const formattedRow = {
       ...row,
       files: [...row.files, ''],
+      links: [...row.links, ''],
       students: row.students.length
         ? row.students.map(({ id }) => id)
         : [undefined],
@@ -399,8 +389,6 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         ? row.professors.map(({ id }) => id)
         : [undefined],
     };
-    // console.log('Row');
-    // console.log(row);
 
     setModalParams({
       initialValues: formattedRow,

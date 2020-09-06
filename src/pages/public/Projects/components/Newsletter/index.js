@@ -1,11 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import api from '~/services/api';
-
-import Result from './components/Result';
-
-import Button from '~/components/Button';
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -13,9 +8,14 @@ import {
   TextareaAutosize,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { format } from 'date-fns';
+import api from '~/services/api';
+
+import Result from './components/Result';
+
+import Button from '~/components/Button';
 
 import { Container, Detail } from './style';
-import { format } from 'date-fns';
 import FormModal from './components/Form';
 import DeleteModal from './components/Delete';
 import validationSchema from '~/validations/news';
@@ -154,9 +154,8 @@ export default withRouter(({ location, history }) => {
 
           <ExpansionPanelDetails>
             <Detail>
-              <img src={new_?.image?.url}></img>
+              <img src={new_?.image?.url} />
 
-              {console.log(new_?.image)}
               <TextareaAutosize disabled defaultValue={new_.description} />
 
               <div

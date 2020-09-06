@@ -8,6 +8,8 @@ import Button from '~/components/Button';
 import Input from '~/components/Input';
 import { Form } from './styles';
 
+import URLs from '~/components/URLs';
+
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -34,6 +36,7 @@ const useStyles = makeStyles(theme => ({
 export default ({
   initialValues = {
     files: [''],
+    links: [''],
     title: '',
   },
   submitText,
@@ -98,6 +101,9 @@ export default ({
               submitted={formik.submitCount}
             />
             <Files formik={formik} />
+
+            <URLs formik={formik} values={formik.values.links} name="" />
+
             <Button title={submitText} type="submit" />
           </Form>
         </div>

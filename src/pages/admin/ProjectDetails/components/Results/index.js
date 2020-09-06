@@ -173,6 +173,7 @@ const Results = ({ isProfessor, isParticipant }) => {
       initialValues: {
         ...row,
         files: [...row.files, ''],
+        links: [...row.links, ''],
       },
       validationSchema,
       onSubmit: values => handleUpdate(row.id, values),
@@ -185,9 +186,7 @@ const Results = ({ isProfessor, isParticipant }) => {
 
   // Send the request to create the news about this result
   const handleSendToNews = async values => {
-    console.log('sdadas');
     try {
-      console.log(values);
       const response = await api.post('resultNews', {
         ...values,
         userId: user.id,

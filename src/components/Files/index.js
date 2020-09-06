@@ -5,7 +5,7 @@ import FileInput from '~/components/FileInput';
 import api from '~/services/api';
 
 export default function Files({ formik, path, values }) {
-  const name = path ? path : 'files';
+  const name = path || 'files';
 
   const onFileUpload = async (index, { target }) => {
     const { files } = target;
@@ -30,10 +30,6 @@ export default function Files({ formik, path, values }) {
     formik.setFieldValue(field, newState);
   };
 
-  console.log(
-    '*',
-    formik.values?.files.map(x => x?.id)
-  );
   return (
     <div>
       <label>Files</label>
