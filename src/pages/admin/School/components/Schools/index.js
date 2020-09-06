@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,9 +8,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import EditIcon from '@material-ui/icons/Edit';
+import { toast } from 'react-toastify';
+import validationSchema from '~/validations/school';
+import FormModal from './modals/Form';
 
 import api from '~/services/api';
 import { Container, ContainerWrap } from './styles';
+import { useUserContext } from '~/context/UserContext';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
@@ -33,6 +38,13 @@ const columns = [
     minWidth: 100,
     format: value => value.toFixed(2),
   },
+  {
+    id: 'see',
+    label: '',
+    align: 'center',
+    minWidth: 50,
+    format: value => value.toFixed(2),
+  },
 ];
 
 const useStyles = makeStyles({
@@ -47,8 +59,11 @@ const useStyles = makeStyles({
 export default function Schools() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
+  const { user } = useCallback(useUserContext(), []);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [schools, setSchools] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalParams, setModalParams] = useState({});
 
   const fetchSchools = async () => {
     const response = await api.get('schools');
@@ -68,8 +83,41 @@ export default function Schools() {
     setPage(0);
   };
 
+  // api call to post
+  const handleUpdate = async (id, values) => {
+    try {
+      await api.put(`schools/${id}`, values);
+      setModalOpen(false);
+      toast.success('School updated with success!');
+      fetchSchools();
+    } catch (e) {
+      toast.error(e?.response?.data?.error || 'Invalid data, try again');
+    }
+  };
+
+  const handleDetailRow = row => {
+    setModalParams({
+      initialValues: row,
+      validationSchema,
+      onSubmit: values => handleUpdate(row.id, values),
+      submitText: 'Save',
+      modalTitle: 'School',
+    });
+
+    setModalOpen('form');
+  };
+
   const getRowContent = ({ column, row }) => {
     const value = row[column.id];
+
+    if (column.id === 'see' && user.role === 'Coordinator') {
+      return (
+        <EditIcon
+          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          onClick={() => handleDetailRow(row)}
+        />
+      );
+    }
 
     return column.format &&
       (typeof value === 'number' || typeof value === 'boolean')
@@ -134,6 +182,11 @@ export default function Schools() {
           />
         </Paper>
       </ContainerWrap>
+      <FormModal
+        open={modalOpen === 'form'}
+        setOpen={setModalOpen}
+        {...modalParams}
+      />
     </Container>
   );
 }
