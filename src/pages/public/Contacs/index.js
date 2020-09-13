@@ -7,6 +7,7 @@ import { useUserContext } from '~/context/UserContext';
 const schools = [
   {
     name: 'IPS',
+    link: 'https://www.ips.pt/ips_si/web_base.gera_pagina?P_pagina=29906',
     contacts: [
       {
         name: 'José Miguel Freitas',
@@ -30,6 +31,7 @@ const schools = [
   },
   {
     name: 'UPOL',
+    link: 'https://www.pdf.upol.cz/en',
     contacts: [
       {
         name: 'Alena Jůvová',
@@ -55,6 +57,7 @@ const schools = [
   },
   {
     name: 'AEJS',
+    link: 'http://aejs.pt/site',
     contacts: [
       {
         name: 'Faisal Aboobakar',
@@ -78,6 +81,7 @@ const schools = [
   },
   {
     name: 'Vallauri',
+    link: 'http://www.vallauri.edu',
     contacts: [
       {
         name: 'Silvia Tobaldi',
@@ -159,6 +163,8 @@ const Contacts = () => {
             </div>
             <p>{school.address}</p>
             <a href={`tel:${school.phone}`}>{school.phone}</a>
+            <br />
+            <a href={`${school.links}`}>{school.link}</a>
           </div>
         ))}
         <a
