@@ -7,8 +7,8 @@ function UserGuide() {
     <div>
       <h1>User Guide</h1>
       <p>
-        This guide is a guiding document for completing the various steps
-        proposed for the implementation of a European office in schools.
+        This guide is a guiding document with the various steps proposed for the
+        implementation of International Projects in schools.
         <br />
         <p>
           <a
