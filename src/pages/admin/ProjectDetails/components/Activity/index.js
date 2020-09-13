@@ -301,6 +301,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
       endDate: values.endDate,
       projectId,
       students: values.students,
+      links: values.links,
       professors,
     };
 
@@ -446,6 +447,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     }
 
     if (column.id === 'files') {
+      console.log(value.length);
       if (value.length) return value.length ? <FileList files={value} /> : '';
     }
 
