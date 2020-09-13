@@ -98,6 +98,13 @@ function Products() {
         url:
           'https://iintoska2.ips.pt/api/files/478e253b40b502629416dd59205960ce.pdf',
       },
+      {
+        name: 'Effective strategy - 10.pdf',
+        path: '11c39ad01760c8e6816982167a61b8fc.pdf',
+        updatedAt: '2020-09-13T17:47:27.618Z',
+        url:
+          'https://iintoska2.ips.pt/api/files/11c39ad01760c8e6816982167a61b8fc.pdf',
+      },
     ];
     return (
       <div>
