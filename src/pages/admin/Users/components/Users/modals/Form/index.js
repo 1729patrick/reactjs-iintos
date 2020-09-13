@@ -120,6 +120,17 @@ export default ({
               submitted={formik.submitCount}
               options={roles}
             />
+            <Input
+              label="Password"
+              type="password"
+              placeholder="Password of the user"
+              name="password"
+              onChange={formik.handleChange}
+              values={formik.values}
+              errors={formik.errors}
+              touched={formik.touched}
+              submitted={formik.submitCount}
+            />
 
             <Checkbox
               label="Active"
