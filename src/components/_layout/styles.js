@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 
     > div {
       height: ${props =>
-        props.noFooter ? 'calc(100vh - 80px)' : 'calc(100vh - 120px)'};
+        props.noFooter ? 'calc(100vh - 80px)' : 'calc(100vh - 145px)'};
       overflow-y: auto;
     }
   }

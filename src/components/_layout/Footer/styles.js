@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.footer`
-  height: 40px;
+  height: 65px;
   border-top: 2px solid #aaa;
   display: flex;
   align-items: center;
@@ -12,6 +12,11 @@ export const Container = styled.footer`
     justify-content: row;
     justify-content: space-between;
     width: 100%;
+
+    > div {
+      display: flex;
+      align-items: center;
+    }
   }
 
   a {
@@ -19,6 +24,7 @@ export const Container = styled.footer`
     font-size: 15px;
     padding: 3px 0;
     border-bottom: solid 2px transparent;
+    // line-height: 65px;
 
     & + a {
       margin-left: 30px;
@@ -34,6 +40,20 @@ export const Container = styled.footer`
 
     div p span {
       display: none;
+    }
+  }
+
+  @media only screen and (max-width: 1200px) {
+    div {
+      span {
+        a {
+          display: none;
+        }
+
+        a:last-child {
+          display: inline;
+        }
+      }
     }
   }
 `;
