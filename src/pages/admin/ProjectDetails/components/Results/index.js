@@ -73,7 +73,7 @@ const Results = ({ isProfessor, isParticipant }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
   const location = useLocation();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
   const [displayResult, setDisplayResult] = useState([]);
 
   const { user } = React.useCallback(useUserContext(), []);
@@ -256,8 +256,8 @@ const Results = ({ isProfessor, isParticipant }) => {
             />
           </span>
         </span>
-        {error && <EmptyMessage />}
-        {!error && (
+        {error === true && <EmptyMessage />}
+        {error === false && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">

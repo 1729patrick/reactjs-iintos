@@ -82,7 +82,7 @@ export default function Approve() {
   const [users, setUsers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   const fetchUsers = async () => {
     const response = await api.get('users', {
@@ -199,8 +199,8 @@ export default function Approve() {
         <span>
           <h1>Approve Teachers</h1>
         </span>
-        {error && <EmptyMessage />}
-        {!error && (
+        {error === true && <EmptyMessage />}
+        {error === false && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">

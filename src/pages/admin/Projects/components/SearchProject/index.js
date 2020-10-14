@@ -39,8 +39,8 @@ export default function SearchProject({
         <span>
           <h1>Find Project’s</h1>
         </span>
-        {error && <EmptyMessage />}
-        {!error && (
+        {error === true && <EmptyMessage />}
+        {error === false && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
@@ -68,7 +68,7 @@ export default function SearchProject({
                           tabIndex={-1}
                           key={row.id}
                           style={{
-                            background: row.isBeforeToday ? '#fbfd6f' : '',
+                            opacity: row.isBeforeToday ? 0.6 : 1,
                           }}
                         >
                           {columns.map(column => {

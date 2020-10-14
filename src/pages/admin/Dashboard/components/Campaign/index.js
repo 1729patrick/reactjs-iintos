@@ -7,7 +7,7 @@ import { Events, Event } from './styles';
 
 export default function ProjectsCard() {
   const [projects, setProjects] = useState([]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   const fetchOutputs = async () => {
     try {

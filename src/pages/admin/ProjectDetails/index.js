@@ -10,6 +10,7 @@ import Participants from './components/Participants';
 import Results from './components/Results';
 import Schools from './components/Schools';
 import { useUserContext } from '~/context/UserContext';
+import Button from '~/components/Button';
 
 export default withRouter(({ computedMatch }) => {
   const { user, school } = useCallback(useUserContext(), []);
@@ -155,6 +156,8 @@ export default withRouter(({ computedMatch }) => {
             Results
           </NavLink>
         </div>
+
+        <Button title="Join Project" type="button" onClick={() => {}} />
       </Menu>
       <Content>
         <Children />

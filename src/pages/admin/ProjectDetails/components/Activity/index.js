@@ -73,7 +73,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
   const [activities, setActivities] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
   const [displayActivity, setDisplayActivity] = useState([]);
 
   const columns = useMemo(
@@ -483,8 +483,8 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
             </ButtonContainer>
           )}
         </span>
-        {error && <EmptyMessage />}
-        {!error && (
+        {error === true && <EmptyMessage />}
+        {error === false && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">

@@ -75,7 +75,7 @@ const Projects = ({ history, location, columns = projectColumns }) => {
   const [projects, setProjects] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   const route = useMemo(() => location.pathname.replace('/projects', ''), [
     location.pathname,

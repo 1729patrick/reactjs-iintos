@@ -8,7 +8,7 @@ import { Events, Event } from './styles';
 
 export default function OutputsCard() {
   const [outputs, setOutputs] = useState([]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
   const { user } = React.useCallback(useUserContext(), []);
   const isUserIIntos = React.useMemo(
     () => user?.role === 'IINTOS-Admin' || user?.role === 'IINTOS-Partner',
@@ -51,7 +51,7 @@ export default function OutputsCard() {
           </div>
         </Event>
       ))}
-      {error && <EmptyMessage />}
+      {error === true && <EmptyMessage />}
     </Events>
   );
 }

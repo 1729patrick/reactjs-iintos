@@ -49,7 +49,7 @@ export default function Logs() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
   const { user } = useCallback(useUserContext(), []);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   const isIIntosPartner = useMemo(() => {
     return user?.role === 'IINTOS-Partner';
@@ -196,8 +196,8 @@ export default function Logs() {
         <span>
           <h1>Logs</h1>
         </span>
-        {error && <EmptyMessage />}
-        {!error && (
+        {error === true && <EmptyMessage />}
+        {error === false && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">

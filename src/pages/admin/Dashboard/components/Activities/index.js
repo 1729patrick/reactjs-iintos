@@ -7,7 +7,7 @@ import { Events, Event } from './styles';
 
 export default function ActivitiesCard() {
   const [activities, setActivities] = useState([]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   const fetchOutputs = async () => {
     try {

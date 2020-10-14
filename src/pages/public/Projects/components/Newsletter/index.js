@@ -26,7 +26,7 @@ export default withRouter(({ location, history }) => {
   const [results, setResults] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   const { user } = useCallback(useUserContext(), []);
 

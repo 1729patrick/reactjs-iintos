@@ -80,7 +80,7 @@ export default function Schools() {
   const [schools, setSchools] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
   const [displaySchool, setDisplaySchool] = useState([]);
 
   const fetchSchools = async () => {
@@ -224,8 +224,8 @@ export default function Schools() {
           </span>
         </span>
 
-        {error && <EmptyMessage />}
-        {!error && (
+        {error === true && <EmptyMessage />}
+        {error === false && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">

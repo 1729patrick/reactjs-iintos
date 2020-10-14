@@ -9,7 +9,7 @@ import { useUserContext } from '~/context/UserContext';
 
 export default function EventsCard() {
   const [events, setEvents] = useState([]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
   const { user } = useCallback(useUserContext(), []);
 
   const fetchEvents = async () => {

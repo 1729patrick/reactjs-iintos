@@ -8,9 +8,10 @@ export const Container = styled.div`
     flex-direction: column;
   }
 `;
-export const Title = styled.div`
+export const Title = styled.h2`
   font-weight: 500;
   width: 250px;
+  margin-top: 18px;
 
   @media only screen and (max-width: 1200px) {
     width: 150px;
@@ -18,14 +19,21 @@ export const Title = styled.div`
 `;
 
 export const Menu = styled.div`
-  min-width: 16%;
+  width: 16%;
   height: 100%;
-  position: fixed;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+
+  button {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+  }
 
   div {
-    margin-top: 60px;
-    padding-left: 50px;
+    margin-top: 50px;
     font-size: 16px;
 
     a {
@@ -64,8 +72,14 @@ export const Menu = styled.div`
 `;
 
 export const Content = styled.div`
-  width: 100%;
-  padding: 0 30px 0 calc(16% + 30px);
+  display: flex;
+  flex: 1;
+  padding: 22px;
+  height: 100%;
+
+  form {
+    flex: 1;
+  }
 
   h1 {
     display: flex;

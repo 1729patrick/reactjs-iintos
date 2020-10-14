@@ -44,7 +44,7 @@ export default function Logs() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [users, setUsers] = useState([]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   const fetchUsers = async () => {
     const response = await api.get('log/files');
@@ -101,8 +101,8 @@ export default function Logs() {
         <span>
           <h1>Downloads</h1>
         </span>
-        {error && <EmptyMessage />}
-        {!error && (
+        {error === true && <EmptyMessage />}
+        {error === false && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">

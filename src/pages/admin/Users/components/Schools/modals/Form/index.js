@@ -84,7 +84,7 @@ export default ({
 
             <Input
               label="Phone"
-              type="text"
+              type="number"
               placeholder="Phone of the school"
               name="phone"
               onChange={formik.handleChange}

@@ -66,7 +66,7 @@ export default function Users({ isCoordinator }) {
   const [schools, setSchools] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   const fetchUsers = async () => {
     const response = await api.get('users');
@@ -188,8 +188,8 @@ export default function Users({ isCoordinator }) {
             />
           )}
         </span>
-        {error && <EmptyMessage />}
-        {!error && (
+        {error === true && <EmptyMessage />}
+        {error === false && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">

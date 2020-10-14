@@ -77,7 +77,7 @@ export default function Schools({
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [schools, setSchools] = useState([]);
   const [allSchools, setAllSchools] = useState([]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
@@ -188,7 +188,12 @@ export default function Schools({
   const getRowContent = ({ column, row }) => {
     const value = row.school[column.id];
 
-    if (column.id === 'delete' && !isProfessor && isParticipant) {
+    if (
+      column.id === 'delete' &&
+      !isProfessor &&
+      isParticipant &&
+      schools.length
+    ) {
       return (
         <RemoveIcon
           style={{ color: '#cb1010', cursor: 'pointer' }}
@@ -209,7 +214,7 @@ export default function Schools({
         <span>
           <h1>Schools</h1>
 
-          {!isProfessor && (
+          {!isProfessor && isParticipant && (
             <Button
               title="Add School"
               type="button"
@@ -217,8 +222,8 @@ export default function Schools({
             />
           )}
         </span>
-        {error && <EmptyMessage />}
-        {!error && (
+        {error === true && <EmptyMessage />}
+        {error === false && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
