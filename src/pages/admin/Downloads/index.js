@@ -10,7 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 import api from '~/services/api';
-import { Container, ContainerWrap } from './styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 
 import EmptyMessage from '~/components/EmptyMessage';
 
@@ -42,7 +42,7 @@ const useStyles = makeStyles({
 export default function Logs() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [users, setUsers] = useState([]);
   const [error, setError] = useState();
 

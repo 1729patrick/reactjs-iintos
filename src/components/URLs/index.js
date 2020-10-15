@@ -56,7 +56,7 @@ export default function Links({ formik, values, name }) {
           {values?.length !== index + 1 && (
             <DeleteIcon
               style={{
-                color: '#cb1010',
+                color: '#D50000',
                 marginLeft: 5,
                 cursor: 'pointer',
                 marginTop: 12,

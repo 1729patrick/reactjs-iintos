@@ -13,7 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
-import { Container, ContainerWrap } from './styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 import Button from '~/components/Button';
 import FormModal from './modals/Form';
 import DeleteModal from './modals/Delete';
@@ -76,7 +76,7 @@ const useStyles = makeStyles({
 export default function Schools() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [schools, setSchools] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
@@ -184,7 +184,7 @@ export default function Schools() {
     if (column.id === 'delete') {
       return (
         <DeleteIcon
-          style={{ color: '#cb1010', cursor: 'pointer' }}
+          style={{ color: '#D50000', cursor: 'pointer' }}
           onClick={() => handleDeleteRow(row)}
         />
       );
@@ -193,7 +193,7 @@ export default function Schools() {
     if (column.id === 'see') {
       return (
         <EditIcon
-          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          style={{ color: '#3F51B5', cursor: 'pointer' }}
           onClick={() => handleDetailRow(row)}
         />
       );

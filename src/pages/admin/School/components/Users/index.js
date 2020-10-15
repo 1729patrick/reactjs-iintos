@@ -12,7 +12,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
-import { Container, ContainerWrap } from './styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 import Button from '~/components/Button';
 import FormModal from './modals/Form';
 import EmptyMessage from '~/components/EmptyMessage';
@@ -60,7 +60,7 @@ const useStyles = makeStyles({
 export default function Users({ isCoordinator }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
   const [schools, setSchools] = useState([]);
@@ -162,7 +162,7 @@ export default function Users({ isCoordinator }) {
     if (column.id === 'see' && isCoordinator) {
       return (
         <EditIcon
-          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          style={{ color: '#3F51B5', cursor: 'pointer' }}
           onClick={() => handleDetailRow(row)}
         />
       );

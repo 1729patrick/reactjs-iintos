@@ -11,10 +11,11 @@ import TableRow from '@material-ui/core/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import { format } from 'date-fns';
 import api from '~/services/api';
-import { Container, ContainerWrap } from './styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 import Button from '~/components/Button';
 import Search from '~/components/Search';
 import FormModal from './modals/Form';
@@ -70,7 +71,7 @@ const useStyles = makeStyles({
 export default function Events() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [events, setEvents] = useState([]);
   const [displayEvent, setDiplayEvent] = useState([]);
   const [roles, setRoles] = useState([]);
@@ -267,7 +268,7 @@ export default function Events() {
     if (column.id === 'delete') {
       return (
         <DeleteIcon
-          style={{ color: '#cb1010', cursor: 'pointer' }}
+          style={{ color: '#D50000', cursor: 'pointer' }}
           onClick={() => handleDeleteRow(row)}
         />
       );
@@ -275,9 +276,8 @@ export default function Events() {
 
     if (column.id === 'see') {
       return (
-        <Button
-          title="Show"
-          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+        <VisibilityIcon
+          style={{ color: '#33B679', cursor: 'pointer' }}
           onClick={() => handleDetailsRow(row)}
         />
       );
@@ -285,7 +285,7 @@ export default function Events() {
     if (column.id === 'edit') {
       return (
         <EditIcon
-          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          style={{ color: '#3F51B5', cursor: 'pointer' }}
           onClick={() => handleEditRow(row)}
         />
       );

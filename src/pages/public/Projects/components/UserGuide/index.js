@@ -1,10 +1,10 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 
 function UserGuide() {
   return (
-    <div>
+    <Container>
       <h1>User Guide</h1>
       <p>
         This guide is a guiding document with the various steps proposed for the
@@ -19,7 +19,7 @@ function UserGuide() {
           </a>
         </p>
       </p>
-    </div>
+    </Container>
   );
 }
 

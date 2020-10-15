@@ -33,7 +33,7 @@ export const Menu = styled.div`
       }
 
       &.active {
-        color: rgb(239, 108, 0) !important;
+        color: #3f51b5 !important;
         border-radius: 4px 50px 50px 4px;
       }
     }

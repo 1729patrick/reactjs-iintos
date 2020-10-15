@@ -17,7 +17,8 @@ import DoneIcon from '@material-ui/icons/Done';
 import NotDoneIcon from '@material-ui/icons/Clear';
 
 import api from '~/services/api';
-import { Container, ContainerWrap, ButtonContainer } from './styles';
+import { ButtonContainer } from './styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 import Button from '~/components/Button';
 import FormModal from './Form';
 import MobilityStepsModal from './MobilityStepsModal';
@@ -69,7 +70,7 @@ const useStyles = makeStyles({
 const Activities = ({ isProfessor, isParticipant, isProject }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [activities, setActivities] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
@@ -409,7 +410,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     if (column.id === 'delete' && !isProfessor && isParticipant) {
       return (
         <DeleteIcon
-          style={{ color: '#cb1010', cursor: 'pointer' }}
+          style={{ color: '#D50000', cursor: 'pointer' }}
           onClick={() => handleDeleteRow(row)}
         />
       );
@@ -418,7 +419,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     if (column.id === 'see' && !isProfessor && isParticipant) {
       return (
         <EditIcon
-          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          style={{ color: '#3F51B5', cursor: 'pointer' }}
           onClick={() => handleDetailRow(row)}
         />
       );
@@ -438,7 +439,7 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
         />
       ) : (
         <NotDoneIcon
-          style={{ color: '#cb1010', cursor: x }}
+          style={{ color: '#D50000', cursor: x }}
           onClick={() =>
             !isProfessor && isParticipant ? handleUpdateDone(row.id, row) : null
           }

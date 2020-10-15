@@ -1,10 +1,10 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 
 function About() {
   return (
-    <div>
+    <Container>
       <h1 style={{ marginBottom: 15 }}>About International Offices</h1>
       <p>
         An International office can provide schools a formal, structured and
@@ -29,7 +29,7 @@ function About() {
         src="https://iintoska2.ips.pt/api/files/12e5bbdf5b055a61e60f0ae2141fa10a.JPG"
         style={{ width: '90%', paddingBottom: 40 }}
       />
-    </div>
+    </Container>
   );
 }
 

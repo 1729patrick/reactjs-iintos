@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '~/services/api';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 
 export default () => {
   const [schools, setSchools] = useState([]);
@@ -15,7 +16,7 @@ export default () => {
   }, []);
 
   return (
-    <div>
+    <Container>
       <h1>Active International Offices</h1>
       <div style={{ marginTop: 15, minWidth: '40%' }}>
         {schools.map(
@@ -52,6 +53,6 @@ export default () => {
             )
         )}
       </div>
-    </div>
+    </Container>
   );
 };

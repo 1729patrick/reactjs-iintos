@@ -190,7 +190,7 @@ export default ({
                     options={users?.professors}
                   />
                   <DeleteIcon
-                    style={{ color: '#cb1010', cursor: 'pointer' }}
+                    style={{ color: '#D50000', cursor: 'pointer' }}
                     onClick={() => handleRemove('professors', index)}
                   />
                 </div>

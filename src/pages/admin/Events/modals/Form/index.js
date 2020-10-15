@@ -225,7 +225,7 @@ export default ({
                     />
                   </div>
                   <DeleteIcon
-                    style={{ color: '#cb1010', cursor: 'pointer' }}
+                    style={{ color: '#D50000', cursor: 'pointer' }}
                     onClick={() => handleRemove('sessions', index)}
                   />
                 </div>

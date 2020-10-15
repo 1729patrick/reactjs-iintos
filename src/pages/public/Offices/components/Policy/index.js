@@ -1,10 +1,10 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 
 function Policy() {
   return (
-    <div>
+    <Container>
       <h1 style={{ marginBottom: 15 }}>School policy plan</h1>
       <p>
         An international office must be anchored in a development plan for the
@@ -40,7 +40,7 @@ function Policy() {
         </li>
         <li style={{ marginTop: 15 }}>Priorities.</li>
       </ul>
-    </div>
+    </Container>
   );
 }
 

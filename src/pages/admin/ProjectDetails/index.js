@@ -2,7 +2,9 @@ import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import { withRouter, NavLink, useLocation } from 'react-router-dom';
 
 import api from '~/services/api';
-import { Container, Menu, Content, Title } from './styles';
+import { Title } from './styles';
+
+import { Container, Menu, Content } from '~/styles/Sidebar';
 
 import Activity from './components/Activity';
 import Details from './components/Details';
@@ -11,11 +13,13 @@ import Results from './components/Results';
 import Schools from './components/Schools';
 import { useUserContext } from '~/context/UserContext';
 import Button from '~/components/Button';
+import { toast } from 'react-toastify';
 
 export default withRouter(({ computedMatch }) => {
   const { user, school } = useCallback(useUserContext(), []);
   const [schools, setSchools] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [joinStatus, setJoinStatus] = useState('');
   const [isProfessor, setIsProfessor] = useState(true);
   const location = useLocation();
 
@@ -66,17 +70,88 @@ export default withRouter(({ computedMatch }) => {
     setSchools(response.data.map(({ schoolId }) => schoolId));
   }, [projectId]);
 
+  const fetchJoinStatus = useCallback(async () => {
+    const response = await api.get(`/projects/${projectId}/partners/status`);
+
+    if (!response.data) {
+      setJoinStatus('active');
+      return;
+    }
+
+    const { active, reasonInactive } = response.data;
+    const inProgress = !active && !reasonInactive;
+    const denied = !active && reasonInactive;
+
+    const joinStatus = inProgress ? 'inProgress' : denied ? 'denied' : '';
+
+    setJoinStatus(joinStatus);
+  }, [projectId]);
+
   useState(() => {
     fetchProjects();
     fetchSchools();
+    fetchJoinStatus();
   }, []);
+
+  const onJoinProject = async () => {
+    try {
+      await api.post(`/projects/${projectId}/partners`);
+      setJoinStatus('inProgress');
+      toast.success('Request submitted with success!');
+    } catch (e) {
+      toast.error('Invalid request, try again');
+    }
+  };
+
+  const onShowDeniedReason = async () => {};
+
+  const onCancelJoin = async () => {
+    try {
+      await api.delete(`/projects/${projectId}/partners`);
+      setJoinStatus('active');
+      toast.success('Request canceled with success!');
+    } catch (e) {
+      toast.error('Invalid request, try again');
+    }
+  };
+
+  const mountJoin = () => {
+    if (isParticipant) {
+      return null;
+    }
+
+    if (joinStatus === 'active')
+      return (
+        <Button title="Join Project" type="button" onClick={onJoinProject} />
+      );
+
+    if (joinStatus === 'denied')
+      return (
+        <Button
+          title="Request Denied"
+          type="button"
+          onClick={onShowDeniedReason}
+          color="#D50000"
+        />
+      );
+
+    if (joinStatus === 'inProgress')
+      return (
+        <Button
+          title="Cancel Request"
+          type="button"
+          onClick={onCancelJoin}
+          color="#999"
+        />
+      );
+  };
 
   const Children = useCallback(() => {
     const route = location.pathname.replace(
       `/${type}/details/${projectId}`,
       ''
     );
-    if (route === '/participants') {
+    if (route === '/partners') {
       return (
         <Participants
           isProfessor={isProfessor}
@@ -146,8 +221,8 @@ export default withRouter(({ computedMatch }) => {
               Schools
             </NavLink>
           )}
-          <NavLink to={`/${type}/details/${projectId}/participants`}>
-            Participants
+          <NavLink to={`/${type}/details/${projectId}/partners`}>
+            {isProject ? 'Teachers' : 'Partners'}
           </NavLink>
           <NavLink to={`/${type}/details/${projectId}/activities`}>
             Activity
@@ -157,7 +232,7 @@ export default withRouter(({ computedMatch }) => {
           </NavLink>
         </div>
 
-        <Button title="Join Project" type="button" onClick={() => {}} />
+        {mountJoin()}
       </Menu>
       <Content>
         <Children />

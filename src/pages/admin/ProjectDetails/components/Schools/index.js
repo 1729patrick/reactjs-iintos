@@ -13,7 +13,7 @@ import RemoveIcon from '@material-ui/icons/RemoveCircleOutline';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
-import { Container, ContainerWrap } from './styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 import Button from '~/components/Button';
 import FormModal from './modals/Form';
 import DeleteModal from './modals/Delete';
@@ -74,7 +74,7 @@ export default function Schools({
 }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [schools, setSchools] = useState([]);
   const [allSchools, setAllSchools] = useState([]);
   const [error, setError] = useState();
@@ -196,7 +196,7 @@ export default function Schools({
     ) {
       return (
         <RemoveIcon
-          style={{ color: '#cb1010', cursor: 'pointer' }}
+          style={{ color: '#D50000', cursor: 'pointer' }}
           onClick={() => handleDeleteRow(row)}
         />
       );

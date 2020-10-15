@@ -1,10 +1,10 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 
 function About() {
   return (
-    <div>
+    <Container>
       <h1 style={{ marginBottom: 15 }}>About International Projects</h1>
       <p>Schools can develop projects, on European or international level.</p>
 
@@ -23,7 +23,7 @@ function About() {
         src="https://iintoska2.ips.pt/api/files/efdb3c60f69ce88a7ae59a92cfbbc4dc.jpeg"
         style={{ width: '90%', paddingBottom: 40 }}
       />
-    </div>
+    </Container>
   );
 }
 

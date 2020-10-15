@@ -33,7 +33,7 @@ export const Content = styled.div`
       margin-top: 30px;
 
       a {
-        color: #0c1e3f;
+        color: #3f51b5;
         font-weight: 500;
         cursor: pointer;
       }

@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { PublicContainer as Container } from '~/styles/Sidebar';
+
 const Stem = () => {
   return (
-    <div>
+    <Container>
       <h1>Links to STEM problematics</h1>
       <h3 style={{ marginTop: 10 }}>
         Research, theory and good practice platforms
@@ -298,7 +300,7 @@ const Stem = () => {
         work across Europe and to strengthen a common European voice of STEM PD
         Centres.
       </p>
-    </div>
+    </Container>
   );
 };
 

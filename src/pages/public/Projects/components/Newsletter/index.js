@@ -11,16 +11,14 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { format } from 'date-fns';
 import api from '~/services/api';
 
-import Result from './components/Result';
-
 import Button from '~/components/Button';
 
-import { Container, Detail } from './style';
+import { Detail } from './style';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 import FormModal from './components/Form';
 import DeleteModal from './components/Delete';
 import validationSchema from '~/validations/news';
 import { useUserContext } from '~/context/UserContext';
-import EmptyMessage from '~/components/EmptyMessage';
 
 export default withRouter(({ location, history }) => {
   const [results, setResults] = useState([]);

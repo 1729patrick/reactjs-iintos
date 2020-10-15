@@ -52,7 +52,7 @@ export default function Files({ formik, path, values }) {
           />
           {(values || formik.values?.files)?.length !== index + 1 && (
             <DeleteIcon
-              style={{ color: '#cb1010', cursor: 'pointer' }}
+              style={{ color: '#D50000', cursor: 'pointer' }}
               onClick={() => handleRemove(name, index)}
             />
           )}

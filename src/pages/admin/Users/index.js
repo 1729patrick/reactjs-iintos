@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
-import { Container, Menu, Content } from './styles';
+import { Container, Menu, Content } from '~/styles/Sidebar';
 
 import Schools from './components/Schools';
 import Users from './components/Users';

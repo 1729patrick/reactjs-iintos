@@ -1,10 +1,10 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 
 function InternationalCordinator() {
   return (
-    <div>
+    <Container>
       <h1 style={{ marginBottom: 15 }}>International coordinator</h1>
       <p>
         The international coordinator must be chosen, or selected according to a
@@ -57,7 +57,7 @@ function InternationalCordinator() {
           Project impacts - qualitative and quantitative.
         </li>
       </ul>
-    </div>
+    </Container>
   );
 }
 

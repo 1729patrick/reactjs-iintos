@@ -17,7 +17,7 @@ import '@fullcalendar/list/main.css';
 
 import FormModal from './components/Form';
 
-import { Container, ContainerWrap } from './styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 import validationSchema from '~/validations/event';
 import api, { CALENDAR_URL } from '~/services/apiCalendar';
 import { useUserContext } from '~/context/UserContext';
@@ -169,7 +169,7 @@ const Calendar = () => {
     <Container>
       <ContainerWrap>
         {showAlert && (
-          <Alert severity="warning" style={{ marginTop: 15 }}>
+          <Alert severity="warning">
             You must login with a google account to see the events
             <a href={`${CALENDAR_URL}/login/${user?.email}`} target="__blank">
               Google Login

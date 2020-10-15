@@ -16,7 +16,7 @@ import FileList from '~/components/FileList';
 
 import { useUserContext } from '~/context/UserContext';
 import api from '~/services/api';
-import { Container, ContainerWrap } from './styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 import Button from '~/components/Button';
 import FormModal from './Form';
 import DeleteModal from '../Delete';
@@ -68,7 +68,7 @@ const useStyles = makeStyles({
 const Results = ({ isProfessor, isParticipant }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [activities, setActivities] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
@@ -204,7 +204,7 @@ const Results = ({ isProfessor, isParticipant }) => {
     if (column.id === 'delete' && !isProfessor && isParticipant) {
       return (
         <DeleteIcon
-          style={{ color: '#cb1010', cursor: 'pointer' }}
+          style={{ color: '#D50000', cursor: 'pointer' }}
           onClick={() => handleDeleteRow(row)}
         />
       );
@@ -221,7 +221,7 @@ const Results = ({ isProfessor, isParticipant }) => {
     if (column.id === 'see' && !isProfessor && isParticipant) {
       return (
         <EditIcon
-          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          style={{ color: '#3F51B5', cursor: 'pointer' }}
           onClick={() => handleDetailRow(row)}
         />
       );

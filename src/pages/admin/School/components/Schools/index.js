@@ -14,7 +14,7 @@ import validationSchema from '~/validations/school';
 import FormModal from './modals/Form';
 
 import api from '~/services/api';
-import { Container, ContainerWrap } from './styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 import { useUserContext } from '~/context/UserContext';
 
 const columns = [
@@ -60,7 +60,7 @@ export default function Schools() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const { user } = useCallback(useUserContext(), []);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [schools, setSchools] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
@@ -113,7 +113,7 @@ export default function Schools() {
     if (column.id === 'see' && user.role === 'Coordinator') {
       return (
         <EditIcon
-          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+          style={{ color: '#3F51B5', cursor: 'pointer' }}
           onClick={() => handleDetailRow(row)}
         />
       );

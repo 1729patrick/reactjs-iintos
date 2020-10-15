@@ -4,7 +4,7 @@ import React from 'react';
 
 function Privacy() {
   return (
-    <div style={{ padding: '25px 50px', fontSize: 16 }}>
+    <div style={{ padding: '22px', fontSize: 16 }}>
       <h1 style={{ marginBottom: 25 }}>Privacy</h1>
       <p>
         The new General Data Protection Regulation (GDPR) guarantees that your

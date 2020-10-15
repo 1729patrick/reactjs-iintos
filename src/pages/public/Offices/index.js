@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
-import { Container, Menu, Content } from './style';
+import { Container, Menu, Content } from '~/styles/Sidebar';
 
 import Policy from './components/Policy';
 import Goals from './components/Goals';

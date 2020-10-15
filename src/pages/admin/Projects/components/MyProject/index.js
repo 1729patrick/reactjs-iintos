@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Container, ContainerWrap } from '../../styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 import Button from '~/components/Button';
 import EmptyMessage from '~/components/EmptyMessage';
 import Search from '~/components/Search';
@@ -23,10 +23,11 @@ export default function MyProject({
   getRowContent,
   useStyles,
   error,
+  type,
 }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [displayProject, setDiplayProject] = useState([]);
 
   React.useEffect(() => {
@@ -47,7 +48,7 @@ export default function MyProject({
       <ContainerWrap>
         <span>
           <h1>{title}</h1>
-          <span>
+          <div>
             {!isProfessor && (
               <Button
                 title={buttonCreateTitle}
@@ -58,9 +59,11 @@ export default function MyProject({
             <Search
               setDisplay={setDiplayProject}
               displayOg={projects}
-              placeholder="Search by project"
+              placeholder={
+                type === 'outputs' ? 'Search by output' : 'Search by project'
+              }
             />
-          </span>
+          </div>
         </span>
 
         {error === true && <EmptyMessage />}

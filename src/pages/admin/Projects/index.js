@@ -3,12 +3,12 @@ import { isBefore, format } from 'date-fns';
 import { withRouter, NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
-import Button from '~/components/Button';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
-import { Container, Menu, Content } from './styles';
+import { Container, Menu, Content } from '~/styles/Sidebar';
+
 import api from '~/services/api';
 import FormModal from './components/Form';
 import DeleteModal from './components/Delete';
@@ -194,7 +194,7 @@ const Projects = ({ history, location, columns = projectColumns }) => {
     if (column.id === 'delete' && !isProfessor) {
       return (
         <DeleteIcon
-          style={{ color: '#cb1010', cursor: 'pointer' }}
+          style={{ color: '#D50000', cursor: 'pointer' }}
           onClick={() => handleDeleteRow(row)}
         />
       );
@@ -202,9 +202,8 @@ const Projects = ({ history, location, columns = projectColumns }) => {
 
     if (column.id === 'see') {
       return (
-        <Button
-          title="Show"
-          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+        <VisibilityIcon
+          style={{ color: '#33B679', cursor: 'pointer' }}
           onClick={() => handleDetailRow(row)}
         />
       );

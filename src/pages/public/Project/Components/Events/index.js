@@ -12,12 +12,12 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
-import { format } from 'date-fns';
+
 import { Collapse, ListItem, ListItemText } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 import FileList from '~/components/FileList';
 import api from '~/services/api';
-import { Container, Detail, Session } from './styles';
+import { Detail, Session } from './styles';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 
 function Events() {
   const classes = useStyles();

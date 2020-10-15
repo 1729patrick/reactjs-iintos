@@ -33,13 +33,13 @@
 }
 
 .fc-today > span > .column-header-week > .day-d {
-  background: #ef6c00;
+  background: #3f51b5;
   border-radius: 50%;
   color: #fff;
 }
 
 .fc-today > span > .column-header-week > .day-ddd {
-  color: #ef6c00;
+  color: #3f51b5;
 }
 
 /* .fc-head .fc-head-container {
@@ -125,15 +125,15 @@
 }
 
 .fc-now-indicator.fc-now-indicator-line {
-  border-color: #ef6c00 !important;
-  background-color: #ef6c00;
+  border-color: #3f51b5 !important;
+  background-color: #3f51b5;
   height: 2px;
   margin: 0;
   border: none;
 }
 
 .fc-now-indicator.fc-now-indicator-line::before {
-  background-color: #ef6c00;
+  background-color: #3f51b5;
   content: '';
   display: block;
   width: 13px;
@@ -186,10 +186,17 @@
   min-height: 20px;
   line-height: 20px;
   width: auto;
-  background: #ef6c00;
+  background: #3f51b5;
   border-radius: 50%;
   margin: 0 auto;
   color: #fff;
+}
+
+.fc-button-primary:disabled,
+.fc-button-primary:not(:disabled):active,
+.fc-button-primary:not(:disabled).fc-button-active {
+  background-color: #3f51b5 !important;
+  opacity: 1 !important;
 }
 
 .fc-day-top.fc-today {
@@ -302,6 +309,10 @@
 
 .fc-left > .fc-button-group > .fc-button:focus {
   box-shadow: none;
+}
+
+.fc-button-primary {
+  /* background: red !important; */
 }
 
 .fc-prev-button.fc-button.fc-button-primary {

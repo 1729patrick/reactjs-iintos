@@ -1,10 +1,10 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 
 function Goals() {
   return (
-    <div>
+    <Container>
       <h1 style={{ marginBottom: 15 }}>Goals and organization</h1>
 
       <ul>
@@ -48,7 +48,7 @@ function Goals() {
           Teachers must be from different areas.
         </li>
       </ul>
-    </div>
+    </Container>
   );
 }
 

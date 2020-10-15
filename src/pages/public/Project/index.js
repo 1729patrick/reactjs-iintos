@@ -1,13 +1,12 @@
 import React, { useMemo, useEffect } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
-import { Container, Menu, Content } from './style';
+import { Container, Menu, Content } from '~/styles/Sidebar';
 import About from './Components/About';
 import Partners from './Components/Partners';
 import Products from './Components/Products';
 import Stem from './Components/Stem';
 import Events from './Components/Events';
-import { Collapse, ListItem, ListItemIcon } from '@material-ui/core';
 
 export default withRouter(({ location, history }) => {
   const route = useMemo(() => location.pathname.replace('/iproject', ''), [

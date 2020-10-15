@@ -8,12 +8,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Container, ContainerWrap } from '../../styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 import EmptyMessage from '~/components/EmptyMessage';
 
 export default function SearchProject({
-  isProfessor,
-  handleCreateProject,
   columns,
   projects,
   getRowContent,
@@ -22,7 +20,7 @@ export default function SearchProject({
 }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

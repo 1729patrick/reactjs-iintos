@@ -8,7 +8,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
-import { Container, Detail } from './styles';
+import { Detail } from './styles';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 import api from '~/services/api';
 import FileList from '~/components/FileList';
 

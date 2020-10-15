@@ -6,7 +6,7 @@ export default function Button({
   title,
   onClick,
   type,
-  color = '#0c1e3f',
+  color = '#3F51B5',
   width,
   marginTop,
 }) {

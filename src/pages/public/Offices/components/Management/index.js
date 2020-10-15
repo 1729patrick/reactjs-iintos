@@ -4,15 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
+
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import ipsImage from '~/assets/images/IPS.jpg';
-import olomoucImage from '~/assets/images/UP_logo_horizont_en.png';
-import saramagoImage from '~/assets/images/Saramago.jpg';
-import vallauriImage from '~/assets/images/vallauriLogo.jpg';
-
-import { Container, Detail } from './styles';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -51,7 +46,7 @@ function Management() {
           </ExpansionPanelSummary>
 
           <ExpansionPanelDetails>
-            <Detail>
+            <div>
               <p>Human resources: (allocated team); </p>
               <p>
                 <b>Permanent team:</b> Teachers (Someone with initiative,
@@ -82,7 +77,7 @@ function Management() {
                 <b>Financial resources:</b> initial own-school financing, then
                 financing from other projects.{' '}
               </p>
-            </Detail>
+            </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
 
@@ -97,7 +92,7 @@ function Management() {
           </ExpansionPanelSummary>
 
           <ExpansionPanelDetails>
-            <Detail>
+            <div>
               <p>
                 The tasks to be carried out in an international office are
                 divided into two groups.
@@ -115,7 +110,7 @@ function Management() {
                 tasks normaly for coordinator in liaison with the principal and
                 for other school services;{' '}
               </p>
-            </Detail>
+            </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
 
@@ -130,7 +125,7 @@ function Management() {
           </ExpansionPanelSummary>
 
           <ExpansionPanelDetails>
-            <Detail>
+            <div>
               <p>
                 <b>Budget of the office.</b>
               </p>
@@ -140,7 +135,7 @@ function Management() {
                 electricity, working capital..etc)
               </p>
               <p>Budgets for each project.</p>
-            </Detail>
+            </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
 
@@ -155,7 +150,7 @@ function Management() {
           </ExpansionPanelSummary>
 
           <ExpansionPanelDetails>
-            <Detail>
+            <div>
               <p>
                 <b>Main and complementary funding sources</b>
               </p>
@@ -170,7 +165,7 @@ function Management() {
                 Financing of small activities integrated into projects that are
                 not directly financed by formal programs.
               </p>
-            </Detail>
+            </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
 
@@ -185,7 +180,7 @@ function Management() {
           </ExpansionPanelSummary>
 
           <ExpansionPanelDetails>
-            <Detail>
+            <div>
               <p>
                 <b>
                   Refers to the activity plan to be developed annually or for a
@@ -200,7 +195,7 @@ function Management() {
               <p>International events; </p>
               <p>Virtual mobility;</p>
               <p>Training courses.</p>
-            </Detail>
+            </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </span>

@@ -51,7 +51,7 @@ export default function Result({
             <>
               <EditIcon onClick={handleEditProject} />
               <DeleteIcon
-                style={{ color: '#cb1010', cursor: 'pointer' }}
+                style={{ color: '#D50000', cursor: 'pointer' }}
                 onClick={handleDeleteRow}
               />
             </>

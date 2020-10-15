@@ -3,9 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div``;
 
 export const Form = styled.form`
-  padding-top: 15px;
-  margin-bottom: 20px;
-
+  padding: 22px;
   > span {
     display: flex;
     justify-content: space-between;

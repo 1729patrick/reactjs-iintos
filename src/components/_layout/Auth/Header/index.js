@@ -78,14 +78,14 @@ const Header = () => {
             <NavLink to="/projects">Projects</NavLink>
             <NavLink to="/calendar">Calendar</NavLink>
             {isGroupSchool && <NavLink to="/school">School</NavLink>}
-            <a
+            {/* <a
               style={{ cursor: 'pointer' }}
               onClick={() =>
                 window.open('https://iintoska2.ips.pt/forum', '_blank')
               }
             >
               Forum
-            </a>
+            </a> */}
 
             {isGroupAdmin && <NavLink to="/outputs">Outputs</NavLink>}
             {isGroupAdmin && <NavLink to="/results">Results</NavLink>}

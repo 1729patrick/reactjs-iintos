@@ -2,11 +2,11 @@ import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
 
-import { Container, Content } from '~/pages/admin/Projects/styles';
+import { Container, Content } from '~/styles/Sidebar';
 import api from '~/services/api';
 import FormModal from '~/pages/admin/Projects/components/Form';
 import DeleteModal from '~/pages/admin/Projects/components/Delete';
@@ -126,7 +126,7 @@ const Projects = ({ history, location }) => {
     if (column.id === 'delete' && !isProfessor) {
       return (
         <DeleteIcon
-          style={{ color: '#cb1010', cursor: 'pointer' }}
+          style={{ color: '#D50000', cursor: 'pointer' }}
           onClick={() => handleDeleteRow(row)}
         />
       );
@@ -134,8 +134,8 @@ const Projects = ({ history, location }) => {
 
     if (column.id === 'see') {
       return (
-        <VisibilityIcon
-          style={{ color: 'rgb(11, 31, 63)', cursor: 'pointer' }}
+        <EditIcon
+          style={{ color: '#3F51B5', cursor: 'pointer' }}
           onClick={() => handleDetailRow(row)}
         />
       );
@@ -166,6 +166,7 @@ const Projects = ({ history, location }) => {
           useStyles={useStyles}
           columns={outputColumns}
           type="outputs"
+          error={projects?.length ? !projects?.length : ''}
         />
         <FormModal
           open={modalOpen === 'form'}

@@ -16,7 +16,7 @@ const Footer = ({ links }) => {
           />
         </div>
 
-        <div style={{ flexDirection: 'column' }}>
+        <div>
           <p>
             Development by{' '}
             <a
@@ -35,7 +35,7 @@ const Footer = ({ links }) => {
               Patrick Forsthofer
             </a>
           </p>
-          <p>AGREEMENT NUMBER 2017-1-PT01-KA201-035947 </p>
+          {/* <p>AGREEMENT NUMBER 2017-1-PT01-KA201-035947 </p> */}
         </div>
 
         <div>

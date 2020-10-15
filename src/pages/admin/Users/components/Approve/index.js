@@ -13,7 +13,7 @@ import ThumbDown from '@material-ui/icons/ThumbDown';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
-import { Container, ContainerWrap } from './styles';
+import { Container, ContainerWrap } from '~/styles/Sidebar';
 import ConfirmModal from './modals/Confirm';
 import EmptyMessage from '~/components/EmptyMessage';
 
@@ -78,7 +78,7 @@ const useStyles = makeStyles({
 export default function Approve() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [users, setUsers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
@@ -171,7 +171,7 @@ export default function Approve() {
       return (
         <ThumbDown
           style={{
-            color: '#cb1010',
+            color: '#D50000',
             cursor:
               row.active || row.createdAt === row.updatedAt
                 ? 'pointer'

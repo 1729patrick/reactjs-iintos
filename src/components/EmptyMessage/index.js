@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from './style';
+import { Container } from './styles';
 import NoData from '../../assets/images/noData.png';
 
 export default function EmptyMessage({ message, Action }) {

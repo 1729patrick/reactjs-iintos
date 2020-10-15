@@ -13,7 +13,7 @@ import olomoucImage from '~/assets/images/UP_logo_horizont_en.png';
 import saramagoImage from '~/assets/images/Saramago.jpg';
 import vallauriImage from '~/assets/images/vallauriLogo.jpg';
 
-import { Container, Detail } from './styles';
+import { PublicContainer as Container } from '~/styles/Sidebar';
 
 const useStyles = makeStyles(theme => ({
   root: { width: '100%' },
@@ -134,15 +134,34 @@ function Partners() {
             </ExpansionPanelSummary>
 
             <ExpansionPanelDetails>
-              <Detail>
+              <div
+                style={{
+                  flexDirection: 'row',
+                  display: 'flex',
+                  paddingTop: 10,
+                  flex: 1,
+                }}
+              >
                 {partner.image && (
                   <img
                     src={partner.image}
-                    style={{ width: 250, maxHeight: 220, cursor: 'pointer' }}
+                    style={{
+                      width: 250,
+                      maxHeight: 220,
+                      cursor: 'pointer',
+                      borderRadius: 8,
+                    }}
                     onClick={() => openLink(partner.link)}
                   />
                 )}
-                <span style={{ flex: 1 }}>
+                <div
+                  style={{
+                    flex: 1,
+                    padding: 20,
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
                   {partner.showAll ? (
                     <>
                       <TextareaAutosize disabled defaultValue={partner.all} />
@@ -166,8 +185,8 @@ function Partners() {
                       </Button>
                     </>
                   )}
-                </span>
-              </Detail>
+                </div>
+              </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
         ))}

@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: 8,
     maxHeight: '85%',
     overflowY: 'auto',
-    padding: theme.spacing(2, 4, 3),
+    padding: 40,
   },
   popover: {
     pointerEvents: 'none',
@@ -87,7 +87,7 @@ export default ({
   });
 
   useEffect(() => {
-    const width = window.innerWidth * 0.7 - 150;
+    const width = window.innerWidth * 0.65 - 150;
     const height = 450 - 150;
 
     const lefts = [];
@@ -156,8 +156,14 @@ export default ({
       onClose={handleClose}
     >
       <div style={modalStyle} className={classes.paper}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <h2 id="simple-modal-title" style={{ marginBottom: 15 }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginBottom: 15,
+          }}
+        >
+          <h2 id="simple-modal-title">
             Steps and tasks to follow in the elaboration of an international
             project
           </h2>
@@ -189,12 +195,12 @@ export default ({
                   style={{
                     top,
                     left,
-                    background: checked ? '#0c1e3f' : '#3f50b5',
+                    background: checked ? '#3F51B5' : '#3f50b5',
                     borderColor: checked ? 'black' : null,
                   }}
                   onClick={() => onSelect(index)}
                 >
-                  {title}
+                  {checked ? `[SELECTED] ${title}` : title}
                 </Circle>
 
                 <Popover
