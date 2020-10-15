@@ -151,7 +151,7 @@ export default function Approve() {
       return (
         <ThumbUp
           style={{
-            color: 'rgb(23, 179, 14)',
+            color: '#33B679',
             cursor:
               !row.active || row.createdAt === row.updatedAt
                 ? 'pointer'

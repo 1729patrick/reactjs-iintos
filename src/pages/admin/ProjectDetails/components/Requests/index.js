@@ -26,19 +26,6 @@ const columns = [
     minWidth: 200,
   },
   {
-    id: 'certificate',
-    label: 'Certificate',
-    minWidth: 100,
-    format: value =>
-      !value ? (
-        ''
-      ) : (
-        <a href={value} target="__blank">
-          Open File
-        </a>
-      ),
-  },
-  {
     id: 'active',
     label: 'Active',
     minWidth: 100,
@@ -75,7 +62,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Approve() {
+export default function Requests({ projectId }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -85,10 +72,9 @@ export default function Approve() {
   const [error, setError] = useState();
 
   const fetchUsers = async () => {
-    const response = await api.get('users', {
-      params: { role: 'Coordinator' },
+    const response = await api.get(`/projects/${projectId}/partners`, {
+      params: { role: 'Professor' },
     });
-
     setUsers(response.data);
     if (response.data.length === 0) {
       setError(true);
@@ -138,11 +124,11 @@ export default function Approve() {
       onSubmit: reason => handleActveUser(user, active, reason),
       active,
       modalTitle: `Are you sure you want to ${
-        active ? 'activate' : 'inactive'
-      } this coordinator?`,
+        active ? 'accept' : 'refuse'
+      } this partner request?`,
     });
 
-    setModalOpen(true); // createdAt === updatedAt
+    setModalOpen(true);
   };
 
   const getRowContent = ({ column, row }) => {
@@ -198,7 +184,7 @@ export default function Approve() {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Approve Coodinators</h1>
+          <h1>Join Requests</h1>
         </span>
         {error === true && <EmptyMessage />}
         {error === false && (

@@ -20,7 +20,7 @@ export const Menu = styled.div`
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
+    margin-top: 50px;
   }
 
   div {

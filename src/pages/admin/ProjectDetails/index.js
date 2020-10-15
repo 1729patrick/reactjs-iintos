@@ -11,6 +11,7 @@ import Details from './components/Details';
 import Participants from './components/Participants';
 import Results from './components/Results';
 import Schools from './components/Schools';
+import Requests from './components/Requests';
 import { useUserContext } from '~/context/UserContext';
 import Button from '~/components/Button';
 import { toast } from 'react-toastify';
@@ -116,7 +117,7 @@ export default withRouter(({ computedMatch }) => {
   };
 
   const mountJoin = () => {
-    if (isParticipant) {
+    if (isParticipant || (!isParticipant && isProfessor)) {
       return null;
     }
 
@@ -188,6 +189,18 @@ export default withRouter(({ computedMatch }) => {
         />
       );
     }
+
+    if (route === '/requests') {
+      return (
+        <Requests
+          isProfessor={isProfessor}
+          isParticipant={isParticipant}
+          isProject={isProject}
+          projectId={projectId}
+        />
+      );
+    }
+
     // By default, the content from the IPS will appear
     return (
       <Details
@@ -230,6 +243,11 @@ export default withRouter(({ computedMatch }) => {
           <NavLink to={`/${type}/details/${projectId}/results`}>
             Results
           </NavLink>
+          {isParticipant && !isProfessor && (
+            <NavLink to={`/${type}/details/${projectId}/requests`}>
+              Join Requests
+            </NavLink>
+          )}
         </div>
 
         {mountJoin()}
