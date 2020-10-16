@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 
@@ -34,11 +34,16 @@ export default function Delete({
   modalTitle,
   active,
   onSubmit,
+  initialValues,
 }) {
   const classes = useStyles();
   const [reason, setReason] = useState();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = useState(getModalStyle);
+
+  useEffect(() => {
+    setReason(initialValues?.reasonInactive);
+  }, [initialValues?.reasonInactive]);
 
   if (!open) {
     return null;
@@ -67,6 +72,7 @@ export default function Delete({
                 type="text"
                 placeholder="Reason to refuse request"
                 name="reason"
+                value={reason}
                 onChange={e => setReason(e.target.value)}
               />
             )}

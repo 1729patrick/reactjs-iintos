@@ -109,7 +109,7 @@ export default function Approve() {
     setPage(0);
   };
 
-  const handleActveUser = async (user, active, reasonInactive) => {
+  const handleActiveUser = async (user, active, reasonInactive) => {
     try {
       const formattedUser = { ...user, active, reasonInactive };
       await api.put(`users/${user.id}`, formattedUser);
@@ -134,7 +134,7 @@ export default function Approve() {
 
   const handleOpenConfirm = (user, active) => {
     setModalParams({
-      onSubmit: reason => handleActveUser(user, active, reason),
+      onSubmit: reason => handleActiveUser(user, active, reason),
       active,
       modalTitle: `Are you sure you want to ${
         active ? 'active' : 'inactive'

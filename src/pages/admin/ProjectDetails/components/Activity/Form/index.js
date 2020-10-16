@@ -187,7 +187,7 @@ export default ({
                     errors={formik.errors}
                     touched={formik.touched}
                     submitted={formik.submitCount}
-                    options={users?.professors}
+                    options={users}
                   />
                   <DeleteIcon
                     style={{ color: '#D50000', cursor: 'pointer' }}

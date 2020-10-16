@@ -18,24 +18,18 @@ import ConfirmModal from './modals/Confirm';
 import EmptyMessage from '~/components/EmptyMessage';
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 200 },
-  { id: 'email', label: 'E-mail', minWidth: 150 },
   {
     id: 'school',
     label: 'School',
     minWidth: 200,
   },
+  { id: 'name', label: 'Coordinator', minWidth: 200 },
+  { id: 'email', label: 'E-mail', minWidth: 150 },
   {
     id: 'active',
     label: 'Active',
     minWidth: 100,
     format: value => (value ? 'Yes' : 'No'),
-  },
-  {
-    id: 'role',
-    label: 'Role',
-    minWidth: 100,
-    format: value => value.toFixed(2),
   },
   {
     id: 'up',
@@ -96,10 +90,11 @@ export default function Requests({ projectId }) {
     setPage(0);
   };
 
-  const handleActveUser = async (user, active, reasonInactive) => {
+  const handleActiveUser = async (user, active, reasonInactive) => {
     try {
       const formattedUser = { ...user, active, reasonInactive };
-      await api.put(`users/${user.id}`, formattedUser);
+
+      await api.put(`projects/partners/${user.id}`, formattedUser);
       setModalOpen(false);
 
       setUsers(
@@ -112,7 +107,11 @@ export default function Requests({ projectId }) {
         })
       );
 
-      toast.success('User updated with success!');
+      if (active) {
+        toast.success('Partner accepted with success!');
+      } else {
+        toast.success('Partner refused with success!');
+      }
       fetchUsers();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
@@ -121,8 +120,9 @@ export default function Requests({ projectId }) {
 
   const handleOpenConfirm = (user, active) => {
     setModalParams({
-      onSubmit: reason => handleActveUser(user, active, reason),
+      onSubmit: reason => handleActiveUser(user, active, reason),
       active,
+      initialValues: user,
       modalTitle: `Are you sure you want to ${
         active ? 'accept' : 'refuse'
       } this partner request?`,

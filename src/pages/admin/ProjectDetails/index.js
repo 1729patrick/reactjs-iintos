@@ -15,6 +15,15 @@ import Requests from './components/Requests';
 import { useUserContext } from '~/context/UserContext';
 import Button from '~/components/Button';
 import { toast } from 'react-toastify';
+import { makeStyles, Tooltip } from '@material-ui/core';
+
+const useStyles = makeStyles(theme => ({
+  tooltip: {
+    padding: 16,
+    fontSize: 16,
+    fontFamily: 'Google Sans',
+  },
+}));
 
 export default withRouter(({ computedMatch }) => {
   const { user, school } = useCallback(useUserContext(), []);
@@ -22,7 +31,9 @@ export default withRouter(({ computedMatch }) => {
   const [projects, setProjects] = useState([]);
   const [joinStatus, setJoinStatus] = useState('');
   const [isProfessor, setIsProfessor] = useState(true);
+  const [reasonInactive, setReasonInactive] = useState('');
   const location = useLocation();
+  const classes = useStyles();
 
   const type = useMemo(() => {
     const { pathname } = location;
@@ -74,6 +85,7 @@ export default withRouter(({ computedMatch }) => {
   const fetchJoinStatus = useCallback(async () => {
     const response = await api.get(`/projects/${projectId}/partners/status`);
 
+    setReasonInactive(response.data?.reasonInactive);
     if (!response.data) {
       setJoinStatus('active');
       return;
@@ -123,27 +135,55 @@ export default withRouter(({ computedMatch }) => {
 
     if (joinStatus === 'active')
       return (
-        <Button title="Join Project" type="button" onClick={onJoinProject} />
+        <Tooltip
+          title={'Request partnership in the project.'}
+          classes={classes}
+          placement="right-end"
+        >
+          <div>
+            <Button
+              title="Join Project"
+              type="button"
+              onClick={onJoinProject}
+            />
+          </div>
+        </Tooltip>
       );
 
     if (joinStatus === 'denied')
       return (
-        <Button
-          title="Request Denied"
-          type="button"
-          onClick={onShowDeniedReason}
-          color="#D50000"
-        />
+        <Tooltip
+          title={`Owner Response: ${reasonInactive}`}
+          classes={classes}
+          placement="right-end"
+        >
+          <div>
+            <Button
+              title="Request Denied"
+              type="button"
+              onClick={onShowDeniedReason}
+              color="#D50000"
+            />
+          </div>
+        </Tooltip>
       );
 
     if (joinStatus === 'inProgress')
       return (
-        <Button
-          title="Cancel Request"
-          type="button"
-          onClick={onCancelJoin}
-          color="#999"
-        />
+        <Tooltip
+          title={'Wait for the response from the project owner.'}
+          classes={classes}
+          placement="right-end"
+        >
+          <div>
+            <Button
+              title="Cancel Request"
+              type="button"
+              onClick={onCancelJoin}
+              color="#999"
+            />
+          </div>
+        </Tooltip>
       );
   };
 

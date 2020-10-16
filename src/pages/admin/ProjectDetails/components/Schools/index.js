@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -20,6 +20,7 @@ import DeleteModal from './modals/Delete';
 import EmptyMessage from '~/components/EmptyMessage';
 
 import validationSchema from '~/validations/schoolProject';
+import { useUserContext } from '~/context/UserContext';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
@@ -72,6 +73,8 @@ export default function Schools({
   isParticipant,
   refreshParticipants,
 }) {
+  const { school } = useCallback(useUserContext(), []);
+
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -192,7 +195,8 @@ export default function Schools({
       column.id === 'delete' &&
       !isProfessor &&
       isParticipant &&
-      schools.length
+      schools.length > 1 &&
+      row.schoolId === school.id
     ) {
       return (
         <RemoveIcon

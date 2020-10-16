@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  float: right;
+  float: left;
 
-  padding-left: 10px;
   input {
     border-radius: 4px;
     border: 1px solid #ccc !important;

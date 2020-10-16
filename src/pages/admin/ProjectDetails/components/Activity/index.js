@@ -34,7 +34,6 @@ const allColumns = [
   { id: 'startDate', label: 'Start Date', minWidth: 120 },
   { id: 'endDate', label: 'End Date', minWidth: 120 },
   { id: 'professorsStr', label: 'Teachers', minWidth: 150 },
-  { id: 'studentsStr', label: 'Students', minWidth: 150 },
   {
     id: 'files',
     label: 'Files',
@@ -81,21 +80,16 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     () =>
       isProject
         ? allColumns
-        : allColumns
-            .filter(({ id }) => id !== 'studentsStr')
-            .map(column =>
-              column.id === 'professorsStr'
-                ? { ...column, label: 'Participants' }
-                : column
-            ),
+        : allColumns.map(column =>
+            column.id === 'professors'
+              ? { ...column, label: 'Participants' }
+              : column
+          ),
     [isProject]
   );
 
   const location = useLocation();
-  const [users, setUsers] = useState({
-    professors: [],
-    students: [],
-  });
+  const [users, setUsers] = useState([]);
 
   const [steps, setSteps] = useState({
     1: {
@@ -190,17 +184,13 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
 
   const fetchUsers = async () => {
     const response = await api.get(`projects/${projectId}/users`);
-    const professors = response.data?.professors.map(({ id, professor }) => ({
-      id: professor.id,
-      name: professor.name,
-    }));
 
-    const students = response.data?.students.map(({ id, studentName }) => ({
+    const users = response.data?.map(({ id, name }) => ({
       id,
-      name: studentName,
+      name,
     }));
 
-    setUsers({ professors, students });
+    setUsers(users);
   };
 
   // opens the modal
@@ -301,7 +291,6 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
       startDate: values.startDate,
       endDate: values.endDate,
       projectId,
-      students: values.students,
       links: values.links,
       professors,
     };
@@ -384,9 +373,6 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
       ...row,
       files: [...row.files, ''],
       links: [...row.links, ''],
-      students: row.students.length
-        ? row.students.map(({ id }) => id)
-        : [undefined],
       professors: row.professors.length
         ? row.professors.map(({ id }) => id)
         : [undefined],
@@ -448,7 +434,6 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
     }
 
     if (column.id === 'files') {
-      console.log(value.length);
       if (value.length) return value.length ? <FileList files={value} /> : '';
     }
 
@@ -466,6 +451,12 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
 
           {!isProfessor && isParticipant && (
             <ButtonContainer>
+              <Search
+                setDisplay={setDisplayActivity}
+                displayOg={activities}
+                placeholder="Search by Activity"
+                marginRight={0}
+              />
               <Button
                 title="Create Activity"
                 type="button"
@@ -475,11 +466,6 @@ const Activities = ({ isProfessor, isParticipant, isProject }) => {
                 title="Steps of Mobility"
                 type="button"
                 onClick={handleMobilitySteps}
-              />
-              <Search
-                setDisplay={setDisplayActivity}
-                displayOg={activities}
-                placeholder="Search by Activity"
               />
             </ButtonContainer>
           )}

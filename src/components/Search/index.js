@@ -2,7 +2,12 @@ import React from 'react';
 
 import { Container } from './style';
 
-export default function Search({ setDisplay, displayOg, placeholder }) {
+export default function Search({
+  setDisplay,
+  displayOg,
+  placeholder,
+  marginRight = 15,
+}) {
   const search = event => {
     const searchQuery = event.target.value.toLowerCase();
     const displayedUser = displayOg?.filter(el => {
@@ -21,7 +26,7 @@ export default function Search({ setDisplay, displayOg, placeholder }) {
     setDisplay(displayedUser);
   };
   return (
-    <Container>
+    <Container style={{ marginRight }}>
       {' '}
       <input type="text" placeholder={placeholder} onChange={search} />
     </Container>

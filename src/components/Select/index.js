@@ -34,7 +34,7 @@ export default function Select({
           {placeholder}
         </option>
 
-        {options.map(({ id, name }) => (
+        {options?.map(({ id, name }) => (
           <option key={id} value={id}>
             {name}
           </option>

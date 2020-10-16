@@ -241,7 +241,7 @@ export default function Users() {
     if (column.id === 'emailIcon' && !isIIntosPartner) {
       return (
         <EmailIcon
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: 'pointer', color: '#3F51B5' }}
           onClick={() => handleEmailRow(row)}
         />
       );

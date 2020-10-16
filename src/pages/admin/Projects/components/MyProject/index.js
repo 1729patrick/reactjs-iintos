@@ -49,13 +49,6 @@ export default function MyProject({
         <span>
           <h1>{title}</h1>
           <div>
-            {!isProfessor && (
-              <Button
-                title={buttonCreateTitle}
-                type="button"
-                onClick={handleCreateProject}
-              />
-            )}
             <Search
               setDisplay={setDiplayProject}
               displayOg={projects}
@@ -63,6 +56,13 @@ export default function MyProject({
                 type === 'outputs' ? 'Search by output' : 'Search by project'
               }
             />
+            {!isProfessor && (
+              <Button
+                title={buttonCreateTitle}
+                type="button"
+                onClick={handleCreateProject}
+              />
+            )}
           </div>
         </span>
 

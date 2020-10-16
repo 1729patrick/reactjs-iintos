@@ -75,10 +75,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
   const [allProfessors, setAllProfessors] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [schools, setSchools] = useState([]);
-  const [users, setUsers] = useState({
-    professors: [],
-    students: [],
-  });
+  const [users, setUsers] = useState([]);
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -87,6 +84,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
   React.useEffect(() => {
     setDisplayUsers(users);
   }, [users]);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -97,7 +95,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
   };
 
   const getRowContent = ({ column, row }) => {
-    const value = row.professor[column.id];
+    const value = row[column.id];
 
     if (column.id === 'delete' && !isProfessor && isParticipant) {
       return (
@@ -110,7 +108,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
     if (column.id === 'emailIcon') {
       return (
         <EmailIcon
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: 'pointer', color: '#3F51B5' }}
           onClick={() => handleEmailRow(row)}
         />
       );
@@ -195,7 +193,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
   const handleDeleteRow = row => {
     setModalParams({
       initialValues: row,
-      onSubmit: () => handleDelete(row?.id || row?.professor?.id),
+      onSubmit: () => handleDelete(row?.id || row?.id),
       submitText: 'Save',
       modalTitle: 'Are you sure you want to delete this participant?',
     });
@@ -239,7 +237,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
   const handleEmailRow = row => {
     const initialValues = {
       sendEmail: user.email,
-      recEmail: row.professor.email,
+      recEmail: row.email,
     };
 
     setModalParams({
@@ -275,8 +273,8 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
           </span>
         </span>
 
-        {users.professors.length === 0 && <EmptyMessage />}
-        {users.professors.length !== 0 && (
+        {users.length === 0 && <EmptyMessage />}
+        {users.length !== 0 && (
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
@@ -302,7 +300,7 @@ const Participants = ({ location, isProfessor, isParticipant, isProject }) => {
                           hover
                           role="checkbox"
                           tabIndex={-1}
-                          key={row.professor?.id}
+                          key={row?.id}
                         >
                           {columns.map(column => {
                             return (

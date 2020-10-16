@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import Result from './components/Result';
 import { useUserContext } from '~/context/UserContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
