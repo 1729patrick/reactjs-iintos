@@ -49,7 +49,10 @@ export default function Result({
         <div>
           {isGroupAdmin() && (
             <>
-              <EditIcon onClick={handleEditProject} />
+              <EditIcon
+                style={{ color: '#3F51B5', cursor: 'pointer' }}
+                onClick={handleEditProject}
+              />
               <DeleteIcon
                 style={{ color: '#D50000', cursor: 'pointer' }}
                 onClick={handleDeleteRow}

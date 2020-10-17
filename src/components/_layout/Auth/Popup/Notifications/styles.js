@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 170px;
+  width: 250px;
   padding: 10px;
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-weight: 500;
+
+  h2 {
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #eee;
+  }
 
   a {
     color: #222;

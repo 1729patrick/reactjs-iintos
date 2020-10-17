@@ -91,6 +91,7 @@ const Header = () => {
             {isGroupAdmin && <NavLink to="/results">Results</NavLink>}
             {isGroupAdmin && <NavLink to="/events">Events</NavLink>}
             {isGroupAdmin && <NavLink to="/users">Users</NavLink>}
+
             <Popup logout={logout} user={user} />
           </div>
         </div>

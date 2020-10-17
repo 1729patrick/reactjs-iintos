@@ -61,7 +61,10 @@ export default ({ initialValues, isProfessor, isParticipant, isProject }) => {
       <span>
         <h2>{formik.values.title}</h2>
         {!isProfessor && isParticipant && (
-          <EditIcon onClick={handleEditProject} />
+          <EditIcon
+            style={{ color: '#3F51B5', cursor: 'pointer' }}
+            onClick={handleEditProject}
+          />
         )}
       </span>
       {isProject && (
