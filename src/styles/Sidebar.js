@@ -15,6 +15,7 @@ export const Menu = styled.div`
   display: flex;
   flex-direction: column;
   padding: 82px 22px 22px;
+  overflow: hidden;
 
   button {
     width: 100%;

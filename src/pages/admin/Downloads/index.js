@@ -46,7 +46,7 @@ export default function Logs() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState();
 
-  const fetchUsers = async () => {
+  const fetchLogs = async () => {
     const response = await api.get('log/files');
 
     const projects = response.data;
@@ -66,7 +66,7 @@ export default function Logs() {
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchLogs();
   }, []);
 
   const handleChangePage = (event, newPage) => {

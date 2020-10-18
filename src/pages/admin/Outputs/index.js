@@ -42,7 +42,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Projects = ({ history, location }) => {
+const Projects = ({ history }) => {
   const { user } = useCallback(useUserContext(), []);
 
   const [projects, setProjects] = useState([]);

@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 250px;
-  padding: 10px;
+  width: 400px;
+  max-height: 450px;
+  padding: 10px 10px 0;
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;
@@ -11,8 +12,7 @@ export const Container = styled.div`
 
   h2 {
     padding-bottom: 8px;
-    margin-bottom: 8px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
   }
 
   a {
