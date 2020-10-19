@@ -38,7 +38,7 @@ const useStyles = makeStyles({
     width: '100%',
   },
   container: {
-    maxHeight: window.innerHeight - 270,
+    maxHeight: window.innerHeight - 300,
   },
 });
 
