@@ -14,7 +14,7 @@ export const Container = styled.div`
     align-items: center;
   }
   .MuiExpansionPanel-root {
-    margin: 15px 0;
+    margin: 15px 0 !important;
   }
 
   .MuiExpansionPanelSummary-content {

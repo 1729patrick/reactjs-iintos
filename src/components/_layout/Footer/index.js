@@ -12,7 +12,7 @@ const Footer = ({ links }) => {
         <div>
           <img
             src={require('~/assets/images/erasmus.png')}
-            style={{ width: 200 }}
+            style={{ width: 200, borderRadius: 0 }}
           />
         </div>
 

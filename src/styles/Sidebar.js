@@ -111,7 +111,8 @@ export const PublicContainer = styled.div`
   flex-direction: column;
 
   .MuiExpansionPanel-root {
-    margin: 15px 0;
+    margin: 15px 0 !important;
+    padding: 0;
   }
 
   .MuiExpansionPanelSummary-content.Mui-expanded {
@@ -137,6 +138,27 @@ export const PublicContainer = styled.div`
   h1 {
     display: flex;
   }
+
+  .MuiExpansionPanel-root {
+    margin: 15px 0 !important;
+  }
+
+  .MuiExpansionPanelSummary-content {
+    margin: 0 !important;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+
+    span {
+      color: #444;
+      font-size: 14px;
+    }
+  }
+
   ul {
     display: block;
     list-style-type: disc;
@@ -171,7 +193,7 @@ export const PublicContainer = styled.div`
     width: 100%;
     border: none;
     height: 600px;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
     color: #444;
     background: #fff;

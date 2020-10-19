@@ -115,4 +115,8 @@ body {
       font-weight: 500;
     }
   }
+
+  img { 
+    border-radius:8px
+    }
 `;
