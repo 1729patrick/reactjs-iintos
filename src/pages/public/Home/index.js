@@ -61,6 +61,13 @@ const Home = ({ history }) => {
           </p>
           <Button title="Create Your Account" onClick={openRegister} />
         </Work>
+
+        <div style={{ width: '100%' }}>
+          <img
+            src={require('~/assets/images/erasmus.png')}
+            style={{ width: 200, borderRadius: 0 }}
+          />
+        </div>
       </Info>
     </>
   );
