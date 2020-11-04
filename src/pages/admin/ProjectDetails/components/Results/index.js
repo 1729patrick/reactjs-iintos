@@ -24,6 +24,7 @@ import EmptyMessage from '~/components/EmptyMessage';
 import Search from '~/components/Search';
 
 import validationSchema from '~/validations/result';
+import { Tooltip } from '@material-ui/core';
 
 const columns = [
   { id: 'title', label: 'Title', minWidth: 200 },
@@ -63,9 +64,14 @@ const useStyles = makeStyles({
   container: {
     maxHeight: window.innerHeight - 300,
   },
+  tooltip: {
+    padding: 16,
+    fontSize: 16,
+    fontFamily: 'Google Sans',
+  },
 });
 
-const Results = ({ isProfessor, isParticipant }) => {
+const Results = ({ isProfessor, isParticipant, history }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -82,7 +88,7 @@ const Results = ({ isProfessor, isParticipant }) => {
     location.pathname,
   ]);
 
-  const fetchActivities = async () => {
+  const fetchResults = async () => {
     const response = await api.get(`projects/${projectId}/results`);
     setActivities(response.data);
     if (response.data.length === 0) {
@@ -94,7 +100,7 @@ const Results = ({ isProfessor, isParticipant }) => {
   };
 
   useState(() => {
-    fetchActivities();
+    fetchResults();
   }, []);
 
   const handleChangePage = (event, newPage) => {
@@ -114,7 +120,7 @@ const Results = ({ isProfessor, isParticipant }) => {
       await api.put(`results/${id}`, { ...values, files });
       setModalOpen(false);
       toast.success('Results updated with success!');
-      fetchActivities();
+      fetchResults();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
@@ -127,7 +133,7 @@ const Results = ({ isProfessor, isParticipant }) => {
       await api.post(`results`, { ...values, projectId, files });
       setModalOpen(false);
       toast.success('Result created with success!');
-      fetchActivities();
+      fetchResults();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid data, try again');
     }
@@ -139,7 +145,7 @@ const Results = ({ isProfessor, isParticipant }) => {
       await api.delete(`results/${id}`);
       setModalOpen(false);
       toast.success('Results deleted with success!');
-      fetchActivities();
+      fetchResults();
     } catch (e) {
       toast.error(e?.response?.data?.error || 'Invalid request, try again');
     }
@@ -186,11 +192,18 @@ const Results = ({ isProfessor, isParticipant }) => {
 
   // Send the request to create the news about this result
   const handleSendToNews = async values => {
+    if (!values.showSendNews) {
+      history.push('/iprojects/news');
+      return;
+    }
+
     try {
-      const response = await api.post('resultNews', {
+      await api.post('resultNews', {
         ...values,
         userId: user.id,
       });
+
+      fetchResults();
 
       toast.success('News created with success!');
     } catch (e) {
@@ -211,11 +224,22 @@ const Results = ({ isProfessor, isParticipant }) => {
     }
     if (column.id === 'send' && !isProfessor && isParticipant) {
       return (
-        <Button
-          title="Send News"
-          type="button"
-          onClick={() => handleSendToNews(row)}
-        />
+        <Tooltip
+          title={
+            row?.showSendNews
+              ? `This will send the result ${row?.title?.toUpperCase()} to the "News" segment in the "International Projects" area.`
+              : ''
+          }
+          classes={classes}
+          placement="right-end"
+        >
+          <button
+            onClick={() => handleSendToNews(row)}
+            style={{ color: 'blue' }}
+          >
+            {row?.showSendNews ? 'Send News' : 'Show news'}
+          </button>
+        </Tooltip>
       );
     }
     if (column.id === 'see' && !isProfessor && isParticipant) {

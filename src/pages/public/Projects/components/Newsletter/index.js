@@ -191,7 +191,6 @@ export default withRouter(({ location, history }) => {
 
               {new_?.links?.length && new_?.files?.length && (
                 <div>
-                  <h4>Resources</h4>
                   <FileList files={new_?.files || []} />
                   <br />
                   <FileList links={new_?.links || []} />

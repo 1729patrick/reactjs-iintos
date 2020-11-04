@@ -49,7 +49,7 @@ export default function FileList({ files = [], links = [] }) {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2 id="simple-modal-title">Files</h2>
+          <h2 id="simple-modal-title">{links?.length ? 'Links' : 'Files'}</h2>
           <div id="simple-modal-description">
             <div style={{ marginTop: '15px' }}>
               {files.map(({ name, url }) => (
