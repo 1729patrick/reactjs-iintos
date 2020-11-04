@@ -198,7 +198,7 @@ export default function Approve() {
     <Container>
       <ContainerWrap>
         <span>
-          <h1>Approve Coodinators</h1>
+          <h1>Activation/Disactivation Coodinators</h1>
         </span>
         {error === true && <EmptyMessage />}
         {error === false && (

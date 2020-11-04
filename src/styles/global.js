@@ -120,5 +120,9 @@ body {
     border-radius:8px
     }
 
+
+    .MuiAlert-message{
+      flex:1
+    }
     
 `;

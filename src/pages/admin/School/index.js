@@ -34,7 +34,9 @@ export default withRouter(({ location }) => {
           </NavLink>
           <NavLink to="/school/users">Users</NavLink>
           {isCoordinator && (
-            <NavLink to="/school/approve">Approve Teacher</NavLink>
+            <NavLink to="/school/approve">
+              Activation/Disactivation Teacher
+            </NavLink>
           )}
         </div>
       </Menu>

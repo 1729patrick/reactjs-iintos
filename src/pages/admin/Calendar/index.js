@@ -170,10 +170,12 @@ const Calendar = () => {
       <ContainerWrap>
         {showAlert && (
           <Alert severity="warning">
-            You must login with a google account to see the events
-            <a href={`${CALENDAR_URL}/login/${user?.email}`} target="__blank">
-              Google Login
-            </a>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <p>You must login with a google account to see the events</p>
+              <a href={`${CALENDAR_URL}/login/${user?.email}`} target="__blank">
+                Google Login
+              </a>
+            </div>
           </Alert>
         )}
 

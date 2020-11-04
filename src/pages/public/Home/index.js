@@ -25,11 +25,12 @@ const Home = ({ history }) => {
       <Info>
         <h1>What's this all about?</h1>
         <p style={{ textAlign: 'center' }}>
-          The aim of this project is to develop international teaching and
+          The aim of this KA2 ERASMUS+ project, with grant Agreement
+          2017-1-PT01-KA201-035947, is to develop international teaching and
           learning processes that lead our main target groups, teachers,
           students and schools stakeholders, able to make the schools more
-          international and at the same time raise the competence levels in STEM
-          education.
+          international and at the same time raise the competence levels in, for
+          example, STEM education.
         </p>
 
         <div>

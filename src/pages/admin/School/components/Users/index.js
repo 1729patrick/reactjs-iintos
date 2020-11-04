@@ -18,6 +18,7 @@ import FormModal from './modals/Form';
 import EmptyMessage from '~/components/EmptyMessage';
 
 import validationSchema from '~/validations/user';
+import Search from '~/components/Search';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 200 },
@@ -67,10 +68,13 @@ export default function Users({ isCoordinator }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
   const [error, setError] = useState();
+  const [displayUser, setDiplayUser] = useState([]);
 
   const fetchUsers = async () => {
     const response = await api.get('users');
     setUsers(response.data);
+    setDiplayUser(response.data);
+
     if (response.data.length === 0) {
       setError(true);
     } else {
@@ -180,13 +184,21 @@ export default function Users({ isCoordinator }) {
         <span>
           <h1>Users</h1>
 
-          {isCoordinator && (
-            <Button
-              title="Create User"
-              type="button"
-              onClick={handleCreateUser}
+          <span>
+            <Search
+              setDisplay={setDiplayUser}
+              displayOg={users}
+              placeholder="Search by name"
             />
-          )}
+
+            {isCoordinator && (
+              <Button
+                title="Create User"
+                type="button"
+                onClick={handleCreateUser}
+              />
+            )}
+          </span>
         </span>
         {error === true && <EmptyMessage />}
         {error === false && (
@@ -207,7 +219,7 @@ export default function Users({ isCoordinator }) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {users
+                  {displayUser
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map(row => {
                       return (
