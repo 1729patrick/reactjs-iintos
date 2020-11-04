@@ -109,18 +109,6 @@ export default ({
               submitted={formik.submitCount}
             />
 
-            <FileInput
-              label="File"
-              name="file"
-              file={formik.values?.file?.file}
-              placeholder={
-                formik.values?.file?.saved?.name || 'Attachment file'
-              }
-              onChange={onFileUpload}
-              values={formik.values}
-              errors={formik.errors}
-              touched={formik.touched}
-            />
             <Button title={submitText} type="submit" />
           </Form>
         </div>
