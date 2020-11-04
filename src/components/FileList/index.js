@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 4, 3),
   },
 }));
-export default function FileList({ files }) {
+export default function FileList({ files = [], links = [] }) {
   const [open, setOpen] = useState(false);
   const [modalStyle] = useState(getModalStyle);
   const classes = useStyles();
@@ -35,6 +35,10 @@ export default function FileList({ files }) {
   const handleOpen = () => {
     setOpen(true);
   };
+
+  if (!files.length && !links.length) {
+    return null;
+  }
 
   return (
     <>
@@ -62,12 +66,26 @@ export default function FileList({ files }) {
                   {name}
                 </a>
               ))}
+              {links.map(({ link }) => (
+                <a
+                  key={link}
+                  style={{
+                    display: 'block',
+                    marginBottom: '7px',
+                    color: 'blue',
+                  }}
+                  href={link}
+                  target="__blank"
+                >
+                  {link}
+                </a>
+              ))}
             </div>
           </div>
         </div>
       </Modal>
       <button onClick={handleOpen} style={{ color: 'blue' }}>
-        Show Files
+        {links?.length ? 'Show Links' : 'Show Files'}
       </button>
     </>
   );

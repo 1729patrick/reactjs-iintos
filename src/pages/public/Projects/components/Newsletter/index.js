@@ -19,12 +19,12 @@ import FormModal from './components/Form';
 import DeleteModal from './components/Delete';
 import validationSchema from '~/validations/news';
 import { useUserContext } from '~/context/UserContext';
+import FileList from '~/components/FileList';
 
 export default withRouter(({ location, history }) => {
   const [results, setResults] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalParams, setModalParams] = useState({});
-  const [error, setError] = useState();
 
   const { user } = useCallback(useUserContext(), []);
 
@@ -125,6 +125,8 @@ export default withRouter(({ location, history }) => {
     setModalOpen('delete');
   };
 
+  console.log(user);
+
   return (
     <Container>
       <span style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -147,7 +149,38 @@ export default withRouter(({ location, history }) => {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <h4>{new_.title}</h4>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                flex: 1,
+              }}
+            >
+              <h4>{new_.title}</h4>
+              {(isGroupAdmin || new_?.author?.name == user?.name) && (
+                <span
+                  style={{
+                    display: 'flex',
+                    height: '100%',
+                    alignItems: 'center',
+                  }}
+                >
+                  {/* <h3
+                    style={{ marginRight: 10, cursor: 'pointer' }}
+                    onClick={() => handleEditProject(new_)}
+                  >
+                    Edit
+                  </h3> */}
+                  <h3
+                    style={{ color: 'red', cursor: 'pointer' }}
+                    onClick={() => handleDeleteRow(new_)}
+                  >
+                    Delete
+                  </h3>
+                </span>
+              )}
+            </div>
           </ExpansionPanelSummary>
 
           <ExpansionPanelDetails>
@@ -156,6 +189,16 @@ export default withRouter(({ location, history }) => {
 
               <TextareaAutosize disabled defaultValue={new_.description} />
 
+              {new_?.links?.length && new_?.files?.length && (
+                <div>
+                  <h4>Resources</h4>
+                  <FileList files={new_?.files || []} />
+                  <br />
+                  <FileList links={new_?.links || []} />
+                  <br />
+                  <br />
+                </div>
+              )}
               <div
                 style={{
                   display: 'flex',
@@ -169,22 +212,6 @@ export default withRouter(({ location, history }) => {
                     Created by {new_?.author?.name} at{' '}
                     {format(new Date(new_.createdAt), 'yyyy-MM-dd')}
                   </span>
-                  {isGroupAdmin && (
-                    <span style={{ display: 'flex' }}>
-                      <h3
-                        style={{ marginRight: 10, cursor: 'pointer' }}
-                        onClick={() => handleEditProject(new_)}
-                      >
-                        Edit
-                      </h3>
-                      <h3
-                        style={{ color: 'red', cursor: 'pointer' }}
-                        onClick={() => handleDeleteRow(new_)}
-                      >
-                        Delete
-                      </h3>
-                    </span>
-                  )}
                 </span>
               </div>
             </Detail>
