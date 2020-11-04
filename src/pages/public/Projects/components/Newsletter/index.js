@@ -189,7 +189,7 @@ export default withRouter(({ location, history }) => {
 
               <TextareaAutosize disabled defaultValue={new_.description} />
 
-              {new_?.links?.length && new_?.files?.length && (
+              {!!new_?.links?.length && !!new_?.files?.length && (
                 <div>
                   <FileList files={new_?.files || []} />
                   <br />
