@@ -278,7 +278,7 @@ export default withRouter(({ computedMatch }) => {
             {isProject ? 'Teachers' : 'Partners'}
           </NavLink>
           <NavLink to={`/${type}/details/${projectId}/activities`}>
-            Activity
+            Activities
           </NavLink>
           <NavLink to={`/${type}/details/${projectId}/results`}>
             Results
